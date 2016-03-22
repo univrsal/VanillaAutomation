@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "facing=down":  { "model": "va:blockplacer_vertical", "x": 180 },
+    "facing=up":    { "model": "va:blockplacer_vertical" },
+    "facing=north": { "model": "va:blockplacer" },
+    "facing=south": { "model": "va:blockplacer", "y": 180 },
+    "facing=west":  { "model": "va:blockplacer", "y": 270 },
+    "facing=east":  { "model": "va:blockplacer", "y": 90 }
+  }
+}

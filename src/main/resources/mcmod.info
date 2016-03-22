@@ -1,0 +1,16 @@
+[
+{
+  "modid": "va",
+  "name": "Vanilla Automation",
+  "description": "Adding tweaks to existing blocks.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["universal"],
+  "credits": "The Forge and FML guys, for making this example",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

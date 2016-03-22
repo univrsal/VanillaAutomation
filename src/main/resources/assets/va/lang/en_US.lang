@@ -1,0 +1,37 @@
+# Container
+va.container.blockplacer=Block Placer
+
+va.dir.north=North
+va.dir.south=South
+va.dir.east=East
+va.dir.west=West
+va.dir.down=Down
+va.dir.up=Up
+
+va.gui.face=Facing:
+va.gui.reachdistance=Distance between Block Placer and placed block
+
+item.va:vaguide.name=Guide
+item.va:vaguide.desc=Help with VanillaAutomation
+
+# Guide
+gui.va.buttonmenu=Menu
+gui.va.buttonback=Back
+
+va.gui.guide.menu=Table of Content
+guide.entry.intro=Introduction
+guide.entry.credits=Credits
+guide.entry.blockplacer=The Blockplacer
+guide.entry.dispenser=Tweaks for the dispenser
+
+# Intro
+guide.entry.intro.page1=Welcome to VanillaAutomation! /n This mod adds blocks and tweaks to the dispenser to allow for automation without making it too easy. /n Take a look at the different entries to see what is added and changed.
+
+# Credits
+guide.entry.credits.page1=VanillaAutomation /n by universal /n /n This mod  wouldn't have been possible without other open-source mods. /n Special thanks to: /n Pahimar /n Amadornes /n Vazkii /n The Forge Team
+
+# Blockplacer
+guide.entry.blockplacer.page1=The block placer can, as it's name suggests, place blocks in the world.
+
+# Dispenser
+guide.entry.dispenser.page1=With VanillaAutomation installed the dispenser recieves a few tweaks to allow it to automate things.
