@@ -6,13 +6,11 @@ import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.client.gui.screen.ButtonLabel;
 import de.universallp.va.core.util.References;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.util.ResourceLocation;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by universallp on 21.03.2016 15:45.
@@ -30,7 +28,7 @@ public class GuiGuide extends GuiScreen {
     private Entry lastEntry;
 
     public GuiGuide(EnumEntry entry) {
-
+        currentEntry = entry.getEntry();
     }
 
     public GuiGuide() {
@@ -45,10 +43,16 @@ public class GuiGuide extends GuiScreen {
 
     @Override
     public void initGui() {
-        btnMenu = new ButtonLabel("gui.va.buttonmenu", 0, width / 2 + 68, height / 2 - 78);
-        btnBack = new ButtonLabel("gui.va.buttonback", 1, width / 2 + 68, height / 2 - 68);
+        btnMenu = new ButtonLabel(References.Local.BTN_MENU, 0, width / 2 + 68, height / 2 - 78);
+        btnBack = new ButtonLabel(References.Local.BTN_BACK, 1, width / 2 + 68, height / 2 - 68);
         btnNext = new ButtonLabel("-->", 2, width / 2 + 38, height / 2 + 100);
         btnLast = new ButtonLabel("<--", 3, width / 2 - 56, height / 2 + 100);
+
+        btnBack.enabled = lastEntry != null;
+
+        btnNext.enabled = currentEntry.getPage() < currentEntry.getMaxPages() - 1;
+
+        btnLast.enabled = currentEntry.getPage() != 0;
 
         buttonList.add(btnMenu);
         buttonList.add(btnBack);
@@ -101,20 +105,11 @@ public class GuiGuide extends GuiScreen {
     @Override
     public void updateScreen() {
         super.updateScreen();
-        if (lastEntry != null)
-            btnBack.enabled = true;
-        else
-            btnBack.enabled = false;
+        btnBack.enabled = lastEntry != null;
 
-        if (currentEntry.getPage() >= currentEntry.getMaxPages() - 1)
-            btnNext.enabled = false;
-        else
-            btnNext.enabled = true;
+        btnNext.enabled = currentEntry.getPage() < currentEntry.getMaxPages() - 1;
 
-        if (currentEntry.getPage() == 0)
-            btnLast.enabled = false;
-        else
-            btnLast.enabled = true;
+        btnLast.enabled = currentEntry.getPage() != 0;
     }
 
     @Override
@@ -127,13 +122,5 @@ public class GuiGuide extends GuiScreen {
     public void setCurrentEntry(Entry currentEntry) {
         this.lastEntry = currentEntry;
         this.currentEntry = currentEntry;
-    }
-
-    public void drawTooltip(int x, int y, List<String> text, FontRenderer f) {
-        if (f == null)
-            f = mc.fontRendererObj;
-        f.setUnicodeFlag(false);
-        drawHoveringText(text, x, y, f);
-        f.setUnicodeFlag(true);
     }
 }

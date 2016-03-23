@@ -19,6 +19,8 @@ gui.va.buttonmenu=Menu
 gui.va.buttonback=Back
 
 va.gui.guide.menu=Table of Content
+
+guide.entry.lookup=Open in Guide
 guide.entry.intro=Introduction
 guide.entry.credits=Credits
 guide.entry.blockplacer=The Blockplacer
@@ -31,7 +33,9 @@ guide.entry.intro.page1=Welcome to VanillaAutomation! /n This mod adds blocks an
 guide.entry.credits.page1=VanillaAutomation /n by universal /n /n This mod  wouldn't have been possible without other open-source mods. /n Special thanks to: /n Pahimar /n Amadornes /n Vazkii /n The Forge Team
 
 # Blockplacer
-guide.entry.blockplacer.page1=The block placer can, as it's name suggests, place blocks in the world.
+guide.entry.blockplacer.page1=The block placer can, as it's name suggests, place blocks in the world. It'll also right-click with any items at the position it would normally place things at. /n You can change the facing and the placing distance in the gui.
+guide.entry.blockplacer.page2="Steve in a box"
 
 # Dispenser
-guide.entry.dispenser.page1=With VanillaAutomation installed the dispenser recieves a few tweaks to allow it to automate things.
+guide.entry.dispenser.page1=With VanillaAutomation installed the dispenser recieves a few tweaks to allow it to automate things. /n The following things are new: /n Placing any vanilla pickaxe in the dispenser allows it to break blocks. /n Dye will dye any sheep in front and bone meal will be applied to the ground. Also shears will shear sheep.
+guide.entry.dispenser.page2=The dispenser now also can insert and take out music discs from the jukebox in front of it.

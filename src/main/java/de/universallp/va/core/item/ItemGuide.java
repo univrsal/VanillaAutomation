@@ -31,7 +31,7 @@ public class ItemGuide extends ItemVA {
 
     @Override
     public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
-        tooltip.add(TextFormatting.GRAY + I18n.format("item.va:vaguide.desc"));
+        tooltip.add(TextFormatting.GRAY + I18n.format(References.Local.GUIDE_DESC));
         super.addInformation(stack, playerIn, tooltip, advanced);
     }
 }

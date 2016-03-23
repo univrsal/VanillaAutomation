@@ -11,7 +11,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.EnumFacing;
 
 import java.io.IOException;
-import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Created by universallp on 20.03.2016 15:01.
@@ -41,14 +41,14 @@ public class GuiPlacer extends GuiDispenser {
 
         if (mouseX > guiLeft + 135 && mouseX < guiLeft + 152)
             if (mouseY > guiTop + 38 && mouseY < guiTop + 48)
-                drawHoveringText(Arrays.asList(I18n.format(References.GUI_DIST)), mouseX, mouseY);
+                drawHoveringText(Collections.singletonList(I18n.format(References.Local.GUI_DIST)), mouseX, mouseY);
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
         fontRendererObj.drawString(String.valueOf(reachDistance),    (reachDistance > 9 ? 138 : 141), 39, 4210752);
-        fontRendererObj.drawString(I18n.format(References.GUI_FACE), 9, 38, 4210752);
+        fontRendererObj.drawString(I18n.format(References.Local.GUI_FACE), 9, 38, 4210752);
     }
 
     @Override

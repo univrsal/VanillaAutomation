@@ -3,18 +3,20 @@ package de.universallp.va.client.gui.guide;
 import de.universallp.va.client.gui.screen.VisualRecipe;
 import de.universallp.va.core.block.VABlocks;
 
+import static de.universallp.va.core.util.References.Local;
+
 /**
  * Created by universallp on 21.03.2016 18:16.
  */
 public enum EnumEntry {
-    MENU(null, new String[] { "guide.entry.intro", "guide.entry.credits", "guide.entry.blockplacer", "guide.entry.dispenser" }),
-    INTRO(new String[] { "guide.entry.intro.page1" }),
-    CREDITS(new String[] { "guide.entry.credits.page1" }),
+    MENU(null, new String[]{Local.ENTRY_INTRO, Local.ENTRY_CREDITS, Local.ENTRY_BLOCKPLACER, Local.ENTRY_DISPENSER}),
+    INTRO(new String[]{Local.getGuidePage("intro", 1)}),
+    CREDITS(new String[]{Local.getGuidePage("credits", 1)}),
 
     // Actual entries
 
-    BLOCK_PLACER(new String[] { "guide.entry.blockplacer.page1", "guide.entry.blockplacer.page2" }, VABlocks.placer.getRecipe(), 1),
-    DISPENSER(new String[] { "guide.entry.dispenser.page1" });
+    BLOCK_PLACER(new String[]{Local.getGuidePage("blockplacer", 1), Local.getGuidePage("blockplacer", 2)}, VABlocks.placer.getRecipe(), 1),
+    DISPENSER(new String[]{Local.getGuidePage("dispenser", 1), Local.getGuidePage("dispenser", 1)});
 
     private String[] entries;
     private String text;

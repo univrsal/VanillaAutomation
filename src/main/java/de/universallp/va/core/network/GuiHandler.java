@@ -1,5 +1,6 @@
 package de.universallp.va.core.network;
 
+import de.universallp.va.client.ClientProxy;
 import de.universallp.va.client.gui.GuiGuide;
 import de.universallp.va.client.gui.GuiPlacer;
 import de.universallp.va.core.network.messages.MessageSyncClient;
@@ -37,7 +38,10 @@ public class GuiHandler implements IGuiHandler {
         TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
 
         if (ID == 1)
-            return new GuiGuide();
+            if (ClientProxy.hoveredEntry == null)
+                return new GuiGuide();
+            else
+                return new GuiGuide(ClientProxy.hoveredEntry);
 
         if (te == null)
             return null;
