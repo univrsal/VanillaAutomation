@@ -1,10 +1,14 @@
 package de.universallp.va.core.util;
 
+import de.universallp.va.core.item.VAItems;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -46,5 +50,48 @@ public class Utils {
 
     public static void drawWrappedString(String s, int x, int y, int maxWidth, FontRenderer f) {
         drawWrappedString(s, x, y, maxWidth, new Color(130, 130, 130), false, f);
+    }
+
+    public static ItemStack getCarriedItem(EntityPlayer p) {
+        ItemStack s = p.getHeldItem(EnumHand.MAIN_HAND);
+        if (s == null)
+            s = p.getHeldItem(EnumHand.OFF_HAND);
+
+        return s;
+    }
+
+    public static Set<String> getCarriedTools(EntityPlayer pl) {
+        Set<String> toolClasses = new HashSet<String>();
+
+        for (ItemStack stack : pl.inventory.mainInventory)
+            if (stack != null && stack.getItem() != null)
+                toolClasses.addAll(stack.getItem().getToolClasses(stack));
+
+        return toolClasses;
+    }
+
+    public static float getFirstEfficientTool(EntityPlayer pl, IBlockState s) {
+        for (ItemStack stack : pl.inventory.mainInventory)
+            if (stack != null && stack.getItem() != null && !stack.getItem().equals(VAItems.itemPokeStick))
+                for (String string : stack.getItem().getToolClasses(stack))
+                    if (s.getBlock().isToolEffective(string, s))
+                        return stack.getItem().getStrVsBlock(stack, s);
+
+
+        return 1;
+    }
+
+    public static int getFirstEfficientToolSlot(EntityPlayer pl, IBlockState s) {
+        for (int i = 0; i < pl.inventory.mainInventory.length; i++) {
+            ItemStack stack = pl.inventory.mainInventory[i];
+
+            if (stack != null && stack.getItem() != null && !stack.getItem().equals(VAItems.itemPokeStick)) {
+                for (String string : stack.getItem().getToolClasses(stack))
+                    if (s.getBlock().isToolEffective(string, s))
+                        return i;
+            }
+        }
+
+        return -1;
     }
 }

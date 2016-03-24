@@ -8,7 +8,6 @@ import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -23,7 +22,6 @@ public class PickaxeBehaviour implements IBehaviorDispenseItem {
     @Override
     public ItemStack dispense(IBlockSource source, ItemStack stack) {
         World w = source.getBlockTileEntity().getWorld();
-        TileEntityDispenser te = source.getBlockTileEntity();
         IBlockState s = w.getBlockState(source.getBlockPos());
         EnumFacing f = (EnumFacing) s.getProperties().get(BlockDirectional.FACING);
 

@@ -5,12 +5,12 @@ import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.core.item.VAItems;
 import de.universallp.va.core.util.IEntryProvider;
 import de.universallp.va.core.util.References;
+import de.universallp.va.core.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.client.FMLClientHandler;
@@ -33,11 +33,10 @@ public class GuideHandler {
 
     @SubscribeEvent
     public void drawGameOverlay(RenderGameOverlayEvent.Post e) {
-        ItemStack main = FMLClientHandler.instance().getClientPlayerEntity().getHeldItem(EnumHand.MAIN_HAND);
-        ItemStack off = FMLClientHandler.instance().getClientPlayerEntity().getHeldItem(EnumHand.OFF_HAND);
+        ItemStack heldItem = Utils.getCarriedItem(FMLClientHandler.instance().getClientPlayerEntity());
 
         if (e.type == RenderGameOverlayEvent.ElementType.ALL)
-            if ((off != null && off.getItem().equals(VAItems.itemGuide)) || (main != null && main.getItem().equals(VAItems.itemGuide))) {
+            if (heldItem != null && heldItem.getItem().equals(VAItems.itemGuide)) {
                 RayTraceResult r = Minecraft.getMinecraft().objectMouseOver;
 
                 if (r != null && r.typeOfHit == RayTraceResult.Type.BLOCK) {

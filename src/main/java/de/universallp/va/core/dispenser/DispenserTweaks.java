@@ -1,5 +1,6 @@
 package de.universallp.va.core.dispenser;
 
+import de.universallp.va.core.item.VAItems;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.init.Items;
@@ -15,6 +16,7 @@ public class DispenserTweaks {
     public static SwordBehaviour swordBehaviour = new SwordBehaviour();
     public static ShearBehaviour shearBehaviour = new ShearBehaviour();
     public static DiscBehaviour discBehaviour = new DiscBehaviour();
+    public static PokeStickBehaviour pokeStickBehaviour = new PokeStickBehaviour();
 
     public static void register() {
         add(Items.dye, dyeBehaviour);
@@ -44,6 +46,8 @@ public class DispenserTweaks {
         add(Items.record_strad, discBehaviour);
         add(Items.record_wait, discBehaviour);
         add(Items.record_ward, discBehaviour);
+
+        add(VAItems.itemPokeStick, pokeStickBehaviour);
     }
 
     private static void add(Item i, IBehaviorDispenseItem b) {

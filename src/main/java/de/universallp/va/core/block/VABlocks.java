@@ -12,6 +12,7 @@ public class VABlocks {
 
     public static void register() {
         GameRegistry.registerBlock(placer, References.BLOCK_PLACER);
+        placer.addRecipe();
 
         registerTiles();
     }

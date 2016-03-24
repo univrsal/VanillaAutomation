@@ -1,13 +1,19 @@
 package de.universallp.va.core.item;
 
+import de.universallp.va.client.gui.guide.EnumEntry;
+import de.universallp.va.client.gui.screen.VisualRecipe;
+import de.universallp.va.core.util.IEntryProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import scala.actors.threadpool.Arrays;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +21,7 @@ import java.util.List;
 /**
  * Created by universallp on 21.03.2016 14:45.
  */
-public class ItemVA extends Item {
+public class ItemVA extends Item implements IEntryProvider {
 
     public static List<ItemVA> items = new ArrayList<ItemVA>();
     private String itemName;
@@ -48,7 +54,30 @@ public class ItemVA extends Item {
         }
     }
 
+    @Override
+    public VisualRecipe getRecipe() {
+        return null;
+    }
+
+    @Override
+    public EnumEntry getEntry() {
+        return null;
+    }
+
     public void register() {
         GameRegistry.registerItem(this, itemName);
+        addRecipe();
+    }
+
+    public void addRecipe() {
+        if (getRecipe() != null)
+            switch (getRecipe().getType()) {
+                case SHAPED:
+                    GameRegistry.addRecipe(new ShapedRecipes(3, 3, this.getRecipe().getIngredients(), this.getRecipe().getResult()));
+                    break;
+                case SHAPELESS:
+                    GameRegistry.addRecipe(new ShapelessRecipes(this.getRecipe().getResult(), Arrays.asList(this.getRecipe().getIngredients())));
+                    break;
+            }
     }
 }

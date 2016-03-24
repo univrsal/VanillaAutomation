@@ -3,8 +3,8 @@ package de.universallp.va.core.block;
 import de.universallp.va.VanillaAutomation;
 import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.client.gui.screen.VisualRecipe;
+import de.universallp.va.core.item.VAItems;
 import de.universallp.va.core.tile.TilePlacer;
-import de.universallp.va.core.util.IEntryProvider;
 import de.universallp.va.core.util.References;
 import de.universallp.va.core.util.VAFakePlayer;
 import net.minecraft.block.Block;
@@ -14,6 +14,7 @@ import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -34,12 +35,13 @@ import java.util.Random;
 /**
  * Created by universallp on 19.03.2016 12:11.
  */
-public class BlockPlacer extends BlockVA implements IEntryProvider {
+public class BlockPlacer extends BlockVA {
 
     private static VisualRecipe recipe;
 
     public BlockPlacer() {
         super(Material.rock, References.BLOCK_PLACER);
+        setCreativeTab(CreativeTabs.tabRedstone);
     }
 
     @Override
@@ -115,7 +117,10 @@ public class BlockPlacer extends BlockVA implements IEntryProvider {
                 return true;
             }
         } else {
-            if (worldObj.isAirBlock(pos)) {
+            if (placeable.getItem().equals(VAItems.itemPokeStick)) {
+                fakePlayer.rightClick(placeable, pos, f, 0, 0, 0);
+                placeable.damageItem(1, fakePlayer);
+            } else if (worldObj.isAirBlock(pos)) {
                 placeable.getItem().onItemRightClick(placeable, worldObj, VAFakePlayer.instance(worldObj), EnumHand.MAIN_HAND);
                 placeable.getItem().onItemUse(placeable, VAFakePlayer.instance(worldObj), worldObj, pos, EnumHand.MAIN_HAND, f, 0, 0, 0);
             }
@@ -198,7 +203,7 @@ public class BlockPlacer extends BlockVA implements IEntryProvider {
 
         recipe = new VisualRecipe(new ItemStack[] { cobbleStone, cobbleStone, cobbleStone,
                                                     cobbleStone, chest,       cobbleStone,
-                                                    cobbleStone, piston,      cobbleStone }, new ItemStack(VABlocks.placer, 1));
+                cobbleStone, piston, cobbleStone}, new ItemStack(VABlocks.placer, 1), VisualRecipe.EnumRecipeType.SHAPED);
 
         return recipe;
     }

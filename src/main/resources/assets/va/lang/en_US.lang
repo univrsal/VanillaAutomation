@@ -14,10 +14,10 @@ va.gui.reachdistance=Distance between Block Placer and placed block
 # Items
 item.va:vaguide.name=Guide
 item.va:vaguide.desc=Help with VanillaAutomation
+item.va:pokestick.name=Poke Stick
 
 # Blocks
 tile.va:blockplacer.name=Block Placer
-
 
 # Guide
 va.gui.buttonmenu=Menu
@@ -30,6 +30,7 @@ va.guide.entry.intro=Introduction
 va.guide.entry.credits=Credits
 va.guide.entry.blockplacer=The Blockplacer
 va.guide.entry.dispenser=Tweaks for the dispenser
+va.guide.entry.pokestick=The Poke Stick
 
 # Intro
 va.guide.entry.intro.page1=Welcome to VanillaAutomation! /n This mod adds blocks and tweaks to the dispenser to allow for automation without making it too easy. /n Take a look at the different entries to see what is added and changed.
@@ -44,3 +45,7 @@ va.guide.entry.blockplacer.page2="Steve in a box"
 # Dispenser
 va.guide.entry.dispenser.page1=With VanillaAutomation installed the dispenser recieves a few tweaks to allow it to automate things. /n The following things are new: /n Placing any vanilla pickaxe in the dispenser allows it to break blocks. /n Dye will dye any sheep in front and bone meal will be applied to the ground. Also shears will shear sheep.
 va.guide.entry.dispenser.page2=The dispenser now also can insert and take out music discs from the jukebox in front of it.
+
+# Poke Stick
+va.guide.entry.pokestick.page1=This stick has two uses. For one it'll double your reach distance while you hold it, so you can reach those pesky spots without wasting your precious energy. The other use is that when placed in a dispenser or block placer it'll perform a right click on the block in front. In the block placer it'll take the reach distance into account.
+va.guide.entry.pokestick.page2=For when the remote is just an inch too far away. /n /n Note that this tool takes damage when used. It'll also use tools from your inventory to mine blocks faster.

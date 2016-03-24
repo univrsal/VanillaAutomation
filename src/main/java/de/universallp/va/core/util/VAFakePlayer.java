@@ -43,7 +43,7 @@ public class VAFakePlayer extends FakePlayer {
         this.setHeldItem(EnumHand.MAIN_HAND, m_item);
     }
 
-    public boolean rightClick(ItemStack itemStack, BlockPos pos, EnumFacing side, float deltaX, float deltaY, float deltaZ, boolean blockExists) {
+    public boolean rightClick(ItemStack itemStack, BlockPos pos, EnumFacing side, float deltaX, float deltaY, float deltaZ) {
         if (itemStack == null) return false;
 
         PlayerInteractEvent event = ForgeEventFactory.onPlayerInteract(this, PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK, worldObj, pos, side, new Vec3d(pos.getX(), pos.getY(), pos.getZ()));

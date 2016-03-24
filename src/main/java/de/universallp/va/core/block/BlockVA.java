@@ -1,18 +1,25 @@
 package de.universallp.va.core.block;
 
 
+import de.universallp.va.client.gui.guide.EnumEntry;
+import de.universallp.va.client.gui.screen.VisualRecipe;
+import de.universallp.va.core.util.IEntryProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.ShapedRecipes;
+import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import scala.actors.threadpool.Arrays;
 
 /**
  * Created by universallp on 19.03.2016 12:07.
  */
-public class BlockVA extends Block {
+public class BlockVA extends Block implements IEntryProvider {
 
     private String blockName;
 
@@ -27,5 +34,28 @@ public class BlockVA extends Block {
     public void registerModel() {
         ModelResourceLocation mdlResource = new ModelResourceLocation(blockName, "inventory");
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(this), 0, mdlResource);
+    }
+
+
+    @Override
+    public VisualRecipe getRecipe() {
+        return null;
+    }
+
+    @Override
+    public EnumEntry getEntry() {
+        return null;
+    }
+
+    public void addRecipe() {
+        if (getRecipe() != null)
+            switch (getRecipe().getType()) {
+                case SHAPED:
+                    GameRegistry.addRecipe(new ShapedRecipes(3, 3, this.getRecipe().getIngredients(), this.getRecipe().getResult()));
+                    break;
+                case SHAPELESS:
+                    GameRegistry.addRecipe(new ShapelessRecipes(this.getRecipe().getResult(), Arrays.asList(this.getRecipe().getIngredients())));
+                    break;
+            }
     }
 }

@@ -16,15 +16,17 @@ import java.util.List;
  */
 public class VisualRecipe {
 
+    private static ResourceLocation grid = new ResourceLocation(References.MOD_ID, "textures/gui/recipe.png");
     private ItemStack[] stacks;
     private ItemStack   result;
-    private static ResourceLocation grid = new ResourceLocation(References.MOD_ID, "textures/gui/recipe.png");
     private List<String> tooltip;
     private FontRenderer f;
+    private EnumRecipeType type;
 
-    public VisualRecipe(ItemStack[] ingredients, ItemStack result) {
+    public VisualRecipe(ItemStack[] ingredients, ItemStack result, EnumRecipeType t) {
         this.stacks = ingredients;
         this.result = result;
+        this.type = t;
     }
 
     public void draw(int x, int y, int mouseX, int mouseY, GuiGuide parent) {
@@ -42,14 +44,17 @@ public class VisualRecipe {
                     int posY = y - 1 + i * 17;
                     ItemStack current = stacks[stack];
 
-                    RenderHelper.enableGUIStandardItemLighting();
-                    Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(current, posX, posY);
+                    if (current != null && current.getItem() != null) {
+                        RenderHelper.enableGUIStandardItemLighting();
+                        Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(current, posX, posY);
 
-                    if (mouseX > posX && mouseX < posX + 17 && mouseY > posY && mouseY < posY + 17) {
-                        f = current.getItem().getFontRenderer(current);
-                        tooltip = current.getTooltip(parent.mc.thePlayer, parent.mc.gameSettings.advancedItemTooltips);
-                        mouseOver = true;
+                        if (mouseX > posX && mouseX < posX + 17 && mouseY > posY && mouseY < posY + 17) {
+                            f = current.getItem().getFontRenderer(current);
+                            tooltip = current.getTooltip(parent.mc.thePlayer, parent.mc.gameSettings.advancedItemTooltips);
+                            mouseOver = true;
+                        }
                     }
+
                 } else
                     break main;
                 stack++;
@@ -74,5 +79,24 @@ public class VisualRecipe {
 
     public FontRenderer getFontRenderer() {
         return f != null ? f : Minecraft.getMinecraft().fontRendererObj;
+    }
+
+    public ItemStack[] getIngredients() {
+        return stacks;
+    }
+
+    public ItemStack getResult() {
+        return result;
+    }
+
+    public EnumRecipeType getType() {
+        return type;
+    }
+
+    public enum EnumRecipeType {
+        SHAPED,
+        SHAPELESS,
+        SHAPED_ORE,
+        SHAPELESS_ORE;
     }
 }

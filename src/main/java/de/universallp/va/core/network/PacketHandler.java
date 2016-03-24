@@ -21,7 +21,6 @@ public class PacketHandler {
     public static void register() {
         INSTANCE.registerMessage(MessageSyncPlacer.class, MessageSyncPlacer.class, ID++, Side.SERVER);
         INSTANCE.registerMessage(MessageSyncClient.class, MessageSyncClient.class, ID++, Side.CLIENT);
-
     }
 
     public static void sendTo(IMessage m, EntityPlayerMP p) {
