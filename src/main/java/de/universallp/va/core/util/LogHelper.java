@@ -21,7 +21,6 @@ public class LogHelper {
     }
 
     public static void logException(String string, Exception exception, boolean stopGame) {
-        String s = "";
         FMLLog.log(References.MOD_NAME, Level.FATAL, string, exception);
         exception.printStackTrace();
         if (stopGame)
