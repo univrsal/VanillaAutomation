@@ -43,7 +43,7 @@ public class GuideHandler {
                 if (r != null && r.typeOfHit == RayTraceResult.Type.BLOCK) {
                     Block b = FMLClientHandler.instance().getWorldClient().getBlockState(r.getBlockPos()).getBlock();
 
-                    if ((b != null && b instanceof IEntryProvider) || vanillaEntries.containsKey(b) && Minecraft.getMinecraft().currentScreen == null) {
+                    if (((b != null && b instanceof IEntryProvider) || vanillaEntries.containsKey(b)) && Minecraft.getMinecraft().currentScreen == null) {
                         EnumEntry entry;
 
                         if (b instanceof IEntryProvider)

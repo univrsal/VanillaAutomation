@@ -29,6 +29,8 @@ public class GuiGuide extends GuiScreen {
 
     public GuiGuide(EnumEntry entry) {
         currentEntry = entry.getEntry();
+        ClientProxy.guiScale = Minecraft.getMinecraft().gameSettings.guiScale;
+        Minecraft.getMinecraft().gameSettings.guiScale = 0;
     }
 
     public GuiGuide() {
@@ -37,8 +39,8 @@ public class GuiGuide extends GuiScreen {
         else
             currentEntry = EnumEntry.MENU.getEntry();
 
-            ClientProxy.guiScale = Minecraft.getMinecraft() .gameSettings.guiScale;
-            Minecraft.getMinecraft() .gameSettings.guiScale = 0;
+        ClientProxy.guiScale = Minecraft.getMinecraft().gameSettings.guiScale;
+        Minecraft.getMinecraft().gameSettings.guiScale = 0;
     }
 
     @Override

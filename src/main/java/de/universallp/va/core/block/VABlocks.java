@@ -16,11 +16,11 @@ public class VABlocks {
         registerTiles();
     }
 
-    public static void registerModels() {
-        placer.registerModel();
-    }
-
     private static void registerTiles() {
         GameRegistry.registerTileEntity(TilePlacer.class, References.TILE_PLACER);
+    }
+
+    public static void registerModels() {
+        placer.registerModel();
     }
 }

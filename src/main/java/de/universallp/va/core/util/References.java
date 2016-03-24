@@ -29,19 +29,21 @@ public class References {
     public static class Local {
         public static final String GUI_DIST = "va.gui.reachdistance";
         public static final String GUI_FACE = "va.gui.face";
-        public static final String ENTRY_INTRO = "guide.entry.intro";
-        public static final String ENTRY_CREDITS = "guide.entry.credits";
-        public static final String ENTRY_BLOCKPLACER = "guide.entry.blockplacer";
-        public static final String ENTRY_DISPENSER = "guide.entry.dispenser";
-        public static final String BTN_MENU = "gui.va.buttonmenu";
-        public static final String BTN_BACK = "gui.va.buttonback";
+
+        public static final String BTN_MENU = "va.gui.buttonmenu";
+        public static final String BTN_BACK = "va.gui.buttonback";
+
         public static final String GUIDE_DESC = "item.va:vaguide.desc";
         public static final String GUIDE_LOOK = "guide.entry.lookup";
+        public static final String ENTRY_INTRO = "va.guide.entry.intro";
+        public static final String ENTRY_CREDITS = "va.guide.entry.credits";
+        public static final String ENTRY_BLOCKPLACER = "va.guide.entry.blockplacer";
+        public static final String ENTRY_DISPENSER = "va.guide.entry.dispenser";
         // Guide
-        private static final String PAGE = "guide.entry.";
+        private static final String PAGE = "va.guide.entry.";
 
         public static String getGuidePage(String entry, int p) {
-            return PAGE + entry + ".page." + p;
+            return PAGE + entry + ".page" + p;
         }
     }
 }

@@ -17,8 +17,8 @@ import java.util.List;
  */
 public class ItemVA extends Item {
 
-    private String itemName;
     public static List<ItemVA> items = new ArrayList<ItemVA>();
+    private String itemName;
 
     protected ItemVA(String name) {
         this.itemName = name;
@@ -26,7 +26,13 @@ public class ItemVA extends Item {
     }
 
     @SideOnly(Side.CLIENT)
-    protected void registerModel() {
+    public static void registerModels() {
+        for (ItemVA item : items)
+            item.registerModel();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void registerModel() {
         if (getHasSubtypes()) {
             ArrayList<ItemStack> subItems = new ArrayList<ItemStack>();
             getSubItems(this, getCreativeTab(), subItems);
@@ -44,11 +50,5 @@ public class ItemVA extends Item {
 
     public void register() {
         GameRegistry.registerItem(this, itemName);
-    }
-
-    @SideOnly(Side.CLIENT)
-    public static void registerModels() {
-        for (ItemVA item : items)
-            item.registerModel();
     }
 }

@@ -16,7 +16,7 @@ public enum EnumEntry {
     // Actual entries
 
     BLOCK_PLACER(new String[]{Local.getGuidePage("blockplacer", 1), Local.getGuidePage("blockplacer", 2)}, VABlocks.placer.getRecipe(), 1),
-    DISPENSER(new String[]{Local.getGuidePage("dispenser", 1), Local.getGuidePage("dispenser", 1)});
+    DISPENSER(new String[]{Local.getGuidePage("dispenser", 1), Local.getGuidePage("dispenser", 2)});
 
     private String[] entries;
     private String text;

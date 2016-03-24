@@ -18,12 +18,13 @@ public class BlockVA extends Block {
 
     public BlockVA(Material materialIn, String blockName) {
         super(materialIn);
+        this.blockName = blockName;
         setUnlocalizedName(blockName);
     }
 
 
     @SideOnly(Side.CLIENT)
-    protected void registerModel() {
+    public void registerModel() {
         ModelResourceLocation mdlResource = new ModelResourceLocation(blockName, "inventory");
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(this), 0, mdlResource);
     }

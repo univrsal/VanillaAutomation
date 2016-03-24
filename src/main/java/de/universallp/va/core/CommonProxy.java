@@ -19,10 +19,10 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent e) {
         PacketHandler.register();
         VAItems.init();
+        VABlocks.register();
     }
 
     public void init(FMLInitializationEvent e) {
-        VABlocks.register();
         NetworkRegistry.INSTANCE.registerGuiHandler(VanillaAutomation.instance, new GuiHandler());
         DispenserTweaks.register();
     }
