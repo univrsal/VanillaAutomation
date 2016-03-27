@@ -10,7 +10,7 @@ import static de.universallp.va.core.util.References.Local;
  * Created by universallp on 21.03.2016 18:16.
  */
 public enum EnumEntry {
-    MENU(null, new String[]{Local.ENTRY_INTRO, Local.ENTRY_CREDITS, Local.ENTRY_BLOCKPLACER, Local.ENTRY_DISPENSER, Local.ENTRY_POKE_STICK}),
+    MENU(null, new String[]{Local.ENTRY_INTRO, Local.ENTRY_CREDITS, Local.ENTRY_BLOCKPLACER, Local.ENTRY_DISPENSER, Local.ENTRY_POKE_STICK, Local.ENTRY_XPHOPPER}),
     INTRO(new String[]{Local.getGuidePage("intro", 1)}),
     CREDITS(new String[]{Local.getGuidePage("credits", 1)}),
 
@@ -18,7 +18,9 @@ public enum EnumEntry {
 
     BLOCK_PLACER(new String[]{Local.getGuidePage("blockplacer", 1), Local.getGuidePage("blockplacer", 2)}, VABlocks.placer.getRecipe(), 1),
     DISPENSER(new String[]{Local.getGuidePage("dispenser", 1), Local.getGuidePage("dispenser", 2)}),
-    POKE_STICK(new String[]{Local.getGuidePage("pokestick", 1), Local.getGuidePage("pokestick", 2)}, VAItems.itemPokeStick.getRecipe(), 1);
+    POKE_STICK(new String[]{Local.getGuidePage("pokestick", 1), Local.getGuidePage("pokestick", 2)}, VAItems.itemPokeStick.getRecipe(), 1),
+    XPHOPPER(new String[]{Local.getGuidePage("xphopper", 1), Local.getGuidePage("xphopper", 2)}, VABlocks.xpHopper.getRecipe(), 1);
+
 
     private String[] entries;
     private String text;
@@ -71,6 +73,8 @@ public enum EnumEntry {
     public String getEntryTitle() {
         if (this == EnumEntry.MENU)
             return "va.gui.guide.menu";
-        return EnumEntry.MENU.entries[ordinal() - 1];
+        if (ordinal() - 1 < EnumEntry.MENU.entries.length)
+            return EnumEntry.MENU.entries[ordinal() - 1];
+        return EnumEntry.MENU.entries[1];
     }
 }

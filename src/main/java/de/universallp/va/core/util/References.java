@@ -14,9 +14,12 @@ public class References {
 
     // Blocks
     public static final String BLOCK_PLACER = PREFIX + "blockplacer";
+    public static final String BLOCK_XPHOPPER = PREFIX + "xphopper";
 
     // Tiles
     public static final String TILE_PLACER  = "tilePlacer";
+    public static final String TILE_XPHOPPER = "tilexpHopper";
+
 
     // Items
     public static final String ITEM_GUIDE = PREFIX + "vaguide";
@@ -46,6 +49,7 @@ public class References {
         public static final String ENTRY_BLOCKPLACER = "va.guide.entry.blockplacer";
         public static final String ENTRY_DISPENSER = "va.guide.entry.dispenser";
         public static final String ENTRY_POKE_STICK = "va.guide.entry.pokestick";
+        public static final String ENTRY_XPHOPPER = "va.guide.entry.xphopper";
 
         // Guide
         private static final String PAGE = "va.guide.entry.";

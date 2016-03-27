@@ -69,6 +69,7 @@ public class ItemVA extends Item implements IEntryProvider {
         addRecipe();
     }
 
+    @Override
     public void addRecipe() {
         if (getRecipe() != null)
             switch (getRecipe().getType()) {

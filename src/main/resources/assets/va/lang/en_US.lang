@@ -18,6 +18,7 @@ item.va:pokestick.name=Poke Stick
 
 # Blocks
 tile.va:blockplacer.name=Block Placer
+tile.va:xphopper.name=XP Hopper
 
 # Guide
 va.gui.buttonmenu=Menu
@@ -31,6 +32,7 @@ va.guide.entry.credits=Credits
 va.guide.entry.blockplacer=The Blockplacer
 va.guide.entry.dispenser=Tweaks for the dispenser
 va.guide.entry.pokestick=The Poke Stick
+va.guide.entry.xphopper=The XP Hopper
 
 # Intro
 va.guide.entry.intro.page1=Welcome to VanillaAutomation! /n This mod adds blocks and tweaks to the dispenser to allow for automation without making it too easy. /n Take a look at the different entries to see what is added and changed.
@@ -49,3 +51,7 @@ va.guide.entry.dispenser.page2=The dispenser now also can insert and take out mu
 # Poke Stick
 va.guide.entry.pokestick.page1=This stick has two uses. For one it'll double your reach distance while you hold it, so you can reach those pesky spots without wasting your precious energy. The other use is that when placed in a dispenser or block placer it'll perform a right click on the block in front. In the block placer it'll take the reach distance into account.
 va.guide.entry.pokestick.page2=For when the remote is just an inch too far away. /n /n Note that this tool takes damage when used. It'll also use tools from your inventory to mine blocks faster.
+
+# XP Hopper
+va.guide.entry.xphopper.page1=This block is a small upgrade to the normal hopper. It'll collect any xp orbs above it and fill them into bottles provided from the bottle slot. A progressbar indicates how much xp is need until the next bottle is filled. Full bottles will be output like any other item.
+va.guide.entry.xphopper.page2=Screw those villagers, I can make my own xp bottles!

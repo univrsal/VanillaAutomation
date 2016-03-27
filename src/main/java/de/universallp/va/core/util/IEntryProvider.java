@@ -11,4 +11,6 @@ public interface IEntryProvider {
     VisualRecipe getRecipe();
 
     EnumEntry getEntry();
+
+    void addRecipe();
 }

@@ -39,7 +39,7 @@ public class VisualRecipe {
         main:
         for (int i = 0; i < 3; i++) {
             for (int b = 0; b < 3; b++) {
-                if (i < stacks.length) {
+                if (stack < stacks.length) {
                     int posX = x - 1 + b * 17;
                     int posY = y - 1 + i * 17;
                     ItemStack current = stacks[stack];
