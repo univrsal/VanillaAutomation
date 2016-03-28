@@ -10,7 +10,6 @@ import net.minecraft.block.BlockHopper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -36,8 +35,8 @@ public class BlockXPHopper extends BlockHopper implements IEntryProvider {
     private static VisualRecipe recipe;
 
     public BlockXPHopper() {
+        super();
         setUnlocalizedName(References.BLOCK_XPHOPPER);
-        setCreativeTab(CreativeTabs.tabRedstone);
     }
 
     @SideOnly(Side.CLIENT)
@@ -68,11 +67,11 @@ public class BlockXPHopper extends BlockHopper implements IEntryProvider {
     @Override
     public VisualRecipe getRecipe() {
         if (recipe != null)
-            return null;
+            return recipe;
 
         ItemStack endereye = new ItemStack(Items.ender_eye, 1);
         ItemStack hopper = new ItemStack(Blocks.hopper, 1);
-        recipe = new VisualRecipe(new ItemStack[]{endereye, null, null, hopper}, new ItemStack(this, 1), VisualRecipe.EnumRecipeType.SHAPED);
+        recipe = new VisualRecipe(new ItemStack[]{endereye, null, null, hopper}, new ItemStack(VABlocks.xpHopper, 1), VisualRecipe.EnumRecipeType.SHAPED);
 
         return recipe;
     }
@@ -87,7 +86,7 @@ public class BlockXPHopper extends BlockHopper implements IEntryProvider {
         if (getRecipe() != null)
             switch (getRecipe().getType()) {
                 case SHAPED:
-                    GameRegistry.addRecipe(new ShapedRecipes(3, 3, this.getRecipe().getIngredients(), this.getRecipe().getResult()));
+                    GameRegistry.addRecipe(new ShapedRecipes(1, 2, this.getRecipe().getIngredients(), this.getRecipe().getResult()));
                     break;
                 case SHAPELESS:
                     GameRegistry.addRecipe(new ShapelessRecipes(this.getRecipe().getResult(), Arrays.asList(this.getRecipe().getIngredients())));

@@ -16,6 +16,7 @@ public class GuiXPHopper extends GuiContainer {
 
     private static final ResourceLocation guiTexture = new ResourceLocation(References.MOD_ID, "textures/gui/xphopper.png");
 
+    private int percent = 0;
     private IInventory playerInventory;
     private TileXPHopper hopperInventory;
 
@@ -31,6 +32,8 @@ public class GuiXPHopper extends GuiContainer {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
         this.fontRendererObj.drawString(this.hopperInventory.getDisplayName().getUnformattedText(), 8, 6, 4210752);
         this.fontRendererObj.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+        if (mouseX >= guiLeft + 128 && mouseX <= guiLeft + 128 + 4 && mouseY >= guiTop + 20 && mouseY <= guiTop + 36)
+            drawCreativeTabHoveringText(percent + " %", mouseX - guiLeft, mouseY - guiTop);
     }
 
     @Override
@@ -41,8 +44,10 @@ public class GuiXPHopper extends GuiContainer {
         int j = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
 
-        int progress = hopperInventory.getProgress();
-        System.out.println(progress);
-        this.drawTexturedModalRect(i + 128, j + 19, 176, 16 - progress, 4, progress);
+        float percentage = ((float) hopperInventory.getProgress()) / TileXPHopper.xpPerBottle;
+        this.percent = (int) (percentage * 100);
+        int progress = (int) (percentage * 16);
+
+        this.drawTexturedModalRect(i + 128, j + 20 + 16 - progress, 176, 16 - progress, 4, progress);
     }
 }

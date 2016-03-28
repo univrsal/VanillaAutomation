@@ -5,7 +5,9 @@ import de.universallp.va.core.util.References;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
@@ -16,7 +18,7 @@ import java.util.List;
  */
 public class VisualRecipe {
 
-    private static ResourceLocation grid = new ResourceLocation(References.MOD_ID, "textures/gui/recipe.png");
+    private static final ResourceLocation grid = new ResourceLocation(References.MOD_ID, "textures/gui/recipe.png");
     private ItemStack[] stacks;
     private ItemStack   result;
     private List<String> tooltip;
@@ -31,17 +33,22 @@ public class VisualRecipe {
 
     public void draw(int x, int y, int mouseX, int mouseY, GuiGuide parent) {
         int stack = 0;
-        parent.mc.renderEngine.bindTexture(grid);
         ScaledResolution sR = new ScaledResolution(parent.mc);
-
-        parent.drawTexturedModalRect(x, y, 0, 0, 83, 48);
         boolean mouseOver = false;
+        int titleWidth = parent.mc.fontRendererObj.getStringWidth(type.getLocalizedName());
+        int offset = parent.mc.fontRendererObj.FONT_HEIGHT + 3;
+
+        parent.mc.fontRendererObj.drawString(type.getLocalizedName(), x + 43 - titleWidth / 2, y, References.TEXT_COLOR);
+        parent.mc.renderEngine.bindTexture(grid);
+        GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
+        parent.drawTexturedModalRect(x, (y + parent.mc.fontRendererObj.FONT_HEIGHT + 3), 0, 0, 83, 48);
+
         main:
         for (int i = 0; i < 3; i++) {
             for (int b = 0; b < 3; b++) {
                 if (stack < stacks.length) {
                     int posX = x - 1 + b * 17;
-                    int posY = y - 1 + i * 17;
+                    int posY = (y + offset) - 1 + i * 17;
                     ItemStack current = stacks[stack];
 
                     if (current != null && current.getItem() != null) {
@@ -61,9 +68,9 @@ public class VisualRecipe {
             }
         }
 
-        Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(result, x + 66, y + 16);
+        Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(result, x + 66, y + offset + 16);
 
-        if (mouseX > x + 66 && mouseX < x + 66 + 17 && mouseY > y + 16 && mouseY < y + 16 + 17) {
+        if (mouseX > x + 66 && mouseX < x + 66 + 17 && mouseY > y + offset + 16 && mouseY < y + 16 + offset + 17) {
             f = result.getItem().getFontRenderer(result);
             tooltip = result.getTooltip(parent.mc.thePlayer, parent.mc.gameSettings.advancedItemTooltips);
             mouseOver = true;
@@ -94,9 +101,19 @@ public class VisualRecipe {
     }
 
     public enum EnumRecipeType {
-        SHAPED,
-        SHAPELESS,
-        SHAPED_ORE,
-        SHAPELESS_ORE;
+        SHAPED(References.Local.RECIPE_SHAPED),
+        SHAPELESS(References.Local.RECIPE_SHAPELESS),
+        SHAPED_ORE(References.Local.RECIPE_SHAPED),
+        SHAPELESS_ORE(References.Local.RECIPE_SHAPELESS);
+
+        private String name;
+
+        EnumRecipeType(String unlocalizedName) {
+            this.name = unlocalizedName;
+        }
+
+        public String getLocalizedName() {
+            return I18n.format(name);
+        }
     }
 }

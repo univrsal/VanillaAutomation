@@ -2,6 +2,7 @@ package de.universallp.va.core.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -22,7 +23,7 @@ public class ContainerXPHopper extends Container {
             this.addSlotToContainer(new Slot(hopperInventoryIn, j, 26 + j * 18, 20));
 
         // Bottle Slot
-        this.addSlotToContainer(new Slot(hopperInventoryIn, hopperInventoryIn.getSizeInventory() - 1, 134, 20));
+        this.addSlotToContainer(new SlotFiltered(hopperInventoryIn, hopperInventoryIn.getSizeInventory() - 1, 134, 20, new ItemStack(Items.glass_bottle, 1)));
 
         // Player inv
         int i = 51;
@@ -43,6 +44,14 @@ public class ContainerXPHopper extends Container {
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
+
+            if (!(slot instanceof SlotFiltered) && itemstack.getItem().equals(Items.glass_bottle)) {
+                if (!this.mergeItemStack(itemstack1, this.hopperInventory.getSizeInventory() - 1, this.hopperInventory.getSizeInventory(), true))
+                    return null;
+                if (itemstack1.stackSize == 0)
+                    slot.putStack(null);
+                return itemstack;
+            }
 
             if (index < this.hopperInventory.getSizeInventory()) {
                 if (!this.mergeItemStack(itemstack1, this.hopperInventory.getSizeInventory(), this.inventorySlots.size(), true)) {

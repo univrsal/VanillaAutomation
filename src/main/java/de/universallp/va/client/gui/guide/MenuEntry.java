@@ -22,10 +22,10 @@ public class MenuEntry {
     }
 
     public void draw(int mouseX, int mouseY, int x, int y, GuiGuide parent) {
-        String text = I18n.format(name);
 
         if (mouseOver(mouseX, mouseY, x, y)) {
             parent.mc.fontRendererObj.drawString(I18n.format(name), x, y, new Color(90, 90, 90).getRGB());
+
         } else {
             parent.mc.fontRendererObj.drawString(I18n.format(name), x, y, new Color(40, 40, 40).getRGB());
         }
@@ -39,6 +39,6 @@ public class MenuEntry {
     }
 
     public boolean mouseOver(int mX, int mY, int x, int y) {
-        return mX > x && mX < x + Minecraft.getMinecraft().fontRendererObj.getStringWidth(I18n.format(name)) && mY > y && mY < y + Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT;
+        return mX > x && mX < x + 120 && mY > y && mY < y + Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT;
     }
 }

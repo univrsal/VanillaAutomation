@@ -1,7 +1,7 @@
 package de.universallp.va.core.network;
 
-import de.universallp.va.core.network.messages.MessageSyncClient;
-import de.universallp.va.core.network.messages.MessageSyncPlacer;
+import de.universallp.va.core.network.messages.MessageSetFieldClient;
+import de.universallp.va.core.network.messages.MessageSetFieldServer;
 import de.universallp.va.core.util.References;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -19,8 +19,8 @@ public class PacketHandler {
     private static int ID = 0;
 
     public static void register() {
-        INSTANCE.registerMessage(MessageSyncPlacer.class, MessageSyncPlacer.class, ID++, Side.SERVER);
-        INSTANCE.registerMessage(MessageSyncClient.class, MessageSyncClient.class, ID++, Side.CLIENT);
+        INSTANCE.registerMessage(MessageSetFieldClient.class, MessageSetFieldClient.class, ID++, Side.CLIENT);
+        INSTANCE.registerMessage(MessageSetFieldServer.class, MessageSetFieldServer.class, ID++, Side.SERVER);
     }
 
     public static void sendTo(IMessage m, EntityPlayerMP p) {

@@ -74,7 +74,7 @@ public class EntryPage {
 
                 if (text != null) {
                     String locText = I18n.format(text);
-                    Utils.drawWrappedString(locText, x, y + 65, 115, parent.mc.fontRendererObj);
+                    Utils.drawWrappedString(locText, x, y + 74, 115, parent.mc.fontRendererObj);
                 }
             }
         }

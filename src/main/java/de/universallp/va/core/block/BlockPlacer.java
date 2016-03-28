@@ -109,9 +109,11 @@ public class BlockPlacer extends BlockVA {
 
                 if (s.getProperties().containsKey(BlockDispenser.FACING)) // For full rotation
                     s = s.withProperty(BlockDispenser.FACING, f);
-                if (s.getProperties().containsKey(BlockFurnace.FACING))   // For horizontal only
+                if (s.getProperties().containsKey(BlockFurnace.FACING)) { // For horizontal only
+                    if (f == EnumFacing.DOWN || f == EnumFacing.UP)
+                        f = EnumFacing.NORTH;
                     s = s.withProperty(BlockFurnace.FACING, f);
-
+                }
                 worldObj.setBlockState(pos, s);
 
                 return true;

@@ -18,6 +18,7 @@ public class VABlocks {
         GameRegistry.registerBlock(xpHopper, References.BLOCK_XPHOPPER);
 
         placer.addRecipe();
+        xpHopper.addRecipe();
 
         registerTiles();
     }

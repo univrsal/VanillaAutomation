@@ -27,6 +27,8 @@ public class References {
 
     public static final String GUI_DIR = "va.dir.";
 
+    public static final int TEXT_COLOR = 4210752;
+
     public static EnumFacing getNext(EnumFacing f) {
         if (f == EnumFacing.EAST)
             return EnumFacing.DOWN;
@@ -46,6 +48,8 @@ public class References {
         public static final String GUIDE_DESC = "item.va:vaguide.desc";
         public static final String GUIDE_LOOK = "va.guide.entry.lookup";
 
+        // Guide
+
         public static final String ENTRY_INTRO = "va.guide.entry.intro";
         public static final String ENTRY_CREDITS = "va.guide.entry.credits";
         public static final String ENTRY_BLOCKPLACER = "va.guide.entry.blockplacer";
@@ -53,7 +57,9 @@ public class References {
         public static final String ENTRY_POKE_STICK = "va.guide.entry.pokestick";
         public static final String ENTRY_XPHOPPER = "va.guide.entry.xphopper";
 
-        // Guide
+        public static final String RECIPE_SHAPED = "va.recipe.shaped";
+        public static final String RECIPE_SHAPELESS = "va.recipe.shapeless";
+
         private static final String PAGE = "va.guide.entry.";
 
         public static String getGuidePage(String entry, int p) {

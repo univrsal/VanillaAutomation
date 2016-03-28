@@ -42,4 +42,19 @@ public class TilePlacer extends TileVA {
         }
         return -1;
     }
+
+    @Override
+    public void setField(int id, int value) {
+        switch (id) {
+            case 0:
+                if (value < 17)
+                    reachDistance = (byte) value;
+                break;
+            case 1:
+                if (value < EnumFacing.values().length)
+                    placeFace = EnumFacing.values()[value];
+                break;
+        }
+        markDirty();
+    }
 }

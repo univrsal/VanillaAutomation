@@ -5,8 +5,9 @@ import de.universallp.va.client.gui.GuiGuide;
 import de.universallp.va.client.gui.GuiPlacer;
 import de.universallp.va.client.gui.GuiXPHopper;
 import de.universallp.va.core.container.ContainerXPHopper;
-import de.universallp.va.core.network.messages.MessageSyncClient;
+import de.universallp.va.core.network.messages.MessageSetFieldClient;
 import de.universallp.va.core.tile.TilePlacer;
+import de.universallp.va.core.tile.TileXPHopper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.ContainerDispenser;
@@ -28,10 +29,12 @@ public class GuiHandler implements IGuiHandler {
         if (te == null)
             return null;
         if (ID == 0 && te instanceof TilePlacer) {
-            PacketHandler.sendTo(new MessageSyncClient(te.getPos(), ((TilePlacer) te).reachDistance, ((TilePlacer) te).placeFace), (EntityPlayerMP) player);
+            PacketHandler.sendTo(new MessageSetFieldClient(new int[]{0, 1}, new byte[]{((TilePlacer) te).reachDistance, (byte) ((TilePlacer) te).placeFace.ordinal()}, te.getPos()), (EntityPlayerMP) player);
             return new ContainerDispenser(player.inventory, (IInventory) te);
-        } else if (ID == 2)
+        } else if (ID == 2 && te instanceof TileXPHopper) {
+            PacketHandler.sendTo(new MessageSetFieldClient(0, ((TileXPHopper) te).getProgress(), te.getPos()), (EntityPlayerMP) player);
             return new ContainerXPHopper(player.inventory, (IInventory) te);
+        }
 
         return null;
     }

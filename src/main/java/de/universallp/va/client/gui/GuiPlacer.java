@@ -1,7 +1,7 @@
 package de.universallp.va.client.gui;
 
 import de.universallp.va.core.network.PacketHandler;
-import de.universallp.va.core.network.messages.MessageSyncPlacer;
+import de.universallp.va.core.network.messages.MessageSetFieldServer;
 import de.universallp.va.core.tile.TilePlacer;
 import de.universallp.va.core.util.References;
 import net.minecraft.client.gui.GuiButton;
@@ -47,8 +47,8 @@ public class GuiPlacer extends GuiDispenser {
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        fontRendererObj.drawString(String.valueOf(reachDistance),    (reachDistance > 9 ? 138 : 141), 39, 4210752);
-        fontRendererObj.drawString(I18n.format(References.Local.GUI_FACE), 9, 38, 4210752);
+        fontRendererObj.drawString(String.valueOf(reachDistance), (reachDistance > 9 ? 138 : 141), 39, References.TEXT_COLOR);
+        fontRendererObj.drawString(I18n.format(References.Local.GUI_FACE), 9, 38, References.TEXT_COLOR);
     }
 
     @Override
@@ -73,7 +73,8 @@ public class GuiPlacer extends GuiDispenser {
         if (button.id == 0) {
             placeFace = References.getNext(placeFace);
             button.displayString = I18n.format(References.GUI_DIR + placeFace.getName());
-            PacketHandler.INSTANCE.sendToServer(new MessageSyncPlacer(placer.getPos(), placeFace, (byte) reachDistance));
+            PacketHandler.INSTANCE.sendToServer(new MessageSetFieldServer(1, placeFace.ordinal(), placer.getPos()));
+
             placer.placeFace = placeFace;
         }
 
@@ -84,7 +85,8 @@ public class GuiPlacer extends GuiDispenser {
                 if (reachDistance < 2)
                     button.enabled = false;
                 placer.reachDistance = (byte) reachDistance;
-                PacketHandler.INSTANCE.sendToServer(new MessageSyncPlacer(placer.getPos(), placeFace, (byte) reachDistance));
+                PacketHandler.INSTANCE.sendToServer(new MessageSetFieldServer(0, reachDistance, placer.getPos()));
+
             }
         }
 
@@ -95,7 +97,7 @@ public class GuiPlacer extends GuiDispenser {
                 if (reachDistance == 16)
                     button.enabled = false;
                 placer.reachDistance = (byte) reachDistance;
-                PacketHandler.INSTANCE.sendToServer(new MessageSyncPlacer(placer.getPos(), placeFace, (byte) reachDistance));
+                PacketHandler.INSTANCE.sendToServer(new MessageSetFieldServer(0, reachDistance, placer.getPos()));
             }
         }
 

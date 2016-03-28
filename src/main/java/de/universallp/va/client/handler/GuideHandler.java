@@ -44,13 +44,14 @@ public class GuideHandler {
 
         if (e.type == RenderGameOverlayEvent.ElementType.ALL)
             if (heldItem != null && heldItem.getItem().equals(VAItems.itemGuide)) {
-                RayTraceResult r = Minecraft.getMinecraft().objectMouseOver;
+                Minecraft mc = Minecraft.getMinecraft();
+                RayTraceResult r = mc.objectMouseOver;
 
                 if (r != null)
                     if (r.typeOfHit == RayTraceResult.Type.BLOCK) {
                         Block b = FMLClientHandler.instance().getWorldClient().getBlockState(r.getBlockPos()).getBlock();
 
-                        if (((b != null && b instanceof IEntryProvider) || vanillaEntries.containsKey(b)) && Minecraft.getMinecraft().currentScreen == null) {
+                        if (((b != null && b instanceof IEntryProvider) || vanillaEntries.containsKey(b)) && mc.currentScreen == null) {
                             EnumEntry entry;
 
                             if (b instanceof IEntryProvider)
@@ -63,20 +64,22 @@ public class GuideHandler {
 
                             int x = e.resolution.getScaledWidth() / 2;
                             int y = e.resolution.getScaledHeight() / 2;
-                            Minecraft.getMinecraft().getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
-                            Minecraft.getMinecraft().fontRendererObj.drawString(I18n.format(References.Local.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
+                            mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
+                            mc.fontRendererObj.drawString(I18n.format(References.Local.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
                         } else {
-                            Entity mouseOver = getMouseOver(e.partialTicks, 5, Minecraft.getMinecraft());
-                            if (mouseOver != null && mouseOver instanceof EntityItem && Minecraft.getMinecraft().currentScreen == null) {
+                            Entity mouseOver = getMouseOver(e.partialTicks, 5, mc);
+                            if (mouseOver != null && mouseOver instanceof EntityItem && mc.currentScreen == null) {
                                 ItemStack stack = ((EntityItem) mouseOver).getEntityItem();
 
                                 if (stack != null && stack.getItem() != null && stack.getItem() instanceof IEntryProvider) {
-                                    ClientProxy.hoveredEntry = ((IEntryProvider) stack.getItem()).getEntry();
+                                    EnumEntry entry = ((IEntryProvider) stack.getItem()).getEntry();
+                                    entry.getEntry().setPage(0);
+                                    ClientProxy.hoveredEntry = entry;
 
                                     int x = e.resolution.getScaledWidth() / 2;
                                     int y = e.resolution.getScaledHeight() / 2;
-                                    Minecraft.getMinecraft().getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
-                                    Minecraft.getMinecraft().fontRendererObj.drawString(I18n.format(References.Local.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
+                                    mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
+                                    mc.fontRendererObj.drawString(I18n.format(References.Local.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
                                 }
                             } else
                                 ClientProxy.hoveredEntry = null;

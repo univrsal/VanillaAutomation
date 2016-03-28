@@ -1,6 +1,7 @@
 # Container
 va.container.blockplacer=Block Placer
 
+# Misc
 va.dir.north=North
 va.dir.south=South
 va.dir.east=East
@@ -11,6 +12,9 @@ va.dir.up=Up
 va.gui.face=Facing:
 va.gui.reachdistance=Distance between Block Placer and placed block
 va.gui.xphopper=XP Hopper
+
+va.recipe.shaped=Shaped Crafting
+va.recipe.shapeless=Shapeless Crafting
 
 # Items
 item.va:vaguide.name=Guide
@@ -54,5 +58,5 @@ va.guide.entry.pokestick.page1=This stick has two uses. For one it'll double you
 va.guide.entry.pokestick.page2=For when the remote is just an inch too far away. /n /n Note that this tool takes damage when used. It'll also use tools from your inventory to mine blocks faster.
 
 # XP Hopper
-va.guide.entry.xphopper.page1=This block is a small upgrade to the normal hopper. It'll collect any xp orbs above it and fill them into bottles provided from the bottle slot. A progressbar indicates how much xp is need until the next bottle is filled. Full bottles will be output like any other item.
+va.guide.entry.xphopper.page1=This block is a small upgrade to the normal hopper. It'll collect any xp orbs above it in a 3x3x4 radius and fill them into bottles provided from the bottle slot. A progressbar indicates how much xp is need until the next bottle is filled. Full bottles will be output like any other item.
 va.guide.entry.xphopper.page2=Screw those villagers, I can make my own xp bottles!
