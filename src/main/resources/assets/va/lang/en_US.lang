@@ -10,6 +10,7 @@ va.dir.up=Up
 
 va.gui.face=Facing:
 va.gui.reachdistance=Distance between Block Placer and placed block
+va.gui.xphopper=XP Hopper
 
 # Items
 item.va:vaguide.name=Guide

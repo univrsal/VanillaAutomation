@@ -71,6 +71,11 @@ public class ItemPokeStick extends ItemVA {
     }
 
     @Override
+    public boolean isFull3D() {
+        return true;
+    }
+
+    @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         if (!playerIn.capabilities.isCreativeMode)
             itemStackIn.damageItem(1, playerIn);

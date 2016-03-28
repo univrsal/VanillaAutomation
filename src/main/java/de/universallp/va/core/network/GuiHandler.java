@@ -3,6 +3,8 @@ package de.universallp.va.core.network;
 import de.universallp.va.client.ClientProxy;
 import de.universallp.va.client.gui.GuiGuide;
 import de.universallp.va.client.gui.GuiPlacer;
+import de.universallp.va.client.gui.GuiXPHopper;
+import de.universallp.va.core.container.ContainerXPHopper;
 import de.universallp.va.core.network.messages.MessageSyncClient;
 import de.universallp.va.core.tile.TilePlacer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,7 +30,8 @@ public class GuiHandler implements IGuiHandler {
         if (ID == 0 && te instanceof TilePlacer) {
             PacketHandler.sendTo(new MessageSyncClient(te.getPos(), ((TilePlacer) te).reachDistance, ((TilePlacer) te).placeFace), (EntityPlayerMP) player);
             return new ContainerDispenser(player.inventory, (IInventory) te);
-        }
+        } else if (ID == 2)
+            return new ContainerXPHopper(player.inventory, (IInventory) te);
 
         return null;
     }
@@ -46,9 +49,10 @@ public class GuiHandler implements IGuiHandler {
         if (te == null)
             return null;
 
-        if (ID == 0 && te instanceof TilePlacer) {
+        if (ID == 0 && te instanceof TilePlacer)
             return new GuiPlacer(player.inventory, (TilePlacer) te, ((TilePlacer) te).reachDistance, ((TilePlacer) te).placeFace);
-        }
+        else if (ID == 2)
+            return new GuiXPHopper(player.inventory, (IInventory) te);
 
         return null;
     }

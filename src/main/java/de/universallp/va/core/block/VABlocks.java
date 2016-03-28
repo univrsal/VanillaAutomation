@@ -1,6 +1,7 @@
 package de.universallp.va.core.block;
 
 import de.universallp.va.core.tile.TilePlacer;
+import de.universallp.va.core.tile.TileXPHopper;
 import de.universallp.va.core.util.References;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -23,7 +24,7 @@ public class VABlocks {
 
     private static void registerTiles() {
         GameRegistry.registerTileEntity(TilePlacer.class, References.TILE_PLACER);
-//        GameRegistry.registerTileEntity(TileXPHopper.class, References.TILE_XPHOPPER);
+        GameRegistry.registerTileEntity(TileXPHopper.class, References.TILE_XPHOPPER);
     }
 
     public static void registerModels() {

@@ -37,6 +37,8 @@ public class References {
     public static class Local {
         public static final String GUI_DIST = "va.gui.reachdistance";
         public static final String GUI_FACE = "va.gui.face";
+        public static final String GUI_XPHOPPER = "va.gui.xphopper";
+
 
         public static final String BTN_MENU = "va.gui.buttonmenu";
         public static final String BTN_BACK = "va.gui.buttonback";

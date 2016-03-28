@@ -94,4 +94,12 @@ public class Utils {
 
         return -1;
     }
+
+    public static ItemStack decreaseStack(ItemStack stack, int amount) {
+        if (stack.stackSize > amount)
+            stack.stackSize -= amount;
+        else
+            return null;
+        return stack;
+    }
 }
