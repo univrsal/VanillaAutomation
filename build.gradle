@@ -25,7 +25,7 @@ group= "de.universallp.va" // http://maven.apache.org/guides/mini/guide-naming-c
 archivesBaseName = "va"
 
 minecraft {
-    version = "1.9-12.16.0.1802-1.9"
+    version = "1.9-12.16.0.1811-1.9"
     runDir = "run"
     useDepAts = true
     // the mappings can be changed at any time, and must be in the following format.

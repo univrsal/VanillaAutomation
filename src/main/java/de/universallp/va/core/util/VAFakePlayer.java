@@ -54,7 +54,7 @@ public class VAFakePlayer extends FakePlayer {
         EnumActionResult res = usedItem.onItemUseFirst(itemStack, this, worldObj, pos, side, deltaX, deltaY, deltaZ, EnumHand.MAIN_HAND);
         if (res == EnumActionResult.PASS || res == EnumActionResult.SUCCESS) { return true; }
 
-        if (event.useBlock != Event.Result.DENY && (isSneaking() || usedItem.doesSneakBypassUse(itemStack, worldObj, pos, this))) {
+        if (event.getUseBlock() != Event.Result.DENY && (isSneaking() || usedItem.doesSneakBypassUse(itemStack, worldObj, pos, this))) {
             IBlockState blockS = worldObj.getBlockState(pos);
             Block block = blockS.getBlock();
             if (block != null) try {

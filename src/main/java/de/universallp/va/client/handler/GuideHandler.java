@@ -42,7 +42,7 @@ public class GuideHandler {
     public void drawGameOverlay(RenderGameOverlayEvent.Post e) {
         ItemStack heldItem = Utils.getCarriedItem(FMLClientHandler.instance().getClientPlayerEntity());
 
-        if (e.type == RenderGameOverlayEvent.ElementType.ALL)
+        if (e.getType() == RenderGameOverlayEvent.ElementType.ALL)
             if (heldItem != null && heldItem.getItem().equals(VAItems.itemGuide)) {
                 Minecraft mc = Minecraft.getMinecraft();
                 RayTraceResult r = mc.objectMouseOver;
@@ -62,12 +62,12 @@ public class GuideHandler {
                             entry.getEntry().setPage(0);
                             ClientProxy.hoveredEntry = entry;
 
-                            int x = e.resolution.getScaledWidth() / 2;
-                            int y = e.resolution.getScaledHeight() / 2;
+                            int x = e.getResolution().getScaledWidth() / 2;
+                            int y = e.getResolution().getScaledHeight() / 2;
                             mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
                             mc.fontRendererObj.drawString(I18n.format(References.Local.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
                         } else {
-                            Entity mouseOver = getMouseOver(e.partialTicks, 5, mc);
+                            Entity mouseOver = getMouseOver(e.getPartialTicks(), 5, mc);
                             if (mouseOver != null && mouseOver instanceof EntityItem && mc.currentScreen == null) {
                                 ItemStack stack = ((EntityItem) mouseOver).getEntityItem();
 
@@ -76,8 +76,8 @@ public class GuideHandler {
                                     entry.getEntry().setPage(0);
                                     ClientProxy.hoveredEntry = entry;
 
-                                    int x = e.resolution.getScaledWidth() / 2;
-                                    int y = e.resolution.getScaledHeight() / 2;
+                                    int x = e.getResolution().getScaledWidth() / 2;
+                                    int y = e.getResolution().getScaledHeight() / 2;
                                     mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
                                     mc.fontRendererObj.drawString(I18n.format(References.Local.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
                                 }

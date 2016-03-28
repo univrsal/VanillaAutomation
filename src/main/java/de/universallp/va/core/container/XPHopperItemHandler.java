@@ -1,5 +1,6 @@
 package de.universallp.va.core.container;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraftforge.items.VanillaHopperItemHandler;
 
@@ -12,5 +13,15 @@ public class XPHopperItemHandler extends VanillaHopperItemHandler {
         super(hopper);
     }
 
+    @Override
+    public ItemStack extractItem(int slot, int amount, boolean simulate) {
+        if (slot == 5) // prevent pipes from taking out the bottles
+            return null;
+        return super.extractItem(slot, amount, simulate);
+    }
 
+    @Override
+    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+        return super.insertItem(slot, stack, simulate);
+    }
 }
