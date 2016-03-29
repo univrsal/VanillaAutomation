@@ -4,13 +4,12 @@ import de.universallp.va.VanillaAutomation;
 import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.client.gui.screen.VisualRecipe;
 import de.universallp.va.core.item.VAItems;
+import de.universallp.va.core.network.PacketHandler;
+import de.universallp.va.core.network.messages.MessagePlaySound;
 import de.universallp.va.core.tile.TilePlacer;
 import de.universallp.va.core.util.References;
 import de.universallp.va.core.util.VAFakePlayer;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDispenser;
-import net.minecraft.block.BlockFurnace;
-import net.minecraft.block.BlockPistonBase;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -29,6 +28,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 import java.util.Random;
 
@@ -115,7 +115,11 @@ public class BlockPlacer extends BlockVA {
                     s = s.withProperty(BlockFurnace.FACING, f);
                 }
                 worldObj.setBlockState(pos, s);
-
+                block.onBlockAdded(worldObj, pos, s);
+                block.onBlockPlaced(worldObj, pos, f, 0, 0, 0, block.getMetaFromState(s), fakePlayer);
+                SoundType type = block.getStepSound();
+                if (type != null)
+                    PacketHandler.INSTANCE.sendToAllAround(new MessagePlaySound(type.getPlaceSound().getSoundName().toString(), pos, type.getPitch(), type.getPitch()), new NetworkRegistry.TargetPoint(fakePlayer.dimension, pos.getX(), pos.getY(), pos.getZ(), 64));
                 return true;
             }
         } else {
@@ -123,8 +127,11 @@ public class BlockPlacer extends BlockVA {
                 fakePlayer.rightClick(placeable, pos, f, 0, 0, 0);
                 placeable.damageItem(1, fakePlayer);
             } else if (worldObj.isAirBlock(pos)) {
-                placeable.getItem().onItemRightClick(placeable, worldObj, VAFakePlayer.instance(worldObj), EnumHand.MAIN_HAND);
-                placeable.getItem().onItemUse(placeable, VAFakePlayer.instance(worldObj), worldObj, pos, EnumHand.MAIN_HAND, f, 0, 0, 0);
+                fakePlayer.setItemInHand(placeable);
+                placeable.getItem().onItemRightClick(placeable, worldObj, fakePlayer, EnumHand.MAIN_HAND);
+                placeable.getItem().onItemUse(placeable, fakePlayer, worldObj, pos, EnumHand.MAIN_HAND, f, 0, 0, 0);
+                placeable.getItem().onItemUseFirst(placeable, fakePlayer, worldObj, pos, f, 0, 0, 0, EnumHand.MAIN_HAND);
+                placeable.getItem().onItemUseFinish(placeable, worldObj, fakePlayer);
             }
         }
 

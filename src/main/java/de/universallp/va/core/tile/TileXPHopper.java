@@ -3,16 +3,17 @@ package de.universallp.va.core.tile;
 import de.universallp.va.core.container.XPHopperItemHandler;
 import de.universallp.va.core.util.References;
 import de.universallp.va.core.util.Utils;
+import net.minecraft.block.BlockHopper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -52,26 +53,6 @@ public class TileXPHopper extends TileEntityHopper {
     }
 
     @Override
-    public ITextComponent getDisplayName() {
-        return hasCustomName() ? new TextComponentString(super.getName()) : null;
-    }
-
-    @Override
-    public void setCustomName(String customName) {
-        super.setCustomName(customName);
-    }
-
-    @Override
-    public boolean hasCustomName() {
-        return super.hasCustomName();
-    }
-
-    @Override
-    public String getName() {
-        return super.getName();
-    }
-
-    @Override
     public void setField(int id, int value) {
         if (id == 0 && value <= xpPerBottle)
             progress = value;
@@ -81,6 +62,7 @@ public class TileXPHopper extends TileEntityHopper {
     @Override
     public boolean updateHopper() {
         BlockPos overHopper = getPos().up();
+        System.out.println(getName());
         List<EntityXPOrb> orbs = getWorld().getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(overHopper).expandXyz(1));
 
         if (orbs != null && orbs.size() > 0)
@@ -104,7 +86,29 @@ public class TileXPHopper extends TileEntityHopper {
                         getWorld().removeEntity(orb);
                     }
             }
-        return super.updateHopper();
+
+        if (this.worldObj != null && !this.worldObj.isRemote) {
+            if (!this.isOnTransferCooldown() && BlockHopper.isEnabled(this.getBlockMetadata())) {
+                boolean flag = false;
+
+                if (!this.isEmpty()) {
+                    flag = this.transferItemsOut();
+                }
+
+                if (!this.isFull()) {
+                    flag = captureDroppedItems(this) || flag;
+                }
+
+                if (flag) {
+                    this.setTransferCooldown(8);
+                    this.markDirty();
+                    return true;
+                }
+            }
+
+            return false;
+        } else
+            return false;
     }
 
     public int getProgress() {
@@ -123,5 +127,90 @@ public class TileXPHopper extends TileEntityHopper {
     @Override
     protected IItemHandler createUnSidedHandler() {
         return new XPHopperItemHandler(this);
+    }
+
+    // Copied vanilla code cause methods are private
+
+    private boolean isEmpty() {
+        for (int i = 0; i < getSizeInventory() - 1; i++) {
+            ItemStack itemstack = getStackInSlot(i);
+            if (itemstack != null)
+                return false;
+        }
+        return true;
+    }
+
+    private boolean isFull() {
+        for (int i = 0; i < getSizeInventory() - 1; i++) {
+            ItemStack itemstack = getStackInSlot(i);
+            if (itemstack == null || itemstack.stackSize != itemstack.getMaxStackSize())
+                return false;
+        }
+
+        return true;
+    }
+
+    private boolean transferItemsOut() {
+        if (net.minecraftforge.items.VanillaInventoryCodeHooks.insertHook(this)) {
+            return true;
+        }
+        IInventory iinventory = this.getInventoryForHopperTransfer();
+
+        if (iinventory == null) {
+            return false;
+        } else {
+            EnumFacing enumfacing = BlockHopper.getFacing(this.getBlockMetadata()).getOpposite();
+
+            if (this.isInventoryFull(iinventory, enumfacing)) {
+                return false;
+            } else {
+                for (int i = 0; i < this.getSizeInventory() - 1; ++i) {
+                    if (this.getStackInSlot(i) != null) {
+                        ItemStack itemstack = this.getStackInSlot(i).copy();
+                        ItemStack itemstack1 = putStackInInventoryAllSlots(iinventory, this.decrStackSize(i, 1), enumfacing);
+
+                        if (itemstack1 == null || itemstack1.stackSize == 0) {
+                            iinventory.markDirty();
+                            return true;
+                        }
+
+                        this.setInventorySlotContents(i, itemstack);
+                    }
+                }
+
+                return false;
+            }
+        }
+    }
+
+    private boolean isInventoryFull(IInventory inventoryIn, EnumFacing side) {
+        if (inventoryIn instanceof ISidedInventory) {
+            ISidedInventory isidedinventory = (ISidedInventory) inventoryIn;
+            int[] aint = isidedinventory.getSlotsForFace(side);
+
+            for (int k = 0; k < aint.length; ++k) {
+                ItemStack itemstack1 = isidedinventory.getStackInSlot(aint[k]);
+
+                if (itemstack1 == null || itemstack1.stackSize != itemstack1.getMaxStackSize())
+                    return false;
+            }
+        } else {
+            int i = inventoryIn.getSizeInventory();
+
+            for (int j = 0; j < i; ++j) {
+                ItemStack itemstack = inventoryIn.getStackInSlot(j);
+
+                if (itemstack == null || itemstack.stackSize != itemstack.getMaxStackSize()) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private IInventory getInventoryForHopperTransfer() {
+        EnumFacing enumfacing = BlockHopper.getFacing(this.getBlockMetadata());
+        return getInventoryAtPosition(this.getWorld(), this.getXPos() + (double) enumfacing.getFrontOffsetX(), this.getYPos() + (double) enumfacing.getFrontOffsetY(), this.getZPos() + (double) enumfacing.getFrontOffsetZ());
     }
 }

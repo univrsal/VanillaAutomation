@@ -8,7 +8,9 @@ import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
@@ -35,6 +37,7 @@ public class SwordBehaviour implements IBehaviorDispenseItem {
             for (EntityLiving l : mobs) {
                 if (!l.isDead) {
                     attackEntity(l, stack, VAFakePlayer.instance(te.getWorld()));
+                    break;
                 }
             }
         }
@@ -43,22 +46,21 @@ public class SwordBehaviour implements IBehaviorDispenseItem {
 
     public void attackEntity(EntityLiving e, ItemStack tool, VAFakePlayer p) {
         p.setItemInHand(tool);
-        float f = (float)p.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+        if (tool != null && tool.getItem() instanceof ItemSword) {
+            p.resetCooldown();
+            float f = ((ItemSword) tool.getItem()).getDamageVsEntity();
+            float f1 = EnchantmentHelper.getModifierForCreature(tool, e.getCreatureAttribute());
+            float f3 = (float) p.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+            System.out.println(f1);
+            e.attackEntityFrom(DamageSource.causePlayerDamage(p), f + f1 + f3 + 3);
 
-        float f1 = 0.0F;
+            int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.fireAspect, tool);
 
-            f1 = EnchantmentHelper.getModifierForCreature(p.getHeldItemMainhand(), p.getCreatureAttribute());
+            if (j > 0 && !e.isBurning()) {
+                e.setFire(j);
+            }
 
-
-        float f2 = p.getCooledAttackStrength(0.5F);
-        f = f * (0.2F + f2 * f2 * 0.8F);
-        f1 = f1 * f2;
-        p.resetCooldown();
-        f = f + f1;
-        System.out.println(f);
-        e.attackEntityFrom(DamageSource.causePlayerDamage(p), f);
-
-//        p.attackTargetEntityWithCurrentItem(e);
-        tool.damageItem(1, p);
+            tool.damageItem(1, p);
+        }
     }
 }
