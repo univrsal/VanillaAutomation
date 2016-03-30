@@ -1,0 +1,37 @@
+{
+  "forge_marker": 1,
+  "ambientocclusion": false,
+  "defaults": {
+    "model": "va:filteredhopper_down",
+    "uvlock": true,
+    "ambientocclusion": false
+  },
+  "variants": {
+    "facing": {
+      "down": {
+        "model": "va:filteredhopper_down"
+      },
+      "north": {
+        "model": "va:filteredhopper_side"
+      },
+      "south": {
+        "model": "va:filteredhopper_side",
+        "y": 180
+      },
+      "west": {
+        "model": "va:filteredhopper_side",
+        "y": 270
+      },
+      "east": {
+        "model": "va:filteredhopper_side",
+        "y": 90
+      }
+    },
+    "enabled": {
+      "true": {
+      },
+      "false": {
+      }
+    }
+  }
+}

@@ -8,6 +8,7 @@ import de.universallp.va.core.util.IEntryProvider;
 import de.universallp.va.core.util.libs.LibGuiIDs;
 import de.universallp.va.core.util.libs.LibNames;
 import net.minecraft.block.BlockHopper;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -16,7 +17,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -35,6 +35,7 @@ public class BlockXPHopper extends BlockHopper implements IEntryProvider {
 
     public BlockXPHopper() {
         setUnlocalizedName(LibNames.BLOCK_XPHOPPER);
+        setStepSound(SoundType.METAL);
     }
 
     @SideOnly(Side.CLIENT)
@@ -82,6 +83,6 @@ public class BlockXPHopper extends BlockHopper implements IEntryProvider {
     @Override
     public void addRecipe() {
         if (getRecipe() != null)
-            GameRegistry.addRecipe(new ShapedRecipes(1, 2, this.getRecipe().getIngredients(), this.getRecipe().getResult()));
+            GameRegistry.addShapedRecipe(getRecipe().getResult(), "E", "H", 'E', Items.ender_eye, 'H', Blocks.hopper);
     }
 }
