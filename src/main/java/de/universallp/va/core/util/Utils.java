@@ -5,6 +5,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 
 import java.awt.*;
@@ -101,5 +102,12 @@ public class Utils {
         else
             return null;
         return stack;
+    }
+
+    public static EnumFacing getNextFacing(EnumFacing f) {
+        if (f == EnumFacing.EAST)
+            return EnumFacing.DOWN;
+        else
+            return EnumFacing.values()[f.ordinal() + 1];
     }
 }

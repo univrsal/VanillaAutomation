@@ -2,8 +2,8 @@ package de.universallp.va.client.gui.guide;
 
 import de.universallp.va.client.gui.GuiGuide;
 import de.universallp.va.client.gui.screen.VisualRecipe;
-import de.universallp.va.core.util.References;
 import de.universallp.va.core.util.Utils;
+import de.universallp.va.core.util.libs.LibNames;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
@@ -42,7 +42,7 @@ public class EntryPage {
 
     public EntryPage(String text, String imageLoc, int imgXOffset, int imgYOffset, int width, int height) {
         this.text = text;
-        this.image = new ResourceLocation(References.MOD_ID, imageLoc);
+        this.image = new ResourceLocation(LibNames.MOD_ID, imageLoc);
         this.xOffset = imgXOffset;
         this.yOffset = imgYOffset;
         this.height = height;

@@ -4,7 +4,8 @@ import de.universallp.va.client.ClientProxy;
 import de.universallp.va.client.gui.guide.Entry;
 import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.client.gui.screen.ButtonLabel;
-import de.universallp.va.core.util.References;
+import de.universallp.va.core.util.libs.LibLocalization;
+import de.universallp.va.core.util.libs.LibNames;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
@@ -17,7 +18,7 @@ import java.io.IOException;
  */
 public class GuiGuide extends GuiScreen {
 
-    private static ResourceLocation bg = new ResourceLocation(References.MOD_ID, "textures/gui/guide.png");
+    private static ResourceLocation bg = new ResourceLocation(LibNames.MOD_ID, "textures/gui/guide.png");
 
     private ButtonLabel btnMenu;
     private ButtonLabel btnBack;
@@ -45,8 +46,8 @@ public class GuiGuide extends GuiScreen {
 
     @Override
     public void initGui() {
-        btnMenu = new ButtonLabel(References.Local.BTN_MENU, 0, width / 2 + 68, height / 2 - 78);
-        btnBack = new ButtonLabel(References.Local.BTN_BACK, 1, width / 2 + 68, height / 2 - 68);
+        btnMenu = new ButtonLabel(LibLocalization.BTN_MENU, 0, width / 2 + 68, height / 2 - 78);
+        btnBack = new ButtonLabel(LibLocalization.BTN_BACK, 1, width / 2 + 68, height / 2 - 68);
         btnNext = new ButtonLabel("-->", 2, width / 2 + 38, height / 2 + 100);
         btnLast = new ButtonLabel("<--", 3, width / 2 - 56, height / 2 + 100);
 

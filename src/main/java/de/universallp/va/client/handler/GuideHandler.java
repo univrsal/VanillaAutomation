@@ -5,8 +5,8 @@ import de.universallp.va.client.ClientProxy;
 import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.core.item.VAItems;
 import de.universallp.va.core.util.IEntryProvider;
-import de.universallp.va.core.util.References;
 import de.universallp.va.core.util.Utils;
+import de.universallp.va.core.util.libs.LibLocalization;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -65,7 +65,7 @@ public class GuideHandler {
                             int x = e.getResolution().getScaledWidth() / 2;
                             int y = e.getResolution().getScaledHeight() / 2;
                             mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
-                            mc.fontRendererObj.drawString(I18n.format(References.Local.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
+                            mc.fontRendererObj.drawString(I18n.format(LibLocalization.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
                         } else {
                             Entity mouseOver = getMouseOver(e.getPartialTicks(), 5, mc);
                             if (mouseOver != null && mouseOver instanceof EntityItem && mc.currentScreen == null) {
@@ -79,7 +79,7 @@ public class GuideHandler {
                                     int x = e.getResolution().getScaledWidth() / 2;
                                     int y = e.getResolution().getScaledHeight() / 2;
                                     mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
-                                    mc.fontRendererObj.drawString(I18n.format(References.Local.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
+                                    mc.fontRendererObj.drawString(I18n.format(LibLocalization.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
                                 }
                             } else
                                 ClientProxy.hoveredEntry = null;

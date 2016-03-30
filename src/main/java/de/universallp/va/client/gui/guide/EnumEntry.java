@@ -3,35 +3,28 @@ package de.universallp.va.client.gui.guide;
 import de.universallp.va.client.gui.screen.VisualRecipe;
 import de.universallp.va.core.block.VABlocks;
 import de.universallp.va.core.item.VAItems;
-
-import static de.universallp.va.core.util.References.Local;
+import de.universallp.va.core.util.libs.LibLocalization;
 
 /**
  * Created by universallp on 21.03.2016 18:16.
  */
 public enum EnumEntry {
-    MENU(null, new String[]{Local.ENTRY_INTRO, Local.ENTRY_CREDITS, Local.ENTRY_BLOCKPLACER, Local.ENTRY_DISPENSER, Local.ENTRY_POKE_STICK, Local.ENTRY_XPHOPPER}),
-    INTRO(new String[]{Local.getGuidePage("intro", 1)}),
-    CREDITS(new String[]{Local.getGuidePage("credits", 1)}),
+    MENU(new String[] { LibLocalization.ENTRY_INTRO, LibLocalization.ENTRY_CREDITS, LibLocalization.ENTRY_BLOCKPLACER, LibLocalization.ENTRY_DISPENSER, LibLocalization.ENTRY_POKE_STICK, LibLocalization.ENTRY_XPHOPPER }),
+    INTRO(new String[] { LibLocalization.getGuidePage("intro", 1) }),
+    CREDITS(new String[] { LibLocalization.getGuidePage("credits", 1) }),
 
     // Actual entries
 
-    BLOCK_PLACER(new String[]{Local.getGuidePage("blockplacer", 1), Local.getGuidePage("blockplacer", 2)}, VABlocks.placer.getRecipe(), 1),
-    DISPENSER(new String[]{Local.getGuidePage("dispenser", 1), Local.getGuidePage("dispenser", 2)}),
-    POKE_STICK(new String[]{Local.getGuidePage("pokestick", 1), Local.getGuidePage("pokestick", 2)}, VAItems.itemPokeStick.getRecipe(), 1),
-    XPHOPPER(new String[]{Local.getGuidePage("xphopper", 1), Local.getGuidePage("xphopper", 2)}, VABlocks.xpHopper.getRecipe(), 1);
-
+    BLOCK_PLACER(new String[] { LibLocalization.getGuidePage("blockplacer", 1), LibLocalization.getGuidePage("blockplacer", 2) }, VABlocks.placer.getRecipe(), 1),
+    DISPENSER(new String[] { LibLocalization.getGuidePage("dispenser", 1), LibLocalization.getGuidePage("dispenser", 2) }),
+    POKE_STICK(new String[] { LibLocalization.getGuidePage("pokestick", 1), LibLocalization.getGuidePage("pokestick", 2) }, VAItems.itemPokeStick.getRecipe(), 1),
+    XPHOPPER(new String[] { LibLocalization.getGuidePage("xphopper", 1), LibLocalization.getGuidePage("xphopper", 2) }, VABlocks.xpHopper.getRecipe(), 1),
+    FILTERED_HOPPER(new String[] { LibLocalization.getGuidePage("filteredhopper", 1), LibLocalization.getGuidePage("filteredhopper", 2) }, VABlocks.filterHopper.getRecipe(), 1);
 
     private String[] entries;
-    private String text;
     private Entry instance;
     private VisualRecipe vR;
     private int recipePage;
-
-    EnumEntry(String title, String[] entries) {
-        this.text = title;
-        this.entries = entries;
-    }
 
     EnumEntry(String[] entries) {
         this.entries = entries;

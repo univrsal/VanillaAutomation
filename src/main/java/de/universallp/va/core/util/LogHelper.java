@@ -1,5 +1,6 @@
 package de.universallp.va.core.util;
 
+import de.universallp.va.core.util.libs.LibNames;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.FMLLog;
 import org.apache.logging.log4j.Level;
@@ -11,17 +12,17 @@ public class LogHelper {
 
 
     public static void log(String message, Object... data) {
-        FMLLog.log(References.MOD_NAME, Level.INFO,
+        FMLLog.log(LibNames.MOD_NAME, Level.INFO,
                 String.format(message, data));
     }
 
     public static void logError(String message, Object... data) {
-        FMLLog.log(References.MOD_NAME, Level.ERROR,
+        FMLLog.log(LibNames.MOD_NAME, Level.ERROR,
                 String.format(message, data));
     }
 
     public static void logException(String string, Exception exception, boolean stopGame) {
-        FMLLog.log(References.MOD_NAME, Level.FATAL, string, exception);
+        FMLLog.log(LibNames.MOD_NAME, Level.FATAL, string, exception);
         exception.printStackTrace();
         if (stopGame)
             FMLCommonHandler.instance().getSidedDelegate().haltGame(string, exception);

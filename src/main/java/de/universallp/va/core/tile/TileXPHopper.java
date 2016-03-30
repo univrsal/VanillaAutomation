@@ -1,8 +1,8 @@
 package de.universallp.va.core.tile;
 
 import de.universallp.va.core.container.XPHopperItemHandler;
-import de.universallp.va.core.util.References;
 import de.universallp.va.core.util.Utils;
+import de.universallp.va.core.util.libs.LibLocalization;
 import net.minecraft.block.BlockHopper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityXPOrb;
@@ -30,7 +30,7 @@ public class TileXPHopper extends TileEntityHopper {
     private int progress;
 
     public TileXPHopper() {
-        setCustomName(I18n.format(References.Local.GUI_XPHOPPER));
+        setCustomName(I18n.format(LibLocalization.GUI_XPHOPPER));
         ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, new ItemStack[6], "inventory"); // Welp, seems to work
     }
 

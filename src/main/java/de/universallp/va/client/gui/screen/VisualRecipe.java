@@ -1,7 +1,8 @@
 package de.universallp.va.client.gui.screen;
 
 import de.universallp.va.client.gui.GuiGuide;
-import de.universallp.va.core.util.References;
+import de.universallp.va.core.util.libs.LibLocalization;
+import de.universallp.va.core.util.libs.LibNames;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 public class VisualRecipe {
 
-    private static final ResourceLocation grid = new ResourceLocation(References.MOD_ID, "textures/gui/recipe.png");
+    private static final ResourceLocation grid = new ResourceLocation(LibNames.MOD_ID, "textures/gui/recipe.png");
     private ItemStack[] stacks;
     private ItemStack   result;
     private List<String> tooltip;
@@ -38,7 +39,7 @@ public class VisualRecipe {
         int titleWidth = parent.mc.fontRendererObj.getStringWidth(type.getLocalizedName());
         int offset = parent.mc.fontRendererObj.FONT_HEIGHT + 3;
 
-        parent.mc.fontRendererObj.drawString(type.getLocalizedName(), x + 43 - titleWidth / 2, y, References.TEXT_COLOR);
+        parent.mc.fontRendererObj.drawString(type.getLocalizedName(), x + 43 - titleWidth / 2, y, LibNames.TEXT_COLOR);
         parent.mc.renderEngine.bindTexture(grid);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         parent.drawTexturedModalRect(x, (y + parent.mc.fontRendererObj.FONT_HEIGHT + 3), 0, 0, 83, 48);
@@ -101,10 +102,10 @@ public class VisualRecipe {
     }
 
     public enum EnumRecipeType {
-        SHAPED(References.Local.RECIPE_SHAPED),
-        SHAPELESS(References.Local.RECIPE_SHAPELESS),
-        SHAPED_ORE(References.Local.RECIPE_SHAPED),
-        SHAPELESS_ORE(References.Local.RECIPE_SHAPELESS);
+        SHAPED(LibLocalization.RECIPE_SHAPED),
+        SHAPELESS(LibLocalization.RECIPE_SHAPELESS),
+        SHAPED_ORE(LibLocalization.RECIPE_SHAPED),
+        SHAPELESS_ORE(LibLocalization.RECIPE_SHAPELESS);
 
         private String name;
 

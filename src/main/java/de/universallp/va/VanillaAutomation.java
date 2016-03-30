@@ -1,7 +1,7 @@
 package de.universallp.va;
 
 import de.universallp.va.core.CommonProxy;
-import de.universallp.va.core.util.References;
+import de.universallp.va.core.util.libs.LibNames;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 /**
  * Created by universallp on 19.03.2016 11:28.
  */
-@Mod(modid = References.MOD_ID, version = References.MOD_VERSION)
+@Mod(modid = LibNames.MOD_ID, version = LibNames.MOD_VERSION)
 public class VanillaAutomation {
 
     @Mod.Instance

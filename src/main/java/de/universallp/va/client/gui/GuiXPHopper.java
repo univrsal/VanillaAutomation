@@ -2,7 +2,7 @@ package de.universallp.va.client.gui;
 
 import de.universallp.va.core.container.ContainerXPHopper;
 import de.universallp.va.core.tile.TileXPHopper;
-import de.universallp.va.core.util.References;
+import de.universallp.va.core.util.libs.LibNames;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -14,7 +14,7 @@ import net.minecraft.util.ResourceLocation;
  */
 public class GuiXPHopper extends GuiContainer {
 
-    private static final ResourceLocation guiTexture = new ResourceLocation(References.MOD_ID, "textures/gui/xphopper.png");
+    private static final ResourceLocation guiTexture = new ResourceLocation(LibNames.MOD_ID, "textures/gui/xphopper.png");
 
     private int percent = 0;
     private IInventory playerInventory;

@@ -8,6 +8,7 @@ import de.universallp.va.core.container.ContainerXPHopper;
 import de.universallp.va.core.network.messages.MessageSetFieldClient;
 import de.universallp.va.core.tile.TilePlacer;
 import de.universallp.va.core.tile.TileXPHopper;
+import de.universallp.va.core.util.libs.LibGuiIDs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.ContainerDispenser;
@@ -28,10 +29,11 @@ public class GuiHandler implements IGuiHandler {
 
         if (te == null)
             return null;
-        if (ID == 0 && te instanceof TilePlacer) {
-            PacketHandler.sendTo(new MessageSetFieldClient(new int[]{0, 1}, new byte[]{((TilePlacer) te).reachDistance, (byte) ((TilePlacer) te).placeFace.ordinal()}, te.getPos()), (EntityPlayerMP) player);
+
+        if (ID == LibGuiIDs.GUI_PLACER) {
+            PacketHandler.sendFieldMsgTo((EntityPlayerMP) player, 0, 1, ((TilePlacer) te).reachDistance, (byte) ((TilePlacer) te).placeFace.ordinal(), te.getPos());
             return new ContainerDispenser(player.inventory, (IInventory) te);
-        } else if (ID == 2 && te instanceof TileXPHopper) {
+        } else if (ID == LibGuiIDs.GUI_XPHOPPER) {
             PacketHandler.sendTo(new MessageSetFieldClient(0, ((TileXPHopper) te).getProgress(), te.getPos()), (EntityPlayerMP) player);
             return new ContainerXPHopper(player.inventory, (IInventory) te);
         }
@@ -43,7 +45,7 @@ public class GuiHandler implements IGuiHandler {
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
 
-        if (ID == 1)
+        if (ID == LibGuiIDs.GUI_GUIDE)
             if (ClientProxy.hoveredEntry == null)
                 return new GuiGuide();
             else
@@ -52,9 +54,9 @@ public class GuiHandler implements IGuiHandler {
         if (te == null)
             return null;
 
-        if (ID == 0 && te instanceof TilePlacer)
+        if (ID == LibGuiIDs.GUI_PLACER)
             return new GuiPlacer(player.inventory, (TilePlacer) te, ((TilePlacer) te).reachDistance, ((TilePlacer) te).placeFace);
-        else if (ID == 2)
+        else if (ID == LibGuiIDs.GUI_XPHOPPER)
             return new GuiXPHopper(player.inventory, (IInventory) te);
 
         return null;

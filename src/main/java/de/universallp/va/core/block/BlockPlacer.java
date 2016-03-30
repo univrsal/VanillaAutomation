@@ -7,8 +7,9 @@ import de.universallp.va.core.item.VAItems;
 import de.universallp.va.core.network.PacketHandler;
 import de.universallp.va.core.network.messages.MessagePlaySound;
 import de.universallp.va.core.tile.TilePlacer;
-import de.universallp.va.core.util.References;
 import de.universallp.va.core.util.VAFakePlayer;
+import de.universallp.va.core.util.libs.LibGuiIDs;
+import de.universallp.va.core.util.libs.LibNames;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -40,7 +41,7 @@ public class BlockPlacer extends BlockVA {
     private static VisualRecipe recipe;
 
     public BlockPlacer() {
-        super(Material.rock, References.BLOCK_PLACER);
+        super(Material.rock, LibNames.BLOCK_PLACER);
         setCreativeTab(CreativeTabs.tabRedstone);
     }
 
@@ -49,7 +50,7 @@ public class BlockPlacer extends BlockVA {
         if (worldIn.isRemote)
             return true;
         else {
-            playerIn.openGui(VanillaAutomation.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
+            playerIn.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_PLACER, worldIn, pos.getX(), pos.getY(), pos.getZ());
             return true;
         }
     }
@@ -114,9 +115,11 @@ public class BlockPlacer extends BlockVA {
                         f = EnumFacing.NORTH;
                     s = s.withProperty(BlockFurnace.FACING, f);
                 }
+
                 worldObj.setBlockState(pos, s);
                 block.onBlockAdded(worldObj, pos, s);
                 block.onBlockPlaced(worldObj, pos, f, 0, 0, 0, block.getMetaFromState(s), fakePlayer);
+
                 SoundType type = block.getStepSound();
                 if (type != null)
                     PacketHandler.INSTANCE.sendToAllAround(new MessagePlaySound(type.getPlaceSound().getSoundName().toString(), pos, type.getPitch(), type.getPitch()), new NetworkRegistry.TargetPoint(fakePlayer.dimension, pos.getX(), pos.getY(), pos.getZ(), 64));
@@ -212,7 +215,7 @@ public class BlockPlacer extends BlockVA {
 
         recipe = new VisualRecipe(new ItemStack[] { cobbleStone, cobbleStone, cobbleStone,
                                                     cobbleStone, chest,       cobbleStone,
-                cobbleStone, piston, cobbleStone}, new ItemStack(VABlocks.placer, 1), VisualRecipe.EnumRecipeType.SHAPED);
+                cobbleStone, piston, cobbleStone }, new ItemStack(VABlocks.placer, 1), VisualRecipe.EnumRecipeType.SHAPED);
 
         return recipe;
     }

@@ -3,8 +3,8 @@ package de.universallp.va.core.item;
 import de.universallp.va.VanillaAutomation;
 import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.client.gui.screen.VisualRecipe;
-import de.universallp.va.core.util.References;
 import de.universallp.va.core.util.Utils;
+import de.universallp.va.core.util.libs.LibNames;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -33,7 +33,7 @@ public class ItemPokeStick extends ItemVA {
     private int harvestLevel = 0;
 
     protected ItemPokeStick() {
-        super(References.ITEM_POKESTICK);
+        super(LibNames.ITEM_POKESTICK);
         setCreativeTab(CreativeTabs.tabTools);
         setMaxStackSize(1);
         setMaxDamage(120);

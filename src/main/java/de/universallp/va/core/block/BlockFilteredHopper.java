@@ -13,7 +13,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapedRecipes;
@@ -27,20 +26,25 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- * Created by universallp on 27.03.2016 22:56.
+ * Created by universallp on 30.03.2016 13:26.
  */
-public class BlockXPHopper extends BlockHopper implements IEntryProvider {
+public class BlockFilteredHopper extends BlockHopper implements IEntryProvider {
 
     private static VisualRecipe recipe;
 
-    public BlockXPHopper() {
-        setUnlocalizedName(LibNames.BLOCK_XPHOPPER);
+    public BlockFilteredHopper() {
+        setUnlocalizedName(LibNames.BLOCK_FILTEREDHOPPER);
     }
 
     @SideOnly(Side.CLIENT)
     public void registerModel() {
-        ModelResourceLocation mdlResource = new ModelResourceLocation(LibNames.BLOCK_XPHOPPER, "inventory");
+        ModelResourceLocation mdlResource = new ModelResourceLocation(LibNames.BLOCK_FILTEREDHOPPER, "inventory");
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(this), 0, mdlResource);
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return null;
     }
 
     @Override
@@ -51,32 +55,25 @@ public class BlockXPHopper extends BlockHopper implements IEntryProvider {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
             if (tileentity instanceof TileXPHopper)
-                playerIn.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_XPHOPPER, worldIn, pos.getX(), pos.getY(), pos.getZ());
-
+                playerIn.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_FILTEREDHOPPER, worldIn, pos.getX(), pos.getY(), pos.getZ());
             return true;
         }
-    }
-
-    @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileXPHopper();
     }
 
     @Override
     public VisualRecipe getRecipe() {
         if (recipe != null)
             return recipe;
-
-        ItemStack endereye = new ItemStack(Items.ender_eye, 1);
         ItemStack hopper = new ItemStack(Blocks.hopper, 1);
-        recipe = new VisualRecipe(new ItemStack[] { endereye, null, null, hopper }, new ItemStack(VABlocks.xpHopper, 1), VisualRecipe.EnumRecipeType.SHAPED);
+        ItemStack ironbars = new ItemStack(Blocks.iron_bars, 1);
+        recipe = new VisualRecipe(new ItemStack[] { ironbars, null, null, hopper }, new ItemStack(VABlocks.filterHopper, 1), VisualRecipe.EnumRecipeType.SHAPED);
 
         return recipe;
     }
 
     @Override
     public EnumEntry getEntry() {
-        return EnumEntry.XPHOPPER;
+        return EnumEntry.FILTERED_HOPPER;
     }
 
     @Override

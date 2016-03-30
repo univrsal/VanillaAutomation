@@ -3,7 +3,9 @@ package de.universallp.va.client.gui;
 import de.universallp.va.core.network.PacketHandler;
 import de.universallp.va.core.network.messages.MessageSetFieldServer;
 import de.universallp.va.core.tile.TilePlacer;
-import de.universallp.va.core.util.References;
+import de.universallp.va.core.util.Utils;
+import de.universallp.va.core.util.libs.LibLocalization;
+import de.universallp.va.core.util.libs.LibNames;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiDispenser;
 import net.minecraft.client.resources.I18n;
@@ -41,20 +43,20 @@ public class GuiPlacer extends GuiDispenser {
 
         if (mouseX > guiLeft + 135 && mouseX < guiLeft + 152)
             if (mouseY > guiTop + 38 && mouseY < guiTop + 48)
-                drawHoveringText(Collections.singletonList(I18n.format(References.Local.GUI_DIST)), mouseX, mouseY);
+                drawHoveringText(Collections.singletonList(I18n.format(LibLocalization.GUI_DIST)), mouseX, mouseY);
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        fontRendererObj.drawString(String.valueOf(reachDistance), (reachDistance > 9 ? 138 : 141), 39, References.TEXT_COLOR);
-        fontRendererObj.drawString(I18n.format(References.Local.GUI_FACE), 9, 38, References.TEXT_COLOR);
+        fontRendererObj.drawString(String.valueOf(reachDistance), (reachDistance > 9 ? 138 : 141), 39, LibNames.TEXT_COLOR);
+        fontRendererObj.drawString(I18n.format(LibLocalization.GUI_FACE), 9, 38, LibNames.TEXT_COLOR);
     }
 
     @Override
     public void initGui() {
         super.initGui();
-        btnFace = new GuiButton(0, guiLeft + 8,   guiTop + 48, 50, 20, I18n.format(References.GUI_DIR + placeFace.getName()));
+        btnFace = new GuiButton(0, guiLeft + 8, guiTop + 48, 50, 20, I18n.format(LibNames.GUI_DIR + placeFace.getName()));
         btnUp   = new GuiButton(2, guiLeft + 134, guiTop + 15, 20, 20, "+");
         btnDown = new GuiButton(1, guiLeft + 134, guiTop + 50, 20, 20, "-");
 
@@ -71,8 +73,8 @@ public class GuiPlacer extends GuiDispenser {
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0) {
-            placeFace = References.getNext(placeFace);
-            button.displayString = I18n.format(References.GUI_DIR + placeFace.getName());
+            placeFace = Utils.getNextFacing(placeFace);
+            button.displayString = I18n.format(LibNames.GUI_DIR + placeFace.getName());
             PacketHandler.INSTANCE.sendToServer(new MessageSetFieldServer(1, placeFace.ordinal(), placer.getPos()));
 
             placer.placeFace = placeFace;
