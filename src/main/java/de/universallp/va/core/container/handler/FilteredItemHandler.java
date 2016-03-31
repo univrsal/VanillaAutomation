@@ -20,15 +20,8 @@ public class FilteredItemHandler extends VanillaHopperItemHandler {
     public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
         if (slot < 5) {
             if (te.getHasItemFilter())
-                switch (te.getFilterMode()) {
-                    case BLACKLIST:
-                        if (!te.getItemFilter().contains(stack))
-                            return super.insertItem(slot, stack, simulate);
-                        break;
-                    case WHITELIST:
-                        if (te.getItemFilter().contains(stack))
-                            return super.insertItem(slot, stack, simulate);
-                }
+                if (te.isItemValid(stack))
+                    return super.insertItem(slot, stack, simulate);
         }
         return null;
     }

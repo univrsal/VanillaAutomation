@@ -72,9 +72,6 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
     }
 
     private static boolean captureDrops(TileFilteredHopper hopper) {
-        if (net.minecraftforge.items.VanillaInventoryCodeHooks.extractHook(hopper)) {
-            return true;
-        }
         IInventory iinventory = getHopperInventory(hopper);
 
         if (iinventory != null) {
@@ -96,14 +93,14 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
                 int j = iinventory.getSizeInventory();
 
                 for (int k = 0; k < j; ++k) {
-                    if (pullItemFromSlot(hopper, iinventory, k, enumfacing)) {
-                        return true;
-                    }
+                    if (hopper.isItemValid(iinventory.getStackInSlot(k)))
+                        if (pullItemFromSlot(hopper, iinventory, k, enumfacing)) {
+                            return true;
+                        }
                 }
             }
         } else {
             for (EntityItem entityitem : getCaptureItems(hopper.getWorld(), hopper.getXPos(), hopper.getYPos(), hopper.getZPos())) {
-                System.out.println(hopper.getFilterMode());
                 if (hopper.isItemValid(entityitem.getEntityItem()))
                     if (putDropInInventoryAllSlots(hopper, entityitem)) {
                         return true;
@@ -190,8 +187,10 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        if (getHasItemFilter() && index < 5)
+
+        if (getHasItemFilter() && index < 5) {
             return isItemValid(stack);
+        }
         return false;
     }
 
@@ -207,9 +206,22 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
 
         switch (getFilterMode()) {
             case BLACKLIST:
-                return !getItemFilter().contains(s);
+                for (ItemStack stack : getItemFilter()) {
+                    if (stack != null) {
+                        if (s.getItem().equals(stack.getItem()) && s.getItemDamage() == stack.getItemDamage() && ItemStack.areItemStackTagsEqual(s, stack))
+                            return false;
+                    }
+                }
+                return true;
             case WHITELIST:
-                return getItemFilter().contains(s);
+                for (ItemStack stack : getItemFilter()) {
+                    if (stack != null) {
+                        System.out.println();
+                        if (s.getItem().equals(stack.getItem()) && s.getItemDamage() == stack.getItemDamage() && ItemStack.areItemStackTagsEqual(s, stack))
+                            return true;
+                    }
+                }
+                return false;
         }
         return false;
     }
@@ -244,6 +256,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
             filterMode = EnumFilter.values()[value];
         else
             super.setField(id, value);
+        markDirty();
     }
 
     @Override
