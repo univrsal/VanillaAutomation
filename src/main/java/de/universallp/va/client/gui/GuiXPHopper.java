@@ -2,19 +2,16 @@ package de.universallp.va.client.gui;
 
 import de.universallp.va.core.container.ContainerXPHopper;
 import de.universallp.va.core.tile.TileXPHopper;
-import de.universallp.va.core.util.libs.LibNames;
+import de.universallp.va.core.util.libs.LibResources;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.util.ResourceLocation;
 
 /**
  * Created by universallp on 28.03.2016 00:04.
  */
 public class GuiXPHopper extends GuiContainer {
-
-    private static final ResourceLocation guiTexture = new ResourceLocation(LibNames.MOD_ID, "textures/gui/xphopper.png");
 
     private int percent = 0;
     private IInventory playerInventory;
@@ -39,7 +36,7 @@ public class GuiXPHopper extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(guiTexture);
+        this.mc.getTextureManager().bindTexture(LibResources.GUI_XPHOPPER);
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);

@@ -36,6 +36,7 @@ public class BlockXPHopper extends BlockHopper implements IEntryProvider {
     public BlockXPHopper() {
         setUnlocalizedName(LibNames.BLOCK_XPHOPPER);
         setStepSound(SoundType.METAL);
+        setHardness(1);
     }
 
     @SideOnly(Side.CLIENT)

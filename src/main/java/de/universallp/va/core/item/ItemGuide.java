@@ -1,6 +1,7 @@
 package de.universallp.va.core.item;
 
 import de.universallp.va.VanillaAutomation;
+import de.universallp.va.client.ClientProxy;
 import de.universallp.va.client.gui.screen.VisualRecipe;
 import de.universallp.va.core.util.libs.LibGuiIDs;
 import de.universallp.va.core.util.libs.LibLocalization;
@@ -12,7 +13,10 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
@@ -34,6 +38,15 @@ public class ItemGuide extends ItemVA {
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
         playerIn.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_GUIDE, worldIn, 0, 0, 0);
         return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+    }
+
+    @Override
+    public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
+        if (ClientProxy.hoveredEntry != null) {
+            player.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_GUIDE, world, 0, 0, 0);
+            return EnumActionResult.SUCCESS;
+        }
+        return super.onItemUseFirst(stack, player, world, pos, side, hitX, hitY, hitZ, hand);
     }
 
     @Override

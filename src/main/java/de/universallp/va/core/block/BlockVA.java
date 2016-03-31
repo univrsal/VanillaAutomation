@@ -27,6 +27,7 @@ public class BlockVA extends Block implements IEntryProvider {
         super(materialIn);
         this.blockName = blockName;
         setUnlocalizedName(blockName);
+        setHardness(1);
     }
 
     @SideOnly(Side.CLIENT)

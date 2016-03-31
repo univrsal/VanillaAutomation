@@ -3,6 +3,7 @@ package de.universallp.va.core.block;
 import de.universallp.va.VanillaAutomation;
 import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.client.gui.screen.VisualRecipe;
+import de.universallp.va.core.tile.TileFilteredHopper;
 import de.universallp.va.core.tile.TileXPHopper;
 import de.universallp.va.core.util.IEntryProvider;
 import de.universallp.va.core.util.libs.LibGuiIDs;
@@ -45,7 +46,7 @@ public class BlockFilteredHopper extends BlockHopper implements IEntryProvider {
 
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return null;
+        return new TileFilteredHopper();
     }
 
     @Override
@@ -55,7 +56,7 @@ public class BlockFilteredHopper extends BlockHopper implements IEntryProvider {
         else {
             TileEntity tileentity = worldIn.getTileEntity(pos);
 
-            if (tileentity instanceof TileXPHopper)
+            if (tileentity instanceof TileFilteredHopper)
                 playerIn.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_FILTEREDHOPPER, worldIn, pos.getX(), pos.getY(), pos.getZ());
             return true;
         }
@@ -81,5 +82,17 @@ public class BlockFilteredHopper extends BlockHopper implements IEntryProvider {
     public void addRecipe() {
         if (getRecipe() != null)
             GameRegistry.addShapedRecipe(getRecipe().getResult(), "I", "H", 'I', Blocks.iron_bars, 'H', Blocks.hopper);
+    }
+
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity te = worldIn.getTileEntity(pos);
+        if (te != null && te instanceof TileFilteredHopper) {
+            TileFilteredHopper teF = (TileFilteredHopper) te;
+            for (int i = TileXPHopper.hopperInv; i < teF.getSizeInventory(); i++)
+                teF.setInventorySlotContents(i, null); // Clear the filters so they won't be dropped as items
+        }
+
+        super.breakBlock(worldIn, pos, state);
     }
 }

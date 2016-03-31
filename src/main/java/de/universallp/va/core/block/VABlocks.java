@@ -1,5 +1,6 @@
 package de.universallp.va.core.block;
 
+import de.universallp.va.core.tile.TileFilteredHopper;
 import de.universallp.va.core.tile.TilePlacer;
 import de.universallp.va.core.tile.TileXPHopper;
 import de.universallp.va.core.util.libs.LibNames;
@@ -29,6 +30,7 @@ public class VABlocks {
     private static void registerTiles() {
         GameRegistry.registerTileEntity(TilePlacer.class, LibNames.TILE_PLACER);
         GameRegistry.registerTileEntity(TileXPHopper.class, LibNames.TILE_XPHOPPER);
+        GameRegistry.registerTileEntity(TileFilteredHopper.class, LibNames.TILE_FILTEREDHOPPER);
     }
 
     public static void registerModels() {

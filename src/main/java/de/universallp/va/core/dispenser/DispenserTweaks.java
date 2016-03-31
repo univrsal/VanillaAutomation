@@ -17,7 +17,7 @@ public class DispenserTweaks {
     public static ShearBehaviour shearBehaviour = new ShearBehaviour();
     public static DiscBehaviour discBehaviour = new DiscBehaviour();
     public static PokeStickBehaviour pokeStickBehaviour = new PokeStickBehaviour();
-
+    public static SeedBehaviour seedBehaviour = new SeedBehaviour();
     public static void register() {
         add(Items.dye, dyeBehaviour);
 
@@ -48,6 +48,8 @@ public class DispenserTweaks {
         add(Items.record_ward, discBehaviour);
 
         add(VAItems.itemPokeStick, pokeStickBehaviour);
+
+        add(Items.wheat_seeds, seedBehaviour);
     }
 
     private static void add(Item i, IBehaviorDispenseItem b) {

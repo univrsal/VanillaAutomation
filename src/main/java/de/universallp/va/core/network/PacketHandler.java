@@ -37,6 +37,10 @@ public class PacketHandler {
         sendTo(new MessageSetFieldClient(field1, val1, pos), p);
     }
 
+    public static void sendToServer(IMessage msg) {
+        INSTANCE.sendToServer(msg);
+    }
+
     public static void writeBlockPos(ByteBuf to, BlockPos pos) {
         to.writeInt(pos.getX());
         to.writeInt(pos.getY());

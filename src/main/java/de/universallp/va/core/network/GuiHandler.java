@@ -1,11 +1,14 @@
 package de.universallp.va.core.network;
 
 import de.universallp.va.client.ClientProxy;
+import de.universallp.va.client.gui.GuiFilteredHopper;
 import de.universallp.va.client.gui.GuiGuide;
 import de.universallp.va.client.gui.GuiPlacer;
 import de.universallp.va.client.gui.GuiXPHopper;
+import de.universallp.va.core.container.ContainerFilteredHopper;
 import de.universallp.va.core.container.ContainerXPHopper;
 import de.universallp.va.core.network.messages.MessageSetFieldClient;
+import de.universallp.va.core.tile.TileFilteredHopper;
 import de.universallp.va.core.tile.TilePlacer;
 import de.universallp.va.core.tile.TileXPHopper;
 import de.universallp.va.core.util.libs.LibGuiIDs;
@@ -35,7 +38,12 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerDispenser(player.inventory, (IInventory) te);
         } else if (ID == LibGuiIDs.GUI_XPHOPPER) {
             PacketHandler.sendTo(new MessageSetFieldClient(0, ((TileXPHopper) te).getProgress(), te.getPos()), (EntityPlayerMP) player);
+            PacketHandler.sendTo(new MessageSetFieldClient(0, ((TileXPHopper) te).getName(), te.getPos()), (EntityPlayerMP) player);
             return new ContainerXPHopper(player.inventory, (IInventory) te);
+        } else if (ID == LibGuiIDs.GUI_FILTEREDHOPPER) {
+            PacketHandler.sendTo(new MessageSetFieldClient(0, ((TileFilteredHopper) te).getFilterMode().ordinal(), te.getPos()), (EntityPlayerMP) player);
+            PacketHandler.sendTo(new MessageSetFieldClient(0, ((TileFilteredHopper) te).getName(), te.getPos()), (EntityPlayerMP) player);
+            return new ContainerFilteredHopper(player.inventory, (IInventory) te);
         }
 
         return null;
@@ -58,7 +66,8 @@ public class GuiHandler implements IGuiHandler {
             return new GuiPlacer(player.inventory, (TilePlacer) te, ((TilePlacer) te).reachDistance, ((TilePlacer) te).placeFace);
         else if (ID == LibGuiIDs.GUI_XPHOPPER)
             return new GuiXPHopper(player.inventory, (IInventory) te);
-
+        else if (ID == LibGuiIDs.GUI_FILTEREDHOPPER)
+            return new GuiFilteredHopper(player.inventory, (IInventory) te);
         return null;
     }
 }

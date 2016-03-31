@@ -1,12 +1,14 @@
 package de.universallp.va.core.network.messages;
 
 import de.universallp.va.core.network.PacketHandler;
+import de.universallp.va.core.util.ICustomField;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
@@ -19,6 +21,7 @@ public class MessageSetFieldClient implements IMessage, IMessageHandler<MessageS
     public int[] integers;
     public byte[] bytes;
     public int[] fields;
+    public String[] strings;
 
     public BlockPos pos;
     public EnumMessageType type;
@@ -28,8 +31,8 @@ public class MessageSetFieldClient implements IMessage, IMessageHandler<MessageS
 
     public MessageSetFieldClient(int fieldID, int val, BlockPos tePos) {
         this.type = EnumMessageType.INT;
-        this.integers = new int[]{val};
-        this.fields = new int[]{fieldID};
+        this.integers = new int[] { val };
+        this.fields = new int[] { fieldID };
         this.pos = tePos;
     }
 
@@ -42,8 +45,8 @@ public class MessageSetFieldClient implements IMessage, IMessageHandler<MessageS
 
     public MessageSetFieldClient(int fieldID, byte val, BlockPos tePos) {
         this.type = EnumMessageType.BYTE;
-        this.bytes = new byte[]{val};
-        this.fields = new int[]{fieldID};
+        this.bytes = new byte[] { val };
+        this.fields = new int[] { fieldID };
         this.pos = tePos;
     }
 
@@ -51,6 +54,13 @@ public class MessageSetFieldClient implements IMessage, IMessageHandler<MessageS
         this.type = EnumMessageType.BYTE;
         this.bytes = val;
         this.fields = fieldID;
+        this.pos = tePos;
+    }
+
+    public MessageSetFieldClient(int fieldID, String val, BlockPos tePos) {
+        this.type = EnumMessageType.STRING;
+        this.strings = new String[] { val };
+        this.fields = new int[] { fieldID };
         this.pos = tePos;
     }
 
@@ -83,6 +93,18 @@ public class MessageSetFieldClient implements IMessage, IMessageHandler<MessageS
                 for (int i = 0; i < l; i++)
                     fields[i] = buf.readInt();
                 break;
+            case STRING:
+                l = buf.readByte();
+
+                fields = new int[l];
+                strings = new String[l];
+
+                for (int i = 0; i < l; i++)
+                    strings[i] = ByteBufUtils.readUTF8String(buf);
+
+                for (int i = 0; i < l; i++)
+                    fields[i] = buf.readInt();
+                break;
         }
 
         this.pos = PacketHandler.readBlockPos(buf);
@@ -91,6 +113,7 @@ public class MessageSetFieldClient implements IMessage, IMessageHandler<MessageS
     @Override
     public void toBytes(ByteBuf buf) {
         buf.writeShort(type.ordinal());
+
         switch (type) {
             case BYTE:
                 buf.writeByte(bytes.length);
@@ -103,6 +126,13 @@ public class MessageSetFieldClient implements IMessage, IMessageHandler<MessageS
                 buf.writeByte(integers.length);
                 for (Integer i : integers)
                     buf.writeInt(i);
+                for (Integer i : fields)
+                    buf.writeInt(i);
+                break;
+            case STRING:
+                buf.writeByte(strings.length);
+                for (String s : strings)
+                    ByteBufUtils.writeUTF8String(buf, s);
                 for (Integer i : fields)
                     buf.writeInt(i);
                 break;
@@ -130,6 +160,13 @@ public class MessageSetFieldClient implements IMessage, IMessageHandler<MessageS
                 if (message.fields != null && message.integers != null)
                     for (int i = 0; i < message.fields.length; i++)
                         inv.setField(message.fields[i], message.integers[i]);
+                break;
+            case STRING:
+                if (te instanceof ICustomField) {
+                    for (int i = 0; i < message.fields.length; i++)
+                        ((ICustomField) te).setStringField(message.fields[i], message.strings[i]);
+                }
+                break;
         }
 
 
@@ -138,6 +175,7 @@ public class MessageSetFieldClient implements IMessage, IMessageHandler<MessageS
 
     private enum EnumMessageType {
         BYTE,
-        INT
+        INT,
+        STRING
     }
 }

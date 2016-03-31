@@ -1,4 +1,4 @@
-package de.universallp.va.core.container;
+package de.universallp.va.core.container.handler;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityHopper;

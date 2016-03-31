@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -77,9 +78,10 @@ public class ItemPokeStick extends ItemVA {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-        if (!playerIn.capabilities.isCreativeMode)
+        ActionResult<ItemStack> result = super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+        if (!playerIn.capabilities.isCreativeMode && result.getType() != EnumActionResult.FAIL)
             itemStackIn.damageItem(1, playerIn);
-        return super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+        return result;
     }
 
     @Override

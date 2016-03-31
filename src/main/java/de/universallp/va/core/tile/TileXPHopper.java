@@ -1,6 +1,7 @@
 package de.universallp.va.core.tile;
 
-import de.universallp.va.core.container.XPHopperItemHandler;
+import de.universallp.va.core.container.handler.XPHopperItemHandler;
+import de.universallp.va.core.util.ICustomField;
 import de.universallp.va.core.util.Utils;
 import de.universallp.va.core.util.libs.LibLocalization;
 import net.minecraft.block.BlockHopper;
@@ -23,17 +24,16 @@ import java.util.List;
 /**
  * Created by universallp on 27.03.2016 23:58.
  */
-public class TileXPHopper extends TileEntityHopper {
+public class TileXPHopper extends TileEntityHopper implements ICustomField {
 
     public static final int xpPerBottle = 13;
-    private static final int hopperInv = 5;
+    public static final int hopperInv = 5;
     private int progress;
 
     public TileXPHopper() {
         setCustomName(I18n.format(LibLocalization.GUI_XPHOPPER));
         ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, new ItemStack[6], "inventory"); // Welp, seems to work
     }
-
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
@@ -62,7 +62,6 @@ public class TileXPHopper extends TileEntityHopper {
     @Override
     public boolean updateHopper() {
         BlockPos overHopper = getPos().up();
-        System.out.println(getName());
         List<EntityXPOrb> orbs = getWorld().getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(overHopper).expandXyz(1));
 
         if (orbs != null && orbs.size() > 0)
@@ -212,5 +211,24 @@ public class TileXPHopper extends TileEntityHopper {
     private IInventory getInventoryForHopperTransfer() {
         EnumFacing enumfacing = BlockHopper.getFacing(this.getBlockMetadata());
         return getInventoryAtPosition(this.getWorld(), this.getXPos() + (double) enumfacing.getFrontOffsetX(), this.getYPos() + (double) enumfacing.getFrontOffsetY(), this.getZPos() + (double) enumfacing.getFrontOffsetZ());
+    }
+
+    @Override
+    public void setStringField(int id, String val) {
+        switch (id) {
+            case 0:
+                setCustomName(val);
+                break;
+        }
+    }
+
+    @Override
+    public String getStringField(int id) {
+        switch (id) {
+            case 0:
+                return getName();
+            default:
+                return null;
+        }
     }
 }

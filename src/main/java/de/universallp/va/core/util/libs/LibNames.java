@@ -11,6 +11,8 @@ public class LibNames {
     // Tiles
     public static final String TILE_PLACER  = "tilePlacer";
     public static final String TILE_XPHOPPER = "tilexpHopper";
+    public static final String TILE_FILTEREDHOPPER = "tilefilteredhopper";
+
     public static final String GUI_DIR = "va.dir.";
     public static final int TEXT_COLOR = 4210752;
     private static final String PREFIX = MOD_ID + ":";

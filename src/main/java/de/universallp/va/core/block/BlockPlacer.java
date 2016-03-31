@@ -20,12 +20,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.world.BlockEvent;
@@ -45,46 +43,7 @@ public class BlockPlacer extends BlockVA {
         setCreativeTab(CreativeTabs.tabRedstone);
     }
 
-    @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (worldIn.isRemote)
-            return true;
-        else {
-            playerIn.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_PLACER, worldIn, pos.getX(), pos.getY(), pos.getZ());
-            return true;
-        }
-    }
-
-    @Override
-    public int tickRate(World worldIn)
-    {
-        return 4;
-    }
-
-    @Override
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (!worldIn.isRemote) {
-            TilePlacer tP = (TilePlacer) worldIn.getTileEntity(pos);
-            int slot = tP.getNextPlaceable();
-
-            if (slot == -1) {
-                worldIn.playAuxSFX(1001, pos, 0);
-                super.updateTick(worldIn, pos, state, rand);
-                return;
-            }
-            ItemStack placable = tP.getStackInSlot(slot);
-            EnumFacing f = getFacingFromState(state);
-            BlockPos dest = pos.add(f.getFrontOffsetX() * tP.reachDistance, f.getFrontOffsetY() * tP.reachDistance, f.getFrontOffsetZ() * tP.reachDistance);
-
-            if (placeBlock(worldIn, dest, tP.placeFace, VAFakePlayer.instance(worldIn), placable)) {
-                tP.decrStackSize(slot, 1);
-            }
-        }
-
-        super.updateTick(worldIn, pos, state, rand);
-    }
-
-    public boolean placeBlock(World worldObj, BlockPos pos, EnumFacing f, VAFakePlayer fakePlayer, ItemStack placeable) {
+    public static boolean placeBlock(World worldObj, BlockPos pos, EnumFacing f, VAFakePlayer fakePlayer, ItemStack placeable) {
         fakePlayer.setItemInHand(placeable);
         final IBlockState blockS = worldObj.getBlockState(pos);
         final Block block = Block.getBlockFromItem(placeable.getItem());
@@ -139,6 +98,44 @@ public class BlockPlacer extends BlockVA {
         }
 
         return false;
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+        if (worldIn.isRemote)
+            return true;
+        else {
+            playerIn.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_PLACER, worldIn, pos.getX(), pos.getY(), pos.getZ());
+            return true;
+        }
+    }
+
+    @Override
+    public int tickRate(World worldIn) {
+        return 4;
+    }
+
+    @Override
+    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+        if (!worldIn.isRemote) {
+            TilePlacer tP = (TilePlacer) worldIn.getTileEntity(pos);
+            int slot = tP.getNextPlaceable();
+
+            if (slot == -1) {
+                worldIn.playAuxSFX(1001, pos, 0);
+                super.updateTick(worldIn, pos, state, rand);
+                return;
+            }
+            ItemStack placable = tP.getStackInSlot(slot);
+            EnumFacing f = getFacingFromState(state);
+            BlockPos dest = pos.add(f.getFrontOffsetX() * tP.reachDistance, f.getFrontOffsetY() * tP.reachDistance, f.getFrontOffsetZ() * tP.reachDistance);
+
+            if (ForgeHooks.onPlaceItemIntoWorld(placable, VAFakePlayer.instance(worldIn), worldIn, dest, f, 0, 0, 0, EnumHand.MAIN_HAND) == EnumActionResult.SUCCESS) {
+                tP.decrStackSize(slot, 1);
+            }
+        }
+
+        super.updateTick(worldIn, pos, state, rand);
     }
 
     @Override

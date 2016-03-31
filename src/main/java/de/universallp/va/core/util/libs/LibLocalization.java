@@ -7,6 +7,8 @@ public class LibLocalization {
     public static final String GUI_DIST = "va.gui.reachdistance";
     public static final String GUI_FACE = "va.gui.face";
     public static final String GUI_XPHOPPER = "va.gui.xphopper";
+    public static final String GUI_FILTEREDHOPPER = "va.gui.filteredhopper";
+    public static final String GUI_FILTER = "va.gui.filteredhopper.filter";
     public static final String BTN_MENU = "va.gui.buttonmenu";
     public static final String BTN_BACK = "va.gui.buttonback";
     public static final String GUIDE_DESC = "item.va:vaguide.desc";
