@@ -9,7 +9,7 @@ import de.universallp.va.core.util.libs.LibLocalization;
  * Created by universallp on 21.03.2016 18:16.
  */
 public enum EnumEntry {
-    MENU(new String[] { LibLocalization.ENTRY_INTRO, LibLocalization.ENTRY_CREDITS, LibLocalization.ENTRY_BLOCKPLACER, LibLocalization.ENTRY_DISPENSER, LibLocalization.ENTRY_POKE_STICK, LibLocalization.ENTRY_XPHOPPER }),
+    MENU(new String[] { LibLocalization.ENTRY_INTRO, LibLocalization.ENTRY_CREDITS, LibLocalization.ENTRY_BLOCKPLACER, LibLocalization.ENTRY_DISPENSER, LibLocalization.ENTRY_POKE_STICK, LibLocalization.ENTRY_XPHOPPER, LibLocalization.ENTRY_FILTEREDHOPPER }),
     INTRO(new String[] { LibLocalization.getGuidePage("intro", 1) }),
     CREDITS(new String[] { LibLocalization.getGuidePage("credits", 1) }),
 

@@ -19,6 +19,7 @@ public class LibLocalization {
     public static final String ENTRY_DISPENSER = "va.guide.entry.dispenser";
     public static final String ENTRY_POKE_STICK = "va.guide.entry.pokestick";
     public static final String ENTRY_XPHOPPER = "va.guide.entry.xphopper";
+    public static final String ENTRY_FILTEREDHOPPER = "va.guide.entry.filteredhopper";
     public static final String RECIPE_SHAPED = "va.recipe.shaped";
     public static final String RECIPE_SHAPELESS = "va.recipe.shapeless";
     private static final String PAGE = "va.guide.entry.";
