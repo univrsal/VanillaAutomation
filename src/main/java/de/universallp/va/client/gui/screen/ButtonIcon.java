@@ -17,10 +17,18 @@ public class ButtonIcon extends GuiButton {
         this.icon = type;
     }
 
+    public ButtonIcon(int buttonId, int x, int y, IconType type, String text) {
+        super(buttonId, x, y, 18, 20, text);
+        this.icon = type;
+        width = Minecraft.getMinecraft().fontRendererObj.getStringWidth(text) + icon.widht + 4;
+    }
+
     @Override
     public void drawButton(Minecraft mc, int mouseX, int mouseY) {
         super.drawButton(mc, mouseX, mouseY);
-        icon.draw(this);
+        if (this.visible) {
+            icon.draw(this);
+        }
     }
 
     public IconType getIcon() {
@@ -33,8 +41,9 @@ public class ButtonIcon extends GuiButton {
 
     public enum IconType {
         WHITELIST(0, 0),
-        BLACKLIST(16, 0);
-
+        BLACKLIST(16, 0),
+        CHECKED(32, 0),
+        UNCHECKED(48, 0);
 
         private int x, y, widht, height;
 
@@ -47,10 +56,27 @@ public class ButtonIcon extends GuiButton {
 
         public void draw(GuiButton parent) {
             GlStateManager.color(1, 1, 1);
-            int xPos = parent.xPosition + parent.width / 2 - this.widht / 2;
+            int xPos = parent.xPosition + 2;
+            if (parent.displayString.equals(""))
+                xPos = parent.xPosition + parent.width / 2 - this.widht / 2;
             int yPos = parent.yPosition + parent.height / 2 - this.widht / 2;
             Minecraft.getMinecraft().getTextureManager().bindTexture(LibResources.GUI_ICONS);
             parent.drawTexturedModalRect(xPos, yPos, x, y, widht, height);
+        }
+
+        public int getWidht() {
+            return widht;
+        }
+
+        public int getHeight() {
+            return height;
+        }
+
+        public IconType toggle() {
+            if (ordinal() % 2 == 0)
+                return IconType.values()[ordinal() + 1];
+            else
+                return IconType.values()[ordinal() - 1];
         }
     }
 }

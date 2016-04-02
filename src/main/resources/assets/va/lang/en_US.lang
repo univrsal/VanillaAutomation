@@ -9,11 +9,17 @@ va.dir.west=West
 va.dir.down=Down
 va.dir.up=Up
 
-va.gui.face=Facing:
+va.gui.btn.matchmeta=Match meta
+va.gui.btn.matchnbt=Match NBT
+va.gui.btn.matchmod=Match Mod id
+
+va.gui.face=Facing
+va.gui.filteredhopper.filter=Filter
 va.gui.reachdistance=Distance between Block Placer and placed block
 va.gui.xphopper=XP Hopper
 va.gui.filteredhopper=Filtered Hopper
-va.gui.filteredhopper.filter=Filter
+
+
 
 va.recipe.shaped=Shaped Crafting
 va.recipe.shapeless=Shapeless Crafting

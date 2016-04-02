@@ -60,6 +60,13 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
     }
 
     @Override
+    public int getField(int id) {
+        if (id == 0)
+            return progress;
+        return super.getField(id);
+    }
+
+    @Override
     public boolean updateHopper() {
         BlockPos overHopper = getPos().up();
         List<EntityXPOrb> orbs = getWorld().getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(overHopper).expandXyz(1));

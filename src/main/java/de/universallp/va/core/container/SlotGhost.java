@@ -16,19 +16,16 @@ public class SlotGhost extends Slot {
     }
 
     @Override
-    public void onPickupFromSlot(EntityPlayer playerIn, ItemStack stack) {
-        // NO-OP
+    public boolean canTakeStack(EntityPlayer playerIn) {
+        putStack(null);
+        return false;
     }
 
     @Override
-    public int getSlotStackLimit() {
-        return 0;
-    }
-
-    @Override
-    public void putStack(ItemStack stack) {
-        if (stack != null)
-            stack.stackSize = 1;
-        super.putStack(stack);
+    public boolean isItemValid(ItemStack stack) {
+        ItemStack s = stack.copy();
+        s.stackSize = 1;
+        putStack(s);
+        return false;
     }
 }

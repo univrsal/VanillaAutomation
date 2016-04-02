@@ -1,6 +1,7 @@
 package de.universallp.va.client.gui;
 
 import de.universallp.va.client.gui.screen.ButtonIcon;
+import de.universallp.va.client.gui.screen.ButtonLabel;
 import de.universallp.va.core.container.ContainerFilteredHopper;
 import de.universallp.va.core.network.PacketHandler;
 import de.universallp.va.core.network.messages.MessageSetFieldServer;
@@ -26,7 +27,11 @@ public class GuiFilteredHopper extends GuiContainer {
 
     private IInventory playerInventory;
     private TileFilteredHopper hopperInventory;
+
     private ButtonIcon btnIco;
+    private ButtonLabel btnMatchMeta;
+    private ButtonLabel btnMatchNBT;
+    private ButtonLabel btnMatchMod;
 
     public GuiFilteredHopper(InventoryPlayer playerInv, IInventory hopperInv) {
         super(new ContainerFilteredHopper(playerInv, hopperInv));
@@ -39,7 +44,14 @@ public class GuiFilteredHopper extends GuiContainer {
     public void initGui() {
         super.initGui();
         btnIco = new ButtonIcon(0, guiLeft + 136, guiTop + 38, ButtonIcon.IconType.values()[hopperInventory.getFilterMode().ordinal()]);
+        btnMatchMeta = new ButtonLabel(LibLocalization.BTN_META, ButtonIcon.IconType.values()[2 + hopperInventory.getField(1)], 1, guiLeft - 50, guiTop + 8);
+        btnMatchNBT = new ButtonLabel(LibLocalization.BTN_NBT, ButtonIcon.IconType.values()[2 + hopperInventory.getField(2)], 2, guiLeft, guiTop + 20);
+        btnMatchMod = new ButtonLabel(LibLocalization.BTN_MOD, ButtonIcon.IconType.values()[2 + hopperInventory.getField(3)], 3, guiLeft, guiTop + 40);
+
         buttonList.add(btnIco);
+        buttonList.add(btnMatchMeta);
+        buttonList.add(btnMatchNBT);
+        buttonList.add(btnMatchMod);
     }
 
     @Override
@@ -56,23 +68,35 @@ public class GuiFilteredHopper extends GuiContainer {
         this.mc.getTextureManager().bindTexture(LibResources.GUI_FILTEREDHOPPER);
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
-        this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
+        drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
+        drawTexturedModalRect(guiLeft - 53, guiTop + 5, this.xSize, 0, 53, 58);
     }
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         super.actionPerformed(button);
+        int fieldID = button.id;
+        int fieldValue = 5;
+
         if (button.id == 0) {
-            if (btnIco.getIcon() == ButtonIcon.IconType.WHITELIST) {
-                btnIco.setIcon(ButtonIcon.IconType.BLACKLIST);
-                hopperInventory.setFilterMode(TileFilteredHopper.EnumFilter.BLACKLIST);
-                PacketHandler.sendToServer(new MessageSetFieldServer(0, 1, hopperInventory.getPos()));
-            } else {
-                btnIco.setIcon(ButtonIcon.IconType.WHITELIST);
-                hopperInventory.setFilterMode(TileFilteredHopper.EnumFilter.WHITELIST);
-                PacketHandler.sendToServer(new MessageSetFieldServer(0, 0, hopperInventory.getPos()));
-            }
+            btnIco.getIcon().toggle();
+            fieldValue = btnIco.getIcon() == ButtonIcon.IconType.BLACKLIST ? 1 : 0;
+            PacketHandler.sendToServer(new MessageSetFieldServer(0, fieldValue, hopperInventory.getPos()));
+        } else if (button.id == 1) {
+            btnMatchMeta.getIcon().toggle();
+            fieldValue = btnMatchMeta.getIcon() == ButtonIcon.IconType.CHECKED ? 1 : 0;
+            PacketHandler.sendToServer(new MessageSetFieldServer(1, fieldValue, hopperInventory.getPos()));
+        } else if (button.id == 2) {
+            btnMatchNBT.getIcon().toggle();
+            fieldValue = btnMatchNBT.getIcon() == ButtonIcon.IconType.CHECKED ? 1 : 0;
+            PacketHandler.sendToServer(new MessageSetFieldServer(2, fieldValue, hopperInventory.getPos()));
+        } else if (button.id == 3) {
+            btnMatchMod.getIcon().toggle();
+            fieldValue = btnMatchMod.getIcon() == ButtonIcon.IconType.CHECKED ? 1 : 0;
+            PacketHandler.sendToServer(new MessageSetFieldServer(3, fieldValue, hopperInventory.getPos()));
         }
+
+        hopperInventory.setField(fieldID, fieldValue);
     }
 
     @Override

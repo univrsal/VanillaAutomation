@@ -5,8 +5,12 @@ import de.universallp.va.core.network.messages.MessageSetFieldClient;
 import de.universallp.va.core.network.messages.MessageSetFieldServer;
 import de.universallp.va.core.util.libs.LibNames;
 import io.netty.buffer.ByteBuf;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ILockableContainer;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -29,12 +33,29 @@ public class PacketHandler {
         INSTANCE.sendTo(m, p);
     }
 
-    public static void sendFieldMsgTo(EntityPlayerMP p, int field1, int field2, byte val1, byte val2, BlockPos pos) {
-        sendTo(new MessageSetFieldClient(new int[] { field1, field2 }, new byte[] { val1, val2 }, pos), p);
-    }
+    /**
+     * Syncs all field values from a TileEntity with the server
+     * TileEntity must implement IInventory/ILockableContainer
+     *
+     * @param pl
+     * @param te
+     * @param startField
+     * @param endField
+     */
+    public static void syncFields(EntityPlayer pl, TileEntity te, int startField, int endField) {
+        if (!(te instanceof ILockableContainer))
+            return;
 
-    public static void sendFieldMsgTo(EntityPlayerMP p, int field1, byte val1, BlockPos pos) {
-        sendTo(new MessageSetFieldClient(field1, val1, pos), p);
+        byte[] values = new byte[endField - startField];
+        int[] fields = new int[endField - startField];
+
+        int index = 0;
+        for (int i = startField; i <= endField; i++) {
+            fields[index] = i;
+            values[index] = (byte) ((IInventory) te).getField(i);
+        }
+
+        sendTo(new MessageSetFieldClient(fields, values, te.getPos()), (EntityPlayerMP) pl);
     }
 
     public static void sendToServer(IMessage msg) {

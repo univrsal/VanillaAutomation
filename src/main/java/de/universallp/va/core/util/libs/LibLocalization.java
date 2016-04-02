@@ -11,6 +11,9 @@ public class LibLocalization {
     public static final String GUI_FILTER = "va.gui.filteredhopper.filter";
     public static final String BTN_MENU = "va.gui.buttonmenu";
     public static final String BTN_BACK = "va.gui.buttonback";
+    public static final String BTN_META = "va.gui.btn.matchmeta";
+    public static final String BTN_NBT = "va.gui.btn.matchnbt";
+    public static final String BTN_MOD = "va.gui.btn.matchmod";
     public static final String GUIDE_DESC = "item.va:vaguide.desc";
     public static final String GUIDE_LOOK = "va.guide.entry.lookup";
     public static final String ENTRY_INTRO = "va.guide.entry.intro";

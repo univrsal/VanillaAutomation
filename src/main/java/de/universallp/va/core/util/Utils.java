@@ -7,6 +7,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.ModContainer;
+import net.minecraftforge.fml.common.registry.GameData;
 
 import java.awt.*;
 import java.util.*;
@@ -109,5 +112,15 @@ public class Utils {
             return EnumFacing.DOWN;
         else
             return EnumFacing.values()[f.ordinal() + 1];
+    }
+
+    public static String getModName(ItemStack s) {
+        if (s == null)
+            return "nope";
+
+        String itemName = GameData.getItemRegistry().getNameForObject(s.getItem()).getResourceDomain();
+        ModContainer mod = Loader.instance().getIndexedModList().get(itemName.split(":")[0]);
+
+        return mod == null ? "Minecraft" : mod.getName();
     }
 }

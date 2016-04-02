@@ -34,15 +34,16 @@ public class GuiHandler implements IGuiHandler {
             return null;
 
         if (ID == LibGuiIDs.GUI_PLACER) {
-            PacketHandler.sendFieldMsgTo((EntityPlayerMP) player, 0, 1, ((TilePlacer) te).reachDistance, (byte) ((TilePlacer) te).placeFace.ordinal(), te.getPos());
+            PacketHandler.syncFields(player, te, 0, 1);
             return new ContainerDispenser(player.inventory, (IInventory) te);
         } else if (ID == LibGuiIDs.GUI_XPHOPPER) {
-            PacketHandler.sendTo(new MessageSetFieldClient(0, ((TileXPHopper) te).getProgress(), te.getPos()), (EntityPlayerMP) player);
+            PacketHandler.syncFields(player, te, 0, 0);
             PacketHandler.sendTo(new MessageSetFieldClient(0, ((TileXPHopper) te).getName(), te.getPos()), (EntityPlayerMP) player);
             return new ContainerXPHopper(player.inventory, (IInventory) te);
         } else if (ID == LibGuiIDs.GUI_FILTEREDHOPPER) {
-            PacketHandler.sendTo(new MessageSetFieldClient(0, ((TileFilteredHopper) te).getFilterMode().ordinal(), te.getPos()), (EntityPlayerMP) player);
-            PacketHandler.sendTo(new MessageSetFieldClient(0, ((TileFilteredHopper) te).getName(), te.getPos()), (EntityPlayerMP) player);
+            TileFilteredHopper teF = (TileFilteredHopper) te;
+            PacketHandler.syncFields(player, te, 0, 3);
+            PacketHandler.sendTo(new MessageSetFieldClient(0, teF.getName(), te.getPos()), (EntityPlayerMP) player);
             return new ContainerFilteredHopper(player.inventory, (IInventory) te);
         }
 
