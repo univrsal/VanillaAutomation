@@ -27,8 +27,8 @@ public class MessageSetFieldServer implements IMessage, IMessageHandler<MessageS
 
     public MessageSetFieldServer(int fieldID, int val, BlockPos tePos) {
         this.type = EnumMessageType.INT;
-        this.integers = new int[]{val};
-        this.fields = new int[]{fieldID};
+        this.integers = new int[] { val };
+        this.fields = new int[] { fieldID };
         this.pos = tePos;
     }
 

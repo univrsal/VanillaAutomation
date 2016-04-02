@@ -43,10 +43,10 @@ public class GuiFilteredHopper extends GuiContainer {
     @Override
     public void initGui() {
         super.initGui();
-        btnIco = new ButtonIcon(0, guiLeft + 136, guiTop + 38, ButtonIcon.IconType.values()[hopperInventory.getFilterMode().ordinal()]);
-        btnMatchMeta = new ButtonLabel(LibLocalization.BTN_META, ButtonIcon.IconType.values()[2 + hopperInventory.getField(1)], 1, guiLeft - 50, guiTop + 8);
-        btnMatchNBT = new ButtonLabel(LibLocalization.BTN_NBT, ButtonIcon.IconType.values()[2 + hopperInventory.getField(2)], 2, guiLeft, guiTop + 20);
-        btnMatchMod = new ButtonLabel(LibLocalization.BTN_MOD, ButtonIcon.IconType.values()[2 + hopperInventory.getField(3)], 3, guiLeft, guiTop + 40);
+        btnIco = new ButtonIcon(0, guiLeft + 136, guiTop + 38, ButtonIcon.IconType.values()[hopperInventory.getField(0)]);
+        btnMatchMeta = new ButtonLabel(LibLocalization.BTN_META, ButtonIcon.IconType.values()[2 + hopperInventory.getField(1)], 1, guiLeft - 83, guiTop + 12);
+        btnMatchNBT = new ButtonLabel(LibLocalization.BTN_NBT, ButtonIcon.IconType.values()[2 + hopperInventory.getField(2)], 2, guiLeft - 83, guiTop + 24);
+        btnMatchMod = new ButtonLabel(LibLocalization.BTN_MOD, ButtonIcon.IconType.values()[2 + hopperInventory.getField(3)], 3, guiLeft - 83, guiTop + 36);
 
         buttonList.add(btnIco);
         buttonList.add(btnMatchMeta);
@@ -69,7 +69,7 @@ public class GuiFilteredHopper extends GuiContainer {
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
-        drawTexturedModalRect(guiLeft - 53, guiTop + 5, this.xSize, 0, 53, 58);
+        drawTexturedModalRect(guiLeft - 83, guiTop + 5, 0, this.ySize, 83, 58);
     }
 
     @Override
@@ -79,23 +79,23 @@ public class GuiFilteredHopper extends GuiContainer {
         int fieldValue = 5;
 
         if (button.id == 0) {
-            btnIco.getIcon().toggle();
             fieldValue = btnIco.getIcon() == ButtonIcon.IconType.BLACKLIST ? 1 : 0;
             PacketHandler.sendToServer(new MessageSetFieldServer(0, fieldValue, hopperInventory.getPos()));
+            btnIco.setIcon(btnIco.getIcon().toggle());
         } else if (button.id == 1) {
-            btnMatchMeta.getIcon().toggle();
             fieldValue = btnMatchMeta.getIcon() == ButtonIcon.IconType.CHECKED ? 1 : 0;
             PacketHandler.sendToServer(new MessageSetFieldServer(1, fieldValue, hopperInventory.getPos()));
+            btnMatchMeta.setIcon(btnMatchMeta.getIcon().toggle());
         } else if (button.id == 2) {
-            btnMatchNBT.getIcon().toggle();
             fieldValue = btnMatchNBT.getIcon() == ButtonIcon.IconType.CHECKED ? 1 : 0;
             PacketHandler.sendToServer(new MessageSetFieldServer(2, fieldValue, hopperInventory.getPos()));
+            btnMatchNBT.setIcon(btnMatchNBT.getIcon().toggle());
         } else if (button.id == 3) {
-            btnMatchMod.getIcon().toggle();
             fieldValue = btnMatchMod.getIcon() == ButtonIcon.IconType.CHECKED ? 1 : 0;
             PacketHandler.sendToServer(new MessageSetFieldServer(3, fieldValue, hopperInventory.getPos()));
+            btnMatchMod.setIcon(btnMatchMod.getIcon().toggle());
         }
-
+        System.out.println(fieldID + ", " + fieldValue);
         hopperInventory.setField(fieldID, fieldValue);
     }
 

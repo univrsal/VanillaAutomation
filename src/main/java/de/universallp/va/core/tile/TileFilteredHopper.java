@@ -164,10 +164,9 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-
-        if (getHasItemFilter() && index < 5) {
+        if (index < 5)
             return isItemValid(stack);
-        }
+
         return false;
     }
 
@@ -180,54 +179,62 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
 
         if (!getHasItemFilter())
             return true;
-
+        System.out.println(filterMode);
         switch (getFilterMode()) {
             case BLACKLIST:
+                boolean flag = true;
                 for (ItemStack stack : getItemFilter()) {
-                    if (stack != null) {
-                        boolean flag = true;
-
+                    if (!matchMod) {
                         if (stack.getItem().equals(s.getItem())) {
-                            if (matchMeta)
-                                if (stack.getItemDamage() == s.getItemDamage())
-                                    flag = false;
 
-                            if (matchNBT)
-                                if (ItemStack.areItemStackTagsEqual(s, stack))
-                                    flag = false;
-                        }
-
-                        if (matchMod)
-                            if (Utils.getModName(s).equals(Utils.getModName(stack)))
+                            if (!matchMeta && !matchNBT)
                                 flag = false;
 
-                        return flag;
+                            if (matchMeta && stack.getItemDamage() == s.getItemDamage())
+                                flag = false;
+
+                            if (matchNBT && ItemStack.areItemStackTagsEqual(s, stack))
+                                flag = false;
+                        }
+                    } else {
+                        if (!Utils.getModName(s).equals(Utils.getModName(stack)))
+                            flag = false;
+
+                        if (matchMeta && stack.getItemDamage() == s.getItemDamage())
+                            flag = false;
+
+                        if (matchNBT && ItemStack.areItemStackTagsEqual(s, stack))
+                            flag = false;
                     }
                 }
-                return true;
+                return flag;
             case WHITELIST:
+                flag = false;
                 for (ItemStack stack : getItemFilter()) {
-                    if (stack != null) {
-                        boolean flag = true;
-
+                    if (!matchMod) {
                         if (stack.getItem().equals(s.getItem())) {
-                            if (matchMeta)
-                                if (stack.getItemDamage() != s.getItemDamage())
-                                    flag = false;
 
-                            if (matchNBT)
-                                if (!ItemStack.areItemStackTagsEqual(s, stack))
-                                    flag = false;
+                            if (!matchMeta && !matchNBT)
+                                flag = true;
+
+                            if (matchMeta && stack.getItemDamage() == s.getItemDamage())
+                                flag = true;
+
+                            if (matchNBT && ItemStack.areItemStackTagsEqual(s, stack))
+                                flag = true;
                         }
+                    } else {
+                        if (Utils.getModName(s).equals(Utils.getModName(stack)))
+                            flag = true;
 
-                        if (matchMod)
-                            if (!Utils.getModName(s).equals(Utils.getModName(stack)))
-                                flag = false;
+                        if (matchMeta && stack.getItemDamage() == s.getItemDamage())
+                            flag = true;
 
-                        return flag;
+                        if (matchNBT && ItemStack.areItemStackTagsEqual(s, stack))
+                            flag = true;
                     }
                 }
-                return false;
+                return flag;
         }
         return false;
     }
@@ -236,9 +243,9 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
         List<ItemStack> filter = new ArrayList<ItemStack>();
 
         for (int i = TileXPHopper.hopperInv; i < getSizeInventory(); i++) {
-            filter.add(getStackInSlot(i));
+            if (getStackInSlot(i) != null)
+                filter.add(getStackInSlot(i));
         }
-
         return filter;
     }
 

@@ -53,6 +53,7 @@ public class PacketHandler {
         for (int i = startField; i <= endField; i++) {
             fields[index] = i;
             values[index] = (byte) ((IInventory) te).getField(i);
+            System.out.println("field " + i + ":" + ((IInventory) te).getField(i));
         }
 
         sendTo(new MessageSetFieldClient(fields, values, te.getPos()), (EntityPlayerMP) pl);

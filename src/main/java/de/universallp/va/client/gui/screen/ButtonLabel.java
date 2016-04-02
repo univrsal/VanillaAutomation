@@ -25,8 +25,11 @@ public class ButtonLabel extends GuiButton {
         super(id, x, y, unlocalizedText);
         this.icon = icon;
         textColor = new Color(255, 255, 255);
-        width = Minecraft.getMinecraft().fontRendererObj.getStringWidth(I18n.format(unlocalizedText)) + 4 + icon.getWidht();
-        height = Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT > icon.getHeight() ? Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT : icon.getHeight();
+        width = Minecraft.getMinecraft().fontRendererObj.getStringWidth(I18n.format(unlocalizedText)) + 2 + icon.getWidht();
+        if (icon != ButtonIcon.IconType.CHECKED && icon != ButtonIcon.IconType.UNCHECKED)
+            height = Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT > icon.getHeight() ? Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT : icon.getHeight();
+        else
+            height = Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class ButtonLabel extends GuiButton {
         int offset = 0;
 
         if (icon != null) {
-            offset = icon.getWidht() + 4;
+            offset = icon.getWidht() + 3;
             icon.draw(this);
         }
         if (visible)
@@ -58,5 +61,9 @@ public class ButtonLabel extends GuiButton {
 
     public ButtonIcon.IconType getIcon() {
         return icon;
+    }
+
+    public void setIcon(ButtonIcon.IconType icon) {
+        this.icon = icon;
     }
 }
