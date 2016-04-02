@@ -216,7 +216,6 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
             case WHITELIST:
                 for (ItemStack stack : getItemFilter()) {
                     if (stack != null) {
-                        System.out.println();
                         if (s.getItem().equals(stack.getItem()) && s.getItemDamage() == stack.getItemDamage() && ItemStack.areItemStackTagsEqual(s, stack))
                             return true;
                     }

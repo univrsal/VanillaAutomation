@@ -23,7 +23,7 @@ public class FilteredItemHandler extends VanillaHopperItemHandler {
                 if (te.isItemValid(stack))
                     return super.insertItem(slot, stack, simulate);
         }
-        return null;
+        return stack;
     }
 
     @Override
