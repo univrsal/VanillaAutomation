@@ -40,8 +40,8 @@ public class ButtonIcon extends GuiButton {
     }
 
     public enum IconType {
-        BLACKLIST(16, 0),
         WHITELIST(0, 0),
+        BLACKLIST(16, 0),
         CHECKED(32, 0),
         UNCHECKED(48, 0);
 

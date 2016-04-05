@@ -122,6 +122,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
         compound.setByte("filtermode", (byte) filterMode.ordinal());
+        System.out.println("SAVING FILTER : " + (byte) filterMode.ordinal());
     }
 
     @Override
@@ -129,6 +130,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
         super.readFromNBT(compound);
         if (compound.hasKey("filtermode"))
             filterMode = EnumFilter.values()[compound.getByte("filtermode")];
+        System.out.println("FILTER MODE " + filterMode);
     }
 
     @Override
@@ -138,6 +140,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
 
     @Override
     public boolean updateHopper() {
+        System.out.println(filterMode.ordinal());
         if (this.worldObj != null && !this.worldObj.isRemote) {
             if (!this.isOnTransferCooldown() && BlockHopper.isEnabled(this.getBlockMetadata())) {
                 boolean flag = false;
@@ -179,7 +182,6 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
 
         if (!getHasItemFilter())
             return true;
-        System.out.println(filterMode);
         switch (getFilterMode()) {
             case BLACKLIST:
                 boolean flag = true;
