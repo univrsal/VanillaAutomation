@@ -10,12 +10,12 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.ForgeEventFactory;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
 import java.util.UUID;
@@ -46,7 +46,8 @@ public class VAFakePlayer extends FakePlayer {
     public boolean rightClick(ItemStack itemStack, BlockPos pos, EnumFacing side, float deltaX, float deltaY, float deltaZ) {
         if (itemStack == null) return false;
 
-        PlayerInteractEvent event = ForgeEventFactory.onPlayerInteract(this, PlayerInteractEvent.Action.RIGHT_CLICK_BLOCK, worldObj, pos, side, new Vec3d(pos.getX(), pos.getY(), pos.getZ()));
+        BlockSnapshot bS = new BlockSnapshot(worldObj, pos, worldObj.getBlockState(pos));
+        BlockEvent.PlaceEvent event = ForgeEventFactory.onPlayerBlockPlace(this, bS, side);
 
         if (event.isCanceled()) { return false; }
 
@@ -54,7 +55,7 @@ public class VAFakePlayer extends FakePlayer {
         EnumActionResult res = usedItem.onItemUseFirst(itemStack, this, worldObj, pos, side, deltaX, deltaY, deltaZ, EnumHand.MAIN_HAND);
         if (res == EnumActionResult.PASS || res == EnumActionResult.SUCCESS) { return true; }
 
-        if (event.getUseBlock() != Event.Result.DENY && (isSneaking() || usedItem.doesSneakBypassUse(itemStack, worldObj, pos, this))) {
+        if (event.getResult() != Event.Result.DENY && (isSneaking() || usedItem.doesSneakBypassUse(itemStack, worldObj, pos, this))) {
             IBlockState blockS = worldObj.getBlockState(pos);
             Block block = blockS.getBlock();
             if (block != null) try {
