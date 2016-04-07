@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -65,7 +66,7 @@ public class ItemVA extends Item implements IEntryProvider {
     }
 
     public void register() {
-        GameRegistry.registerItem(this, itemName);
+        GameRegistry.register(this, new ResourceLocation(itemName));
         addRecipe();
     }
 
