@@ -11,6 +11,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -33,6 +34,19 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
     public TileXPHopper() {
         setCustomName(I18n.format(LibLocalization.GUI_XPHOPPER));
         ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, new ItemStack[6], "inventory"); // Welp, seems to work
+    }
+
+    @Override
+    public void writeToNBT(NBTTagCompound compound) {
+        super.writeToNBT(compound);
+        compound.setInteger("progress", progress);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        super.readFromNBT(compound);
+        if (compound.hasKey("progress"))
+            progress = compound.getInteger("progress");
     }
 
     @Override

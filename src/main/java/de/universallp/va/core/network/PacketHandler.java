@@ -10,7 +10,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ILockableContainer;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -47,7 +46,7 @@ public class PacketHandler {
      * @param endField      Ending field value
      */
     public static void syncFieldClient(EntityPlayer pl, TileEntity te, int startField, int endField) {
-        if (!(te instanceof ILockableContainer))
+        if (!(te instanceof IInventory))
             return;
 
         byte[] values = new byte[endField - startField + 1];
