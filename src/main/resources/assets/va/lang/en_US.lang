@@ -19,7 +19,8 @@ va.gui.reachdistance=Distance between Block Placer and placed block
 va.gui.xphopper=XP Hopper
 va.gui.filteredhopper=Filtered Hopper
 
-
+va.msg.crash1=VanillaAutomation has found a crash which is likely caused by it. Click here to open a issue on the repo.
+va.msg.crash2=Or here to open a issue on the repo.
 
 va.recipe.shaped=Shaped Crafting
 va.recipe.shapeless=Shapeless Crafting

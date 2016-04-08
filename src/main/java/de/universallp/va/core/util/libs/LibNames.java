@@ -18,6 +18,7 @@ public class LibNames {
     public static final int TEXT_COLOR = 4210752;
     // Misc
     public static final String MOD_QUARK = "Quark";
+    public static final String CRASHREPORT = "de.universallp.va";
     private static final String PREFIX = MOD_ID + ":";
     // Blocks
     public static final String BLOCK_PLACER = PREFIX + "blockplacer";
