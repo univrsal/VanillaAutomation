@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -36,6 +37,7 @@ public class BlockXPHopper extends BlockHopper implements IEntryProvider {
     public BlockXPHopper() {
         setUnlocalizedName(LibNames.BLOCK_XPHOPPER);
         setStepSound(SoundType.METAL);
+        setRegistryName(new ResourceLocation(LibNames.BLOCK_XPHOPPER));
         setHardness(1);
     }
 

@@ -35,6 +35,7 @@ public class BlockFilteredHopper extends BlockHopper implements IEntryProvider {
 
     public BlockFilteredHopper() {
         setUnlocalizedName(LibNames.BLOCK_FILTEREDHOPPER);
+        setRegistryName(LibNames.BLOCK_FILTEREDHOPPER);
         setStepSound(SoundType.METAL);
     }
 

@@ -42,7 +42,7 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerXPHopper(player.inventory, (IInventory) te);
         } else if (ID == LibGuiIDs.GUI_FILTEREDHOPPER) {
             TileFilteredHopper teF = (TileFilteredHopper) te;
-            PacketHandler.syncFields(player, te, 0, 3);
+//            PacketHandler.syncFields(player, te, 0, 3);
             PacketHandler.sendTo(new MessageSetFieldClient(0, teF.getName(), te.getPos()), (EntityPlayerMP) player);
             return new ContainerFilteredHopper(player.inventory, (IInventory) te);
         }

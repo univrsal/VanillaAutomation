@@ -4,7 +4,7 @@ import de.universallp.va.core.tile.TileFilteredHopper;
 import de.universallp.va.core.tile.TilePlacer;
 import de.universallp.va.core.tile.TileXPHopper;
 import de.universallp.va.core.util.libs.LibNames;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -17,9 +17,13 @@ public class VABlocks {
     public static BlockFilteredHopper filterHopper = new BlockFilteredHopper();
 
     public static void register() {
-        GameRegistry.register(placer, new ResourceLocation(LibNames.BLOCK_PLACER));
-        GameRegistry.register(xpHopper, new ResourceLocation(LibNames.BLOCK_XPHOPPER));
-        GameRegistry.register(filterHopper, new ResourceLocation(LibNames.BLOCK_FILTEREDHOPPER));
+        GameRegistry.register(placer);
+        GameRegistry.register(xpHopper);
+        GameRegistry.register(filterHopper);
+
+        GameRegistry.register(new ItemBlock(placer), placer.getRegistryName());
+        GameRegistry.register(new ItemBlock(xpHopper), xpHopper.getRegistryName());
+        GameRegistry.register(new ItemBlock(filterHopper), filterHopper.getRegistryName());
 
         placer.addRecipe();
         xpHopper.addRecipe();

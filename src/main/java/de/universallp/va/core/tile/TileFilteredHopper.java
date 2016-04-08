@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class TileFilteredHopper extends TileEntityHopper implements ICustomField {
 
-    private EnumFilter filterMode = EnumFilter.BLACKLIST;
+    private EnumFilter filterMode = EnumFilter.WHITELIST;
 
     private boolean matchMeta = false;
     private boolean matchNBT = false;
@@ -140,7 +140,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
 
     @Override
     public boolean updateHopper() {
-        System.out.println(filterMode.ordinal());
+        System.out.println(filterMode);
         if (this.worldObj != null && !this.worldObj.isRemote) {
             if (!this.isOnTransferCooldown() && BlockHopper.isEnabled(this.getBlockMetadata())) {
                 boolean flag = false;

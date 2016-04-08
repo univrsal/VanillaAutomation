@@ -14,7 +14,6 @@ public class VAItems {
 
         ItemVA.items.add(itemGuide);
         ItemVA.items.add(itemPokeStick);
-
         registerAllItems();
     }
 

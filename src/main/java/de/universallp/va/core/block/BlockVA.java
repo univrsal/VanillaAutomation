@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -27,6 +28,7 @@ public class BlockVA extends Block implements IEntryProvider {
         super(materialIn);
         this.blockName = blockName;
         setUnlocalizedName(blockName);
+        setRegistryName(new ResourceLocation(blockName));
         setHardness(1);
     }
 
