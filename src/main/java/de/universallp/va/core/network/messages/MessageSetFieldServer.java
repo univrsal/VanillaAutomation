@@ -118,7 +118,6 @@ public class MessageSetFieldServer implements IMessage, IMessageHandler<MessageS
         if (te == null || !(te instanceof IInventory))
             return null;
         IInventory inv = (IInventory) te;
-        System.out.println("MODE FROM CLIENT: " + message.fields[0] + " : " + message.integers[0]);
         switch (message.type) {
             case BYTE:
                 if (message.fields != null && message.bytes != null)
@@ -132,7 +131,6 @@ public class MessageSetFieldServer implements IMessage, IMessageHandler<MessageS
                 break;
         }
 
-        System.out.println(inv.getField(0));
         inv.markDirty();
         return null;
     }

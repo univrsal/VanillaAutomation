@@ -80,7 +80,6 @@ public class GuiFilteredHopper extends GuiContainer {
 
         if (button.id == 0) {
             fieldValue = btnIco.getIcon() == ButtonIcon.IconType.BLACKLIST ? 0 : 1;
-            System.out.println(fieldID + " : " + fieldValue);
             PacketHandler.sendToServer(new MessageSetFieldServer(0, fieldValue, hopperInventory.getPos()));
             btnIco.setIcon(btnIco.getIcon().toggle());
         } else if (button.id == 1) {
@@ -96,7 +95,6 @@ public class GuiFilteredHopper extends GuiContainer {
             PacketHandler.sendToServer(new MessageSetFieldServer(3, fieldValue, hopperInventory.getPos()));
             btnMatchMod.setIcon(btnMatchMod.getIcon().toggle());
         }
-        System.out.println(fieldID + ", " + fieldValue);
         hopperInventory.setField(fieldID, fieldValue);
         hopperInventory.markDirty();
     }

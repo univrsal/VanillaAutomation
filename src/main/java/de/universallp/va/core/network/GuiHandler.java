@@ -34,15 +34,15 @@ public class GuiHandler implements IGuiHandler {
             return null;
 
         if (ID == LibGuiIDs.GUI_PLACER) {
-            PacketHandler.syncFields(player, te, 0, 1);
+            PacketHandler.syncFieldClient(player, te, 0, 1);
             return new ContainerDispenser(player.inventory, (IInventory) te);
         } else if (ID == LibGuiIDs.GUI_XPHOPPER) {
-            PacketHandler.syncFields(player, te, 0, 0);
+            PacketHandler.syncFieldClient(player, te, 0, 0);
             PacketHandler.sendTo(new MessageSetFieldClient(0, ((TileXPHopper) te).getName(), te.getPos()), (EntityPlayerMP) player);
             return new ContainerXPHopper(player.inventory, (IInventory) te);
         } else if (ID == LibGuiIDs.GUI_FILTEREDHOPPER) {
             TileFilteredHopper teF = (TileFilteredHopper) te;
-//            PacketHandler.syncFields(player, te, 0, 3);
+            PacketHandler.syncFieldClient(player, te, 0, 3);
             PacketHandler.sendTo(new MessageSetFieldClient(0, teF.getName(), te.getPos()), (EntityPlayerMP) player);
             return new ContainerFilteredHopper(player.inventory, (IInventory) te);
         }

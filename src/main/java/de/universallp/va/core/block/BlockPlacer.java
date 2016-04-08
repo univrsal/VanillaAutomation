@@ -20,7 +20,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
@@ -126,13 +129,15 @@ public class BlockPlacer extends BlockVA {
                 super.updateTick(worldIn, pos, state, rand);
                 return;
             }
+
             ItemStack placable = tP.getStackInSlot(slot);
             EnumFacing f = getFacingFromState(state);
             BlockPos dest = pos.add(f.getFrontOffsetX() * tP.reachDistance, f.getFrontOffsetY() * tP.reachDistance, f.getFrontOffsetZ() * tP.reachDistance);
 
-            if (ForgeHooks.onPlaceItemIntoWorld(placable, VAFakePlayer.instance(worldIn), worldIn, dest, f, 0, 0, 0, EnumHand.MAIN_HAND) == EnumActionResult.SUCCESS) {
-                tP.decrStackSize(slot, 1);
-            }
+            ForgeHooks.onPlaceItemIntoWorld(placable, VAFakePlayer.instance(worldIn), worldIn, dest, f, 0, 0, 0, EnumHand.MAIN_HAND);
+
+            if (tP.getStackInSlot(slot).stackSize == 0)
+                tP.decrStackSize(slot, 1); // Forge leaves stacks with 0 size so I'll get rid of it
         }
 
         super.updateTick(worldIn, pos, state, rand);

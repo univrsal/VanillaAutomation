@@ -33,29 +33,32 @@ public class PacketHandler {
         INSTANCE.sendTo(m, p);
     }
 
+    public static void sendTo(IMessage m) {
+        INSTANCE.sendToServer(m);
+    }
+
     /**
-     * Syncs all field values from a TileEntity with the server
+     * Syncs all field values from a server TileEntity with the client
      * TileEntity must implement IInventory/ILockableContainer
      *
-     * @param pl
-     * @param te
-     * @param startField
-     * @param endField
+     * @param pl            The target player for the message
+     * @param te            The tileentity to sync
+     * @param startField    Starting field value
+     * @param endField      Ending field value
      */
-    public static void syncFields(EntityPlayer pl, TileEntity te, int startField, int endField) {
+    public static void syncFieldClient(EntityPlayer pl, TileEntity te, int startField, int endField) {
         if (!(te instanceof ILockableContainer))
             return;
 
-        byte[] values = new byte[endField - startField];
-        int[] fields = new int[endField - startField];
+        byte[] values = new byte[endField - startField + 1];
+        int[] fields = new int[endField - startField + 1];
 
         int index = 0;
         for (int i = startField; i <= endField; i++) {
             fields[index] = i;
             values[index] = (byte) ((IInventory) te).getField(i);
-            System.out.println("field " + i + ":" + ((IInventory) te).getField(i));
+            index++;
         }
-
         sendTo(new MessageSetFieldClient(fields, values, te.getPos()), (EntityPlayerMP) pl);
     }
 

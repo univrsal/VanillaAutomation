@@ -19,9 +19,13 @@ public class FilteredItemHandler extends VanillaHopperItemHandler {
     @Override
     public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
         if (slot < 5) {
-            if (te.getHasItemFilter())
-                if (te.isItemValid(stack))
+            if (te.getHasItemFilter()) {
+                if (te.isItemValid(stack)) {
                     return super.insertItem(slot, stack, simulate);
+                }
+
+            } else
+                return super.insertItem(slot, stack, simulate);
         }
         return stack;
     }

@@ -149,7 +149,6 @@ public class MessageSetFieldClient implements IMessage, IMessageHandler<MessageS
         if (te == null || !(te instanceof IInventory))
             return null;
         IInventory inv = (IInventory) te;
-
         switch (message.type) {
             case BYTE:
                 if (message.fields != null && message.bytes != null)

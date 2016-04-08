@@ -51,7 +51,6 @@ public class SwordBehaviour implements IBehaviorDispenseItem {
             float f = ((ItemSword) tool.getItem()).getDamageVsEntity();
             float f1 = EnchantmentHelper.getModifierForCreature(tool, e.getCreatureAttribute());
             float f3 = (float) p.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
-            System.out.println(f1);
             e.attackEntityFrom(DamageSource.causePlayerDamage(p), f + f1 + f3 + 3);
 
             int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.fireAspect, tool);
