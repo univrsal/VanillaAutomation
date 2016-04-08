@@ -1,32 +1,42 @@
 package de.universallp.va.core.dispenser;
 
-import de.universallp.va.core.util.VAFakePlayer;
-import net.minecraft.block.BlockDirectional;
-import net.minecraft.block.state.IBlockState;
+import de.universallp.va.core.network.PacketHandler;
+import de.universallp.va.core.network.messages.MessagePlaySound;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.block.SoundType;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 
 /**
  * Created by universallp on 31.03.2016 14:10.
  */
 public class SeedBehaviour implements IBehaviorDispenseItem {
 
+    private Block b;
+
+    public SeedBehaviour(Block b) {
+        this.b = b;
+    }
+
     @Override
     public ItemStack dispense(IBlockSource source, ItemStack stack) {
-        World worldIn = source.getBlockTileEntity().getWorld();
-        EnumFacing facing = (EnumFacing) worldIn.getBlockState(source.getBlockPos()).getProperties().get(BlockDirectional.FACING);
-        BlockPos pos = source.getBlockPos().add(facing.getDirectionVec());
-        IBlockState state = worldIn.getBlockState(pos);
-        IPlantable pl = (IPlantable) stack.getItem();
+        EnumFacing facing = BlockDispenser.getFacing(source.getBlockMetadata());
+        BlockPos pos = source.getBlockPos().offset(facing);
+        World world = source.getWorld();
 
-        if (facing == EnumFacing.UP && VAFakePlayer.instance(worldIn).canPlayerEdit(pos.offset(facing), facing, stack) && state.getBlock().canSustainPlant(state, worldIn, pos, EnumFacing.UP, pl) && worldIn.isAirBlock(pos.up())) {
-            worldIn.setBlockState(pos.up(), pl.getPlant(worldIn, pos));
-            --stack.stackSize;
+        if (world.isAirBlock(pos) && b.canPlaceBlockAt(world, pos)) {
+            world.setBlockState(pos, b.getDefaultState());
+            stack.stackSize--;
+            NetworkRegistry.TargetPoint tp = new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64);
+            SoundType sound = b.getStepSound();
+            PacketHandler.INSTANCE.sendToAllAround(new MessagePlaySound(sound.getBreakSound().getSoundName().toString(), pos, sound.getPitch(), sound.getVolume()), tp);
+            return stack;
         }
 
         return stack;

@@ -42,8 +42,11 @@ public class GuideHandler {
     public void drawGameOverlay(RenderGameOverlayEvent.Post e) {
         ItemStack heldItem = Utils.getCarriedItem(FMLClientHandler.instance().getClientPlayerEntity());
 
-        if (e.getType() == RenderGameOverlayEvent.ElementType.ALL)
+        boolean flag = false;
+
+        if (e.getType() == RenderGameOverlayEvent.ElementType.ALL) {
             if (heldItem != null && heldItem.getItem().equals(VAItems.itemGuide)) {
+
                 Minecraft mc = Minecraft.getMinecraft();
                 RayTraceResult r = mc.objectMouseOver;
 
@@ -66,6 +69,7 @@ public class GuideHandler {
                             int y = e.getResolution().getScaledHeight() / 2;
                             mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
                             mc.fontRendererObj.drawString(I18n.format(LibLocalization.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
+                            flag = true;
                         } else {
                             Entity mouseOver = getMouseOver(e.getPartialTicks(), 5, mc);
                             if (mouseOver != null && mouseOver instanceof EntityItem && mc.currentScreen == null) {
@@ -80,12 +84,17 @@ public class GuideHandler {
                                     int y = e.getResolution().getScaledHeight() / 2;
                                     mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
                                     mc.fontRendererObj.drawString(I18n.format(LibLocalization.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
+                                    flag = true;
                                 }
-                            } else
-                                ClientProxy.hoveredEntry = null;
+                            }
                         }
-                }
+                    }
             }
+
+            if (!flag)
+                ClientProxy.hoveredEntry = null;
+        }
+
     }
 
     /**

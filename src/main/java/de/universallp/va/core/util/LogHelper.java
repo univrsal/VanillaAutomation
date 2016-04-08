@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Level;
 public class LogHelper {
 
 
-    public static void log(String message, Object... data) {
+    public static void logInfo(String message, Object... data) {
         FMLLog.log(LibNames.MOD_NAME, Level.INFO,
                 String.format(message, data));
     }

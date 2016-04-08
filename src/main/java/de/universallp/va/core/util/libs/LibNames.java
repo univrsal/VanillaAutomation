@@ -8,6 +8,7 @@ public class LibNames {
     public static final String MOD_ID = "va";
     public static final String MOD_NAME = "VanillaAutomation";
     public static final String MOD_VERSION = "1.9-1.0";
+
     // Tiles
     public static final String TILE_PLACER  = "tilePlacer";
     public static final String TILE_XPHOPPER = "tilexpHopper";
@@ -15,6 +16,8 @@ public class LibNames {
 
     public static final String GUI_DIR = "va.dir.";
     public static final int TEXT_COLOR = 4210752;
+    // Misc
+    public static final String MOD_QUARK = "Quark";
     private static final String PREFIX = MOD_ID + ":";
     // Blocks
     public static final String BLOCK_PLACER = PREFIX + "blockplacer";
