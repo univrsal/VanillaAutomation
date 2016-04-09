@@ -12,17 +12,15 @@ public class LogHelper {
 
 
     public static void logInfo(String message, Object... data) {
-        FMLLog.log(LibNames.MOD_NAME, Level.INFO,
-                String.format(message, data));
+        FMLLog.log(LibNames.MOD_NAME, Level.INFO, "[VanillaAutomation] " + String.format(message, data));
     }
 
     public static void logError(String message, Object... data) {
-        FMLLog.log(LibNames.MOD_NAME, Level.ERROR,
-                String.format(message, data));
+        FMLLog.log(LibNames.MOD_NAME, Level.ERROR, String.format(message, data));
     }
 
     public static void logException(String string, Exception exception, boolean stopGame) {
-        FMLLog.log(LibNames.MOD_NAME, Level.FATAL, string, exception);
+        FMLLog.log(LibNames.MOD_NAME, Level.FATAL, "[VanillaAutomation] " + string, exception);
         exception.printStackTrace();
         if (stopGame)
             FMLCommonHandler.instance().getSidedDelegate().haltGame(string, exception);

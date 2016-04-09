@@ -11,6 +11,7 @@ import net.minecraft.util.text.Style;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.server.FMLServerHandler;
@@ -21,7 +22,7 @@ import java.util.Scanner;
 
 /**
  * Created by universallp on 08.04.2016 20:08.
- * <p/>
+ *
  * Reads latest crash report, if it was caused by VA it'll suggest GitHub to report it
  */
 public class CrashReportHandler {
@@ -74,19 +75,25 @@ public class CrashReportHandler {
         return lastModifiedFile;
     }
 
+    public static void onServerStart(FMLServerStartingEvent event) {
+        if (latestCrash != null && event.getSide() == Side.SERVER) {
+            LogHelper.logInfo(I18n.format(LibLocalization.MSG_CRASH2, latestCrash.getName()));
+            ConfigHandler.LATEST_CRASH = latestCrash.getName();
+            if (ConfigHandler.config != null)
+                ConfigHandler.config.save();
+        }
+    }
+
     @SubscribeEvent
     public void onWorldJoined(EntityJoinWorldEvent e) {
-        if (e != null && e.getEntity() instanceof EntityPlayer && e.getWorld().isRemote)
+        if (e != null && e.getEntity() instanceof EntityPlayer && e.getWorld().isRemote && latestCrash != null)
             if (!latestCrash.getName().equals(ConfigHandler.LATEST_CRASH)) {
                 ClickEvent issues = new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/UniversalLP/VanillaAutomation/issues");
                 Style s = new Style().setChatClickEvent(issues);
                 ITextComponent msg = new TextComponentString(I18n.format(LibLocalization.MSG_CRASH1)).setChatStyle(s);
 
-                ConfigHandler.LATEST_CRASH = latestCrash.getName();
                 ConfigHandler.config.save();
                 ((EntityPlayer) e.getEntity()).addChatComponentMessage(msg);
             }
     }
-
-
 }

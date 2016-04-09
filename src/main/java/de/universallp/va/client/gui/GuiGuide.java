@@ -51,7 +51,7 @@ public class GuiGuide extends GuiScreen {
         btnNext = new ButtonLabel("-->", 2, width / 2 + 38, height / 2 + 100);
         btnLast = new ButtonLabel("<--", 3, width / 2 - 56, height / 2 + 100);
 
-        btnBack.enabled = lastEntry != null;
+        btnBack.enabled = lastEntry != null || !currentEntry.equals(EnumEntry.MENU.getEntry());
 
         btnNext.enabled = currentEntry.getPage() < currentEntry.getMaxPages() - 1;
 
@@ -80,11 +80,19 @@ public class GuiGuide extends GuiScreen {
         super.drawScreen(mouseX, mouseY, partialTicks);
         if (currentEntry.getCurrentPage().getRecipe() != null && currentEntry.getCurrentPage().getRecipe().getTooltip() != null)
             drawHoveringText(currentEntry.getCurrentPage().getRecipe().getTooltip(), mouseX, mouseY, currentEntry.getCurrentPage().getRecipe().getFontRenderer());
-
     }
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
+        if (mouseButton == 1) // To last entry
+            actionPerformed(btnBack);
+
+        if (mouseButton == 3) // Side button on mouse to go back
+            actionPerformed(btnLast);
+
+        if (mouseButton == 4)// Side button on mouse to go forward
+            actionPerformed(btnNext);
+
         currentEntry.onClick(mouseX, mouseY, mouseButton, this);
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
@@ -93,9 +101,16 @@ public class GuiGuide extends GuiScreen {
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0) // Menu
             currentEntry = EnumEntry.MENU.getEntry();
-        else if (button.id == 1) // Back
-            currentEntry = lastEntry;
-        else if (button.id == 2) { // Next page
+        else if (button.id == 1) { // Back
+            if (!currentEntry.equals(EnumEntry.MENU.getEntry())) {
+                lastEntry = currentEntry;
+                currentEntry = EnumEntry.MENU.getEntry();
+            } else if (lastEntry != null) {
+                Entry e = lastEntry;
+                lastEntry = currentEntry;
+                currentEntry = e;
+            }
+        } else if (button.id == 2) { // Next page
             if (currentEntry.getPage() < currentEntry.getMaxPages() - 1)
                 currentEntry.setPage(currentEntry.getPage() + 1);
         } else if (button.id == 3) {
@@ -108,7 +123,7 @@ public class GuiGuide extends GuiScreen {
     @Override
     public void updateScreen() {
         super.updateScreen();
-        btnBack.enabled = lastEntry != null;
+        btnBack.enabled = lastEntry != null || !currentEntry.equals(EnumEntry.MENU.getEntry());
 
         btnNext.enabled = currentEntry.getPage() < currentEntry.getMaxPages() - 1;
 
@@ -125,5 +140,9 @@ public class GuiGuide extends GuiScreen {
     public void setCurrentEntry(Entry currentEntry) {
         this.lastEntry = currentEntry;
         this.currentEntry = currentEntry;
+    }
+
+    public void drawRectangle(int left, int top, int right, int bottom, int startC, int endC) {
+        drawGradientRect(left, top, right, bottom, startC, endC);
     }
 }

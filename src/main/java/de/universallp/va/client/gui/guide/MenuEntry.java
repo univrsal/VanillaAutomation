@@ -13,6 +13,9 @@ import java.awt.*;
  */
 public class MenuEntry {
 
+    private static final int SELECTED = new Color(90, 90, 90).getRGB();
+    private static final int UNSELECTED = new Color(40, 40, 40).getRGB();
+    private static final int BACKGROUND = new Color(230, 230, 230).getRGB();
     private String name;
     private EnumEntry pointsTo;
 
@@ -22,12 +25,11 @@ public class MenuEntry {
     }
 
     public void draw(int mouseX, int mouseY, int x, int y, GuiGuide parent) {
-
         if (mouseOver(mouseX, mouseY, x, y)) {
-            parent.mc.fontRendererObj.drawString(I18n.format(name), x, y, new Color(90, 90, 90).getRGB());
-
+            parent.mc.fontRendererObj.drawString(I18n.format(name), x, y, SELECTED);
+            parent.drawRectangle(x - 1, y, x + 113, y + Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT, BACKGROUND & 0x22000000, BACKGROUND & 0x22000000);
         } else {
-            parent.mc.fontRendererObj.drawString(I18n.format(name), x, y, new Color(40, 40, 40).getRGB());
+            parent.mc.fontRendererObj.drawString(I18n.format(name), x, y, UNSELECTED);
         }
     }
 

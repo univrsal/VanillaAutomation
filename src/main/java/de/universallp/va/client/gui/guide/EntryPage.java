@@ -57,7 +57,8 @@ public class EntryPage {
             }
 
             for (int i = 0; i < menuEntries.size(); i++)
-                menuEntries.get(i).draw(mouseX, mouseY, x, y + 9 + (parent.mc.fontRendererObj.FONT_HEIGHT + 2) * i, parent);
+                menuEntries.get(i).draw(mouseX, mouseY, x + 3, y + 11 + (parent.mc.fontRendererObj.FONT_HEIGHT + 2) * i, parent);
+
         } else {
             if (image != null) {
                 parent.mc.renderEngine.bindTexture(image);
@@ -83,7 +84,7 @@ public class EntryPage {
     public void onMouseDown(int mouseX, int mouseY, int x, int y, int button, GuiGuide p) {
         for (int i = 0; i < menuEntries.size(); i++) {
 
-            if (menuEntries.get(i).mouseOver(mouseX, mouseY, x, y + 9 + (Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 2) * i)) {
+            if (menuEntries.get(i).mouseOver(mouseX, mouseY, x + 3, y + 11 + (Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT + 2) * i)) {
                 menuEntries.get(i).onClick(mouseX, mouseY, button, p);
             }
         }

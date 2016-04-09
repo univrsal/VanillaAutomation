@@ -1,6 +1,7 @@
 package de.universallp.va;
 
 import de.universallp.va.core.CommonProxy;
+import de.universallp.va.core.handler.CrashReportHandler;
 import de.universallp.va.core.util.libs.LibNames;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -8,6 +9,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 /**
  * Created by universallp on 19.03.2016 11:28.
@@ -18,7 +20,7 @@ public class VanillaAutomation {
     @Mod.Instance
     public static VanillaAutomation instance;
 
-    @SidedProxy(clientSide = "de.universallp.va.client.ClientProxy", serverSide = "de.universallp.va.core.CommonProxy")
+    @SidedProxy(clientSide = LibNames.CLIENT_PROXY, serverSide = LibNames.SERVER_PROXY)
     public static CommonProxy proxy;
 
     @EventHandler
@@ -32,7 +34,12 @@ public class VanillaAutomation {
     }
 
     @EventHandler
-    public void pstInit(FMLPostInitializationEvent event) {
+    public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
+    }
+
+    @EventHandler
+    public void serverStarting(FMLServerStartingEvent event) {
+        CrashReportHandler.onServerStart(event);
     }
 }
