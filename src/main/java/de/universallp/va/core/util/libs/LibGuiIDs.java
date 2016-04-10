@@ -10,4 +10,5 @@ public class LibGuiIDs {
     public static final byte GUI_XPHOPPER = 2;
     public static final byte GUI_FILTEREDHOPPER = 3;
 
+    public static final String GUI_XPHOPPERMINECART = LibNames.MOD_ID + ":" + "xphopper";
 }

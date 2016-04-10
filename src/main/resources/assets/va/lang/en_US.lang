@@ -29,6 +29,8 @@ va.recipe.shapeless=Shapeless Crafting
 item.va:vaguide.name=Guide
 item.va:vaguide.desc=Help with VanillaAutomation
 item.va:pokestick.name=Poke Stick
+item.va:xphopperminecart.name=XP Hopper Minecart
+item.va:filteredhopperminecart=Filtered Hopper Minecart
 
 # Blocks
 tile.va:blockplacer.name=Block Placer

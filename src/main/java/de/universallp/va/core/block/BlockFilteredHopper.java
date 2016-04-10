@@ -81,8 +81,7 @@ public class BlockFilteredHopper extends BlockHopper implements IEntryProvider {
 
     @Override
     public void addRecipe() {
-        if (getRecipe() != null)
-            GameRegistry.addShapedRecipe(getRecipe().getResult(), "I", "H", 'I', Blocks.iron_bars, 'H', Blocks.hopper);
+        GameRegistry.addShapedRecipe(getRecipe().getResult(), "I", "H", 'I', Blocks.iron_bars, 'H', Blocks.hopper);
     }
 
     @Override

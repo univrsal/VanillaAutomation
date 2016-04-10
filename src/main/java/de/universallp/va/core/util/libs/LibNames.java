@@ -18,15 +18,23 @@ public class LibNames {
 
     public static final String GUI_DIR = "va.dir.";
     public static final int TEXT_COLOR = 4210752;
+
     // Misc
     public static final String MOD_QUARK = "Quark";
     public static final String CRASHREPORT = "de.universallp.va";
     private static final String PREFIX = MOD_ID + ":";
+
     // Blocks
     public static final String BLOCK_PLACER = PREFIX + "blockplacer";
     public static final String BLOCK_XPHOPPER = PREFIX + "xphopper";
     public static final String BLOCK_FILTEREDHOPPER = PREFIX + "filteredhopper";
+
     // Items
     public static final String ITEM_GUIDE = PREFIX + "vaguide";
     public static final String ITEM_POKESTICK = PREFIX + "pokestick";
+    public static final String ITEM_XPHOPPERMINECART = PREFIX + "xphopperminecart";
+    public static final String ITEM_FILTEREDHOPPERMINECART = PREFIX + "filteredhopperminecart";
+
+    // Entities
+    public static final String ENTITY_XPHOPPERMINECART = PREFIX + "xphopperminecart";
 }

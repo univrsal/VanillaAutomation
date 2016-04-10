@@ -32,6 +32,7 @@ public class ItemGuide extends ItemVA {
     public ItemGuide() {
         super(LibNames.ITEM_GUIDE);
         setCreativeTab(CreativeTabs.tabTools);
+        setMaxStackSize(1);
     }
 
     @Override
