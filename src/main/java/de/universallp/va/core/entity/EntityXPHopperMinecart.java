@@ -1,6 +1,5 @@
 package de.universallp.va.core.entity;
 
-import de.universallp.va.VanillaAutomation;
 import de.universallp.va.core.block.VABlocks;
 import de.universallp.va.core.container.ContainerXPHopper;
 import de.universallp.va.core.util.libs.LibGuiIDs;
@@ -74,8 +73,12 @@ public class EntityXPHopperMinecart extends EntityMinecartHopper {
 
     @Override
     public boolean processInitialInteract(EntityPlayer player, ItemStack stack, EnumHand hand) {
-        player.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_XPHOPPER, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
+        if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.entity.minecart.MinecartInteractEvent(this, player, stack, hand)))
+            return true;
+        if (!this.worldObj.isRemote) {
+            player.displayGUIChest(this);
+        }
 
-        return super.processInitialInteract(player, stack, hand);
+        return true;
     }
 }

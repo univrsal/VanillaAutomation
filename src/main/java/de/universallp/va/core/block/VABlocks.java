@@ -12,9 +12,15 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  */
 public class VABlocks {
 
-    public static BlockPlacer placer = new BlockPlacer();
-    public static BlockXPHopper xpHopper = new BlockXPHopper();
-    public static BlockFilteredHopper filterHopper = new BlockFilteredHopper();
+    public static BlockPlacer placer;
+    public static BlockXPHopper xpHopper;
+    public static BlockFilteredHopper filterHopper;
+
+    public static void init() {
+        placer = new BlockPlacer();
+        xpHopper = new BlockXPHopper();
+        filterHopper = new BlockFilteredHopper();
+    }
 
     public static void register() {
         GameRegistry.register(placer);

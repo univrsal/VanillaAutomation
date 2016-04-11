@@ -34,7 +34,7 @@ public class Utils {
                 if (f.getStringWidth(words.get(wordIndex)) >= maxWidth)
                     break main;
 
-                if (words.get(wordIndex).equals("/n")) {
+                if (words.get(wordIndex).equals("\n")) {
                     f.drawString(currentLine, x, y + (f.FONT_HEIGHT + 2) * line, c.getRGB(), shadow);
                     currentLine = "";
                     line++;

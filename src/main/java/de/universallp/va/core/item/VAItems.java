@@ -20,10 +20,9 @@ public class VAItems {
         ItemVA.items.add(itemGuide);
         ItemVA.items.add(itemPokeStick);
         ItemVA.items.add(itemCartXPHopper);
-        registerAllItems();
     }
 
-    private static void registerAllItems() {
+    public static void register() {
         for (ItemVA item : ItemVA.items)
             item.register();
     }

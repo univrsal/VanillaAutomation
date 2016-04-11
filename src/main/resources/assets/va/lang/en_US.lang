@@ -38,6 +38,7 @@ tile.va:xphopper.name=XP Hopper
 tile.va:filteredhopper.name=Filtered Hopper
 
 # Guide
+va.jei.guideinfo=A book to guide you through the mod VanillaAutomation
 va.gui.buttonmenu=Menu
 va.gui.buttonback=Back
 
@@ -53,27 +54,27 @@ va.guide.entry.xphopper=The XP Hopper
 va.guide.entry.filteredhopper=The Filtered Hopper
 
 # Intro
-va.guide.entry.intro.page1=Welcome to VanillaAutomation! /n This mod adds blocks and tweaks to the dispenser to allow for automation without making it too easy. /n Take a look at the different entries to see what is added and changed.
+va.guide.entry.intro.page1=Welcome to VanillaAutomation! \n This mod adds blocks and tweaks to the dispenser to allow for automation without making it too easy. \n Take a look at the different entries to see what is added and changed.
 
 # Credits
-va.guide.entry.credits.page1=VanillaAutomation /n by universal /n /n This mod  wouldn't have been possible without other open-source mods. /n Special thanks to: /n Pahimar /n Amadornes /n Vazkii /n The Forge Team
+va.guide.entry.credits.page1=VanillaAutomation \n by universal \n \n This mod  wouldn't have been possible without other open-source mods. \n Special thanks to: \n Pahimar \n Amadornes \n Vazkii \n The Forge Team
 
 # Blockplacer
-va.guide.entry.blockplacer.page1=The block placer can, as it's name suggests, place blocks in the world. It'll also right-click with any items at the position it would normally place things at. /n You can change the facing and the placing distance in the gui.
+va.guide.entry.blockplacer.page1=The block placer can, as it's name suggests, place blocks in the world. It'll also right-click with any items at the position it would normally place things at. \n You can change the facing and the placing distance in the gui.
 va.guide.entry.blockplacer.page2="Steve in a box"
 
 # Dispenser
-va.guide.entry.dispenser.page1=With VanillaAutomation installed the dispenser receives a few tweaks to allow it to automate things. /n The following things are new: /n Placing any vanilla pickaxe in the dispenser allows it to break blocks. /n Dye will dye any sheep in front and bone meal will be applied to the ground. Also shears will shear sheep.
-va.guide.entry.dispenser.page2=The dispenser now also can insert and take out music discs from the jukebox in front of it. /n Also the dispenser will place seeds (Provided Quark isn't installed) and use swords to damage entities in front of it.
+va.guide.entry.dispenser.page1=With VanillaAutomation installed the dispenser receives a few tweaks to allow it to automate things. \n The following things are new: \n Placing any vanilla pickaxe in the dispenser allows it to break blocks. \n Dye will dye any sheep in front and bone meal will be applied to the ground. Also shears will shear sheep.
+va.guide.entry.dispenser.page2=The dispenser now also can insert and take out music discs from the jukebox in front of it. \n Also the dispenser will place seeds (Provided Quark isn't installed) and use swords to damage entities in front of it.
 
 # Poke Stick
 va.guide.entry.pokestick.page1=This stick has two uses. For one it'll double your reach distance while you hold it, so you can reach those pesky spots without wasting your precious energy. The other use is that when placed in a dispenser or block placer it'll perform a right click on the block in front. In the block placer it'll take the reach distance into account.
-va.guide.entry.pokestick.page2=For when the remote is just an inch too far away. /n /n Note that this tool takes damage when used. It'll also use tools from your inventory to mine blocks faster.
+va.guide.entry.pokestick.page2=For when the remote is just an inch too far away. \n \n Note that this tool takes damage when used. It'll also use tools from your inventory to mine blocks faster.
 
 # XP Hopper
 va.guide.entry.xphopper.page1=This block is a small upgrade to the normal hopper. It'll collect any xp orbs above it in a 3x3x3 radius and fill them into bottles provided from the bottle slot. A progressbar indicates how much xp is need until the next bottle is filled. Full bottles will be output like any other item.
 va.guide.entry.xphopper.page2=Screw those villagers, I can make my own xp bottles!
 
 # Filtered Hopper
-va.guide.entry.filteredhopper.page1=This is another upgrade to the vanilla hopper. It offers you five slots to filter items. You can change between white and blacklist. The hopper also offers these filter modes: /n Match Meta /n Match NBT /n Match Mod
+va.guide.entry.filteredhopper.page1=This is another upgrade to the vanilla hopper. It offers you five slots to filter items. You can change between white and blacklist. The hopper also offers these filter modes: \n Match Meta \n Match NBT \n Match Mod
 va.guide.entry.filteredhopper.page2=Sorry we don't have any unfunny phrases for this one. Is Pepsi okay?

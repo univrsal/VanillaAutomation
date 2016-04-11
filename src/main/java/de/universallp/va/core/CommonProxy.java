@@ -25,19 +25,21 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
 public class CommonProxy {
 
     public void preInit(FMLPreInitializationEvent e) {
-        PacketHandler.register();
         VAItems.init();
-        VABlocks.register();
+        VABlocks.init();
         ConfigHandler.loadConfig(e.getSuggestedConfigurationFile());
-        MinecraftForge.EVENT_BUS.register(new CrashReportHandler());
-        CrashReportHandler.readCrashes(e.getSide());
+
     }
 
     public void init(FMLInitializationEvent e) {
+        VABlocks.register();
+        VAItems.register();
+
         NetworkRegistry.INSTANCE.registerGuiHandler(VanillaAutomation.instance, new GuiHandler());
-
+        PacketHandler.register();
         DispenserTweaks.register();
-
+        MinecraftForge.EVENT_BUS.register(new CrashReportHandler());
+        CrashReportHandler.readCrashes(e.getSide());
         int id = 0;
         EntityRegistry.registerModEntity(EntityXPHopperMinecart.class, LibNames.ENTITY_XPHOPPERMINECART, id++, VanillaAutomation.instance, 80, 3, true);
 //        EntityRegistry.registerModEntity(EntityXPHopperMinecart.class, LibNames.ENTITY_XPHOPPERMINECART, id++, VanillaAutomation.instance, 80, 3, true);
