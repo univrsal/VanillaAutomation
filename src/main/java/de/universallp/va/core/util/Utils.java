@@ -7,11 +7,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.ModContainer;
-import net.minecraftforge.fml.common.registry.GameData;
 
 import java.awt.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.util.*;
 import java.util.List;
 
@@ -21,34 +22,17 @@ import java.util.List;
 public class Utils {
 
     public static void drawWrappedString(String s, int x, int y, int maxWidth, Color c, boolean shadow, FontRenderer f) {
-        List<String> words = new ArrayList<String>();
+        List<String> lines = Arrays.asList(s.split("\\\\n"));
 
-        Collections.addAll(words, s.split(" "));
+        List<String> descriptionLinesWrapped = new ArrayList<String>();
+        for (String descriptionLine : lines) {
+            List<String> textLines = f.listFormattedStringToWidth(descriptionLine, maxWidth);
+            descriptionLinesWrapped.addAll(textLines);
+        }
 
-        int line = 0;
-        int wordIndex = 0;
-        String currentLine = "";
-
-        main: while (wordIndex < words.size()) {
-            while (wordIndex < words.size() && f.getStringWidth(currentLine + " " + words.get(wordIndex)) <= maxWidth) {
-                if (f.getStringWidth(words.get(wordIndex)) >= maxWidth)
-                    break main;
-
-                if (words.get(wordIndex).equals("\n")) {
-                    f.drawString(currentLine, x, y + (f.FONT_HEIGHT + 2) * line, c.getRGB(), shadow);
-                    currentLine = "";
-                    line++;
-                    wordIndex++;
-                    continue main;
-                }
-
-                currentLine += " " + words.get(wordIndex);
-                wordIndex++;
-            }
-
-            f.drawString(currentLine, x, y + (f.FONT_HEIGHT + 2) * line, c.getRGB(), shadow);
-            currentLine = "";
-            line++;
+        for (String line : descriptionLinesWrapped) {
+            f.drawString(line, x, y, c.getRGB());
+            y += f.FONT_HEIGHT + 2;
         }
     }
 
@@ -118,9 +102,33 @@ public class Utils {
         if (s == null)
             return "nope";
 
-        String itemName = GameData.getItemRegistry().getNameForObject(s.getItem()).getResourceDomain();
-        ModContainer mod = Loader.instance().getIndexedModList().get(itemName.split(":")[0]);
+        String modID = s.getItem().getRegistryName().getResourceDomain();
+        return modID == null ? "Minecraft" : modID;
+    }
 
-        return mod == null ? "Minecraft" : mod.getName();
+    public static void setConfigValue(File f, String find, String replace) {
+        try {
+            // input the file content to the String "input"
+            BufferedReader file = new BufferedReader(new FileReader("notes.txt"));
+            String line;
+            String input = "";
+
+            while ((line = file.readLine()) != null) input += line + '\n';
+
+            file.close();
+
+            // this if structure determines whether or not to replace "0" or "1"
+            if (input.contains(find)) {
+                input = input.replace(find, find + replace);
+            }
+
+            // write the new String with the replaced line OVER the same file
+            FileOutputStream fileOut = new FileOutputStream("notes.txt");
+            fileOut.write(input.getBytes());
+            fileOut.close();
+
+        } catch (Exception e) {
+            LogHelper.logError("Problem writing config file.");
+        }
     }
 }

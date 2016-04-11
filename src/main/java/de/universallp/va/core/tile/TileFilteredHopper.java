@@ -207,7 +207,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
                                 flag = false;
                         }
                     } else {
-                        if (!Utils.getModName(s).equals(Utils.getModName(stack)))
+                        if (Utils.getModName(s).equals(Utils.getModName(stack)))
                             flag = false;
 
                         if (matchMeta && stack.getItemDamage() == s.getItemDamage())
