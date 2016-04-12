@@ -1,6 +1,7 @@
 package de.universallp.va.client.gui;
 
 import de.universallp.va.core.container.ContainerXPHopper;
+import de.universallp.va.core.entity.EntityXPHopperMinecart;
 import de.universallp.va.core.tile.TileXPHopper;
 import de.universallp.va.core.util.libs.LibResources;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -16,18 +17,23 @@ public class GuiXPHopper extends GuiContainer {
     private int percent = 0;
     private IInventory playerInventory;
     private TileXPHopper hopperInventory;
+    private EntityXPHopperMinecart cart;
 
     public GuiXPHopper(InventoryPlayer playerInv, IInventory hopperInv) {
         super(new ContainerXPHopper(playerInv, hopperInv));
         this.ySize = 133;
         this.playerInventory = playerInv;
-        this.hopperInventory = (TileXPHopper) hopperInv;
+        if (hopperInv instanceof TileXPHopper)
+            this.hopperInventory = (TileXPHopper) hopperInv;
+        else
+            cart = (EntityXPHopperMinecart) hopperInv;
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        this.fontRendererObj.drawString(this.hopperInventory.getDisplayName().getUnformattedText(), 8, 6, 4210752);
+        String displayName = hopperInventory == null ? cart.getDisplayName().getFormattedText() : hopperInventory.getDisplayName().getUnformattedText();
+        this.fontRendererObj.drawString(displayName, 8, 6, 4210752);
         this.fontRendererObj.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
         if (mouseX >= guiLeft + 128 && mouseX <= guiLeft + 128 + 4 && mouseY >= guiTop + 20 && mouseY <= guiTop + 36)
             drawCreativeTabHoveringText(percent + " %", mouseX - guiLeft, mouseY - guiTop);
@@ -41,7 +47,9 @@ public class GuiXPHopper extends GuiContainer {
         int j = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
 
-        float percentage = ((float) hopperInventory.getProgress()) / TileXPHopper.xpPerBottle;
+        int p = hopperInventory == null ? cart.getProgress() : hopperInventory.getProgress();
+
+        float percentage = ((float) p) / TileXPHopper.xpPerBottle;
         this.percent = (int) (percentage * 100);
         int progress = (int) (percentage * 16);
 

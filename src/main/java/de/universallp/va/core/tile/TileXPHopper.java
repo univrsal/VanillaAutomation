@@ -36,6 +36,15 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
         ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, new ItemStack[6], "inventory"); // Welp, seems to work
     }
 
+    public static int getBottleSlot(IInventory inv) {
+        for (int i = 0; i < hopperInv; i++) {
+            ItemStack s = inv.getStackInSlot(i);
+            if (s == null || (s.getItem() != null && s.getItem().equals(Items.experience_bottle) && s.stackSize < s.getMaxStackSize()))
+                return i;
+        }
+        return -1;
+    }
+
     @Override
     public void writeToNBT(NBTTagCompound compound) {
         super.writeToNBT(compound);
@@ -87,7 +96,7 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
 
         if (orbs != null && orbs.size() > 0)
             for (EntityXPOrb orb : orbs) {
-                int slot = getBottleSlot();
+                int slot = getBottleSlot(this);
                 int resultXP = orb.xpValue + progress;
                 ItemStack bottles = getStackInSlot(5);
                 if (bottles != null && bottles.stackSize > 0)
@@ -133,15 +142,6 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
 
     public int getProgress() {
         return progress;
-    }
-
-    private int getBottleSlot() {
-        for (int i = 0; i < hopperInv; i++) {
-            ItemStack s = getStackInSlot(i);
-            if (s == null || (s.getItem() != null && s.getItem().equals(Items.experience_bottle) && s.stackSize < s.getMaxStackSize()))
-                return i;
-        }
-        return -1;
     }
 
     @Override

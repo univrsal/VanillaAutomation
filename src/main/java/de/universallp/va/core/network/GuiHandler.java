@@ -7,11 +7,15 @@ import de.universallp.va.client.gui.GuiPlacer;
 import de.universallp.va.client.gui.GuiXPHopper;
 import de.universallp.va.core.container.ContainerFilteredHopper;
 import de.universallp.va.core.container.ContainerXPHopper;
+import de.universallp.va.core.entity.EntityXPHopperMinecart;
 import de.universallp.va.core.network.messages.MessageSetFieldClient;
+import de.universallp.va.core.network.messages.MessageSyncMinecart;
 import de.universallp.va.core.tile.TileFilteredHopper;
 import de.universallp.va.core.tile.TilePlacer;
 import de.universallp.va.core.tile.TileXPHopper;
+import de.universallp.va.core.util.Utils;
 import de.universallp.va.core.util.libs.LibGuiIDs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.ContainerDispenser;
@@ -30,7 +34,7 @@ public class GuiHandler implements IGuiHandler {
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
 
-        if (te == null)
+        if (te == null && ID != LibGuiIDs.GUI_XPHOPPER_CART)
             return null;
 
         if (ID == LibGuiIDs.GUI_PLACER) {
@@ -45,6 +49,12 @@ public class GuiHandler implements IGuiHandler {
             PacketHandler.syncFieldClient(player, te, 0, 3);
             PacketHandler.sendTo(new MessageSetFieldClient(0, teF.getName(), te.getPos()), (EntityPlayerMP) player);
             return new ContainerFilteredHopper(player.inventory, (IInventory) te);
+        } else if (ID == LibGuiIDs.GUI_XPHOPPER_CART) {
+            Entity e = Utils.getMouseOver(1, 6, player);
+            if (e != null && e instanceof EntityXPHopperMinecart) {
+                PacketHandler.sendTo(new MessageSyncMinecart(e.getEntityId()), (EntityPlayerMP) player);
+                return new ContainerXPHopper(player.inventory, (IInventory) e);
+            }
         }
 
         return null;
@@ -60,7 +70,7 @@ public class GuiHandler implements IGuiHandler {
             else
                 return new GuiGuide(ClientProxy.hoveredEntry);
 
-        if (te == null)
+        if (te == null && ID != LibGuiIDs.GUI_XPHOPPER_CART)
             return null;
 
         if (ID == LibGuiIDs.GUI_PLACER)
@@ -69,6 +79,13 @@ public class GuiHandler implements IGuiHandler {
             return new GuiXPHopper(player.inventory, (IInventory) te);
         else if (ID == LibGuiIDs.GUI_FILTEREDHOPPER)
             return new GuiFilteredHopper(player.inventory, (IInventory) te);
+        else if (ID == LibGuiIDs.GUI_XPHOPPER_CART) {
+            if (ClientProxy.cartID > -1) {
+                Entity e = world.getEntityByID(ClientProxy.cartID);
+                if (e != null && e instanceof EntityXPHopperMinecart)
+                    return new GuiXPHopper(player.inventory, (IInventory) e);
+            }
+        }
         return null;
     }
 }

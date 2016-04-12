@@ -1,12 +1,18 @@
 package de.universallp.va.core.util;
 
+import com.google.common.base.Predicates;
 import de.universallp.va.core.item.VAItems;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -127,5 +133,51 @@ public class Utils {
         } catch (Exception e) {
             LogHelper.logError("Problem writing config file.");
         }
+    }
+
+    public static Entity getMouseOver(float partialTicks, double distance, EntityPlayer player) {
+        ;
+        Entity pointedEntity = null;
+
+        if (player != null) {
+            if (player.worldObj != null) {
+                Vec3d vec3 = player.getPositionEyes(partialTicks);
+
+                Vec3d vec31 = player.getLook(partialTicks);
+                Vec3d vec32 = vec3.addVector(vec31.xCoord * distance, vec31.yCoord * distance, vec31.zCoord * distance);
+
+                float f = 1.0F;
+                List<Entity> list = player.worldObj.getEntitiesInAABBexcluding(player, player.getEntityBoundingBox().addCoord(vec31.xCoord * distance, vec31.yCoord * distance, vec31.zCoord * distance).expand((double) f, (double) f, (double) f), Predicates.and(EntitySelectors.NOT_SPECTATING));
+                double d2 = distance;
+
+                for (Entity entity1 : list) {
+                    float f1 = entity1.getCollisionBorderSize();
+                    AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand((double) f1, (double) f1, (double) f1);
+                    RayTraceResult movingobjectposition = axisalignedbb.calculateIntercept(vec3, vec32);
+
+                    if (axisalignedbb.isVecInside(vec3)) {
+                        if (d2 >= 0.0D) {
+                            pointedEntity = entity1;
+                            d2 = 0.0D;
+                        }
+                    } else if (movingobjectposition != null) {
+                        double d3 = vec3.distanceTo(movingobjectposition.hitVec);
+
+                        if (d3 < d2 || d2 == 0.0D) {
+                            if (entity1 == player.getRidingEntity() && !player.canRiderInteract()) {
+                                if (d2 == 0.0D) {
+                                    pointedEntity = entity1;
+                                }
+                            } else {
+                                pointedEntity = entity1;
+                                d2 = d3;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return pointedEntity;
     }
 }
