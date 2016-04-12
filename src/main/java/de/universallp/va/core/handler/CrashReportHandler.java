@@ -1,6 +1,7 @@
 package de.universallp.va.core.handler;
 
 import de.universallp.va.core.util.LogHelper;
+import de.universallp.va.core.util.Utils;
 import de.universallp.va.core.util.libs.LibLocalization;
 import de.universallp.va.core.util.libs.LibNames;
 import net.minecraft.client.Minecraft;
@@ -78,9 +79,9 @@ public class CrashReportHandler {
     public static void onServerStart(FMLServerStartingEvent event) {
         if (latestCrash != null && event.getSide() == Side.SERVER) {
             LogHelper.logInfo(I18n.format(LibLocalization.MSG_CRASH2, latestCrash.getName()));
+
+            Utils.setConfigValue(ConfigHandler.config.getConfigFile(), "    S:latestCrash=", latestCrash.getName());
             ConfigHandler.LATEST_CRASH = latestCrash.getName();
-            if (ConfigHandler.config != null)
-                ConfigHandler.config.save();
         }
     }
 
@@ -92,7 +93,8 @@ public class CrashReportHandler {
                 Style s = new Style().setChatClickEvent(issues);
                 ITextComponent msg = new TextComponentString(I18n.format(LibLocalization.MSG_CRASH1)).setChatStyle(s);
 
-                ConfigHandler.config.save();
+                Utils.setConfigValue(ConfigHandler.config.getConfigFile(), "    S:latestCrash=", latestCrash.getName());
+                ConfigHandler.LATEST_CRASH = latestCrash.getName();
                 ((EntityPlayer) e.getEntity()).addChatComponentMessage(msg);
             }
     }

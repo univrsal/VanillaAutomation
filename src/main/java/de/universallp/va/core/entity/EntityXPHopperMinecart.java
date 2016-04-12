@@ -1,5 +1,6 @@
 package de.universallp.va.core.entity;
 
+import de.universallp.va.VanillaAutomation;
 import de.universallp.va.core.block.VABlocks;
 import de.universallp.va.core.container.ContainerXPHopper;
 import de.universallp.va.core.util.libs.LibGuiIDs;
@@ -30,8 +31,13 @@ public class EntityXPHopperMinecart extends EntityMinecartHopper {
     }
 
     @Override
+    public int getSizeInventory() {
+        return 5;
+    }
+
+    @Override
     public Type getType() {
-        return Type.RIDEABLE;
+        return Type.HOPPER;
     }
 
     @Override
@@ -57,11 +63,6 @@ public class EntityXPHopperMinecart extends EntityMinecartHopper {
     }
 
     @Override
-    public String getGuiID() {
-        return LibGuiIDs.GUI_XPHOPPERMINECART;
-    }
-
-    @Override
     public Container createContainer(InventoryPlayer playerInventory, EntityPlayer playerIn) {
         return new ContainerXPHopper(playerInventory, this);
     }
@@ -76,7 +77,8 @@ public class EntityXPHopperMinecart extends EntityMinecartHopper {
         if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(new net.minecraftforge.event.entity.minecart.MinecartInteractEvent(this, player, stack, hand)))
             return true;
         if (!this.worldObj.isRemote) {
-            player.displayGUIChest(this);
+
+            player.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_XPHOPPER_CART, this.worldObj, 0, 0, 0);
         }
 
         return true;

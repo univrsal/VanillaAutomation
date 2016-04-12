@@ -108,22 +108,19 @@ public class Utils {
 
     public static void setConfigValue(File f, String find, String replace) {
         try {
-            // input the file content to the String "input"
-            BufferedReader file = new BufferedReader(new FileReader("notes.txt"));
+            BufferedReader file = new BufferedReader(new FileReader(f));
             String line;
             String input = "";
 
-            while ((line = file.readLine()) != null) input += line + '\n';
+            while ((line = file.readLine()) != null) {
+                if (line.contains(find))
+                    line = find + replace;
+                input += line + '\n';
+            }
 
             file.close();
 
-            // this if structure determines whether or not to replace "0" or "1"
-            if (input.contains(find)) {
-                input = input.replace(find, find + replace);
-            }
-
-            // write the new String with the replaced line OVER the same file
-            FileOutputStream fileOut = new FileOutputStream("notes.txt");
+            FileOutputStream fileOut = new FileOutputStream(f);
             fileOut.write(input.getBytes());
             fileOut.close();
 

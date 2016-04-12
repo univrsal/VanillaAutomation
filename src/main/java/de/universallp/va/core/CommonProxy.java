@@ -24,6 +24,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
  */
 public class CommonProxy {
 
+
     public void preInit(FMLPreInitializationEvent e) {
         VAItems.init();
         VABlocks.init();
