@@ -94,7 +94,7 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
         BlockPos overHopper = getPos().up();
         List<EntityXPOrb> orbs = getWorld().getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(overHopper).expandXyz(1));
 
-        if (orbs != null && orbs.size() > 0)
+        if (orbs != null && orbs.size() > 0 && BlockHopper.isEnabled(this.getBlockMetadata()))
             for (EntityXPOrb orb : orbs) {
                 int slot = getBottleSlot(this);
                 int resultXP = orb.xpValue + progress;
