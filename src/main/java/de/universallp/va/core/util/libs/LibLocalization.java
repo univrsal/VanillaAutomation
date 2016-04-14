@@ -28,9 +28,5 @@ public class LibLocalization {
     public static final String MSG_CRASH1 = "va.msg.crash1";
     public static final String MSG_CRASH2 = "va.msg.crash2";
     public static final String JEI_GUIDE = "va.jei.guideinfo";
-    private static final String PAGE = "va.guide.entry.";
 
-    public static String getGuidePage(String entry, int p) {
-        return PAGE + entry + ".page" + p;
-    }
 }

@@ -1,5 +1,6 @@
 package de.universallp.va.client.jei;
 
+import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.core.block.VABlocks;
 import de.universallp.va.core.item.VAItems;
 import de.universallp.va.core.util.libs.LibLocalization;
@@ -21,14 +22,14 @@ public class JEIPlugin implements IModPlugin {
     public void register(@Nonnull IModRegistry registry) {
 
         // Items
-        registry.addDescription(new ItemStack(VAItems.itemPokeStick, 1), LibLocalization.getGuidePage("pokestick", 1));
+        registry.addDescription(new ItemStack(VAItems.itemPokeStick, 1), EnumEntry.getGuidePage("pokestick", 1, 2));
         registry.addDescription(new ItemStack(VAItems.itemGuide, 1), LibLocalization.JEI_GUIDE);
 
         // Blocks
-        registry.addDescription(new ItemStack(VABlocks.filterHopper, 1), LibLocalization.getGuidePage("filteredhopper", 1));
-        registry.addDescription(new ItemStack(VABlocks.xpHopper, 1), LibLocalization.getGuidePage("xphopper", 1));
-        registry.addDescription(new ItemStack(VABlocks.placer, 1), LibLocalization.getGuidePage("blockplacer", 1));
-        registry.addDescription(new ItemStack(Blocks.dispenser, 1), LibLocalization.getGuidePage("dispenser", 1));
+        registry.addDescription(new ItemStack(VABlocks.filterHopper, 1), EnumEntry.getGuidePage("filteredhopper", 1, 2));
+        registry.addDescription(new ItemStack(VABlocks.xpHopper, 1), EnumEntry.getGuidePage("xphopper", 1, 2));
+        registry.addDescription(new ItemStack(VABlocks.placer, 1), EnumEntry.getGuidePage("blockplacer", 1, 2));
+        registry.addDescription(new ItemStack(Blocks.dispenser, 1), EnumEntry.getGuidePage("dispenser", 1, 2));
 
     }
 

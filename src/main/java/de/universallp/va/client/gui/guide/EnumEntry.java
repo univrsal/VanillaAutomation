@@ -9,18 +9,20 @@ import de.universallp.va.core.util.libs.LibLocalization;
  * Created by universallp on 21.03.2016 18:16.
  */
 public enum EnumEntry {
+
     MENU(new String[] { LibLocalization.ENTRY_INTRO, LibLocalization.ENTRY_CREDITS, LibLocalization.ENTRY_BLOCKPLACER, LibLocalization.ENTRY_DISPENSER, LibLocalization.ENTRY_POKE_STICK, LibLocalization.ENTRY_XPHOPPER, LibLocalization.ENTRY_FILTEREDHOPPER }),
-    INTRO(new String[] { LibLocalization.getGuidePage("intro", 1) }),
-    CREDITS(new String[] { LibLocalization.getGuidePage("credits", 1) }),
+    INTRO(getGuidePage("intro", 1, 1)),
+    CREDITS(getGuidePage("credits", 1, 1)),
 
     // Actual entries
 
-    BLOCK_PLACER(new String[] { LibLocalization.getGuidePage("blockplacer", 1), LibLocalization.getGuidePage("blockplacer", 2) }, VABlocks.placer.getRecipe(), 1),
-    DISPENSER(new String[] { LibLocalization.getGuidePage("dispenser", 1), LibLocalization.getGuidePage("dispenser", 2) }),
-    POKE_STICK(new String[] { LibLocalization.getGuidePage("pokestick", 1), LibLocalization.getGuidePage("pokestick", 2) }, VAItems.itemPokeStick.getRecipe(), 1),
-    XPHOPPER(new String[] { LibLocalization.getGuidePage("xphopper", 1), LibLocalization.getGuidePage("xphopper", 2) }, VABlocks.xpHopper.getRecipe(), 1),
-    FILTERED_HOPPER(new String[] { LibLocalization.getGuidePage("filteredhopper", 1), LibLocalization.getGuidePage("filteredhopper", 2) }, VABlocks.filterHopper.getRecipe(), 1);
+    BLOCK_PLACER(getGuidePage("blockplacer", 1, 2), VABlocks.placer.getRecipe(), 1),
+    DISPENSER(getGuidePage("dispenser", 1, 2)),
+    POKE_STICK(getGuidePage("pokestick", 1, 2), VAItems.itemPokeStick.getRecipe(), 1),
+    XPHOPPER(getGuidePage("xphopper", 1, 2), VABlocks.xpHopper.getRecipe(), 1),
+    FILTERED_HOPPER(getGuidePage("filteredhopper", 1, 2), VABlocks.filterHopper.getRecipe(), 1);
 
+    private static final String PAGE = "va.guide.entry.";
     private String[] entries;
     private Entry instance;
     private VisualRecipe vR;
@@ -34,6 +36,13 @@ public enum EnumEntry {
         this.entries = entries;
         this.vR = recipe;
         this.recipePage = pageForRecipe;
+    }
+
+    public static String[] getGuidePage(String entry, int startPage, int endPage) {
+        String[] pages = new String[(endPage - startPage) + 1];
+        for (int i = startPage; i <= endPage; i++)
+            pages[i - 1] = PAGE + entry + ".page" + i;
+        return pages;
     }
 
     public Entry getEntry() {
