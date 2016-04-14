@@ -80,13 +80,16 @@ public class EntityXPHopperMinecart extends EntityMinecartHopper {
         this.setDead();
 
         if (this.worldObj.getGameRules().getBoolean("doEntityDrops")) {
-            ItemStack itemstack = new ItemStack(Items.minecart, 1);
+            ItemStack cart = new ItemStack(Items.minecart, 1);
+            ItemStack xpHopper = new ItemStack(VABlocks.xpHopper, 1);
 
-            if (this.getName() != null) {
-                itemstack.setStackDisplayName(this.getName());
-            }
-
-            this.entityDropItem(itemstack, 0.0F);
+            this.entityDropItem(xpHopper, 0.0F);
+            this.entityDropItem(cart, 0.0F);
+            for (int i = 0; i < this.getSizeInventory(); i++)
+                if (this.getStackInSlot(i) != null) {
+                    System.out.println("STACK " + i + ": " + this.getStackInSlot(i));
+                    this.entityDropItem(this.getStackInSlot(i), 0.0F);
+                }
         }
     }
 
