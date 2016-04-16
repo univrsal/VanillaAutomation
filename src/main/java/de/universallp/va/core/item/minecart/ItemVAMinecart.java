@@ -3,7 +3,7 @@ package de.universallp.va.core.item.minecart;
 import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.client.gui.screen.VisualRecipe;
 import de.universallp.va.core.block.VABlocks;
-import de.universallp.va.core.entity.EntityXPHopperMinecart;
+import de.universallp.va.core.entity.EntityMinecartXPHopper;
 import de.universallp.va.core.item.ItemVA;
 import de.universallp.va.core.item.VAItems;
 import net.minecraft.block.BlockRailBase;
@@ -39,9 +39,9 @@ public class ItemVAMinecart extends ItemVA {
             if (!worldIn.isRemote) {
                 EntityMinecart entityminecart;
                 if (type == CartType.XP)
-                    entityminecart = new EntityXPHopperMinecart(worldIn, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+                    entityminecart = new EntityMinecartXPHopper(worldIn, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
                 else
-                    entityminecart = new EntityXPHopperMinecart(worldIn, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
+                    entityminecart = new EntityMinecartXPHopper(worldIn, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5);
 
                 if (stack.hasDisplayName())
                     entityminecart.setCustomNameTag(stack.getDisplayName());

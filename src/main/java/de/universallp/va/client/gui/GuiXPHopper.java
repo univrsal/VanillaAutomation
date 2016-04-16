@@ -1,7 +1,7 @@
 package de.universallp.va.client.gui;
 
 import de.universallp.va.core.container.ContainerXPHopper;
-import de.universallp.va.core.entity.EntityXPHopperMinecart;
+import de.universallp.va.core.entity.EntityMinecartXPHopper;
 import de.universallp.va.core.tile.TileXPHopper;
 import de.universallp.va.core.util.libs.LibResources;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -17,7 +17,7 @@ public class GuiXPHopper extends GuiContainer {
     private int percent = 0;
     private IInventory playerInventory;
     private TileXPHopper hopperInventory;
-    private EntityXPHopperMinecart cart;
+    private EntityMinecartXPHopper cart;
 
     public GuiXPHopper(InventoryPlayer playerInv, IInventory hopperInv) {
         super(new ContainerXPHopper(playerInv, hopperInv));
@@ -26,7 +26,7 @@ public class GuiXPHopper extends GuiContainer {
         if (hopperInv instanceof TileXPHopper)
             this.hopperInventory = (TileXPHopper) hopperInv;
         else
-            cart = (EntityXPHopperMinecart) hopperInv;
+            cart = (EntityMinecartXPHopper) hopperInv;
     }
 
     @Override

@@ -3,9 +3,10 @@ package de.universallp.va.core;
 import de.universallp.va.VanillaAutomation;
 import de.universallp.va.core.block.VABlocks;
 import de.universallp.va.core.dispenser.DispenserTweaks;
-import de.universallp.va.core.entity.EntityXPHopperMinecart;
+import de.universallp.va.core.entity.EntityMinecartXPHopper;
 import de.universallp.va.core.handler.ConfigHandler;
 import de.universallp.va.core.handler.CrashReportHandler;
+import de.universallp.va.core.handler.MinecartInteractionHandler;
 import de.universallp.va.core.item.VAItems;
 import de.universallp.va.core.network.GuiHandler;
 import de.universallp.va.core.network.PacketHandler;
@@ -29,21 +30,21 @@ public class CommonProxy {
         VAItems.init();
         VABlocks.init();
         ConfigHandler.loadConfig(e.getSuggestedConfigurationFile());
-
     }
 
     public void init(FMLInitializationEvent e) {
+        NetworkRegistry.INSTANCE.registerGuiHandler(VanillaAutomation.instance, new GuiHandler());
+        MinecraftForge.EVENT_BUS.register(new CrashReportHandler());
+        MinecraftForge.EVENT_BUS.register(new MinecartInteractionHandler());
+
         VABlocks.register();
         VAItems.register();
-
-        NetworkRegistry.INSTANCE.registerGuiHandler(VanillaAutomation.instance, new GuiHandler());
         PacketHandler.register();
         DispenserTweaks.register();
-        MinecraftForge.EVENT_BUS.register(new CrashReportHandler());
+
+        EntityRegistry.registerModEntity(EntityMinecartXPHopper.class, LibNames.ENTITY_XPHOPPERMINECART, 0, VanillaAutomation.instance, 80, 3, true);
+//        EntityRegistry.registerModEntity(EntityMinecartXPHopper.class, LibNames.ENTITY_XPHOPPERMINECART, id++, VanillaAutomation.instance, 80, 3, true);
         CrashReportHandler.readCrashes(e.getSide());
-        int id = 0;
-        EntityRegistry.registerModEntity(EntityXPHopperMinecart.class, LibNames.ENTITY_XPHOPPERMINECART, id++, VanillaAutomation.instance, 80, 3, true);
-//        EntityRegistry.registerModEntity(EntityXPHopperMinecart.class, LibNames.ENTITY_XPHOPPERMINECART, id++, VanillaAutomation.instance, 80, 3, true);
     }
 
     public void postInit(FMLPostInitializationEvent e) {

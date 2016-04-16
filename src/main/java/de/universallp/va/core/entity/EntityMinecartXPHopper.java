@@ -34,16 +34,16 @@ import java.util.List;
 /**
  * Created by universallp on 10.04.2016 11:44.
  */
-public class EntityXPHopperMinecart extends EntityMinecartHopper {
+public class EntityMinecartXPHopper extends EntityMinecartHopper {
 
     public XPHopperCartInvWrapper itemHandler = new XPHopperCartInvWrapper(this);
     private int progress = 0;
 
-    public EntityXPHopperMinecart(World w) {
+    public EntityMinecartXPHopper(World w) {
         super(w);
     }
 
-    public EntityXPHopperMinecart(World world, double posX, double posY, double posZ) {
+    public EntityMinecartXPHopper(World world, double posX, double posY, double posZ) {
         super(world, posX, posY, posZ);
     }
 

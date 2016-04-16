@@ -7,7 +7,7 @@ import de.universallp.va.client.gui.GuiPlacer;
 import de.universallp.va.client.gui.GuiXPHopper;
 import de.universallp.va.core.container.ContainerFilteredHopper;
 import de.universallp.va.core.container.ContainerXPHopper;
-import de.universallp.va.core.entity.EntityXPHopperMinecart;
+import de.universallp.va.core.entity.EntityMinecartXPHopper;
 import de.universallp.va.core.network.messages.MessageSetFieldClient;
 import de.universallp.va.core.network.messages.MessageSyncMinecart;
 import de.universallp.va.core.tile.TileFilteredHopper;
@@ -51,7 +51,7 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerFilteredHopper(player.inventory, (IInventory) te);
         } else if (ID == LibGuiIDs.GUI_XPHOPPER_CART) {
             Entity e = Utils.getMouseOver(1, 6, player);
-            if (e != null && e instanceof EntityXPHopperMinecart) {
+            if (e != null && e instanceof EntityMinecartXPHopper) {
                 PacketHandler.sendTo(new MessageSyncMinecart(e.getEntityId()), (EntityPlayerMP) player);
                 return new ContainerXPHopper(player.inventory, (IInventory) e);
             }
@@ -82,7 +82,7 @@ public class GuiHandler implements IGuiHandler {
         else if (ID == LibGuiIDs.GUI_XPHOPPER_CART) {
             if (ClientProxy.cartID > -1) {
                 Entity e = world.getEntityByID(ClientProxy.cartID);
-                if (e != null && e instanceof EntityXPHopperMinecart)
+                if (e != null && e instanceof EntityMinecartXPHopper)
                     return new GuiXPHopper(player.inventory, (IInventory) e);
             }
         }
