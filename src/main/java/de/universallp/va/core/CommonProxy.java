@@ -3,6 +3,7 @@ package de.universallp.va.core;
 import de.universallp.va.VanillaAutomation;
 import de.universallp.va.core.block.VABlocks;
 import de.universallp.va.core.dispenser.DispenserTweaks;
+import de.universallp.va.core.entity.EntityMinecartCarriage;
 import de.universallp.va.core.entity.EntityMinecartXPHopper;
 import de.universallp.va.core.handler.ConfigHandler;
 import de.universallp.va.core.handler.CrashReportHandler;
@@ -43,6 +44,8 @@ public class CommonProxy {
         DispenserTweaks.register();
 
         EntityRegistry.registerModEntity(EntityMinecartXPHopper.class, LibNames.ENTITY_XPHOPPERMINECART, 0, VanillaAutomation.instance, 80, 3, true);
+        EntityRegistry.registerModEntity(EntityMinecartCarriage.class, LibNames.ENTITY_XPHOPPERMINECART, 2, VanillaAutomation.instance, 80, 3, true);
+
 //        EntityRegistry.registerModEntity(EntityMinecartXPHopper.class, LibNames.ENTITY_XPHOPPERMINECART, id++, VanillaAutomation.instance, 80, 3, true);
         CrashReportHandler.readCrashes(e.getSide());
     }
