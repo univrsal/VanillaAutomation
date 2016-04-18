@@ -44,7 +44,7 @@ repositories {
 }
 
 dependencies {
-    deobfCompile "mezz.jei:jei_1.9:3.2.10.185"
+    deobfCompile "mezz.jei:jei_1.9:3.2.10.186"
 }
 
 processResources
