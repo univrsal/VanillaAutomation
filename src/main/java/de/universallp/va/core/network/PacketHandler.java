@@ -1,9 +1,6 @@
 package de.universallp.va.core.network;
 
-import de.universallp.va.core.network.messages.MessagePlaySound;
-import de.universallp.va.core.network.messages.MessageSetFieldClient;
-import de.universallp.va.core.network.messages.MessageSetFieldServer;
-import de.universallp.va.core.network.messages.MessageSyncMinecart;
+import de.universallp.va.core.network.messages.*;
 import de.universallp.va.core.util.libs.LibNames;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,6 +25,7 @@ public class PacketHandler {
         INSTANCE.registerMessage(MessageSetFieldServer.class, MessageSetFieldServer.class, ID++, Side.SERVER);
         INSTANCE.registerMessage(MessagePlaySound.class, MessagePlaySound.class, ID++, Side.CLIENT);
         INSTANCE.registerMessage(MessageSyncMinecart.class, MessageSyncMinecart.class, ID++, Side.CLIENT);
+        INSTANCE.registerMessage(MessageSyncMinecartCarriage.class, MessageSyncMinecartCarriage.class, ID++, Side.CLIENT);
     }
 
     public static void sendTo(IMessage m, EntityPlayerMP p) {
@@ -36,6 +34,10 @@ public class PacketHandler {
 
     public static void sendTo(IMessage m) {
         INSTANCE.sendToServer(m);
+    }
+
+    public static void sendTo(IMessage m, int range, int dim, BlockPos center) {
+        INSTANCE.sendToAllAround(m, new NetworkRegistry.TargetPoint(dim, center.getX(), center.getY(), center.getZ(), range));
     }
 
     /**

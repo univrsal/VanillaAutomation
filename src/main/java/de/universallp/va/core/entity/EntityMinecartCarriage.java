@@ -60,4 +60,8 @@ public class EntityMinecartCarriage extends EntityMinecart {
         super.killMinecart(source);
         this.entityDropItem(carriedBlock, 0.0F);
     }
+
+    public void setCarriedBlock(ItemStack carriedBlock) {
+        this.carriedBlock = carriedBlock;
+    }
 }
