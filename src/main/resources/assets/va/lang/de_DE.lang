@@ -1,0 +1,80 @@
+# Container
+va.container.blockplacer=Blockplazierer
+
+# Misc
+va.dir.north=Norden
+va.dir.south=Süden
+va.dir.east=Osten
+va.dir.west=Westen
+va.dir.down=Unten
+va.dir.up=Oben
+
+va.gui.btn.matchmeta=Beachte Meta
+va.gui.btn.matchnbt=Beachte NBT
+va.gui.btn.matchmod=Beachte Mod id
+
+va.gui.face=Facing
+va.gui.filteredhopper.filter=Filter
+va.gui.reachdistance=Abstand zwischen Block Plazierer und Block
+va.gui.xphopper=Erfahrungstrichter
+va.gui.filteredhopper=Gefilterter Trichter
+
+va.msg.crash1=VanillaAutomation hat einen Crash gefunden, der mit VA zusammenhängt. Klicke hier um ihn zu melden.
+va.msg.crash2=Found %s which is likely related to VanillaAutomation you can report issues here github.com/UniversalLP/VanillaAutomation/issues.
+
+va.recipe.shaped=Shaped Crafting
+va.recipe.shapeless=Shapeless Crafting
+
+# Items
+item.va:vaguide.name=Handbuch
+item.va:vaguide.desc=für VanillaAutomation
+item.va:pokestick.name=Stupsstock
+item.va:xphopperminecart.name=XP Hopper Minecart
+item.va:filteredhopperminecart=Filtered Hopper Minecart
+
+# Blocks
+tile.va:blockplacer.name=Blockplazierer
+tile.va:xphopper.name=Erfahrungstrichter
+tile.va:filteredhopper.name=Gefilterter Trichter
+
+# Guide
+va.jei.guideinfo=Ein Handbuch für VanillaAutomation
+va.gui.buttonmenu=Menü
+va.gui.buttonback=Zurück
+
+va.gui.guide.menu=Inhalt
+
+va.guide.entry.lookup=Öffne im Handbuch
+va.guide.entry.intro=Einführung
+va.guide.entry.credits=Credits
+va.guide.entry.blockplacer=Der Blockplazierer
+va.guide.entry.dispenser=Veränderungen am Dispenser
+va.guide.entry.pokestick=Der Stupsstock
+va.guide.entry.xphopper=Der Erfahrungstrichter
+va.guide.entry.filteredhopper=Der gefilterte Trichter
+
+# Intro
+va.guide.entry.intro.page1=Wilkommen zu VanillaAutomation!\nDieser Mod fügt einige Sachen hinzu, die dir Automatisierungen erleichtern ohne es zu leicht zu machen.\nSchau' dir die anderen Einträge an und schau' was sich verändert hat!
+
+# Credits
+va.guide.entry.credits.page1=VanillaAutomation\nvon universal\n\nDieser Mod währe nicht ohne andere open-source mods möglich gewesen.\nProperinos an:\nPahimar\nAmadornes\nVazkii\nDas Forge Team
+
+# Blockplacer
+va.guide.entry.blockplacer.page1=Dieser Block kann, wie sein Name verrät, Blöcke in der Welt plazieren. Er kann auch mit items rechtsklicken an der Position wo er normalerweise Blöcke platziert.\nDu kannst die richtung in die er plaziert im GUI ändern.
+va.guide.entry.blockplacer.page2="Steve in 'ner Box"
+
+# Dispenser
+va.guide.entry.dispenser.page1=Wenn VanillaAutomation installiert wird erhält der Dispenser einige Änderungen.\nDiese Dinge sind neu:\nMit einer Spitzhacke im Dispenser kann er Blöcke zerstören.\nMit Farbe färbt er Schafe vor sich und Knochenmehl wird auf den Boden verwendet. Außerdem schert er Schafe mit Scheren.
+va.guide.entry.dispenser.page2=Der Dispenser kann nun auch Schallplatten in Musikboxen einlegen.\nSamen werden auf dem Boden plaziert und Schwerter werden benutzt um Tiere anzugreifen.
+
+# Poke Stick
+va.guide.entry.pokestick.page1=Dieser Stock hat zwei Nutzen. Zum einem erweitert er deine Reichweite, sodass du diese nervigen Ecken erreichen kannst. Zum anderen kann er in einen Dispener oder Blockplazierer geleget werden um einen Rechtsklick auszuführen. Im Blockplazierer wird die Reichweite beachtet.
+va.guide.entry.pokestick.page2="Wenn die Fernbedienung einfach zu weit weg ist." \n\nDiese Werkzeug hält nicht ewig! Es nutzt außerdem werkzeuge aus dem Inventar um Blöcke abzubauen.
+
+# XP Hopper
+va.guide.entry.xphopper.page1=Dieser Block ist ein kleines upgrade zum normalen Trichter. Er sammelt alle XP Kugeln in einem 3x3x3 Radius auf und füllt sie in Flaschen, die in einem extra Slot sind. Ein kleiner Ladebalken zeigt an wie viel XP noch gebraucht werden bis zur nächsten füllung. Volle flaschen werden wie alle anderen Items ausgegeben.
+va.guide.entry.xphopper.page2="Wer braucht schon diese Dorfbewohner, Ich mach' mir meine eigenen XP Flaschen!"
+
+# Filtered Hopper
+va.guide.entry.filteredhopper.page1=Dieser Block ist noch ein upgrade zum vanilla Trichter. Er kann Items, mithilfe von 5 vorgebenen Items, filtern. Du kannst zwischen white und blacklist wechseln. Der filter mit diesen Optionen ergänzt werden:\n- Beachte Meta\n- Beachte NBT\n- Beachte Mod id
+va.guide.entry.filteredhopper.page2="'Tschuldigung, uns sind die schlechten Witze ausgegangen. Ist Pepsi okay?"

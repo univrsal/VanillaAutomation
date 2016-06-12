@@ -1,0 +1,7 @@
+{
+  "parent": "block/orientable_vertical",
+  "textures": {
+    "front": "va:blocks/blockplacer_top",
+    "side": "blocks/furnace_top"
+  }
+}

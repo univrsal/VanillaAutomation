@@ -1,0 +1,61 @@
+{
+  "forge_marker": 1,
+  "ambientocclusion": false,
+  "defaults": {
+    "textures": {
+      "top": "va:blocks/xphopper_top",
+      "inside": "va:blocks/xphopper_inside"
+    },
+    "model": "hopper_down",
+    "uvlock": true,
+    "ambientocclusion": false
+  },
+  "variants": {
+    "facing": {
+      "down": {
+        "model": "hopper_down",
+        "textures": {
+          "top": "va:blocks/xphopper_top",
+          "inside": "va:blocks/xphopper_inside"
+        }
+      },
+      "north": {
+        "model": "hopper_side",
+        "textures": {
+          "top": "va:blocks/xphopper_top",
+          "inside": "va:blocks/xphopper_inside"
+        }
+      },
+      "south": {
+        "model": "hopper_side",
+        "y": 180,
+        "textures": {
+          "top": "va:blocks/xphopper_top",
+          "inside": "va:blocks/xphopper_inside"
+        }
+      },
+      "west": {
+        "model": "hopper_side",
+        "y": 270,
+        "textures": {
+          "top": "va:blocks/xphopper_top",
+          "inside": "va:blocks/xphopper_inside"
+        }
+      },
+      "east": {
+        "model": "hopper_side",
+        "y": 90,
+        "textures": {
+          "top": "va:blocks/xphopper_top",
+          "inside": "va:blocks/xphopper_inside"
+        }
+      }
+    },
+    "enabled": {
+      "true": {
+      },
+      "false": {
+      }
+    }
+  }
+}
