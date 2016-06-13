@@ -226,17 +226,15 @@ public class BlockPlacer extends BlockVA {
     }
 
     @Override
-    public EnumEntry getEntry() {
-        return EnumEntry.BLOCK_PLACER;
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity te = worldIn.getTileEntity(pos);
+        if (te != null && te instanceof IInventory)
+            InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) te);
+        super.breakBlock(worldIn, pos, state);
     }
 
     @Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        TileEntity te = worldIn.getTileEntity(pos);
-        if (te != null && te instanceof TilePlacer) {
-            InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) te);
-        }
-
-        super.breakBlock(worldIn, pos, state);
+    public EnumEntry getEntry() {
+        return EnumEntry.BLOCK_PLACER;
     }
 }

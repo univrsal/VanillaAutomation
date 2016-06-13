@@ -46,7 +46,6 @@ public class BlockFilteredHopper extends BlockHopper implements IEntryProvider {
         Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(this), 0, mdlResource);
     }
 
-
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileFilteredHopper();
@@ -69,8 +68,6 @@ public class BlockFilteredHopper extends BlockHopper implements IEntryProvider {
             return true;
         }
     }
-
-
 
     @Override
     public VisualRecipe getRecipe() {
@@ -101,6 +98,7 @@ public class BlockFilteredHopper extends BlockHopper implements IEntryProvider {
             for (int i = TileXPHopper.hopperInv; i < teF.getSizeInventory(); i++)
                 teF.setInventorySlotContents(i, null); // Clear the filters so they won't be dropped as items
         }
+
         super.breakBlock(worldIn, pos, state);
     }
 }

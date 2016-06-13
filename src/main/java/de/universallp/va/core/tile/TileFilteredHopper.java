@@ -122,9 +122,10 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
         return true;
     }
 
+
+
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
         compound.setByte("filtermode", (byte) filterMode.ordinal());
         compound.setBoolean("matchMeta", matchMeta);
         compound.setBoolean("matchNBT", matchNBT);

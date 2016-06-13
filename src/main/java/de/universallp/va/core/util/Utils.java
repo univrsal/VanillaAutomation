@@ -2,12 +2,10 @@ package de.universallp.va.core.util;
 
 import com.google.common.base.Predicates;
 import de.universallp.va.core.item.VAItems;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
@@ -137,8 +135,24 @@ public class Utils {
         }
     }
 
+    public static boolean canToolMineBlock(ItemStack toolStack, IBlockState state) {
+        if (toolStack == null || state == null)
+            return false;
+
+        String tool = state.getBlock().getHarvestTool(state);
+        int harvesLevel = state.getBlock().getHarvestLevel(state);
+        Set<String> toolClasses = toolStack.getItem().getToolClasses(toolStack);
+
+        for (String toolClass : toolClasses)  {
+            if (toolClass.equals(tool) && toolStack.getItem().getHarvestLevel(toolStack, toolClass) == harvesLevel)
+                return true;
+        }
+
+        return false;
+    }
+
     public static Entity getMouseOver(float partialTicks, double distance, EntityPlayer player) {
-        ;
+
         Entity pointedEntity = null;
 
         if (player != null) {
@@ -181,19 +195,5 @@ public class Utils {
         }
 
         return pointedEntity;
-    }
-
-    public static boolean canToolMine(IBlockState block, ItemStack toolStack) {
-        Block b = block.getBlock();
-        Item tool = toolStack.getItem();
-        Set<String> toolClasses = tool.getToolClasses(toolStack);
-        int harvestLevel = b.getHarvestLevel(block);
-
-        for (String toolClass : toolClasses) {
-            int toolLevel = tool.getHarvestLevel(toolStack, toolClass);
-            if (toolLevel >= harvestLevel && !(harvestLevel < 0))
-                return true;
-        }
-        return false;
     }
 }

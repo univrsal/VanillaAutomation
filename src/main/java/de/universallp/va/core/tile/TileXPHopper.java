@@ -260,5 +260,4 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
                 return null;
         }
     }
-
 }

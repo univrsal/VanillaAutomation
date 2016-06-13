@@ -32,7 +32,6 @@ public class GuiFilteredHopper extends GuiContainer {
     private ButtonLabel btnMatchMeta;
     private ButtonLabel btnMatchNBT;
     private ButtonLabel btnMatchMod;
-    private int offset = 0;
 
     public GuiFilteredHopper(InventoryPlayer playerInv, IInventory hopperInv) {
         super(new ContainerFilteredHopper(playerInv, hopperInv));
@@ -45,17 +44,9 @@ public class GuiFilteredHopper extends GuiContainer {
     public void initGui() {
         super.initGui();
         btnIco = new ButtonIcon(0, guiLeft + 136, guiTop + 38, ButtonIcon.IconType.values()[hopperInventory.getField(0)]);
-        String[] translatedNames = new String[] { I18n.format(LibLocalization.BTN_META), I18n.format(LibLocalization.BTN_NBT), I18n.format(LibLocalization.BTN_MOD) };
-
-        for (String line : translatedNames) {
-            offset = fontRendererObj.getStringWidth(line) > offset ? fontRendererObj.getStringWidth(line) : offset;
-        }
-
-        offset += 22;
-
-        btnMatchMeta = new ButtonLabel(LibLocalization.BTN_META, ButtonIcon.IconType.values()[2 + hopperInventory.getField(1)], 1, guiLeft - offset, guiTop + 12);
-        btnMatchNBT = new ButtonLabel(LibLocalization.BTN_NBT, ButtonIcon.IconType.values()[2 + hopperInventory.getField(2)], 2, guiLeft - offset, guiTop + 24);
-        btnMatchMod = new ButtonLabel(LibLocalization.BTN_MOD, ButtonIcon.IconType.values()[2 + hopperInventory.getField(3)], 3, guiLeft - offset, guiTop + 36);
+        btnMatchMeta = new ButtonLabel(LibLocalization.BTN_META, ButtonIcon.IconType.values()[2 + hopperInventory.getField(1)], 1, guiLeft - 83, guiTop + 12);
+        btnMatchNBT = new ButtonLabel(LibLocalization.BTN_NBT, ButtonIcon.IconType.values()[2 + hopperInventory.getField(2)], 2, guiLeft - 83, guiTop + 24);
+        btnMatchMod = new ButtonLabel(LibLocalization.BTN_MOD, ButtonIcon.IconType.values()[2 + hopperInventory.getField(3)], 3, guiLeft - 83, guiTop + 36);
 
         buttonList.add(btnIco);
         buttonList.add(btnMatchMeta);
@@ -78,7 +69,7 @@ public class GuiFilteredHopper extends GuiContainer {
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
-        drawTexturedModalRect(guiLeft - offset - 1, guiTop + 5, 0, this.ySize, offset + 1, 58);
+        drawTexturedModalRect(guiLeft - 83, guiTop + 5, 0, this.ySize, 83, 58);
     }
 
     @Override

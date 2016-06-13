@@ -45,11 +45,10 @@ public class ItemPokeStick extends ItemVA {
         if (entityIn instanceof EntityPlayer) {
             ItemStack heldItem = Utils.getCarriedItem((EntityPlayer) entityIn);
             EntityPlayer pl = (EntityPlayer) entityIn;
-            if (heldItem != null && heldItem.getItem().equals(VAItems.itemPokeStick)) {
+            if (heldItem != null && heldItem.getItem() != null && heldItem.getItem().equals(VAItems.itemPokeStick)) {
                 VanillaAutomation.proxy.setReach(pl, 15);
                 toolClasses = Utils.getCarriedTools(pl);
                 RayTraceResult r = rayTrace(worldIn, pl, false);
-
                 if (r != null && r.typeOfHit == RayTraceResult.Type.BLOCK) {
                     toolEfficiency = Utils.getFirstEfficientTool(pl, entityIn.worldObj.getBlockState(r.getBlockPos()));
                     toolToDamage = Utils.getFirstEfficientToolSlot(pl, entityIn.worldObj.getBlockState(r.getBlockPos()));
@@ -57,7 +56,7 @@ public class ItemPokeStick extends ItemVA {
                     if (toolToDamage > -1) {
                         ItemStack tool = pl.inventory.mainInventory[toolToDamage];
                         if (tool != null) {
-                            int h;
+                            int h = 0;
                             for (String s : tool.getItem().getToolClasses(tool)) {
                                 h = tool.getItem().getHarvestLevel(tool, s);
                                 harvestLevel = h > harvestLevel ? h : harvestLevel;

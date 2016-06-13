@@ -47,15 +47,15 @@ public class DispenserTweaks {
         add(Items.RECORD_FAR, discBehaviour);
         add(Items.RECORD_MALL, discBehaviour);
         add(Items.RECORD_STAL, discBehaviour);
+        add(Items.RECORD_MELLOHI, discBehaviour);
         add(Items.RECORD_STRAD, discBehaviour);
         add(Items.RECORD_WAIT, discBehaviour);
         add(Items.RECORD_WARD, discBehaviour);
-        add(Items.RECORD_MELLOHI, discBehaviour);
 
         add(VAItems.itemPokeStick, pokeStickBehaviour);
 
         if (!Loader.isModLoaded(LibNames.MOD_QUARK)) {
-            add(Items.WHEAT_SEEDS, new SeedBehaviour(Blocks.WHEAT));
+            add(Items.WHEAT, new SeedBehaviour(Blocks.WHEAT));
             add(Items.BEETROOT_SEEDS, new SeedBehaviour(Blocks.BEETROOTS));
             add(Items.CARROT, new SeedBehaviour(Blocks.CARROTS));
             add(Items.PUMPKIN_SEEDS, new SeedBehaviour(Blocks.PUMPKIN_STEM));

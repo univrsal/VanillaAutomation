@@ -41,7 +41,7 @@ public class PickaxeBehaviour implements IBehaviorDispenseItem {
         final IBlockState blockS = worldObj.getBlockState(pos);
         final Block block = blockS.getBlock();
 
-        if (!Utils.canToolMine(blockS, tool))
+        if (!Utils.canToolMineBlock(tool, blockS))
             return false;
 
         BlockEvent.BreakEvent event = new BlockEvent.BreakEvent(worldObj, pos, blockS, fakePlayer);

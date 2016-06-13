@@ -37,7 +37,4 @@ public class LibNames {
 
     // Entities
     public static final String ENTITY_XPHOPPERMINECART = PREFIX + "xphopperminecart";
-
-    public static final String[] NET_CLIENT_HANDLER = new String[] { "connection", "field_78774_b", "b" };
-    public static final String[] CURRENT_GAME_TYPE = new String[] { "currentGameType", "field_78779_k", "i" };
 }

@@ -4,8 +4,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 
-import java.util.List;
-
 /**
  * Created by universallp on 19.03.2016 12:33.
  */
@@ -62,13 +60,5 @@ public class TilePlacer extends TileVA {
         else if (id == 1)
             return placeFace.ordinal();
         return super.getField(id);
-    }
-
-    public List<ItemStack> getDrops(List<ItemStack> s) {
-        for (ItemStack stack : items) {
-            System.out.println(stack);
-            s.add(stack);
-        }
-        return s;
     }
 }

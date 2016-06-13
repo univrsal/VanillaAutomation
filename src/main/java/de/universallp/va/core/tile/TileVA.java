@@ -25,7 +25,6 @@ public class TileVA extends TileEntity implements IInventory {
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
         NBTTagList l = new NBTTagList();
         for (int i = 0; i < items.length; i++) {
             NBTTagCompound tag = new NBTTagCompound();
@@ -37,6 +36,7 @@ public class TileVA extends TileEntity implements IInventory {
 
         compound.setTag("items", l);
         return super.writeToNBT(compound);
+
     }
 
     @Override
