@@ -5,6 +5,7 @@ import de.universallp.va.core.container.handler.XPHopperItemHandler;
 import de.universallp.va.core.util.ICustomField;
 import de.universallp.va.core.util.Utils;
 import de.universallp.va.core.util.libs.LibLocalization;
+import de.universallp.va.core.util.libs.LibReflection;
 import net.minecraft.block.BlockHopper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
@@ -36,7 +37,7 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
 
     public TileXPHopper() {
         setCustomName(I18n.format(LibLocalization.GUI_XPHOPPER));
-        ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, new ItemStack[6], "inventory"); // Welp, seems to work
+        ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, new ItemStack[6], LibReflection.HOPPER_INVENTORY); // Welp, seems to work
     }
 
     public static int getBottleSlot(IInventory inv) {

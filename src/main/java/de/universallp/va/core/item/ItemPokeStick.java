@@ -3,6 +3,7 @@ package de.universallp.va.core.item;
 import de.universallp.va.VanillaAutomation;
 import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.client.gui.screen.VisualRecipe;
+import de.universallp.va.core.handler.ConfigHandler;
 import de.universallp.va.core.util.Utils;
 import de.universallp.va.core.util.libs.LibNames;
 import net.minecraft.block.state.IBlockState;
@@ -12,6 +13,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
@@ -29,9 +31,6 @@ public class ItemPokeStick extends ItemVA {
 
     private static VisualRecipe recipe;
     private Set<String> toolClasses = new HashSet<String>();
-    private float toolEfficiency = 1;
-    private int toolToDamage = -1;
-    private int harvestLevel = 0;
 
     protected ItemPokeStick() {
         super(LibNames.ITEM_POKESTICK);
@@ -45,30 +44,40 @@ public class ItemPokeStick extends ItemVA {
         if (entityIn instanceof EntityPlayer) {
             ItemStack heldItem = Utils.getCarriedItem((EntityPlayer) entityIn);
             EntityPlayer pl = (EntityPlayer) entityIn;
-            if (heldItem != null && heldItem.getItem() != null && heldItem.getItem().equals(VAItems.itemPokeStick)) {
-                VanillaAutomation.proxy.setReach(pl, 15);
-                toolClasses = Utils.getCarriedTools(pl);
+
+            if (heldItem != null && heldItem.getItem().equals(VAItems.itemPokeStick)) {
+                VanillaAutomation.proxy.setReach(pl, 5 + ConfigHandler.POKE_STICK_RANGE);
                 RayTraceResult r = rayTrace(worldIn, pl, false);
+
                 if (r != null && r.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    toolEfficiency = Utils.getFirstEfficientTool(pl, entityIn.worldObj.getBlockState(r.getBlockPos()));
-                    toolToDamage = Utils.getFirstEfficientToolSlot(pl, entityIn.worldObj.getBlockState(r.getBlockPos()));
+                    IBlockState bS = entityIn.worldObj.getBlockState(r.getBlockPos());
+                    int toolToDamage = Utils.getFirstEfficientToolSlot(pl, bS);
+                    int harvestLevel = 0;
 
                     if (toolToDamage > -1) {
                         ItemStack tool = pl.inventory.mainInventory[toolToDamage];
                         if (tool != null) {
-                            int h = 0;
+                            int h;
                             for (String s : tool.getItem().getToolClasses(tool)) {
                                 h = tool.getItem().getHarvestLevel(tool, s);
                                 harvestLevel = h > harvestLevel ? h : harvestLevel;
                             }
                         }
                     }
+                    NBTTagCompound newTag = writeToolInfoToNBT(stack.getTagCompound(), Utils.getCarriedTools(pl), Utils.getFirstEfficientTool(pl, bS), toolToDamage, harvestLevel);
+                    if (!stack.hasTagCompound() || !newTag.equals(stack.getTagCompound()))
+                        stack.setTagCompound(newTag);
                 }
             } else
                 VanillaAutomation.proxy.setReach((EntityLivingBase) entityIn, 5);
         }
 
         super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
+    }
+
+    @Override
+    public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
+        return slotChanged;
     }
 
     @Override
@@ -86,7 +95,7 @@ public class ItemPokeStick extends ItemVA {
 
     @Override
     public float getStrVsBlock(ItemStack stack, IBlockState state) {
-        return toolEfficiency;
+        return readToolEfficiency(stack.getTagCompound());
     }
 
     @Override
@@ -96,7 +105,7 @@ public class ItemPokeStick extends ItemVA {
 
     @Override
     public int getHarvestLevel(ItemStack stack, String toolClass) {
-        return harvestLevel;
+        return readHarvestLevel(stack.getTagCompound());
     }
 
     @Override
@@ -107,13 +116,15 @@ public class ItemPokeStick extends ItemVA {
                 return super.onBlockDestroyed(stack, worldIn, blockIn, pos, entityLiving);
             else {
                 stack.damageItem(1, pl);
-                toolToDamage = Utils.getFirstEfficientToolSlot(pl, pl.worldObj.getBlockState(pos));
-                if (toolToDamage > -1) {
-                    // Damage the efficient tool
-                    ItemStack tool = pl.inventory.mainInventory[toolToDamage];
-                    tool.damageItem(1, entityLiving);
-                    if (tool.stackSize == 0)
-                        pl.inventory.mainInventory[toolToDamage] = null;
+                if (ConfigHandler.USE_TOOLS) {
+                    int toolToDamage = readToolToDamage(stack.getTagCompound());
+                    if (toolToDamage > -1) {
+                        // Damage the efficient tool
+                        ItemStack tool = pl.inventory.mainInventory[toolToDamage];
+                        tool.damageItem(1, entityLiving);
+                        if (tool.stackSize == 0)
+                            pl.inventory.mainInventory[toolToDamage] = null;
+                    }
                 }
             }
 
@@ -139,5 +150,59 @@ public class ItemPokeStick extends ItemVA {
     @Override
     public EnumEntry getEntry() {
         return EnumEntry.POKE_STICK;
+    }
+
+    private Set<String> readToolClasses(NBTTagCompound tag) {
+        Set<String> s = new HashSet<String>();
+        if (tag.hasKey("toolClasses")) {
+            NBTTagCompound toolTag = tag.getCompoundTag("toolClasses");
+            int size = toolTag.getInteger("toolCount");
+
+            for (int i = 0; i < size; i++) {
+                s.add(toolTag.getString("tool" + i));
+            }
+        }
+        return s;
+    }
+
+    private NBTTagCompound writeToolInfoToNBT(NBTTagCompound tag, Set<String> s, float toolEfficiency, int toolToDamage, int harvestLevel) {
+        int i = 0;
+        NBTTagCompound toolTag = new NBTTagCompound();
+
+        for (String string : s) {
+            toolTag.setString("tool" + i, string);
+            i++;
+        }
+
+        toolTag.setInteger("toolCount", i - 1);
+        toolTag.setFloat("toolEfficiency", toolEfficiency);
+        toolTag.setInteger("toolToDamage", toolToDamage);
+        toolTag.setInteger("toolHarvestLevel", harvestLevel);
+        if (tag == null)
+            tag = new NBTTagCompound();
+
+        tag.setTag("toolClasses", toolTag);
+        return tag;
+    }
+
+    private float readToolEfficiency(NBTTagCompound tag) {
+        if (tag != null && tag.hasKey("toolClasses"))
+            return tag.getCompoundTag("toolClasses").getFloat("toolEfficiency");
+        else
+            return 1F;
+    }
+
+    private int readHarvestLevel(NBTTagCompound tag) {
+        if (tag != null && tag.hasKey("toolClasses"))
+            return tag.getCompoundTag("toolClasses").getInteger("toolHarvestLevel");
+        else
+            return 1;
+    }
+
+    private int readToolToDamage(NBTTagCompound tag) {
+        if (tag != null && tag.hasKey("toolClasses"))
+            return tag.getCompoundTag("toolClasses").getInteger("toolToDamage");
+        else
+            return -1;
     }
 }

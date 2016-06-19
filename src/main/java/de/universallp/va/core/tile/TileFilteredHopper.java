@@ -5,6 +5,7 @@ import de.universallp.va.core.container.handler.FilteredItemHandler;
 import de.universallp.va.core.util.ICustomField;
 import de.universallp.va.core.util.Utils;
 import de.universallp.va.core.util.libs.LibLocalization;
+import de.universallp.va.core.util.libs.LibReflection;
 import net.minecraft.block.BlockHopper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
@@ -36,7 +37,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
 
     public TileFilteredHopper() {
         setCustomName(I18n.format(LibLocalization.GUI_FILTEREDHOPPER));
-        ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, new ItemStack[10], "inventory");
+        ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, new ItemStack[10], LibReflection.HOPPER_INVENTORY);
     }
 
     private static boolean captureDrops(TileFilteredHopper hopper) {
@@ -207,25 +208,26 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
                 for (ItemStack stack : getItemFilter()) {
                     if (!matchMod) {
                         if (stack.getItem().equals(s.getItem())) {
-
-                            if (!matchMeta && !matchNBT)
+                            if (matchMeta && matchNBT && ItemStack.areItemStackTagsEqual(stack, s) && s.getItemDamage() == stack.getItemDamage())
                                 flag = false;
-
-                            if (matchMeta && stack.getItemDamage() == s.getItemDamage())
+                            else if (matchMeta && !matchNBT && s.getItemDamage() == stack.getItemDamage())
                                 flag = false;
-
-                            if (matchNBT && ItemStack.areItemStackTagsEqual(s, stack))
+                            else if (!matchMeta && matchNBT && ItemStack.areItemStackTagsEqual(stack, s))
+                                flag = false;
+                            else if (!matchMeta && !matchNBT)
                                 flag = false;
                         }
                     } else {
-                        if (Utils.getModName(s).equals(Utils.getModName(stack)))
-                            flag = false;
-
-                        if (matchMeta && stack.getItemDamage() == s.getItemDamage())
-                            flag = false;
-
-                        if (matchNBT && ItemStack.areItemStackTagsEqual(s, stack))
-                            flag = false;
+                        if (Utils.getModName(s).equals(Utils.getModName(stack))) {
+                            if (matchMeta && matchNBT && ItemStack.areItemStackTagsEqual(stack, s) && s.getItemDamage() == stack.getItemDamage())
+                                flag = false;
+                            else if (matchMeta && !matchNBT && s.getItemDamage() == stack.getItemDamage())
+                                flag = false;
+                            else if (!matchMeta && matchNBT && ItemStack.areItemStackTagsEqual(stack, s))
+                                flag = false;
+                            else if (!matchMeta && !matchNBT)
+                                flag = false;
+                        }
                     }
                 }
                 return flag;
@@ -234,25 +236,26 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
                 for (ItemStack stack : getItemFilter()) {
                     if (!matchMod) {
                         if (stack.getItem().equals(s.getItem())) {
-
-                            if (!matchMeta && !matchNBT)
+                            if (matchMeta && matchNBT && ItemStack.areItemStackTagsEqual(stack, s) && s.getItemDamage() == stack.getItemDamage())
                                 flag = true;
-
-                            if (matchMeta && stack.getItemDamage() == s.getItemDamage())
+                            else if (matchMeta && !matchNBT && s.getItemDamage() == stack.getItemDamage())
                                 flag = true;
-
-                            if (matchNBT && ItemStack.areItemStackTagsEqual(s, stack))
+                            else if (!matchMeta && matchNBT && ItemStack.areItemStackTagsEqual(stack, s))
+                                flag = true;
+                            else if (!matchMeta && !matchNBT)
                                 flag = true;
                         }
                     } else {
-                        if (Utils.getModName(s).equals(Utils.getModName(stack)))
-                            flag = true;
-
-                        if (matchMeta && stack.getItemDamage() == s.getItemDamage())
-                            flag = true;
-
-                        if (matchNBT && ItemStack.areItemStackTagsEqual(s, stack))
-                            flag = true;
+                        if (Utils.getModName(s).equals(Utils.getModName(stack))) {
+                            if (matchMeta && matchNBT && ItemStack.areItemStackTagsEqual(stack, s) && s.getItemDamage() == stack.getItemDamage())
+                                flag = true;
+                            else if (matchMeta && !matchNBT && s.getItemDamage() == stack.getItemDamage())
+                                flag = true;
+                            else if (!matchMeta && matchNBT && ItemStack.areItemStackTagsEqual(stack, s))
+                                flag = true;
+                            else if (!matchMeta && !matchNBT)
+                                flag = true;
+                        }
                     }
                 }
                 return flag;

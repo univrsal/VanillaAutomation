@@ -7,6 +7,7 @@ import de.universallp.va.core.CommonProxy;
 import de.universallp.va.core.block.VABlocks;
 import de.universallp.va.core.item.ItemVA;
 import de.universallp.va.core.util.VAPlayerController;
+import de.universallp.va.core.util.libs.LibReflection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.client.network.NetHandlerPlayClient;
@@ -53,10 +54,10 @@ public class ClientProxy extends CommonProxy {
         super.setReach(entity, reach);
         Minecraft mc = Minecraft.getMinecraft();
         EntityPlayer player = mc.thePlayer;
-        if (entity == player) {
+        if (player != null && entity == player) {
             if (!(mc.playerController instanceof VAPlayerController)) {
-                WorldSettings.GameType type = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, "currentGameType", "field_78779_k", "k");
-                NetHandlerPlayClient net = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, "netClientHandler", "field_78774_b", "b");
+                WorldSettings.GameType type = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibReflection.CURRENT_GAME_TYPE);
+                NetHandlerPlayClient net = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibReflection.NET_CLIENT_HANDLER);
                 VAPlayerController controller = new VAPlayerController(mc, net);
                 boolean isFlying = player.capabilities.isFlying;
                 boolean allowFlying = player.capabilities.allowFlying;

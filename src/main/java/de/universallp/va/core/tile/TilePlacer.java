@@ -1,5 +1,6 @@
 package de.universallp.va.core.tile;
 
+import de.universallp.va.core.handler.ConfigHandler;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -45,7 +46,7 @@ public class TilePlacer extends TileVA {
 
     @Override
     public void setField(int id, int value) {
-        if (id == 0 && value < 17)
+        if (id == 0 && value < ConfigHandler.BLOCK_PLACER_REACH + 1)
             reachDistance = (byte) value;
         else if (id == 1 && value < EnumFacing.values().length)
             placeFace = EnumFacing.values()[value];

@@ -1,5 +1,6 @@
 package de.universallp.va.client.gui;
 
+import de.universallp.va.core.handler.ConfigHandler;
 import de.universallp.va.core.network.PacketHandler;
 import de.universallp.va.core.network.messages.MessageSetFieldServer;
 import de.universallp.va.core.tile.TilePlacer;
@@ -93,10 +94,10 @@ public class GuiPlacer extends GuiDispenser {
         }
 
         if (button.id == 2) {
-            if (reachDistance < 16) {
+            if (reachDistance < ConfigHandler.BLOCK_PLACER_REACH) {
                 reachDistance++;
                 btnDown.enabled = true;
-                if (reachDistance == 16)
+                if (reachDistance == ConfigHandler.BLOCK_PLACER_REACH)
                     button.enabled = false;
                 placer.reachDistance = (byte) reachDistance;
                 PacketHandler.INSTANCE.sendToServer(new MessageSetFieldServer(0, reachDistance, placer.getPos()));

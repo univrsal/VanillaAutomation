@@ -58,7 +58,7 @@ public class Utils {
         Set<String> toolClasses = new HashSet<String>();
 
         for (ItemStack stack : pl.inventory.mainInventory)
-            if (stack != null && stack.getItem() != null)
+            if (stack != null)
                 toolClasses.addAll(stack.getItem().getToolClasses(stack));
 
         return toolClasses;
@@ -66,7 +66,7 @@ public class Utils {
 
     public static float getFirstEfficientTool(EntityPlayer pl, IBlockState s) {
         for (ItemStack stack : pl.inventory.mainInventory)
-            if (stack != null && stack.getItem() != null && !stack.getItem().equals(VAItems.itemPokeStick))
+            if (stack != null && !stack.getItem().equals(VAItems.itemPokeStick))
                 for (String string : stack.getItem().getToolClasses(stack))
                     if (s.getBlock().isToolEffective(string, s))
                         return stack.getItem().getStrVsBlock(stack, s);
@@ -79,7 +79,7 @@ public class Utils {
         for (int i = 0; i < pl.inventory.mainInventory.length; i++) {
             ItemStack stack = pl.inventory.mainInventory[i];
 
-            if (stack != null && stack.getItem() != null && !stack.getItem().equals(VAItems.itemPokeStick)) {
+            if (stack != null && !stack.getItem().equals(VAItems.itemPokeStick)) {
                 for (String string : stack.getItem().getToolClasses(stack))
                     if (s.getBlock().isToolEffective(string, s))
                         return i;
@@ -144,7 +144,8 @@ public class Utils {
         Set<String> toolClasses = toolStack.getItem().getToolClasses(toolStack);
 
         for (String toolClass : toolClasses)  {
-            if (toolClass.equals(tool) && toolStack.getItem().getHarvestLevel(toolStack, toolClass) == harvesLevel)
+            System.out.println(tool.equals(toolClass));
+            if (toolClass.equals(tool) && toolStack.getItem().getHarvestLevel(toolStack, toolClass) >= harvesLevel)
                 return true;
         }
 

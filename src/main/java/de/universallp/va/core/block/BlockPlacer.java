@@ -53,7 +53,7 @@ public class BlockPlacer extends BlockVA {
         fakePlayer.setItemInHand(placeable);
         final IBlockState blockS = worldObj.getBlockState(pos);
         final Block block = Block.getBlockFromItem(placeable.getItem());
-
+        System.out.println(f);
         if (block != null) {
             IBlockState placeState = Block.getBlockFromItem(placeable.getItem()).getStateFromMeta(placeable.getItemDamage());
             BlockSnapshot bS;
@@ -135,9 +135,18 @@ public class BlockPlacer extends BlockVA {
 
             ItemStack placable = tP.getStackInSlot(slot);
             EnumFacing f = getFacingFromState(state);
-            BlockPos dest = pos.add(f.getFrontOffsetX() * tP.reachDistance, f.getFrontOffsetY() * tP.reachDistance, f.getFrontOffsetZ() * tP.reachDistance);
 
-            ForgeHooks.onPlaceItemIntoWorld(placable, VAFakePlayer.instance(worldIn), worldIn, dest, f, 0, 0, 0, EnumHand.MAIN_HAND);
+            BlockPos dest = pos.add(f.getFrontOffsetX() * tP.reachDistance, f.getFrontOffsetY() * tP.reachDistance, f.getFrontOffsetZ() * tP.reachDistance);
+            ForgeHooks.onPlaceItemIntoWorld(placable, VAFakePlayer.instance(worldIn), worldIn, dest, tP.placeFace, 0, 0, 0, EnumHand.MAIN_HAND);
+
+            IBlockState s = worldIn.getBlockState(dest);
+            if (s.getProperties().containsKey(BlockHorizontal.FACING)) {
+                if (tP.placeFace != EnumFacing.UP && tP.placeFace != EnumFacing.DOWN)
+                    s = s.withProperty(BlockHorizontal.FACING, tP.placeFace);
+            } else if (s.getProperties().containsKey(BlockDirectional.FACING)) {
+                s = s.withProperty(BlockDirectional.FACING, tP.placeFace);
+            }
+            worldIn.setBlockState(dest, s);
 
             if (tP.getStackInSlot(slot).stackSize == 0)
                 tP.decrStackSize(slot, 1); // Forge leaves stacks with 0 size so I'll get rid of it

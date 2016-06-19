@@ -55,7 +55,7 @@ public class DispenserTweaks {
         add(VAItems.itemPokeStick, pokeStickBehaviour);
 
         if (!Loader.isModLoaded(LibNames.MOD_QUARK)) {
-            add(Items.WHEAT, new SeedBehaviour(Blocks.WHEAT));
+            add(Items.WHEAT_SEEDS, new SeedBehaviour(Blocks.WHEAT));
             add(Items.BEETROOT_SEEDS, new SeedBehaviour(Blocks.BEETROOTS));
             add(Items.CARROT, new SeedBehaviour(Blocks.CARROTS));
             add(Items.PUMPKIN_SEEDS, new SeedBehaviour(Blocks.PUMPKIN_STEM));
