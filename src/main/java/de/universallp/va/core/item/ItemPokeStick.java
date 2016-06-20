@@ -5,8 +5,11 @@ import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.client.gui.screen.VisualRecipe;
 import de.universallp.va.core.handler.ConfigHandler;
 import de.universallp.va.core.util.Utils;
+import de.universallp.va.core.util.libs.LibLocalization;
 import de.universallp.va.core.util.libs.LibNames;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,6 +25,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -36,7 +40,9 @@ public class ItemPokeStick extends ItemVA {
         super(LibNames.ITEM_POKESTICK);
         setCreativeTab(CreativeTabs.TOOLS);
         setMaxStackSize(1);
-        setMaxDamage(120);
+
+        if (ConfigHandler.POKE_STICK_DURABILITY > -1)
+            setMaxDamage(ConfigHandler.POKE_STICK_DURABILITY);
     }
 
     @Override
@@ -64,6 +70,7 @@ public class ItemPokeStick extends ItemVA {
                             }
                         }
                     }
+
                     NBTTagCompound newTag = writeToolInfoToNBT(stack.getTagCompound(), Utils.getCarriedTools(pl), Utils.getFirstEfficientTool(pl, bS), toolToDamage, harvestLevel);
                     if (!stack.hasTagCompound() || !newTag.equals(stack.getTagCompound()))
                         stack.setTagCompound(newTag);
@@ -87,10 +94,37 @@ public class ItemPokeStick extends ItemVA {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+        if (itemStackIn.getItemDamage() > 0 && ConfigHandler.POKE_STICK_DURABILITY == -1) {
+            itemStackIn.setItemDamage(0);
+        }
         ActionResult<ItemStack> result = super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
         if (!playerIn.capabilities.isCreativeMode && result.getType() != EnumActionResult.FAIL)
             itemStackIn.damageItem(1, playerIn);
         return result;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+        if (stack.getItemDamage() > 0 && ConfigHandler.POKE_STICK_DURABILITY == -1) {
+            tooltip.add(I18n.format(LibLocalization.TIP_CONVERT));
+        }
+
+        if (stack.hasTagCompound()) {
+            Set<String> tools = readToolClasses(stack.getTagCompound());
+            if (tools.size() > 0) {
+                if (GuiScreen.isShiftKeyDown()) {
+                    tooltip.add("Imitating:");
+
+                    for (String tool : tools) {
+                        String format = tool.substring(0, 1).toUpperCase() + tool.substring(1);
+                        tooltip.add(" - " + format);
+                    }
+                } else
+                    tooltip.add("Hold <shift> for info");
+            }
+        }
+
+        super.addInformation(stack, playerIn, tooltip, advanced);
     }
 
     @Override
@@ -100,7 +134,22 @@ public class ItemPokeStick extends ItemVA {
 
     @Override
     public Set<String> getToolClasses(ItemStack stack) {
-        return toolClasses.size() > 0 ? toolClasses : super.getToolClasses(stack);
+        if (stack.hasTagCompound() && readToolClasses(stack.getTagCompound()).size() > 0)
+            return readToolClasses(stack.getTagCompound());
+        else
+            return super.getToolClasses(stack);
+    }
+
+    @Override
+    public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
+        int hL = state.getBlock().getHarvestLevel(state);
+        String tool = state.getBlock().getHarvestTool(state);
+        return getHarvestLevel(stack, "") >= hL && getToolClasses(stack).contains(tool);
+    }
+
+    @Override
+    public boolean canHarvestBlock(IBlockState blockIn) {
+        return true; // Actual calculations will be done in the other method
     }
 
     @Override
@@ -174,7 +223,7 @@ public class ItemPokeStick extends ItemVA {
             i++;
         }
 
-        toolTag.setInteger("toolCount", i - 1);
+        toolTag.setInteger("toolCount", i);
         toolTag.setFloat("toolEfficiency", toolEfficiency);
         toolTag.setInteger("toolToDamage", toolToDamage);
         toolTag.setInteger("toolHarvestLevel", harvestLevel);

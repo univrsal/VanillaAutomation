@@ -29,7 +29,7 @@ public class TilePlacer extends TileVA {
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        reachDistance = compound.getByte("distance");
+        reachDistance = compound.getByte("distance") > ConfigHandler.BLOCK_PLACER_REACH ? ConfigHandler.BLOCK_PLACER_REACH : compound.getByte("distance");
         isTriggered = compound.getBoolean("isTriggered");
         placeFace = EnumFacing.values()[compound.getByte("facing")];
     }

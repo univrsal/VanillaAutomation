@@ -23,9 +23,9 @@ public class CommonProxy {
 
 
     public void preInit(FMLPreInitializationEvent e) {
+        ConfigHandler.loadConfig(e.getSuggestedConfigurationFile());
         VAItems.init();
         VABlocks.init();
-        ConfigHandler.loadConfig(e.getSuggestedConfigurationFile());
     }
 
     public void init(FMLInitializationEvent e) {

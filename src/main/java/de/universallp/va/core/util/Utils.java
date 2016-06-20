@@ -58,7 +58,7 @@ public class Utils {
         Set<String> toolClasses = new HashSet<String>();
 
         for (ItemStack stack : pl.inventory.mainInventory)
-            if (stack != null)
+            if (stack != null && !stack.getItem().equals(VAItems.itemPokeStick))
                 toolClasses.addAll(stack.getItem().getToolClasses(stack));
 
         return toolClasses;

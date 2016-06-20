@@ -32,6 +32,9 @@ item.va:pokestick.name=Poke Stick
 item.va:xphopperminecart.name=XP Hopper Minecart
 item.va:filteredhopperminecart=Filtered Hopper Minecart
 
+# Tooltips
+tooltip.va:convert.name=Config mismatch. Right-click to fix
+
 # Blocks
 tile.va:blockplacer.name=Block Placer
 tile.va:xphopper.name=XP Hopper
