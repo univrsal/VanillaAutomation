@@ -18,7 +18,7 @@ import net.minecraftforge.event.world.BlockEvent;
 /**
  * Created by universallp on 19.03.2016 17:52.
  */
-public class PickaxeBehaviour implements IBehaviorDispenseItem {
+public class ToolBehaviour implements IBehaviorDispenseItem {
 
     @Override
     public ItemStack dispense(IBlockSource source, ItemStack stack) {
@@ -35,7 +35,7 @@ public class PickaxeBehaviour implements IBehaviorDispenseItem {
         return stack;
     }
 
-    public boolean breakBlock(World worldObj, BlockPos pos, VAFakePlayer fakePlayer, ItemStack tool) {
+    private boolean breakBlock(World worldObj, BlockPos pos, VAFakePlayer fakePlayer, ItemStack tool) {
         fakePlayer.setItemInHand(tool);
 
         final IBlockState blockS = worldObj.getBlockState(pos);

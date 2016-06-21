@@ -113,14 +113,14 @@ public class ItemPokeStick extends ItemVA {
             Set<String> tools = readToolClasses(stack.getTagCompound());
             if (tools.size() > 0) {
                 if (GuiScreen.isShiftKeyDown()) {
-                    tooltip.add("Imitating:");
+                    tooltip.add(I18n.format(LibLocalization.TIP_IMITATES));
 
                     for (String tool : tools) {
                         String format = tool.substring(0, 1).toUpperCase() + tool.substring(1);
                         tooltip.add(" - " + format);
                     }
                 } else
-                    tooltip.add("Hold <shift> for info");
+                    tooltip.add(I18n.format(LibLocalization.TIP_HOLDSHIFT));
             }
         }
 
@@ -144,7 +144,7 @@ public class ItemPokeStick extends ItemVA {
     public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
         int hL = state.getBlock().getHarvestLevel(state);
         String tool = state.getBlock().getHarvestTool(state);
-        return getHarvestLevel(stack, "") >= hL && getToolClasses(stack).contains(tool);
+        return getHarvestLevel(stack, "") >= hL && (getToolClasses(stack).contains(tool) || tool == null);
     }
 
     @Override

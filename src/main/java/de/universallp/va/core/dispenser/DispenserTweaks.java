@@ -15,44 +15,59 @@ import net.minecraftforge.fml.common.Loader;
  */
 public class DispenserTweaks {
 
-    public static final DyeBehaviour dyeBehaviour = new DyeBehaviour();
-    public static final PickaxeBehaviour pickaxeBehaviour = new PickaxeBehaviour();
-    public static final SwordBehaviour swordBehaviour = new SwordBehaviour();
-    public static final ShearBehaviour shearBehaviour = new ShearBehaviour();
-    public static final DiscBehaviour discBehaviour = new DiscBehaviour();
-    public static final PokeStickBehaviour pokeStickBehaviour = new PokeStickBehaviour();
+    private static final DyeBehaviour DYE_BEHAVIOUR = new DyeBehaviour();
+    private static final ToolBehaviour TOOL_BEHAVIOUR = new ToolBehaviour();
+    private static final SwordBehaviour SWORD_BEHAVIOUR = new SwordBehaviour();
+    private static final ShearBehaviour SHEAR_BEHAVIOUR = new ShearBehaviour();
+    private static final DiscBehaviour DISC_BEHAVIOUR = new DiscBehaviour();
+    private static final PokeStickBehaviour POKE_STICK_BEHAVIOUR = new PokeStickBehaviour();
+    private static final NameTagBehaviour NAME_TAG_BEHAVIOUR = new NameTagBehaviour();
 
     public static void register() {
-        add(Items.DYE, dyeBehaviour);
+        add(Items.DYE, DYE_BEHAVIOUR);
 
-        add(Items.DIAMOND_PICKAXE, pickaxeBehaviour);
-        add(Items.IRON_PICKAXE, pickaxeBehaviour);
-        add(Items.GOLDEN_PICKAXE, pickaxeBehaviour);
-        add(Items.STONE_PICKAXE, pickaxeBehaviour);
-        add(Items.WOODEN_PICKAXE, pickaxeBehaviour);
+        add(Items.DIAMOND_PICKAXE, TOOL_BEHAVIOUR);
+        add(Items.IRON_PICKAXE, TOOL_BEHAVIOUR);
+        add(Items.GOLDEN_PICKAXE, TOOL_BEHAVIOUR);
+        add(Items.STONE_PICKAXE, TOOL_BEHAVIOUR);
+        add(Items.WOODEN_PICKAXE, TOOL_BEHAVIOUR);
 
-        add(Items.DIAMOND_SWORD, swordBehaviour);
-        add(Items.IRON_SWORD, swordBehaviour);
-        add(Items.GOLDEN_SWORD, swordBehaviour);
-        add(Items.STONE_SWORD, swordBehaviour);
-        add(Items.WOODEN_SWORD, swordBehaviour);
+        add(Items.DIAMOND_AXE, TOOL_BEHAVIOUR);
+        add(Items.IRON_AXE, TOOL_BEHAVIOUR);
+        add(Items.GOLDEN_AXE, TOOL_BEHAVIOUR);
+        add(Items.STONE_AXE, TOOL_BEHAVIOUR);
+        add(Items.WOODEN_PICKAXE, TOOL_BEHAVIOUR);
 
-        add(Items.SHEARS, shearBehaviour);
+        add(Items.DIAMOND_SHOVEL, TOOL_BEHAVIOUR);
+        add(Items.IRON_SHOVEL, TOOL_BEHAVIOUR);
+        add(Items.GOLDEN_SHOVEL, TOOL_BEHAVIOUR);
+        add(Items.STONE_SHOVEL, TOOL_BEHAVIOUR);
+        add(Items.WOODEN_SHOVEL, TOOL_BEHAVIOUR);
 
-        add(Items.RECORD_11, discBehaviour);
-        add(Items.RECORD_13, discBehaviour);
-        add(Items.RECORD_BLOCKS, discBehaviour);
-        add(Items.RECORD_CAT, discBehaviour);
-        add(Items.RECORD_CHIRP, discBehaviour);
-        add(Items.RECORD_FAR, discBehaviour);
-        add(Items.RECORD_MALL, discBehaviour);
-        add(Items.RECORD_STAL, discBehaviour);
-        add(Items.RECORD_MELLOHI, discBehaviour);
-        add(Items.RECORD_STRAD, discBehaviour);
-        add(Items.RECORD_WAIT, discBehaviour);
-        add(Items.RECORD_WARD, discBehaviour);
+        add(Items.DIAMOND_SWORD, SWORD_BEHAVIOUR);
+        add(Items.IRON_SWORD, SWORD_BEHAVIOUR);
+        add(Items.GOLDEN_SWORD, SWORD_BEHAVIOUR);
+        add(Items.STONE_SWORD, SWORD_BEHAVIOUR);
+        add(Items.WOODEN_SWORD, SWORD_BEHAVIOUR);
 
-        add(VAItems.itemPokeStick, pokeStickBehaviour);
+        add(Items.SHEARS, SHEAR_BEHAVIOUR);
+
+        add(Items.RECORD_11, DISC_BEHAVIOUR);
+        add(Items.RECORD_13, DISC_BEHAVIOUR);
+        add(Items.RECORD_BLOCKS, DISC_BEHAVIOUR);
+        add(Items.RECORD_CAT, DISC_BEHAVIOUR);
+        add(Items.RECORD_CHIRP, DISC_BEHAVIOUR);
+        add(Items.RECORD_FAR, DISC_BEHAVIOUR);
+        add(Items.RECORD_MALL, DISC_BEHAVIOUR);
+        add(Items.RECORD_STAL, DISC_BEHAVIOUR);
+        add(Items.RECORD_MELLOHI, DISC_BEHAVIOUR);
+        add(Items.RECORD_STRAD, DISC_BEHAVIOUR);
+        add(Items.RECORD_WAIT, DISC_BEHAVIOUR);
+        add(Items.RECORD_WARD, DISC_BEHAVIOUR);
+
+        add(VAItems.itemPokeStick, POKE_STICK_BEHAVIOUR);
+
+        add(Items.NAME_TAG, NAME_TAG_BEHAVIOUR);
 
         if (!Loader.isModLoaded(LibNames.MOD_QUARK)) {
             add(Items.WHEAT_SEEDS, new SeedBehaviour(Blocks.WHEAT));

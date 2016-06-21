@@ -64,8 +64,8 @@ va.guide.entry.blockplacer.page1=Dieser Block kann, wie sein Name verrät, Blöc
 va.guide.entry.blockplacer.page2="Steve in 'ner Box"
 
 # Dispenser
-va.guide.entry.dispenser.page1=Wenn VanillaAutomation installiert wird erhält der Dispenser einige Änderungen.\nDiese Dinge sind neu:\nMit einer Spitzhacke im Dispenser kann er Blöcke zerstören.\nMit Farbe färbt er Schafe vor sich und Knochenmehl wird auf den Boden verwendet. Außerdem schert er Schafe mit Scheren.
-va.guide.entry.dispenser.page2=Der Dispenser kann nun auch Schallplatten in Musikboxen einlegen.\nSamen werden auf dem Boden plaziert und Schwerter werden benutzt um Tiere anzugreifen.
+va.guide.entry.dispenser.page1=Wenn VanillaAutomation installiert wird erhält der Dispenser einige Änderungen.\nDiese Dinge sind neu:\nMit einem Werkzeug im Dispenser kann er Blöcke zerstören.\nMit Farbe färbt er Schafe vor sich und Knochenmehl wird auf den Boden verwendet. Außerdem schert er Schafe mit Scheren.
+va.guide.entry.dispenser.page2=Der Dispenser kann nun auch Schallplatten in Musikboxen einlegen. Außerdem kann er Tiere mit Namensschildern benennen.\nSamen werden auf dem Boden plaziert und Schwerter werden benutzt um Tiere anzugreifen.
 
 # Poke Stick
 va.guide.entry.pokestick.page1=Dieser Stock hat zwei Nutzen. Zum einem erweitert er deine Reichweite, sodass du diese nervigen Ecken erreichen kannst. Zum anderen kann er in einen Dispener oder Blockplazierer geleget werden um einen Rechtsklick auszuführen. Im Blockplazierer wird die Reichweite beachtet.

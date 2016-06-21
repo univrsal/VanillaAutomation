@@ -34,6 +34,8 @@ item.va:filteredhopperminecart=Filtered Hopper Minecart
 
 # Tooltips
 tooltip.va:convert.name=Config mismatch. Right-click to fix
+tooltip.va:holdshift.name=Hold <Shift> for more info
+tooltip.va:imitates.name=Imitates:
 
 # Blocks
 tile.va:blockplacer.name=Block Placer
@@ -67,8 +69,8 @@ va.guide.entry.blockplacer.page1=The block placer can, as it's name suggests, pl
 va.guide.entry.blockplacer.page2="Steve in a box"
 
 # Dispenser
-va.guide.entry.dispenser.page1=With VanillaAutomation installed the dispenser receives a few tweaks to allow it to automate things.\nThe following things are new:\nPlacing any vanilla pickaxe in the dispenser allows it to break blocks.\nDye will dye any sheep in front and bone meal will be applied to the ground. Also shears will shear sheep.
-va.guide.entry.dispenser.page2=The dispenser now also can insert and take out music discs from the jukebox in front of it.\nAlso the dispenser will place seeds (Provided Quark isn't installed) and use swords to damage entities in front of it.
+va.guide.entry.dispenser.page1=With VanillaAutomation installed the dispenser receives a few tweaks to allow it to automate things.\nThe following things are new:\nPlacing any vanilla tool in the dispenser allows it to break blocks.\nDye will dye any sheep in front and bone meal will be applied to the ground. Also shears will shear sheep.
+va.guide.entry.dispenser.page2=The dispenser now also can insert and take out music discs from the jukebox in front of it aswell as naming entities infront with nametags.\nAlso the dispenser will place seeds (Provided Quark isn't installed) and use swords to damage entities in front of it.
 
 # Poke Stick
 va.guide.entry.pokestick.page1=This stick has two uses. For one it'll double your reach distance while you hold it, so you can reach those pesky spots without wasting your precious energy. The other use is that when placed in a dispenser or block placer it'll perform a right click on the block in front. In the block placer it'll take the reach distance into account.

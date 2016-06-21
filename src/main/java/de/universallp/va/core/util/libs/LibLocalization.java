@@ -29,4 +29,7 @@ public class LibLocalization {
     public static final String MSG_CRASH2 = "va.msg.crash2";
     public static final String JEI_GUIDE = "va.jei.guideinfo";
     public static final String TIP_CONVERT = "tooltip.va:convert.name=";
+    public static final String TIP_HOLDSHIFT = "tooltip.va:holdshift.name";
+    public static final String TIP_IMITATES = "tooltip.va:imitates.name";
+
 }
