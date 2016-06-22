@@ -86,7 +86,7 @@ public class BlockAdvancedAnvil extends BlockFalling {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote)
-            return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
+            return true;
         else {
             playerIn.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_ADVANCEDANVIL, worldIn, pos.getX(), pos.getY(), pos.getZ());
             return true;
