@@ -15,6 +15,7 @@ public class LibNames {
     public static final String TILE_PLACER  = "tilePlacer";
     public static final String TILE_XPHOPPER = "tilexpHopper";
     public static final String TILE_FILTEREDHOPPER = "tilefilteredhopper";
+    public static final String TILE_ADVANCEDANVIL = "tileadvancedanvil";
 
     public static final String GUI_DIR = "va.dir.";
     public static final int TEXT_COLOR = 4210752;
@@ -28,6 +29,7 @@ public class LibNames {
     public static final String BLOCK_PLACER = PREFIX + "blockplacer";
     public static final String BLOCK_XPHOPPER = PREFIX + "xphopper";
     public static final String BLOCK_FILTEREDHOPPER = PREFIX + "filteredhopper";
+    public static final String BLOCK_ADVANCEDANVIL = PREFIX + "advancedanvil";
 
     // Items
     public static final String ITEM_GUIDE = PREFIX + "vaguide";

@@ -9,5 +9,5 @@ public class LibGuiIDs {
     public static final byte GUI_GUIDE = 1;
     public static final byte GUI_XPHOPPER = 2;
     public static final byte GUI_FILTEREDHOPPER = 3;
-
+    public static final byte GUI_ADVANCEDANVIL = 4;
 }

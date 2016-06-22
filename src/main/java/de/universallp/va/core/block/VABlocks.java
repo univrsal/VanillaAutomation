@@ -1,5 +1,6 @@
 package de.universallp.va.core.block;
 
+import de.universallp.va.core.tile.TileAdvancedAnvil;
 import de.universallp.va.core.tile.TileFilteredHopper;
 import de.universallp.va.core.tile.TilePlacer;
 import de.universallp.va.core.tile.TileXPHopper;
@@ -15,21 +16,24 @@ public class VABlocks {
     public static BlockPlacer placer;
     public static BlockXPHopper xpHopper;
     public static BlockFilteredHopper filterHopper;
-
+    public static BlockAdvancedAnvil advancedAnvil;
     public static void init() {
         placer = new BlockPlacer();
         xpHopper = new BlockXPHopper();
         filterHopper = new BlockFilteredHopper();
+        advancedAnvil = new BlockAdvancedAnvil();
     }
 
     public static void register() {
         GameRegistry.register(placer);
         GameRegistry.register(xpHopper);
         GameRegistry.register(filterHopper);
+        GameRegistry.register(advancedAnvil);
 
         GameRegistry.register(new ItemBlock(placer), placer.getRegistryName());
         GameRegistry.register(new ItemBlock(xpHopper), xpHopper.getRegistryName());
         GameRegistry.register(new ItemBlock(filterHopper), filterHopper.getRegistryName());
+        GameRegistry.register(new ItemBlock(advancedAnvil), advancedAnvil.getRegistryName());
 
         placer.addRecipe();
         xpHopper.addRecipe();
@@ -42,11 +46,14 @@ public class VABlocks {
         GameRegistry.registerTileEntity(TilePlacer.class, LibNames.TILE_PLACER);
         GameRegistry.registerTileEntity(TileXPHopper.class, LibNames.TILE_XPHOPPER);
         GameRegistry.registerTileEntity(TileFilteredHopper.class, LibNames.TILE_FILTEREDHOPPER);
+        GameRegistry.registerTileEntity(TileAdvancedAnvil.class, LibNames.BLOCK_ADVANCEDANVIL);
+
     }
 
     public static void registerModels() {
         placer.registerModel();
         xpHopper.registerModel();
         filterHopper.registerModel();
+        advancedAnvil.registerModel();
     }
 }

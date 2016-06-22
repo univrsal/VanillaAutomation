@@ -1,0 +1,40 @@
+{
+  "forge_marker": 1,
+  "variants": {
+    "facing=south": {
+      "model": "anvil_undamaged",
+      "textures": {
+        "particle": "va:blocks/advancedanvil_base",
+        "body": "va:blocks/advancedanvil_base",
+        "top": "va:blocks/advancedanvil_top"
+      }
+    },
+    "facing=west": {
+      "model": "anvil_undamaged",
+      "y": 90,
+      "textures": {
+        "particle": "va:blocks/advancedanvil_base",
+        "body": "va:blocks/advancedanvil_base",
+        "top": "va:blocks/advancedanvil_top"
+      }
+    },
+    "facing=north": {
+      "model": "anvil_undamaged",
+      "y": 180,
+      "textures": {
+        "particle": "va:blocks/advancedanvil_base",
+        "body": "va:blocks/advancedanvil_base",
+        "top": "va:blocks/advancedanvil_top"
+      }
+    },
+    "facing=east": {
+      "model": "anvil_undamaged",
+      "y": 270,
+      "textures": {
+        "particle": "va:blocks/advancedanvil_base",
+        "body": "va:blocks/advancedanvil_base",
+        "top": "va:blocks/advancedanvil_top"
+      }
+    }
+  }
+}

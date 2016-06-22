@@ -106,7 +106,7 @@ public class BlockPlacer extends BlockVA {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote)
-            return true;
+            return super.onBlockActivated(worldIn, pos, state, playerIn, hand, heldItem, side, hitX, hitY, hitZ);
         else {
             playerIn.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_PLACER, worldIn, pos.getX(), pos.getY(), pos.getZ());
             return true;
