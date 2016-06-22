@@ -42,7 +42,7 @@ public class GuiPlacer extends GuiDispenser {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
 
-        if (mouseX > guiLeft + 135 && mouseX < guiLeft + 152)
+        if (mouseX > guiLeft + 135 && mouseX < guiLeft + 152 && ConfigHandler.BLOCK_PLACER_REACH > 1)
             if (mouseY > guiTop + 38 && mouseY < guiTop + 48)
                 drawHoveringText(Collections.singletonList(I18n.format(LibLocalization.GUI_DIST)), mouseX, mouseY);
     }
@@ -50,7 +50,8 @@ public class GuiPlacer extends GuiDispenser {
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        fontRendererObj.drawString(String.valueOf(reachDistance), (reachDistance > 9 ? 138 : 141), 39, LibNames.TEXT_COLOR);
+        if (ConfigHandler.BLOCK_PLACER_REACH > 1)
+            fontRendererObj.drawString(String.valueOf(reachDistance), (reachDistance > 9 ? 138 : 141), 39, LibNames.TEXT_COLOR);
         fontRendererObj.drawString(I18n.format(LibLocalization.GUI_FACE), 9, 38, LibNames.TEXT_COLOR);
     }
 
@@ -58,16 +59,19 @@ public class GuiPlacer extends GuiDispenser {
     public void initGui() {
         super.initGui();
         btnFace = new GuiButton(0, guiLeft + 8, guiTop + 48, 50, 20, I18n.format(LibNames.GUI_DIR + placeFace.getName()));
-        btnUp   = new GuiButton(2, guiLeft + 134, guiTop + 15, 20, 20, "+");
-        btnDown = new GuiButton(1, guiLeft + 134, guiTop + 50, 20, 20, "-");
+        if (ConfigHandler.BLOCK_PLACER_REACH > 1) {
+            btnUp = new GuiButton(2, guiLeft + 134, guiTop + 15, 20, 20, "+");
+            btnDown = new GuiButton(1, guiLeft + 134, guiTop + 50, 20, 20, "-");
 
-        if (reachDistance < 2)
-            btnDown.enabled = false;
-        if (reachDistance > 15)
-            btnUp.enabled = false;
+            if (reachDistance < 2)
+                btnDown.enabled = false;
+            if (reachDistance > 15)
+                btnUp.enabled = false;
 
-        buttonList.add(btnDown);
-        buttonList.add(btnUp);
+            buttonList.add(btnDown);
+            buttonList.add(btnUp);
+        }
+
         buttonList.add(btnFace);
     }
 

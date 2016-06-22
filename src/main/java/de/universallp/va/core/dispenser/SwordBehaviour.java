@@ -1,5 +1,6 @@
 package de.universallp.va.core.dispenser;
 
+import de.universallp.va.core.util.Utils;
 import de.universallp.va.core.util.VAFakePlayer;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.state.IBlockState;
@@ -30,7 +31,7 @@ public class SwordBehaviour implements IBehaviorDispenseItem {
         IBlockState s = te.getWorld().getBlockState(source.getBlockPos());
         EnumFacing f = (EnumFacing) s.getProperties().get(BlockDirectional.FACING);
 
-        BlockPos destination = source.getBlockPos().add(f.getDirectionVec());
+        BlockPos destination = source.getBlockPos().add(Utils.extend(f.getDirectionVec(), Utils.getReach(stack)));
         List<EntityLiving> mobs = te.getWorld().getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(destination));
 
         if (mobs != null && mobs.size() > 0) {

@@ -31,5 +31,6 @@ public class LibLocalization {
     public static final String TIP_CONVERT = "tooltip.va:convert.name=";
     public static final String TIP_HOLDSHIFT = "tooltip.va:holdshift.name";
     public static final String TIP_IMITATES = "tooltip.va:imitates.name";
+    public static final String CHAT_REACH = "va.chat.reach";
 
 }

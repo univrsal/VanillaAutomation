@@ -25,6 +25,7 @@ public class ConfigHandler {
     public static byte BLOCK_PLACER_REACH = 16;
     public static String LATEST_CRASH = "";
     public static boolean READ_LOGS = true;
+    public static byte DISPENSER_REACH_MAX = 4;
 
     public static void loadConfig(File configFile) {
         if (config == null)
@@ -42,7 +43,8 @@ public class ConfigHandler {
 
         USE_TOOLS = config.getBoolean("pokeStickUseTools", CATEGORY_ITEMS, true, "If true the poke stick uses tools from your inventory to mine blocks faster");
 
-        BLOCK_PLACER_REACH = (byte) config.getInt("blockPlacerReach", CATEGORY_BLOCKS, 16, 2, 64, "Maximum reach distance for the block placer");
+        BLOCK_PLACER_REACH = (byte) config.getInt("blockPlacerReach", CATEGORY_BLOCKS, 16, 1, 64, "Maximum reach distance for the block placer");
+        DISPENSER_REACH_MAX = (byte) config.getInt("dispenserReach", CATEGORY_BLOCKS, 4, 1, 32, "Maximum reach distance for the dispenser tweaks. 1 to disable");
     }
 
     public static void loadPostInit() {

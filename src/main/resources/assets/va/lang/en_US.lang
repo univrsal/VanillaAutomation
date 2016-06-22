@@ -58,6 +58,7 @@ va.guide.entry.pokestick=The Poke Stick
 va.guide.entry.xphopper=The XP Hopper
 va.guide.entry.filteredhopper=The Filtered Hopper
 
+
 # Intro
 va.guide.entry.intro.page1=Welcome to VanillaAutomation!\nThis mod adds blocks and tweaks to the dispenser to allow for automation without making it too easy.\nTake a look at the different entries to see what is added and changed.
 
@@ -70,7 +71,7 @@ va.guide.entry.blockplacer.page2="Steve in a box"
 
 # Dispenser
 va.guide.entry.dispenser.page1=With VanillaAutomation installed the dispenser receives a few tweaks to allow it to automate things.\nThe following things are new:\nPlacing any vanilla tool in the dispenser allows it to break blocks.\nDye will dye any sheep in front and bone meal will be applied to the ground. Also shears will shear sheep.
-va.guide.entry.dispenser.page2=The dispenser now also can insert and take out music discs from the jukebox in front of it aswell as naming entities infront with nametags.\nAlso the dispenser will place seeds (Provided Quark isn't installed) and use swords to damage entities in front of it.
+va.guide.entry.dispenser.page2=The dispenser now also can insert and take out music discs from the jukebox in front of it aswell as naming entities in front with nametags.\nAlso the dispenser will place seeds (Provided Quark isn't installed) and use swords to damage entities in front of it. Also mind that naming the tools "Range: x" will perform the action x blocks away.
 
 # Poke Stick
 va.guide.entry.pokestick.page1=This stick has two uses. For one it'll double your reach distance while you hold it, so you can reach those pesky spots without wasting your precious energy. The other use is that when placed in a dispenser or block placer it'll perform a right click on the block in front. In the block placer it'll take the reach distance into account.

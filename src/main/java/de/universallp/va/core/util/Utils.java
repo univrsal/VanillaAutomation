@@ -1,6 +1,7 @@
 package de.universallp.va.core.util;
 
 import com.google.common.base.Predicates;
+import de.universallp.va.core.handler.ConfigHandler;
 import de.universallp.va.core.item.VAItems;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.FontRenderer;
@@ -13,6 +14,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.Vec3i;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -40,6 +42,28 @@ public class Utils {
             f.drawString(line, x, y, c.getRGB());
             y += f.FONT_HEIGHT + 2;
         }
+    }
+
+    public static int getReach(ItemStack stack) {
+        if (stack.hasDisplayName()) {
+            String name = stack.getDisplayName();
+            String[] s = name.split(": ");
+
+            if (s.length == 2) {
+                try {
+                    int reach = Integer.valueOf(s[1]);
+                    return reach > ConfigHandler.DISPENSER_REACH_MAX ? ConfigHandler.DISPENSER_REACH_MAX : reach;
+                } catch (NumberFormatException e) {
+                    return 1;
+                }
+            }
+
+        }
+        return 1;
+    }
+
+    public static Vec3i extend(Vec3i v, int i) {
+        return new Vec3i(v.getX() * i, v.getY() * i, v.getZ() * i);
     }
 
     public static void drawWrappedString(String s, int x, int y, int maxWidth, FontRenderer f) {

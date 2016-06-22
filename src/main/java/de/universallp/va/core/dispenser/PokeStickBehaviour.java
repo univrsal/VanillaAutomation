@@ -1,6 +1,7 @@
 package de.universallp.va.core.dispenser;
 
 import de.universallp.va.core.util.LogHelper;
+import de.universallp.va.core.util.Utils;
 import de.universallp.va.core.util.VAFakePlayer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
@@ -24,7 +25,7 @@ public class PokeStickBehaviour implements IBehaviorDispenseItem {
         IBlockState s = w.getBlockState(source.getBlockPos());
         EnumFacing f = (EnumFacing) s.getProperties().get(BlockDirectional.FACING);
 
-        BlockPos dest = source.getBlockPos().add(f.getDirectionVec());
+        BlockPos dest = source.getBlockPos().add(Utils.extend(f.getDirectionVec(), Utils.getReach(stack)));
         IBlockState state = w.getBlockState(dest);
         Block b = state.getBlock();
 

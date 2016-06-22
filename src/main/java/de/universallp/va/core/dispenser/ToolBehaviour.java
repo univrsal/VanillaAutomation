@@ -26,7 +26,7 @@ public class ToolBehaviour implements IBehaviorDispenseItem {
         IBlockState s = w.getBlockState(source.getBlockPos());
         EnumFacing f = (EnumFacing) s.getProperties().get(BlockDirectional.FACING);
 
-        BlockPos dest = source.getBlockPos().add(f.getDirectionVec());
+        BlockPos dest = source.getBlockPos().add(Utils.extend(f.getDirectionVec(), Utils.getReach(stack)));
 
         if (breakBlock(w, dest, VAFakePlayer.instance(w), stack)) {
             stack.damageItem(1, VAFakePlayer.instance(w));

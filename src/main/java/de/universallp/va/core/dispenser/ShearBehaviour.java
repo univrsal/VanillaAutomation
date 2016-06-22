@@ -1,5 +1,6 @@
 package de.universallp.va.core.dispenser;
 
+import de.universallp.va.core.util.Utils;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
@@ -29,7 +30,7 @@ public class ShearBehaviour implements IBehaviorDispenseItem {
         IBlockState s = te.getWorld().getBlockState(source.getBlockPos());
         EnumFacing f = (EnumFacing) s.getProperties().get(BlockDirectional.FACING);
 
-        BlockPos destination = source.getBlockPos().add(f.getDirectionVec());
+        BlockPos destination = source.getBlockPos().add(Utils.extend(f.getDirectionVec(), Utils.getReach(stack)));
         List<EntitySheep> sheeps = te.getWorld().getEntitiesWithinAABB(EntitySheep.class, new AxisAlignedBB(destination));
 
         if (sheeps != null && sheeps.size() > 0) {

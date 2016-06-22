@@ -1,5 +1,6 @@
 package de.universallp.va.core.dispenser;
 
+import de.universallp.va.core.util.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.BlockJukebox;
@@ -25,7 +26,7 @@ public class DiscBehaviour implements IBehaviorDispenseItem {
         World w = source.getBlockTileEntity().getWorld();
         EnumFacing f = (EnumFacing) w.getBlockState(source.getBlockPos()).getProperties().get(BlockDispenser.FACING);
 
-        BlockPos dest = source.getBlockPos().add(f.getDirectionVec());
+        BlockPos dest = source.getBlockPos().add(Utils.extend(f.getDirectionVec(), Utils.getReach(stack)));
 
         TileEntity te = w.getTileEntity(dest);
         IBlockState st = w.getBlockState(dest);
