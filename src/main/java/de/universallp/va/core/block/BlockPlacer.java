@@ -190,7 +190,7 @@ public class BlockPlacer extends BlockVA {
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(BlockDispenser.FACING, BlockDispenser.getFacing(meta));
+        return this.getDefaultState().withProperty(BlockDispenser.FACING, EnumFacing.getFront(meta));
     }
 
     @Override

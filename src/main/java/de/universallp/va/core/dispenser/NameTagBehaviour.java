@@ -1,8 +1,10 @@
 package de.universallp.va.core.dispenser;
 
+import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
+import net.minecraft.dispenser.IPosition;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -20,9 +22,10 @@ public class NameTagBehaviour implements IBehaviorDispenseItem {
     @Override
     public ItemStack dispense(IBlockSource source, ItemStack stack) {
         if (stack.hasDisplayName()) {
-            EnumFacing f = BlockDispenser.getFacing(source.getBlockMetadata());
-            BlockPos dest = source.getBlockPos().add(f.getDirectionVec());
             World w = source.getWorld();
+            IPosition pos = BlockDispenser.getDispensePosition(source);
+            EnumFacing f = source.func_189992_e().getValue(BlockDirectional.FACING);
+            BlockPos dest = source.getBlockPos().add(f.getDirectionVec());
 
             List<EntityLiving> entityLivingList = w.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(dest));
 

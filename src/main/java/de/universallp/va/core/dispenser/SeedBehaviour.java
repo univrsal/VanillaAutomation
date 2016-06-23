@@ -3,7 +3,7 @@ package de.universallp.va.core.dispenser;
 import de.universallp.va.core.network.PacketHandler;
 import de.universallp.va.core.network.messages.MessagePlaySound;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDispenser;
+import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.SoundType;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
@@ -26,7 +26,7 @@ public class SeedBehaviour implements IBehaviorDispenseItem {
 
     @Override
     public ItemStack dispense(IBlockSource source, ItemStack stack) {
-        EnumFacing facing = BlockDispenser.getFacing(source.getBlockMetadata());
+        EnumFacing facing = source.func_189992_e().getValue(BlockDirectional.FACING);
         BlockPos pos = source.getBlockPos().offset(facing);
         World world = source.getWorld();
 
