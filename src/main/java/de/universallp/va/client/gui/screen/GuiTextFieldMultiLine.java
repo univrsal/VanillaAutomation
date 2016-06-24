@@ -6,6 +6,7 @@ import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.util.ChatAllowedCharacters;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +33,36 @@ public class GuiTextFieldMultiLine extends GuiTextField {
 
     @Override
     public boolean textboxKeyTyped(char typedChar, int keyCode) {
+        System.out.println(keyCode);
         switch (keyCode) {
+            case 14: // Backspace
+                if (GuiScreen.isCtrlKeyDown()) {
+                    if (this.isEnabled)
+                        deleteWordFromCursor(-1);
+                } else if (this.isEnabled)
+                    this.deleteFromCursor(-1);
+                return true;
             case 28:
-                if (cursorY + 1 >= lines.size())
-                    lines.add("");
+                String currentLine = lines.get(cursorY);
+                if (cursorX == currentLine.length()) {
+                    if (cursorY + 1 >= lines.size())
+                        lines.add("");
+                    else
+                        lines.add(cursorY + 1, "");
+                } else {
+                    lines.set(cursorY, currentLine.substring(0, cursorX));
+                    lines.add(cursorY + 1, currentLine.substring(cursorX, currentLine.length()));
+                }
+
                 cursorY++;
                 cursorX = 0;
                 return true;
-
+            case 200: // Up
+                moveCursorVertical(-1);
+                return true;
+            case 208:
+                moveCursorVertical(1);
+                return true;
             case 203: // Left
 
                 if (GuiScreen.isShiftKeyDown()) {
@@ -65,10 +88,10 @@ public class GuiTextFieldMultiLine extends GuiTextField {
                     this.moveCursorHorizontal(1);
                 return true;
 
-            case 211:
+            case 211: // DEL
                 if (GuiScreen.isCtrlKeyDown()) {
                     if (this.isEnabled) {
-                        this.deleteWords(1);
+                        deleteWordFromCursor(1);
                     }
                 } else if (this.isEnabled) {
                     this.deleteFromCursor(1);
@@ -84,35 +107,109 @@ public class GuiTextFieldMultiLine extends GuiTextField {
         }
     }
 
-    @Override
-    public void deleteFromCursor(int num) {
+    private void deleteWordFromCursor(int num) {
+        if (num > 0) { // After Cursor
+//            String line = lines.get(cursorY);
+//            String origLine = line.substring(0, cursorX);
+//            String[] words = line.substring(cursorX, line.length()).split(" ");
+//            if (words.length >= num)
+//                for (int i = num; i < words.length; i++) {
+//                    origLine.concat(" " + words[i]);
+//                }
+//
+//            lines.set(cursorY, origLine);
+//            cursorX = 0;
+        } else { // Before Cursor
+            String line = lines.get(cursorY);
+            if (line.contains(" ")) {
 
-        if (lines.size() > 0) {
-            if (selectionStartX == 0 && selectionEndX == 0 && selectionStartY == 0 && selectionEndY == 0) {
-                if (num > 0) { // Delete after cursor
-                    String line = lines.get(cursorY);
-                    if (cursorX < line.length()) {
-                        line = line.substring(0, cursorX) + line.substring(cursorX + 1, line.length());
-                        if (line.length() == 0) {
-                            if (cursorY == lines.size() - 1 && cursorY > 0)
-                                cursorY--;
+                String origLine = line.substring(cursorX, line.length());
+                line = line.substring(0, cursorX);
 
-                            lines.remove(cursorY);
-                        } else
-                            lines.set(cursorY, line);
-                    }
-                } else { // Delete before cursor
-                    String line = lines.get(cursorY);
-                    line = line.substring(0, cursorX - 1) + line.substring(cursorX, line.length());
-                    lines.set(cursorY, line);
-                }
+                for (int i = num; i < 0; i++)
+                    line = StringUtils.substringBeforeLast(line, " ");
+                cursorX = line.length();
+                line += origLine;
+                lines.set(cursorY, line);
             } else {
-
+                if (line.length() > 0) {
+                    lines.set(cursorY, "");
+                    cursorX = 0;
+                } else {
+                    moveCursorHorizontal(-1);
+                }
             }
         }
     }
 
-    public void moveCursorHorizontal(int n) {
+    @Override
+    public void deleteFromCursor(int num) {
+        if (lines.size() > 0) {
+            if (selectionStartX == 0 && selectionEndX == 0 && selectionStartY == 0 && selectionEndY == 0) {
+                if (num > 0) { // Delete after cursor
+                    String line = lines.get(cursorY);
+
+                    if (cursorX < line.length()) {
+
+                        line = line.substring(0, cursorX) + line.substring(cursorX + num, line.length());
+
+                        if (line.length() == 0) {
+                            if (lines.size() > 1)
+                                lines.remove(cursorY);
+                            else
+                                lines.set(0, "");
+
+                            if (cursorY == lines.size() && cursorY > 0)
+                                --cursorY;
+                        } else
+                            lines.set(cursorY, line);
+
+                    } else if (line.length() == 0) {
+                        if (lines.size() > 1)
+                            lines.remove(cursorY);
+                        else
+                            lines.set(0, "");
+
+                        if (cursorY == lines.size() && cursorY > 0)
+                            --cursorY;
+                    }
+                } else { // Delete before cursor
+                    String line = lines.get(cursorY);
+
+                    if (cursorX > 0) {
+                        cursorX += num;
+                        line = line.substring(0, cursorX + 1 + num) + line.substring(cursorX + 1, line.length());
+                        lines.set(cursorY, line);
+                    } else {
+                        if (line.length() == 0) {
+                            if (lines.size() > 1)
+                                lines.remove(cursorY);
+                            else
+                                lines.set(0, "");
+
+                            if (cursorY == lines.size() && cursorY > 0)
+                                --cursorY;
+                            cursorX = lines.get(cursorY).length();
+                        } else { // merge lines
+                            if (cursorY > 0) {
+                                --cursorY;
+
+                                if (lines.size() > 1) {
+                                    cursorX = lines.get(cursorY).length();
+                                    lines.set(cursorY, lines.get(cursorY).concat(line));
+                                    lines.remove(cursorY + 1);
+
+                                } else
+                                    lines.set(0, "");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private void moveCursorHorizontal(int n) {
         if (cursorX + n >= 0 && cursorX + n <= lines.get(cursorY).length()) {
             cursorX += n;
         } else {
@@ -123,6 +220,14 @@ public class GuiTextFieldMultiLine extends GuiTextField {
                 cursorY++;
                 cursorX = 0;
             }
+        }
+    }
+
+    private void moveCursorVertical(int n) {
+        if (cursorY + n >= 0 && cursorY + n < lines.size()) {
+            cursorY += n;
+            if (cursorX > lines.get(cursorY).length())
+                cursorX = lines.get(cursorY).length();
         }
     }
 
@@ -160,8 +265,7 @@ public class GuiTextFieldMultiLine extends GuiTextField {
                     break;
                 String lineText = lines.get(i);
                 int top = lineHeight * line + yPosition + 2;
-
-                if (i == cursorY && isFocused()) {
+                if (i == cursorY && isFocused() && cursorX <= lineText.length()) {
                     int xBeforeCursor = xPosition + f.getStringWidth(lineText.substring(0, cursorX)) + 2;
                     Gui.drawRect(xBeforeCursor, top, xBeforeCursor + 1, top + 1 + f.FONT_HEIGHT, -3092272);
                 }
