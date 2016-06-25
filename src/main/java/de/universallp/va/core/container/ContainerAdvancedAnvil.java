@@ -5,6 +5,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
 
 /**
  * Created by universallp on 22.06.2016 19:28.
@@ -19,7 +20,7 @@ public class ContainerAdvancedAnvil extends Container {
         // Anvil inv
 
         this.addSlotToContainer(new Slot(anvilInv, 0, 27, 53)); // iron
-        this.addSlotToContainer(new Slot(anvilInv, 1, 27, 96)); // item 1
+        this.addSlotToContainer(new SlotAnvilInput(anvilInv, 1, 27, 96)); // item 1
         this.addSlotToContainer(new Slot(anvilInv, 2, 76, 96)); // item 2
         this.addSlotToContainer(new Slot(anvilInv, 3, 134, 96)); // output
 
@@ -36,5 +37,11 @@ public class ContainerAdvancedAnvil extends Container {
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
         return anvilInv.isUseableByPlayer(playerIn);
+    }
+
+    @Override
+    public void putStackInSlot(int slotID, ItemStack stack) {
+
+        super.putStackInSlot(slotID, stack);
     }
 }

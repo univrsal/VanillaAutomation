@@ -1,6 +1,7 @@
 package de.universallp.va.core.tile;
 
 import de.universallp.va.core.util.ICustomField;
+import de.universallp.va.core.util.Utils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -14,9 +15,11 @@ import java.util.List;
  */
 public class TileAdvancedAnvil extends TileVA implements ICustomField, ITickable {
 
-    private List<String> desc = new ArrayList<String>();
+    private List<String> origDesc = new ArrayList<String>();
+    private String origname;
 
-    private String name;
+    private List<String> newDesc = new ArrayList<String>();
+    private String newName;
 
     public TileAdvancedAnvil() {
         super(4);
@@ -24,12 +27,12 @@ public class TileAdvancedAnvil extends TileVA implements ICustomField, ITickable
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        name = compound.getString("itemName");
+        origname = compound.getString("itemName");
         if (compound.hasKey("itemDesc")) {
             NBTTagList list = compound.getTagList("itemDesc", 9);
 
             for (int i = 0; i < list.tagCount(); i++) {
-                desc.set(i, list.getCompoundTagAt(i).getString("line"));
+                origDesc.set(i, list.getCompoundTagAt(i).getString("line"));
             }
         }
 
@@ -38,13 +41,14 @@ public class TileAdvancedAnvil extends TileVA implements ICustomField, ITickable
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        compound.setString("itemName", name);
+        if (origname != null)
+            compound.setString("itemName", origname);
 
         NBTTagList l = new NBTTagList();
 
-        for (int i = 0; i < desc.size(); i++) {
+        for (int i = 0; i < origDesc.size(); i++) {
             NBTTagCompound t = new NBTTagCompound();
-            t.setString("line", desc.get(i));
+            t.setString("line", origDesc.get(i));
             l.set(i, t);
         }
         compound.setTag("itemDesc", l);
@@ -54,41 +58,52 @@ public class TileAdvancedAnvil extends TileVA implements ICustomField, ITickable
     @Override
     public void setStringField(int id, String val) {
         if (id == -1) {
-            name = val;
+            newName = val;
         } else {
-            desc.set(id, val);
+            newDesc.add(id, val);
+        }
+        System.out.println(val);
+        if (!origDesc.equals(newDesc)) {
+            if (items[1] != null)
+                items[3] = Utils.withDescription(items[1], newDesc);
         }
     }
 
     @Override
     public String getStringField(int id) {
         if (id == -1) {
-            return name;
+            return origname;
         } else {
-            if (id < desc.size())
-                return desc.get(id);
+            if (id < origDesc.size())
+                return origDesc.get(id);
         }
         return "NULL";
     }
 
     @Override
     public void update() {
-        ItemStack input = items[1];
 
-        if (input != null) {
-            name = input.getDisplayName();
-            if (input.hasTagCompound()) {
-                NBTTagCompound tag = input.getTagCompound();
+    }
 
-                if (tag.hasKey("display")) {
-                    NBTTagCompound display = tag.getCompoundTag("Display");
-                    //System.out.println(display.hasKey("description"));
-                    if (display.hasKey("Lore")) {
-                        NBTTagList lore = tag.getTagList("Lore", 9);
-                        System.out.println(lore);
-                    }
-                }
+    @Override
+    public void setInventorySlotContents(int index, ItemStack stack) {
+        if (index == 1 && stack != null) {
+            ItemStack input = items[1];
+
+            if (input != null) {
+                origname = input.getDisplayName();
+                newName = origname;
+                origDesc = Utils.readDescFromStack(stack);
+                if (origDesc != null)
+                    newDesc.addAll(origDesc);
             }
         }
+
+
+        super.setInventorySlotContents(index, stack);
+    }
+
+    public List<String> getItemDesc() {
+        return origDesc;
     }
 }

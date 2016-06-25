@@ -18,7 +18,7 @@ public class GuiTextFieldMultiLine extends GuiTextField {
 
     private final int lineHeight;
     private List<String> lines = new ArrayList<String>();
-    private String[] visibleLines;
+    private int visibleLines;
     private int scrollIndex = 0;
     private int cursorX = 0, cursorY = 0;
     private int selectionStartX = 0, selectionStartY = 0;
@@ -27,13 +27,13 @@ public class GuiTextFieldMultiLine extends GuiTextField {
     public GuiTextFieldMultiLine(int componentId, FontRenderer fontrendererObj, int x, int y, int par5Width, int par6Height) {
         super(componentId, fontrendererObj, x, y, par5Width, par6Height);
         lineHeight = fontrendererObj.FONT_HEIGHT + 2;
-        visibleLines = new String[par6Height / lineHeight];
+        visibleLines = par6Height / lineHeight;
         lines.add("");
     }
 
     @Override
     public boolean textboxKeyTyped(char typedChar, int keyCode) {
-        System.out.println(keyCode);
+
         switch (keyCode) {
             case 14: // Backspace
                 if (GuiScreen.isCtrlKeyDown()) {
@@ -251,6 +251,12 @@ public class GuiTextFieldMultiLine extends GuiTextField {
     }
 
     @Override
+    public void setCursorPositionZero() {
+        cursorX = 0;
+        cursorY = 0;
+    }
+
+    @Override
     public void drawTextBox() {
         if (this.getVisible()) {
             FontRenderer f = Minecraft.getMinecraft().fontRendererObj;
@@ -260,7 +266,7 @@ public class GuiTextFieldMultiLine extends GuiTextField {
             }
 
             int line = 0;
-            for (int i = scrollIndex; i < scrollIndex + visibleLines.length; i++) {
+            for (int i = scrollIndex; i < scrollIndex + visibleLines; i++) {
                 if (i >= lines.size())
                     break;
                 String lineText = lines.get(i);
@@ -280,8 +286,15 @@ public class GuiTextFieldMultiLine extends GuiTextField {
     public void setCursorPositionEnd() {
         cursorY = lines.size();
         cursorX = lines.get(cursorY - 1).length();
-        scrollIndex = cursorY - visibleLines.length;
+        scrollIndex = cursorY - visibleLines;
     }
 
+    public void setText(List<String> text) {
+        lines = text;
+    }
+
+    public List<String> getEntireText() {
+        return lines;
+    }
 
 }

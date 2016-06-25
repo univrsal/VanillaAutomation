@@ -2,6 +2,8 @@ package de.universallp.va.client.gui;
 
 import de.universallp.va.client.gui.screen.GuiTextFieldMultiLine;
 import de.universallp.va.core.container.ContainerAdvancedAnvil;
+import de.universallp.va.core.network.PacketHandler;
+import de.universallp.va.core.network.messages.MessageSetFieldServer;
 import de.universallp.va.core.tile.TileAdvancedAnvil;
 import de.universallp.va.core.util.libs.LibResources;
 import net.minecraft.client.gui.GuiTextField;
@@ -12,6 +14,7 @@ import net.minecraft.inventory.IInventory;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by universallp on 22.06.2016 19:28.
@@ -74,6 +77,13 @@ public class GuiAdvancedAnvil extends GuiContainer {
             } else
                 super.keyTyped(typedChar, keyCode);
         }
+        List<String> origText = descriptionText.getEntireText();
+        int[] fieldIds = new int[origText.size()];
+        for (int i = 0; i < fieldIds.length; i++)
+            fieldIds[i] = i;
+        PacketHandler.sendToServer(new MessageSetFieldServer(fieldIds, origText.toArray(new String[0]), anvilInventory.getPos()));
+
+
     }
 
     @Override
@@ -92,5 +102,19 @@ public class GuiAdvancedAnvil extends GuiContainer {
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+    }
+
+    public void setItemName(String s) {
+        renameText.setText(s);
+    }
+
+    public void setItemDesc(List<String> s) {
+        descriptionText.setText(s);
+        descriptionText.setCursorPositionZero();
+    }
+
+    public void toggleTextBoxes(boolean status) {
+        renameText.setEnabled(status);
+        descriptionText.setEnabled(status);
     }
 }

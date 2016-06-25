@@ -8,6 +8,9 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.EntitySelectors;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -42,6 +45,57 @@ public class Utils {
             f.drawString(line, x, y, c.getRGB());
             y += f.FONT_HEIGHT + 2;
         }
+    }
+
+    public static List<String> readDescFromStack(ItemStack s) {
+        if (s.hasTagCompound()) {
+            List<String> l = new ArrayList<String>();
+            NBTTagCompound tag = s.getTagCompound();
+
+            if (tag.hasKey("display")) {
+                NBTTagCompound display = tag.getCompoundTag("display");
+                if (display.getTagId("Lore") == 9) {
+                    NBTTagList nbttaglist3 = display.getTagList("Lore", 8);
+
+                    if (!nbttaglist3.hasNoTags()) {
+                        for (int l1 = 0; l1 < nbttaglist3.tagCount(); ++l1) {
+                            l.add(nbttaglist3.getStringTagAt(l1));
+                        }
+                    }
+                }
+                return l;
+            }
+        }
+        return null;
+    }
+
+    public static ItemStack withDescription(ItemStack s, List<String> desc) {
+        NBTTagCompound tag;
+        if (s.hasTagCompound())
+            tag = s.getTagCompound();
+        else
+            tag = new NBTTagCompound();
+
+
+        NBTTagList list = new NBTTagList();
+
+        for (int i = 0; i < desc.size(); i++) {
+            NBTTagString line = new NBTTagString(desc.get(i));
+            list.appendTag(line);
+        }
+
+        NBTTagCompound display;
+        if (tag.hasKey("display")) {
+            display = tag.getCompoundTag("display");
+            display.setTag("Lore", list);
+        } else {
+            display = new NBTTagCompound();
+            display.setTag("Lore", list);
+        }
+        tag.setTag("display", display);
+        s.setTagCompound(tag);
+
+        return s;
     }
 
     public static int getReach(ItemStack stack) {
