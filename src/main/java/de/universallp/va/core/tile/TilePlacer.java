@@ -13,6 +13,7 @@ public class TilePlacer extends TileVA {
     public byte reachDistance = 1;
     public EnumFacing placeFace = EnumFacing.NORTH; // Rhymes, yo
     public boolean isTriggered = false;
+    public boolean useRedstone = false;
 
     public TilePlacer() {
         super(9);
@@ -23,6 +24,7 @@ public class TilePlacer extends TileVA {
         compound.setByte("distance", reachDistance);
         compound.setBoolean("isTriggered", isTriggered);
         compound.setByte("facing", (byte) placeFace.ordinal());
+        compound.setBoolean("useRedstone", useRedstone);
         return super.writeToNBT(compound);
     }
 
@@ -32,6 +34,7 @@ public class TilePlacer extends TileVA {
         reachDistance = compound.getByte("distance") > ConfigHandler.BLOCK_PLACER_REACH ? ConfigHandler.BLOCK_PLACER_REACH : compound.getByte("distance");
         isTriggered = compound.getBoolean("isTriggered");
         placeFace = EnumFacing.values()[compound.getByte("facing")];
+        useRedstone = compound.getBoolean("useRedstone");
     }
 
     public int getNextPlaceable() {
@@ -50,7 +53,8 @@ public class TilePlacer extends TileVA {
             reachDistance = (byte) value;
         else if (id == 1 && value < EnumFacing.values().length)
             placeFace = EnumFacing.values()[value];
-
+        else if (id == 2)
+            useRedstone = value == 1;
         markDirty();
     }
 
@@ -60,6 +64,9 @@ public class TilePlacer extends TileVA {
             return reachDistance;
         else if (id == 1)
             return placeFace.ordinal();
+        else if (id == 2)
+            return useRedstone ? 1 : 0;
+
         return super.getField(id);
     }
 }

@@ -23,18 +23,20 @@ public class GuiPlacer extends GuiDispenser {
 
     private int reachDistance;
     private EnumFacing placeFace;
+    private boolean useRedstone;
 
     private GuiButton btnUp;
     private GuiButton btnDown;
     private GuiButton btnFace;
+    private GuiButton btnUseRedstone;
 
     private TilePlacer placer;
 
-    public GuiPlacer(InventoryPlayer playerInv, TilePlacer dispenserInv, int reachDistance, EnumFacing face) {
+    public GuiPlacer(InventoryPlayer playerInv, TilePlacer dispenserInv, int reachDistance, EnumFacing face, boolean useRedstone) {
         super(playerInv, dispenserInv);
-
         this.reachDistance = reachDistance;
         this.placeFace     = face;
+        this.useRedstone = useRedstone;
         placer = dispenserInv;
     }
 
@@ -42,15 +44,17 @@ public class GuiPlacer extends GuiDispenser {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
 
-        if (mouseX > guiLeft + 135 && mouseX < guiLeft + 152 && ConfigHandler.BLOCK_PLACER_REACH > 1)
-            if (mouseY > guiTop + 38 && mouseY < guiTop + 48)
-                drawHoveringText(Collections.singletonList(I18n.format(LibLocalization.GUI_DIST)), mouseX, mouseY);
+        if (Utils.mouseInRect(guiLeft + 135, guiTop + 38, 17, 10, mouseX, mouseY) && ConfigHandler.BLOCK_PLACER_REACH > 1 && !useRedstone)
+            drawHoveringText(Collections.singletonList(I18n.format(LibLocalization.GUI_DIST)), mouseX, mouseY);
+
+        if (Utils.mouseInRect(guiLeft + 8, guiTop + 10, 25, 20, mouseX, mouseY))
+            drawHoveringText(Collections.singletonList(I18n.format(LibLocalization.BTN_REDSTONE)), mouseX, mouseY);
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        if (ConfigHandler.BLOCK_PLACER_REACH > 1)
+        if (ConfigHandler.BLOCK_PLACER_REACH > 1 && !useRedstone)
             fontRendererObj.drawString(String.valueOf(reachDistance), (reachDistance > 9 ? 138 : 141), 39, LibNames.TEXT_COLOR);
         fontRendererObj.drawString(I18n.format(LibLocalization.GUI_FACE), 9, 38, LibNames.TEXT_COLOR);
     }
@@ -62,14 +66,20 @@ public class GuiPlacer extends GuiDispenser {
         if (ConfigHandler.BLOCK_PLACER_REACH > 1) {
             btnUp = new GuiButton(2, guiLeft + 134, guiTop + 15, 20, 20, "+");
             btnDown = new GuiButton(1, guiLeft + 134, guiTop + 50, 20, 20, "-");
+            btnUseRedstone = new GuiButton(3, guiLeft + 8, guiTop + 10, 25, 20, useRedstone ? I18n.format(LibLocalization.YES) : I18n.format(LibLocalization.NO));
 
             if (reachDistance < 2)
                 btnDown.enabled = false;
             if (reachDistance > 15)
                 btnUp.enabled = false;
 
+
+            btnUp.visible = !useRedstone;
+            btnDown.visible = !useRedstone;
+
             buttonList.add(btnDown);
             buttonList.add(btnUp);
+            buttonList.add(btnUseRedstone);
         }
 
         buttonList.add(btnFace);
@@ -106,6 +116,15 @@ public class GuiPlacer extends GuiDispenser {
                 placer.reachDistance = (byte) reachDistance;
                 PacketHandler.INSTANCE.sendToServer(new MessageSetFieldServer(0, reachDistance, placer.getPos()));
             }
+        }
+
+        if (button.id == 3) {
+            useRedstone = !useRedstone;
+
+            btnDown.visible = !useRedstone;
+            btnUp.visible = !useRedstone;
+            btnUseRedstone.displayString = useRedstone ? I18n.format(LibLocalization.YES) : I18n.format(LibLocalization.NO);
+            PacketHandler.INSTANCE.sendToServer(new MessageSetFieldServer(2, useRedstone ? 1 : 0, placer.getPos()));
         }
 
         super.actionPerformed(button);

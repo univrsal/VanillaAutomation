@@ -12,6 +12,7 @@ va.dir.up=Up
 va.gui.btn.matchmeta=Match meta
 va.gui.btn.matchnbt=Match NBT
 va.gui.btn.matchmod=Match Mod id
+va.gui.btn.useRedstone=Use redstone Strength as reach
 
 va.gui.face=Facing
 va.gui.filteredhopper.filter=Filter

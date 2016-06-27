@@ -1,7 +1,9 @@
 package de.universallp.va.core.dispenser;
 
 import de.universallp.va.core.util.Utils;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
+import net.minecraft.block.IGrowable;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
@@ -40,9 +42,14 @@ public class DyeBehaviour implements IBehaviorDispenseItem {
                 }
             }
         } else if (enumdyecolor == EnumDyeColor.WHITE) {
-            ItemDye.applyBonemeal(stack, te.getWorld(), destination.down());
+            Block destBlock = source.getWorld().getBlockState(destination).getBlock();
+            if (destBlock instanceof IGrowable) {
+                ItemDye.applyBonemeal(stack, te.getWorld(), destination); // Apply bonemeal to seeds/saplings as usual, if there's any
+            } else {
+                ItemDye.applyBonemeal(stack, te.getWorld(), destination.down()); // otherwise apply it to grass below
+            }
             if (te.getWorld().isRemote)
-                ItemDye.spawnBonemealParticles(te.getWorld(), destination.down(), 5);
+                ItemDye.spawnBonemealParticles(te.getWorld(), destination, 5);
         }
 
         return stack;

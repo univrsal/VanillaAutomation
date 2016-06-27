@@ -32,5 +32,7 @@ public class LibLocalization {
     public static final String TIP_HOLDSHIFT = "tooltip.va:holdshift.name";
     public static final String TIP_IMITATES = "tooltip.va:imitates.name";
     public static final String CHAT_REACH = "va.chat.reach";
-
+    public static final String YES = "gui.yes";
+    public static final String NO = "gui.no";
+    public static final String BTN_REDSTONE = "va.gui.btn.useRedstone";
 }

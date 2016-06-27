@@ -2,15 +2,15 @@ package de.universallp.va.client.gui;
 
 import de.universallp.va.client.gui.screen.GuiTextFieldMultiLine;
 import de.universallp.va.core.container.ContainerAdvancedAnvil;
-import de.universallp.va.core.network.PacketHandler;
-import de.universallp.va.core.network.messages.MessageSetFieldServer;
 import de.universallp.va.core.tile.TileAdvancedAnvil;
+import de.universallp.va.core.util.Utils;
 import de.universallp.va.core.util.libs.LibResources;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import org.lwjgl.input.Keyboard;
 
 import java.io.IOException;
@@ -73,15 +73,17 @@ public class GuiAdvancedAnvil extends GuiContainer {
 
         } else {
             if (descriptionText.textboxKeyTyped(typedChar, keyCode)) {
+                if (!anvilInventory.getOrigDesc().equals(descriptionText.getEntireText())) {
+                    ItemStack input = Utils.withDescription(anvilInventory.getStackInSlot(1), descriptionText.getEntireText());
+                    anvilInventory.setInventorySlotContents(3, input);
+                } else {
+                    anvilInventory.setInventorySlotContents(3, null);
+                }
 
             } else
                 super.keyTyped(typedChar, keyCode);
         }
-        List<String> origText = descriptionText.getEntireText();
-        int[] fieldIds = new int[origText.size()];
-        for (int i = 0; i < fieldIds.length; i++)
-            fieldIds[i] = i;
-        PacketHandler.sendToServer(new MessageSetFieldServer(fieldIds, origText.toArray(new String[0]), anvilInventory.getPos()));
+
 
 
     }
@@ -104,13 +106,21 @@ public class GuiAdvancedAnvil extends GuiContainer {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
     }
 
-    public void setItemName(String s) {
-        renameText.setText(s);
+    public List<String> getItemDesc() {
+        return descriptionText.getEntireText();
     }
 
     public void setItemDesc(List<String> s) {
         descriptionText.setText(s);
         descriptionText.setCursorPositionZero();
+    }
+
+    public String getItemName() {
+        return renameText.getText();
+    }
+
+    public void setItemName(String s) {
+        renameText.setText(s);
     }
 
     public void toggleTextBoxes(boolean status) {

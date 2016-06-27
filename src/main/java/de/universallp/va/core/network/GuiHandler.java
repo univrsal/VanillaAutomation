@@ -31,7 +31,7 @@ public class GuiHandler implements IGuiHandler {
 
 
         if (ID == LibGuiIDs.GUI_PLACER) {
-            PacketHandler.syncFieldClient(player, te, 0, 1);
+            PacketHandler.syncFieldClient(player, te, 0, 2);
             return new ContainerDispenser(player.inventory, (IInventory) te);
         } else if (ID == LibGuiIDs.GUI_XPHOPPER) {
             PacketHandler.syncFieldClient(player, te, 0, 0);
@@ -62,7 +62,7 @@ public class GuiHandler implements IGuiHandler {
 
 
         if (ID == LibGuiIDs.GUI_PLACER)
-            return new GuiPlacer(player.inventory, (TilePlacer) te, ((TilePlacer) te).reachDistance, ((TilePlacer) te).placeFace);
+            return new GuiPlacer(player.inventory, (TilePlacer) te, ((TilePlacer) te).reachDistance, ((TilePlacer) te).placeFace, ((TilePlacer) te).useRedstone);
         else if (ID == LibGuiIDs.GUI_XPHOPPER)
             return new GuiXPHopper(player.inventory, (IInventory) te);
         else if (ID == LibGuiIDs.GUI_FILTEREDHOPPER)

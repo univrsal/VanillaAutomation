@@ -46,12 +46,14 @@ public class TileAdvancedAnvil extends TileVA implements ICustomField, ITickable
 
         NBTTagList l = new NBTTagList();
 
-        for (int i = 0; i < origDesc.size(); i++) {
-            NBTTagCompound t = new NBTTagCompound();
-            t.setString("line", origDesc.get(i));
-            l.set(i, t);
+        if (origDesc != null) {
+            for (int i = 0; i < origDesc.size(); i++) {
+                NBTTagCompound t = new NBTTagCompound();
+                t.setString("line", origDesc.get(i));
+                l.set(i, t);
+            }
+            compound.setTag("itemDesc", l);
         }
-        compound.setTag("itemDesc", l);
         return super.writeToNBT(compound);
     }
 
@@ -103,7 +105,7 @@ public class TileAdvancedAnvil extends TileVA implements ICustomField, ITickable
         super.setInventorySlotContents(index, stack);
     }
 
-    public List<String> getItemDesc() {
+    public List<String> getOrigDesc() {
         return origDesc;
     }
 }

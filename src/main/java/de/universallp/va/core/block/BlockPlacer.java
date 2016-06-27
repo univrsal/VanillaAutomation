@@ -133,7 +133,16 @@ public class BlockPlacer extends BlockVA {
             ItemStack placable = tP.getStackInSlot(slot);
             EnumFacing f = getFacingFromState(state);
 
-            BlockPos dest = pos.add(f.getFrontOffsetX() * tP.reachDistance, f.getFrontOffsetY() * tP.reachDistance, f.getFrontOffsetZ() * tP.reachDistance);
+            BlockPos dest;
+
+            if (tP.useRedstone) {
+                int redstoneStrength = worldIn.isBlockIndirectlyGettingPowered(pos);
+                System.out.println(redstoneStrength);
+                dest = pos.add(f.getFrontOffsetX() * redstoneStrength, f.getFrontOffsetY() * redstoneStrength, f.getFrontOffsetZ() * redstoneStrength);
+            } else {
+                dest = pos.add(f.getFrontOffsetX() * tP.reachDistance, f.getFrontOffsetY() * tP.reachDistance, f.getFrontOffsetZ() * tP.reachDistance);
+            }
+
             EnumActionResult r = ForgeHooks.onPlaceItemIntoWorld(placable, VAFakePlayer.instance(worldIn), worldIn, dest, tP.placeFace, 0, 0, 0, EnumHand.MAIN_HAND);
 
             if (r == EnumActionResult.SUCCESS) {

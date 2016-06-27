@@ -1,5 +1,6 @@
 package de.universallp.va.core.container;
 
+import de.universallp.va.core.tile.TileAdvancedAnvil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -22,7 +23,7 @@ public class ContainerAdvancedAnvil extends Container {
         this.addSlotToContainer(new Slot(anvilInv, 0, 27, 53)); // iron
         this.addSlotToContainer(new SlotAnvilInput(anvilInv, 1, 27, 96)); // item 1
         this.addSlotToContainer(new Slot(anvilInv, 2, 76, 96)); // item 2
-        this.addSlotToContainer(new Slot(anvilInv, 3, 134, 96)); // output
+        this.addSlotToContainer(new SlotAnvilOutput((TileAdvancedAnvil) anvilInv, 3, 134, 96)); // output
 
         // Player inv
         int i = 133;
