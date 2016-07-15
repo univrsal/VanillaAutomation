@@ -28,7 +28,6 @@ public class ClientProxy extends CommonProxy {
     public static Entry lastEntry;
     public static EnumEntry hoveredEntry;
     public static int guiScale = 0;
-    public static int cartID = -1; // The uuid of which the client will open a gui. Wtf I don't know any other way
 
     @Override
     public void preInit(FMLPreInitializationEvent e) {
@@ -51,6 +50,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void setReach(EntityLivingBase entity, float reach) {
+
         super.setReach(entity, reach);
         Minecraft mc = Minecraft.getMinecraft();
         EntityPlayer player = mc.thePlayer;

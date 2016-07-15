@@ -15,13 +15,13 @@ import net.minecraftforge.fml.common.Loader;
  */
 public class DispenserTweaks {
 
-    private static final DyeBehaviour DYE_BEHAVIOUR = new DyeBehaviour();
-    private static final ToolBehaviour TOOL_BEHAVIOUR = new ToolBehaviour();
-    private static final SwordBehaviour SWORD_BEHAVIOUR = new SwordBehaviour();
-    private static final ShearBehaviour SHEAR_BEHAVIOUR = new ShearBehaviour();
-    private static final DiscBehaviour DISC_BEHAVIOUR = new DiscBehaviour();
-    private static final PokeStickBehaviour POKE_STICK_BEHAVIOUR = new PokeStickBehaviour();
-    private static final NameTagBehaviour NAME_TAG_BEHAVIOUR = new NameTagBehaviour();
+    public static final DyeBehaviour DYE_BEHAVIOUR = new DyeBehaviour();
+    public static final ToolBehaviour TOOL_BEHAVIOUR = new ToolBehaviour();
+    public static final SwordBehaviour SWORD_BEHAVIOUR = new SwordBehaviour();
+    public static final ShearBehaviour SHEAR_BEHAVIOUR = new ShearBehaviour();
+    public static final DiscBehaviour DISC_BEHAVIOUR = new DiscBehaviour();
+    public static final PokeStickBehaviour POKE_STICK_BEHAVIOUR = new PokeStickBehaviour();
+    public static final NameTagBehaviour NAME_TAG_BEHAVIOUR = new NameTagBehaviour();
 
     public static void register() {
         add(Items.DYE, DYE_BEHAVIOUR);
@@ -82,7 +82,7 @@ public class DispenserTweaks {
         }
     }
 
-    private static void add(Item i, IBehaviorDispenseItem b) {
+    public static void add(Item i, IBehaviorDispenseItem b) {
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(i, b);
     }
 }
