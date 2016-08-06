@@ -30,6 +30,7 @@ import java.util.List;
 public class Utils {
 
     public static void drawWrappedString(String s, int x, int y, int maxWidth, Color c, boolean shadow, FontRenderer f) {
+
         List<String> lines = Arrays.asList(s.split("\\\\n"));
 
         List<String> descriptionLinesWrapped = new ArrayList<String>();
@@ -39,6 +40,7 @@ public class Utils {
         }
 
         for (String line : descriptionLinesWrapped) {
+            line = line.replaceAll("7n", "\\\\n");
             f.drawString(line, x, y, c.getRGB());
             y += f.FONT_HEIGHT + 2;
         }

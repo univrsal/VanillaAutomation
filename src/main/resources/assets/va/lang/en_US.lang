@@ -101,4 +101,4 @@ va.guide.entry.bopcompat.page1=It seems like you have Biomes o' Plenty installed
 
 # Desription tag
 va.guide.entry.descriptiontag.page1=This item let's you give items a custom description. The usage of it is as follows:\nGive this item a name in an anvil and combine it with any other item to apply the name of the tag as a description. Adding a '+' infront of the name will add to the current description of the item. Adding '++' will add the description to the last line. Also naming it "null" will clear the description.
-va.guide.entry.descriptiontag.page2=§oNaming things just wasn't enough§r
+va.guide.entry.descriptiontag.page2=§oNaming things just wasn't enough§r\n\nNote: 7n will insert a new line
