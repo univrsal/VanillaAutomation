@@ -1,6 +1,7 @@
 package de.universallp.va.core.compat;
 
 import biomesoplenty.api.item.BOPItems;
+import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.core.dispenser.DispenserTweaks;
 import de.universallp.va.core.util.LogHelper;
 import net.minecraftforge.fml.common.Loader;
@@ -32,7 +33,8 @@ public class CompatBoP implements ICompatModule {
                     INSTANCE.preInit((FMLPreInitializationEvent) e);
                     break;
             }
-        }
+        } else
+            EnumEntry.BOP_COMPAT.disable();
     }
 
     @Override
@@ -56,6 +58,8 @@ public class CompatBoP implements ICompatModule {
 
         DispenserTweaks.add(BOPItems.record_corruption, DispenserTweaks.DISC_BEHAVIOUR);
         DispenserTweaks.add(BOPItems.record_wanderer, DispenserTweaks.DISC_BEHAVIOUR);
+
+
     }
 
     @Override

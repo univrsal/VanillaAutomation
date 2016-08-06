@@ -83,9 +83,6 @@ public class GuiAdvancedAnvil extends GuiContainer {
             } else
                 super.keyTyped(typedChar, keyCode);
         }
-
-
-
     }
 
     @Override

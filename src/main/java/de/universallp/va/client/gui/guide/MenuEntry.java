@@ -25,12 +25,13 @@ public class MenuEntry {
     }
 
     public void draw(int mouseX, int mouseY, int x, int y, GuiGuide parent) {
-        if (mouseOver(mouseX, mouseY, x, y)) {
-            parent.mc.fontRendererObj.drawString(I18n.format(name), x, y, SELECTED);
-            parent.drawRectangle(x - 1, y, x + 113, y + Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT, BACKGROUND & 0x22000000, BACKGROUND & 0x22000000);
-        } else {
-            parent.mc.fontRendererObj.drawString(I18n.format(name), x, y, UNSELECTED);
-        }
+        if (pointsTo.isEnabled())
+            if (mouseOver(mouseX, mouseY, x, y)) {
+                parent.mc.fontRendererObj.drawString(I18n.format(name), x, y, SELECTED);
+                parent.drawRectangle(x - 1, y, x + 113, y + Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT, BACKGROUND & 0x22000000, BACKGROUND & 0x22000000);
+            } else {
+                parent.mc.fontRendererObj.drawString(I18n.format(name), x, y, UNSELECTED);
+            }
     }
 
     public void onClick(int mouseX, int mouseY, int button, GuiGuide parent) {

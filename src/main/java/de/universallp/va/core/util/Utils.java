@@ -66,9 +66,10 @@ public class Utils {
     }
 
     public static ItemStack withDescription(ItemStack s, List<String> desc) {
+        ItemStack copy = s.copy();
         NBTTagCompound tag;
-        if (s.hasTagCompound())
-            tag = s.getTagCompound();
+        if (copy.hasTagCompound())
+            tag = copy.getTagCompound();
         else
             tag = new NBTTagCompound();
 
@@ -89,9 +90,9 @@ public class Utils {
             display.setTag("Lore", list);
         }
         tag.setTag("display", display);
-        s.setTagCompound(tag);
+        copy.setTagCompound(tag);
 
-        return s;
+        return copy;
     }
 
     public static int getRedstoneAnyDirection(World w, BlockPos pos) {

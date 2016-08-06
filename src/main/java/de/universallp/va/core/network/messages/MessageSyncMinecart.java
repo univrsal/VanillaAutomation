@@ -1,6 +1,5 @@
 package de.universallp.va.core.network.messages;
 
-import de.universallp.va.client.ClientProxy;
 import io.netty.buffer.ByteBuf;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -32,7 +31,6 @@ public class MessageSyncMinecart implements IMessage, IMessageHandler<MessageSyn
 
     @Override
     public IMessage onMessage(MessageSyncMinecart message, MessageContext ctx) {
-        ClientProxy.cartID = message.minecartUUID;
         return null;
     }
 }

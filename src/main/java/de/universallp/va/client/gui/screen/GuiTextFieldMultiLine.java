@@ -17,6 +17,7 @@ import java.util.List;
 public class GuiTextFieldMultiLine extends GuiTextField {
 
     private final int lineHeight;
+    protected boolean isEnabled = true;
     private List<String> lines = new ArrayList<String>();
     private int visibleLines;
     private int scrollIndex = 0;
@@ -233,6 +234,11 @@ public class GuiTextFieldMultiLine extends GuiTextField {
 
     @Override
     public void writeText(String textToWrite) {
+        if (lines == null || lines.size() == 0) {
+            lines = new ArrayList<String>();
+            lines.add("");
+        }
+
         String line = lines.get(cursorY);
         String s1 = ChatAllowedCharacters.filterAllowedCharacters(textToWrite);
         line = line.substring(0, cursorX) + s1 + line.substring(cursorX, line.length());
@@ -242,6 +248,10 @@ public class GuiTextFieldMultiLine extends GuiTextField {
 
     @Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+        if (lines == null || lines.size() == 0) {
+            lines = new ArrayList<String>();
+            lines.add("");
+        }
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
 

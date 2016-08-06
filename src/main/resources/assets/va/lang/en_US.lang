@@ -58,7 +58,7 @@ va.guide.entry.dispenser=Tweaks for the dispenser
 va.guide.entry.pokestick=The Poke Stick
 va.guide.entry.xphopper=The XP Hopper
 va.guide.entry.filteredhopper=The Filtered Hopper
-
+va.guide.entry.bopcompat=Biomes o' Plenty
 
 # Intro
 va.guide.entry.intro.page1=Welcome to VanillaAutomation!\nThis mod adds blocks and tweaks to the dispenser to allow for automation without making it too easy.\nTake a look at the different entries to see what is added and changed.
@@ -85,3 +85,6 @@ va.guide.entry.xphopper.page2="Screw those villagers, I can make my own xp bottl
 # Filtered Hopper
 va.guide.entry.filteredhopper.page1=This is another upgrade to the vanilla hopper. It offers you five slots to filter items. You can change between white and blacklist. The hopper also offers these filter modes:\n- Match Meta\n- Match NBT\n- Match Mod
 va.guide.entry.filteredhopper.page2="Sorry we don't have any unfunny phrases for this one. Is Pepsi okay?"
+
+# BOP Compat
+va.guide.entry.bopcompat.page1=It seems like you have Biomes o' Plenty installed.\nSo the dispenser will be able to use all tools from BoP!

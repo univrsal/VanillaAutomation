@@ -64,8 +64,8 @@ public class TileAdvancedAnvil extends TileVA implements ICustomField, ITickable
         } else {
             newDesc.add(id, val);
         }
-        System.out.println(val);
-        if (!origDesc.equals(newDesc)) {
+
+        if (origDesc != null && !origDesc.equals(newDesc)) {
             if (items[1] != null)
                 items[3] = Utils.withDescription(items[1], newDesc);
         }
@@ -99,13 +99,16 @@ public class TileAdvancedAnvil extends TileVA implements ICustomField, ITickable
                 if (origDesc != null)
                     newDesc.addAll(origDesc);
             }
-        }
+        } else if (index == 1)
+            setInventorySlotContents(3, null);
 
 
         super.setInventorySlotContents(index, stack);
     }
 
     public List<String> getOrigDesc() {
+        if (origDesc == null)
+            origDesc = new ArrayList<String>();
         return origDesc;
     }
 }

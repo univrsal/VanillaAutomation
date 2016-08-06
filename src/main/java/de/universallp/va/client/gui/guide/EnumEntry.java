@@ -10,7 +10,10 @@ import de.universallp.va.core.util.libs.LibLocalization;
  */
 public enum EnumEntry {
 
-    MENU(new String[] { LibLocalization.ENTRY_INTRO, LibLocalization.ENTRY_CREDITS, LibLocalization.ENTRY_BLOCKPLACER, LibLocalization.ENTRY_DISPENSER, LibLocalization.ENTRY_POKE_STICK, LibLocalization.ENTRY_XPHOPPER, LibLocalization.ENTRY_FILTEREDHOPPER }),
+    MENU(new String[] { LibLocalization.ENTRY_INTRO, LibLocalization.ENTRY_CREDITS, LibLocalization.ENTRY_BLOCKPLACER,
+            LibLocalization.ENTRY_DISPENSER, LibLocalization.ENTRY_POKE_STICK, LibLocalization.ENTRY_XPHOPPER,
+            LibLocalization.ENTRY_FILTEREDHOPPER, LibLocalization.ENTRY_BOPCOMPAT }),
+
     INTRO(getGuidePage("intro", 1, 1)),
     CREDITS(getGuidePage("credits", 1, 1)),
 
@@ -20,13 +23,18 @@ public enum EnumEntry {
     DISPENSER(getGuidePage("dispenser", 1, 2)),
     POKE_STICK(getGuidePage("pokestick", 1, 2), VAItems.itemPokeStick.getRecipe(), 1),
     XPHOPPER(getGuidePage("xphopper", 1, 2), VABlocks.xpHopper.getRecipe(), 1),
-    FILTERED_HOPPER(getGuidePage("filteredhopper", 1, 2), VABlocks.filterHopper.getRecipe(), 1);
+    FILTERED_HOPPER(getGuidePage("filteredhopper", 1, 2), VABlocks.filterHopper.getRecipe(), 1),
+
+    // Compat entries
+
+    BOP_COMPAT(getGuidePage("bopcompat", 1, 1));
 
     private static final String PAGE = "va.guide.entry.";
     private String[] entries;
     private Entry instance;
     private VisualRecipe vR;
     private int recipePage;
+    private boolean enabled = true;
 
     EnumEntry(String[] entries) {
         this.entries = entries;
@@ -43,6 +51,14 @@ public enum EnumEntry {
         for (int i = startPage; i <= endPage; i++)
             pages[i - 1] = PAGE + entry + ".page" + i;
         return pages;
+    }
+
+    public void disable() {
+        this.enabled = false;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
     }
 
     public Entry getEntry() {
