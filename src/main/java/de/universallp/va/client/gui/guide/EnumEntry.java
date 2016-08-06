@@ -12,7 +12,7 @@ public enum EnumEntry {
 
     MENU(new String[] { LibLocalization.ENTRY_INTRO, LibLocalization.ENTRY_CREDITS, LibLocalization.ENTRY_BLOCKPLACER,
             LibLocalization.ENTRY_DISPENSER, LibLocalization.ENTRY_POKE_STICK, LibLocalization.ENTRY_XPHOPPER,
-            LibLocalization.ENTRY_FILTEREDHOPPER, LibLocalization.ENTRY_BOPCOMPAT }),
+            LibLocalization.ENTRY_FILTEREDHOPPER, LibLocalization.ENTRY_DESCRIPTION_TAG, LibLocalization.ENTRY_BOPCOMPAT }),
 
     INTRO(getGuidePage("intro", 1, 1)),
     CREDITS(getGuidePage("credits", 1, 1)),
@@ -24,6 +24,7 @@ public enum EnumEntry {
     POKE_STICK(getGuidePage("pokestick", 1, 2), VAItems.itemPokeStick.getRecipe(), 1),
     XPHOPPER(getGuidePage("xphopper", 1, 2), VABlocks.xpHopper.getRecipe(), 1),
     FILTERED_HOPPER(getGuidePage("filteredhopper", 1, 2), VABlocks.filterHopper.getRecipe(), 1),
+    DESCRIPTION_TAG(getGuidePage("descriptiontag", 1, 2), VAItems.itemDescriptionTag.getRecipe(), 1),
 
     // Compat entries
 

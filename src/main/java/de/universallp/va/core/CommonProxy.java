@@ -5,6 +5,7 @@ import de.universallp.va.core.block.VABlocks;
 import de.universallp.va.core.compat.CompatBoP;
 import de.universallp.va.core.compat.ICompatModule;
 import de.universallp.va.core.dispenser.DispenserTweaks;
+import de.universallp.va.core.handler.AnvilDescriptionHandler;
 import de.universallp.va.core.handler.ConfigHandler;
 import de.universallp.va.core.handler.CrashReportHandler;
 import de.universallp.va.core.item.VAItems;
@@ -35,7 +36,7 @@ public class CommonProxy {
     public void init(FMLInitializationEvent e) {
         NetworkRegistry.INSTANCE.registerGuiHandler(VanillaAutomation.instance, new GuiHandler());
         MinecraftForge.EVENT_BUS.register(new CrashReportHandler());
-
+        MinecraftForge.EVENT_BUS.register(new AnvilDescriptionHandler());
 
         VABlocks.register();
         VAItems.register();

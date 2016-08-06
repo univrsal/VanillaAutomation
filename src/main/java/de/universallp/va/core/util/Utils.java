@@ -1,5 +1,6 @@
 package de.universallp.va.core.util;
 
+import com.mojang.realmsclient.gui.ChatFormatting;
 import de.universallp.va.core.handler.ConfigHandler;
 import de.universallp.va.core.item.VAItems;
 import net.minecraft.block.state.IBlockState;
@@ -55,7 +56,7 @@ public class Utils {
 
                     if (!nbttaglist3.hasNoTags()) {
                         for (int l1 = 0; l1 < nbttaglist3.tagCount(); ++l1) {
-                            l.add(nbttaglist3.getStringTagAt(l1));
+                            l.add((nbttaglist3.getStringTagAt(l1)));
                         }
                     }
                 }
@@ -67,31 +68,39 @@ public class Utils {
 
     public static ItemStack withDescription(ItemStack s, List<String> desc) {
         ItemStack copy = s.copy();
-        NBTTagCompound tag;
-        if (copy.hasTagCompound())
-            tag = copy.getTagCompound();
-        else
-            tag = new NBTTagCompound();
 
-
-        NBTTagList list = new NBTTagList();
-
-        for (int i = 0; i < desc.size(); i++) {
-            NBTTagString line = new NBTTagString(desc.get(i));
-            list.appendTag(line);
-        }
-
-        NBTTagCompound display;
-        if (tag.hasKey("display")) {
-            display = tag.getCompoundTag("display");
-            display.setTag("Lore", list);
+        if (desc == null && copy.hasTagCompound()) {
+            NBTTagCompound tag = copy.getTagCompound();
+            if (tag.hasKey("display")) {
+                tag.getCompoundTag("display").removeTag("Lore");
+            }
+            copy.setTagCompound(tag);
         } else {
-            display = new NBTTagCompound();
-            display.setTag("Lore", list);
-        }
-        tag.setTag("display", display);
-        copy.setTagCompound(tag);
+            NBTTagCompound tag;
+            if (copy.hasTagCompound())
+                tag = copy.getTagCompound();
+            else
+                tag = new NBTTagCompound();
 
+
+            NBTTagList list = new NBTTagList();
+
+            for (int i = 0; i < desc.size(); i++) {
+                NBTTagString line = new NBTTagString(ChatFormatting.RESET + "" + ChatFormatting.GRAY + desc.get(i));
+                list.appendTag(line);
+            }
+
+            NBTTagCompound display;
+            if (tag.hasKey("display")) {
+                display = tag.getCompoundTag("display");
+                display.setTag("Lore", list);
+            } else {
+                display = new NBTTagCompound();
+                display.setTag("Lore", list);
+            }
+            tag.setTag("display", display);
+            copy.setTagCompound(tag);
+        }
         return copy;
     }
 

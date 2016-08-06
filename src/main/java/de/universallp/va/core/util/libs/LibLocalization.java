@@ -23,6 +23,7 @@ public class LibLocalization {
     public static final String ENTRY_POKE_STICK = "va.guide.entry.pokestick";
     public static final String ENTRY_XPHOPPER = "va.guide.entry.xphopper";
     public static final String ENTRY_FILTEREDHOPPER = "va.guide.entry.filteredhopper";
+    public static final String ENTRY_DESCRIPTION_TAG = "va.guide.entry.descriptiontag";
     public static final String ENTRY_BOPCOMPAT = "va.guide.entry.bopcompat";
     public static final String RECIPE_SHAPED = "va.recipe.shaped";
     public static final String RECIPE_SHAPELESS = "va.recipe.shapeless";
@@ -32,8 +33,15 @@ public class LibLocalization {
     public static final String TIP_CONVERT = "tooltip.va:convert.name=";
     public static final String TIP_HOLDSHIFT = "tooltip.va:holdshift.name";
     public static final String TIP_IMITATES = "tooltip.va:imitates.name";
+    public static final String TIP_DESCRIPTIONMODE = "tooltip.va:descriptionmode";
+    public static final String TIP_DESCRIPTION = "tootlip.va:description";
     public static final String CHAT_REACH = "va.chat.reach";
     public static final String YES = "gui.yes";
     public static final String NO = "gui.no";
     public static final String BTN_REDSTONE = "va.gui.btn.useRedstone";
+    public static final String TAGMODE_NONE = "tagmode.va:none";
+    public static final String TAGMODE_ADD = "tagmode.va:add";
+    public static final String TAGMODE_ADDBOTTOM = "tagmode.va:addbottom";
+    public static final String TAGMODE_CLEAR = "tagmode.va:clear";
+
 }

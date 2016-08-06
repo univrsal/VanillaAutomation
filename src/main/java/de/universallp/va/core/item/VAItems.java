@@ -7,12 +7,14 @@ public class VAItems {
 
     public static ItemGuide itemGuide;
     public static ItemPokeStick itemPokeStick;
-
+    public static ItemDescriptionTag itemDescriptionTag;
 
     public static void init() {
         itemGuide = new ItemGuide();
         itemPokeStick = new ItemPokeStick();
+        itemDescriptionTag = new ItemDescriptionTag();
 
+        ItemVA.items.add(itemDescriptionTag);
         ItemVA.items.add(itemGuide);
         ItemVA.items.add(itemPokeStick);
     }

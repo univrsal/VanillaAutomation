@@ -1,12 +1,13 @@
 package de.universallp.va.core.network;
 
 import de.universallp.va.client.ClientProxy;
-import de.universallp.va.client.gui.*;
-import de.universallp.va.core.container.ContainerAdvancedAnvil;
+import de.universallp.va.client.gui.GuiFilteredHopper;
+import de.universallp.va.client.gui.GuiGuide;
+import de.universallp.va.client.gui.GuiPlacer;
+import de.universallp.va.client.gui.GuiXPHopper;
 import de.universallp.va.core.container.ContainerFilteredHopper;
 import de.universallp.va.core.container.ContainerXPHopper;
 import de.universallp.va.core.network.messages.MessageSetFieldClient;
-import de.universallp.va.core.tile.TileAdvancedAnvil;
 import de.universallp.va.core.tile.TileFilteredHopper;
 import de.universallp.va.core.tile.TilePlacer;
 import de.universallp.va.core.tile.TileXPHopper;
@@ -42,9 +43,6 @@ public class GuiHandler implements IGuiHandler {
             PacketHandler.syncFieldClient(player, te, 0, 3);
             PacketHandler.sendTo(new MessageSetFieldClient(0, teF.getName(), te.getPos()), (EntityPlayerMP) player);
             return new ContainerFilteredHopper(player.inventory, (IInventory) te);
-        } else if (ID == LibGuiIDs.GUI_ADVANCEDANVIL) {
-            TileAdvancedAnvil teAnvil = (TileAdvancedAnvil) te;
-            return new ContainerAdvancedAnvil(player.inventory, (IInventory) te);
         }
 
         return null;
@@ -67,8 +65,6 @@ public class GuiHandler implements IGuiHandler {
             return new GuiXPHopper(player.inventory, (IInventory) te);
         else if (ID == LibGuiIDs.GUI_FILTEREDHOPPER)
             return new GuiFilteredHopper(player.inventory, (IInventory) te);
-        else if (ID == LibGuiIDs.GUI_ADVANCEDANVIL)
-            return new GuiAdvancedAnvil(player.inventory, (IInventory) te);
         return null;
     }
 }

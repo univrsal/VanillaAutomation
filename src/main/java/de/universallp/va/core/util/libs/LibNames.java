@@ -36,6 +36,7 @@ public class LibNames {
     public static final String ITEM_POKESTICK = PREFIX + "pokestick";
     public static final String ITEM_XPHOPPERMINECART = PREFIX + "xphopperminecart";
     public static final String ITEM_FILTEREDHOPPERMINECART = PREFIX + "filteredhopperminecart";
+    public static final String ITEM_DESCRIPTIONTAG = PREFIX + "descriptiontag";
 
     // Entities
     public static final String ENTITY_XPHOPPERMINECART = PREFIX + "xphopperminecart";

@@ -304,6 +304,8 @@ public class GuiTextFieldMultiLine extends GuiTextField {
     }
 
     public List<String> getEntireText() {
+        if (lines == null || lines.size() == 0 || lines.size() == 1 && lines.get(0).length() == 0)
+            return null;
         return lines;
     }
 
