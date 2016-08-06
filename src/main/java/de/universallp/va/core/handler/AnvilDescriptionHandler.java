@@ -16,7 +16,8 @@ public class AnvilDescriptionHandler {
 
     @SubscribeEvent
     public void onAnvilUpdate(AnvilUpdateEvent e) {
-        if (e.getRight().getItem().equals(VAItems.itemDescriptionTag) && ItemDescriptionTag.hasDescription(e.getRight())) {
+        if (e.getRight().getItem().equals(VAItems.itemDescriptionTag) && ItemDescriptionTag.hasDescription(e.getRight()) &&
+                !e.getLeft().getItem().equals(VAItems.itemDescriptionTag)) {
 
             ItemDescriptionTag.EnumTagMode mode = ItemDescriptionTag.getMode(e.getRight());
             List<String> origDesc;
