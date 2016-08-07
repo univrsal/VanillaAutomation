@@ -46,10 +46,10 @@ public class CompatBoP implements ICompatModule {
     public void init(FMLInitializationEvent e) {
         LogHelper.logInfo("Biomes 'o Plenty detected, adding BoP tools and discs to dispenser registry...");
 
-        DispenserTweaks.add(BOPItems.amethyst_axe, DispenserTweaks.TOOL_BEHAVIOUR);
-        DispenserTweaks.add(BOPItems.amethyst_pickaxe, DispenserTweaks.TOOL_BEHAVIOUR);
-        DispenserTweaks.add(BOPItems.amethyst_shovel, DispenserTweaks.TOOL_BEHAVIOUR);
-        DispenserTweaks.add(BOPItems.amethyst_sword, DispenserTweaks.SWORD_BEHAVIOUR);
+//        DispenserTweaks.add(BOPItems.amethyst_axe, DispenserTweaks.TOOL_BEHAVIOUR);
+//        DispenserTweaks.add(BOPItems.amethyst_pickaxe, DispenserTweaks.TOOL_BEHAVIOUR);
+//        DispenserTweaks.add(BOPItems.amethyst_shovel, DispenserTweaks.TOOL_BEHAVIOUR);
+//        DispenserTweaks.add(BOPItems.amethyst_sword, DispenserTweaks.SWORD_BEHAVIOUR);
 
         DispenserTweaks.add(BOPItems.mud_axe, DispenserTweaks.TOOL_BEHAVIOUR);
         DispenserTweaks.add(BOPItems.mud_pickaxe, DispenserTweaks.TOOL_BEHAVIOUR);

@@ -8,8 +8,6 @@ import de.universallp.va.core.util.libs.LibLocalization;
 import de.universallp.va.core.util.libs.LibReflection;
 import net.minecraft.block.BlockHopper;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -36,42 +34,33 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
     private boolean matchMod = false;
 
     public TileFilteredHopper() {
-        setCustomName(I18n.format(LibLocalization.GUI_FILTEREDHOPPER));
+        setCustomName(LibLocalization.GUI_FILTEREDHOPPER);
         ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, new ItemStack[10], LibReflection.HOPPER_INVENTORY);
     }
 
     private static boolean captureDrops(TileFilteredHopper hopper) {
         IInventory iinventory = getHopperInventory(hopper);
 
-        if (iinventory != null) {
-            EnumFacing enumfacing = EnumFacing.DOWN;
+        EnumFacing enumfacing = EnumFacing.DOWN;
 
-            if (isInventoryEmpty(iinventory, enumfacing))
-                return false;
+        if (isInventoryEmpty(iinventory, enumfacing))
+            return false;
 
-            if (iinventory instanceof ISidedInventory) {
-                ISidedInventory isidedinventory = (ISidedInventory) iinventory;
-                int[] aint = isidedinventory.getSlotsForFace(enumfacing);
+        if (iinventory instanceof ISidedInventory) {
+            ISidedInventory isidedinventory = (ISidedInventory) iinventory;
+            int[] aint = isidedinventory.getSlotsForFace(enumfacing);
 
-                for (int i = 0; i < aint.length; ++i)
-                    if (hopper.isItemValid(isidedinventory.getStackInSlot(aint[i])))
-                        if (pullItemFromSlot(hopper, iinventory, aint[i], enumfacing))
-                            return true;
+            for (int i = 0; i < aint.length; ++i)
+                if (hopper.isItemValid(isidedinventory.getStackInSlot(aint[i])))
+                    if (pullItemFromSlot(hopper, iinventory, aint[i], enumfacing))
+                        return true;
 
-            } else {
-                int j = iinventory.getSizeInventory();
-
-                for (int k = 0; k < j; ++k) {
-                    if (hopper.isItemValid(iinventory.getStackInSlot(k)))
-                        if (pullItemFromSlot(hopper, iinventory, k, enumfacing)) {
-                            return true;
-                        }
-                }
-            }
         } else {
-            for (EntityItem entityitem : getCaptureItems(hopper.getWorld(), hopper.getXPos(), hopper.getYPos(), hopper.getZPos())) {
-                if (hopper.isItemValid(entityitem.getEntityItem()))
-                    if (putDropInInventoryAllSlots(hopper, entityitem)) {
+            int j = iinventory.getSizeInventory();
+
+            for (int k = 0; k < j; ++k) {
+                if (hopper.isItemValid(iinventory.getStackInSlot(k)))
+                    if (pullItemFromSlot(hopper, iinventory, k, enumfacing)) {
                         return true;
                     }
             }
@@ -112,6 +101,8 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
                     return false;
 
         } else {
+            if (inventoryIn == null)
+                return true;
             int j = inventoryIn.getSizeInventory();
 
             for (int k = 0; k < j; ++k)

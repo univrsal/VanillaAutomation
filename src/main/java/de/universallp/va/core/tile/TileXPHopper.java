@@ -8,7 +8,6 @@ import de.universallp.va.core.util.libs.LibLocalization;
 import de.universallp.va.core.util.libs.LibReflection;
 import net.minecraft.block.BlockHopper;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
@@ -36,14 +35,14 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
     private int progress;
 
     public TileXPHopper() {
-        setCustomName(I18n.format(LibLocalization.GUI_XPHOPPER));
+        setCustomName(LibLocalization.GUI_XPHOPPER);
         ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, new ItemStack[6], LibReflection.HOPPER_INVENTORY); // Welp, seems to work
     }
 
     public static int getBottleSlot(IInventory inv) {
         for (int i = 0; i < hopperInv; i++) {
             ItemStack s = inv.getStackInSlot(i);
-            if (s == null || (s.getItem() != null && s.getItem().equals(Items.EXPERIENCE_BOTTLE) && s.stackSize < s.getMaxStackSize()))
+            if (s == null || s.getItem().equals(Items.EXPERIENCE_BOTTLE) && s.stackSize < s.getMaxStackSize())
                 return i;
         }
         return -1;
