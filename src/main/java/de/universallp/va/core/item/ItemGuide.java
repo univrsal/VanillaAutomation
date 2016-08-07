@@ -43,7 +43,7 @@ public class ItemGuide extends ItemVA {
 
     @Override
     public EnumActionResult onItemUseFirst(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-        if (ClientProxy.hoveredEntry != null) {
+        if (!VanillaAutomation.proxy.isServer() && ClientProxy.hoveredEntry != null) {
             player.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_GUIDE, world, 0, 0, 0);
             return EnumActionResult.SUCCESS;
         }

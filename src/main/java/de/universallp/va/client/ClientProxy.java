@@ -70,4 +70,9 @@ public class ClientProxy extends CommonProxy {
             ((VAPlayerController) mc.playerController).setReachDistance(reach);
         }
     }
+
+    @Override
+    public boolean isServer() {
+        return false;
+    }
 }

@@ -66,5 +66,7 @@ public class CommonProxy {
             ((EntityPlayerMP) entity).interactionManager.setBlockReachDistance(reach);
     }
 
-
+    public boolean isServer() {
+        return true;
+    }
 }
