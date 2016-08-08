@@ -85,6 +85,6 @@ public class BlockXPHopper extends BlockHopper implements IEntryProvider {
 
     @Override
     public void addRecipe() {
-        GameRegistry.addShapedRecipe(getRecipe().getResult(), "E", "H", 'E', Items.ENDER_EYE, 'H', Blocks.HOPPER);
+        GameRegistry.addShapedRecipe(new ItemStack(VABlocks.xpHopper, 1), "E", "H", 'E', Items.ENDER_EYE, 'H', Blocks.HOPPER);
     }
 }
