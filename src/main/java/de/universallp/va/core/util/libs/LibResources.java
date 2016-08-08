@@ -13,5 +13,5 @@ public class LibResources {
 
     public static final ResourceLocation GUI_ICONS = new ResourceLocation(LibNames.MOD_ID, "textures/icons.png");
 
-    public static final ResourceLocation GUI_ADVANCED_ANVIL = new ResourceLocation(LibNames.MOD_ID, "textures/gui/advancedanvil.png");
+    public static final ResourceLocation GUI_AUTOTRADER = new ResourceLocation(LibNames.MOD_ID, "textures/gui/autotrader.png");
 }

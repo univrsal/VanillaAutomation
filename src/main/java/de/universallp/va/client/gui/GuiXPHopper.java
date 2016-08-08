@@ -33,6 +33,7 @@ public class GuiXPHopper extends GuiContainer {
         this.fontRendererObj.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
         if (mouseX >= guiLeft + 128 && mouseX <= guiLeft + 128 + 4 && mouseY >= guiTop + 20 && mouseY <= guiTop + 36)
             drawCreativeTabHoveringText(percent + " %", mouseX - guiLeft, mouseY - guiTop);
+
     }
 
     @Override

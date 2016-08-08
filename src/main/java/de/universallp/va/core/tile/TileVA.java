@@ -59,7 +59,9 @@ public class TileVA extends TileEntity implements IInventory {
 
     @Override
     public ItemStack getStackInSlot(int index) {
-        return items[index];
+        if (index < getSizeInventory())
+            return items[index];
+        return null;
     }
 
     @Override

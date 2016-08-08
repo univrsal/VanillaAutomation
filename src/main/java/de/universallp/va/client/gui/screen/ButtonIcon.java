@@ -17,12 +17,6 @@ public class ButtonIcon extends GuiButton {
         this.icon = type;
     }
 
-    public ButtonIcon(int buttonId, int x, int y, IconType type, String text) {
-        super(buttonId, x, y, 18, 20, text);
-        this.icon = type;
-        width = Minecraft.getMinecraft().fontRendererObj.getStringWidth(text) + icon.widht + 4;
-    }
-
     @Override
     public void drawButton(Minecraft mc, int mouseX, int mouseY) {
         super.drawButton(mc, mouseX, mouseY);
@@ -43,7 +37,13 @@ public class ButtonIcon extends GuiButton {
         WHITELIST(0, 0),
         BLACKLIST(16, 0),
         CHECKED(32, 0),
-        UNCHECKED(48, 0);
+        UNCHECKED(48, 0),
+        ARROW_RIGHT(64, 0, 10, 15),
+        ARROW_LEFT(65, 0, 10, 15),
+        ARROW_RIGHT_SELECTED(75, 0, 10, 15),
+        ARROW_LEFT_SELECTED(85, 0, 10, 15),
+        ARROW_RIGHT_DISABLED(95, 0, 10, 15),
+        ARROW_LEFT_DISABLED(105, 0, 10, 15);
 
         private int x, y, widht, height;
 
@@ -52,6 +52,13 @@ public class ButtonIcon extends GuiButton {
             this.y = y;
             this.widht = 16;
             this.height = 16;
+        }
+
+        IconType(int x, int y, int w, int h) {
+            this.x = x;
+            this.y = y;
+            this.widht = w;
+            this.height = h;
         }
 
         public void draw(GuiButton parent) {

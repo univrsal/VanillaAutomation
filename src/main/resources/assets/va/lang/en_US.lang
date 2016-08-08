@@ -12,7 +12,7 @@ va.dir.up=Up
 va.gui.btn.matchmeta=Match meta
 va.gui.btn.matchnbt=Match NBT
 va.gui.btn.matchmod=Match Mod id
-va.gui.btn.useRedstone=Use redstone Strength as reach
+va.gui.btn.useredstone=Use redstone Strength as reach
 
 va.gui.face=Facing
 va.gui.filteredhopper.filter=Filter
@@ -69,6 +69,7 @@ va.guide.entry.xphopper=The XP Hopper
 va.guide.entry.filteredhopper=The Filtered Hopper
 va.guide.entry.descriptiontag=The Description Tag
 va.guide.entry.bopcompat=Biomes o' Plenty
+va.guide.entry.tconcompat=Tinker's Construct
 
 # Intro
 va.guide.entry.intro.page1=Welcome to VanillaAutomation!\nThis mod adds blocks and tweaks to the dispenser to allow for automation without making it too easy.\nTake a look at the different entries to see what is added and changed.
@@ -98,6 +99,9 @@ va.guide.entry.filteredhopper.page2=§oSorry we don't have any unfunny phrases f
 
 # BOP Compat
 va.guide.entry.bopcompat.page1=It seems like you have Biomes o' Plenty installed.\nSo the dispenser will be able to use all tools from BoP!
+
+# Tcon Compat
+va.guide.entry.tconcompat.page1=Looks like you installed Tinker's Construct.\nTools from this mod can be used in the dispenser now!
 
 # Desription tag
 va.guide.entry.descriptiontag.page1=This item let's you give items a custom description. The usage of it is as follows:\nGive this item a name in an anvil and combine it with any other item to apply the name of the tag as a description. Adding a '+' infront of the name will add to the current description of the item. Adding '++' will add the description to the last line. Also naming it "null" will clear the description.
