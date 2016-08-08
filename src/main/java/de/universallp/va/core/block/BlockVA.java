@@ -19,7 +19,10 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.Arrays;
 
 /**
- * Created by universallp on 19.03.2016 12:07.
+ * Created by universallp on 08.08.2016 17:45.
+ * This file is part of VanillaAutomation which is licenced
+ * under the MOZILLA PUBLIC LICENSE 1.1
+ * github.com/UniversalLP/VanillaAutomation
  */
 public class BlockVA extends Block implements IEntryProvider {
 

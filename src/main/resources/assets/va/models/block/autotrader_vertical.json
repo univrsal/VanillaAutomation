@@ -1,0 +1,7 @@
+{
+  "parent": "block/orientable_vertical",
+  "textures": {
+    "front": "va:blocks/autotrader_front",
+    "side": "blocks/furnace_top"
+  }
+}

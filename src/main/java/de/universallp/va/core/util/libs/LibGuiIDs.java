@@ -1,7 +1,10 @@
 package de.universallp.va.core.util.libs;
 
 /**
- * Created by universallp on 30.03.2016 13:31.
+ * Created by universallp on 08.08.2016 17:51.
+ * This file is part of VanillaAutomation which is licenced
+ * under the MOZILLA PUBLIC LICENSE 1.1
+ * github.com/UniversalLP/VanillaAutomation
  */
 public class LibGuiIDs {
 

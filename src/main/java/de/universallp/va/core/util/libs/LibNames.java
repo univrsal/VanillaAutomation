@@ -1,7 +1,10 @@
 package de.universallp.va.core.util.libs;
 
 /**
- * Created by universallp on 19.03.2016 11:28.
+ * Created by universallp on 08.08.2016 17:51.
+ * This file is part of VanillaAutomation which is licenced
+ * under the MOZILLA PUBLIC LICENSE 1.1
+ * github.com/UniversalLP/VanillaAutomation
  */
 public class LibNames {
 
@@ -29,7 +32,7 @@ public class LibNames {
     public static final String BLOCK_PLACER = PREFIX + "blockplacer";
     public static final String BLOCK_XPHOPPER = PREFIX + "xphopper";
     public static final String BLOCK_FILTEREDHOPPER = PREFIX + "filteredhopper";
-    public static final String BLOCK_ADVANCEDANVIL = PREFIX + "advancedanvil";
+    public static final String BLOCK_AUTOTRADER = PREFIX + "autotrader";
 
     // Items
     public static final String ITEM_GUIDE = PREFIX + "vaguide";

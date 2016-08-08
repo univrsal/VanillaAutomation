@@ -9,7 +9,10 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by universallp on 21.03.2016 17:52.
+ * Created by universallp on 08.08.2016 17:48.
+ * This file is part of VanillaAutomation which is licenced
+ * under the MOZILLA PUBLIC LICENSE 1.1
+ * github.com/UniversalLP/VanillaAutomation
  */
 public class Entry {
 
@@ -17,14 +20,9 @@ public class Entry {
     private int currentPage = 0;
     private String title;
 
-    public Entry(String t, EntryPage ... pages) {
+    Entry(String t, EntryPage... pages) {
         Collections.addAll(this.pages, pages);
         this.title = t;
-    }
-
-    public Entry setPage(int p) {
-        currentPage = p;
-        return this;
     }
 
     public EntryPage getCurrentPage() {
@@ -60,5 +58,10 @@ public class Entry {
 
     public int getPage() {
         return currentPage;
+    }
+
+    public Entry setPage(int p) {
+        currentPage = p;
+        return this;
     }
 }

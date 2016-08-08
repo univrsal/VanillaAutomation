@@ -1,0 +1,26 @@
+{
+  "variants": {
+    "facing=down": {
+      "model": "va:autotrader_vertical",
+      "x": 180
+    },
+    "facing=up": {
+      "model": "va:autotrader_vertical"
+    },
+    "facing=north": {
+      "model": "va:autotrader"
+    },
+    "facing=south": {
+      "model": "va:autotrader",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "va:autotrader",
+      "y": 270
+    },
+    "facing=east": {
+      "model": "va:autotrader",
+      "y": 90
+    }
+  }
+}

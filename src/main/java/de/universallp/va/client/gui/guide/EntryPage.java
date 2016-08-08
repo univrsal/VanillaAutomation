@@ -12,7 +12,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Created by universallp on 21.03.2016 18:18.
+ * Created by universallp on 08.08.2016 17:47.
+ * This file is part of VanillaAutomation which is licenced
+ * under the MOZILLA PUBLIC LICENSE 1.1
+ * github.com/UniversalLP/VanillaAutomation
  */
 public class EntryPage {
 
