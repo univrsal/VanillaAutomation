@@ -28,7 +28,8 @@ public enum EnumEntry {
 
     // Compat entries
 
-    BOP_COMPAT(getGuidePage("bopcompat", 1, 1));
+    BOP_COMPAT(getGuidePage("bopcompat", 1, 1)),
+    TC_COMPAT(getGuidePage("tccompat", 1, 1));
 
     private static final String PAGE = "va.guide.entry.";
     private String[] entries;

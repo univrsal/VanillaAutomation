@@ -3,7 +3,10 @@ package de.universallp.va.core.handler;
 import de.universallp.va.core.item.ItemDescriptionTag;
 import de.universallp.va.core.item.VAItems;
 import de.universallp.va.core.util.Utils;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.AnvilUpdateEvent;
+import net.minecraftforge.event.entity.player.AnvilRepairEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.ArrayList;
@@ -13,6 +16,19 @@ import java.util.List;
  * Created by universallp on 06.08.2016 16:01.
  */
 public class AnvilDescriptionHandler {
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onCombinationComplete(AnvilRepairEvent e) {
+        if (e.getIngredientInput() != null && e.getIngredientInput().getItem().equals(VAItems.itemDescriptionTag) && e.getIngredientInput().stackSize > 1) {
+            ItemStack newInput = e.getIngredientInput().copy();
+            newInput.stackSize--;
+
+            if (!e.getEntityPlayer().inventory.addItemStackToInventory(newInput)) {
+                e.getEntityPlayer().dropItem(newInput, false);
+            }
+
+        }
+    }
 
     @SubscribeEvent
     public void onAnvilUpdate(AnvilUpdateEvent e) {
