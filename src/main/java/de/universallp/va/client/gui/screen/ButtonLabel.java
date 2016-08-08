@@ -43,7 +43,7 @@ public class ButtonLabel extends GuiButton {
 
         if (icon != null) {
             offset = icon.getWidht() + 3;
-            icon.draw(this);
+            icon.draw(this, true);
         }
         if (visible)
             if (enabled)

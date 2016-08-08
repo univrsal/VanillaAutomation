@@ -19,6 +19,17 @@ public class ContainerAutoTrader extends Container {
     public ContainerAutoTrader(InventoryPlayer playerInventory, IInventory trader) {
         this.autoTrader = trader;
 
+        // Autotrader slots
+
+        addSlotToContainer(new SlotLocked(trader, 0, 36, 36)); // Trade input preview
+        addSlotToContainer(new SlotLocked(trader, 1, 62, 36)); // Trade input preview
+        addSlotToContainer(new SlotLocked(trader, 2, 120, 36)); // Trade output preview
+
+        addSlotToContainer(new Slot(trader, 3, 36, 66)); // Trade input
+        addSlotToContainer(new Slot(trader, 4, 62, 66)); // Trade input
+        addSlotToContainer(new Slot(trader, 5, 120, 67)); // Trade output
+
+
         // Player inv
         int i = 51;
         for (int l = 0; l < 3; ++l)

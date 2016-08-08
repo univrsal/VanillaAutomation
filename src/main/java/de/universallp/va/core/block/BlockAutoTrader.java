@@ -16,10 +16,14 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.Mirror;
+import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -75,14 +79,29 @@ public class BlockAutoTrader extends BlockVA {
     }
 
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileAutoTrader();
+    public int tickRate(World worldIn) {
+        return 4;
     }
 
-    public EnumFacing getFacingFromState(IBlockState s) {
-        if (s.getProperties().containsKey(BlockDispenser.FACING))
-            return (EnumFacing) s.getProperties().get(BlockDispenser.FACING);
-        return null;
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return this.getDefaultState().withProperty(BlockDispenser.FACING, EnumFacing.getFront(meta));
+    }
+
+    @Override
+    public IBlockState withRotation(IBlockState state, Rotation rot) {
+        return state.withProperty(BlockDispenser.FACING, rot.rotate(state.getValue(BlockDispenser.FACING)));
+    }
+
+    @Override
+    public IBlockState withMirror(IBlockState state, Mirror mirrorIn) {
+        return state.withRotation(mirrorIn.toRotation(state.getValue(BlockDispenser.FACING)));
+    }
+
+
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState state) {
+        return new TileAutoTrader();
     }
 
     @Override
@@ -100,6 +119,15 @@ public class BlockAutoTrader extends BlockVA {
 
         return recipe;
     }
+
+    @Override
+    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+        TileEntity te = worldIn.getTileEntity(pos);
+        if (te != null && te instanceof IInventory)
+            InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) te);
+        super.breakBlock(worldIn, pos, state);
+    }
+
 
     @Override
     public EnumEntry getEntry() {

@@ -103,6 +103,12 @@ public class BlockPlacer extends BlockVA {
         return false;
     }
 
+    public static EnumFacing getFacingFromState(IBlockState s) {
+        if (s.getProperties().containsKey(BlockDispenser.FACING))
+            return (EnumFacing) s.getProperties().get(BlockDispenser.FACING);
+        return null;
+    }
+
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote)
@@ -220,12 +226,6 @@ public class BlockPlacer extends BlockVA {
         return i;
     }
 
-    public EnumFacing getFacingFromState(IBlockState s) {
-        if (s.getProperties().containsKey(BlockDispenser.FACING))
-            return (EnumFacing) s.getProperties().get(BlockDispenser.FACING);
-        return null;
-    }
-
     @Override
     public VisualRecipe getRecipe() {
         if (recipe != null)
@@ -245,8 +245,10 @@ public class BlockPlacer extends BlockVA {
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         TileEntity te = worldIn.getTileEntity(pos);
-        if (te != null && te instanceof IInventory)
+        if (te != null && te instanceof IInventory) {
+
             InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) te);
+        }
         super.breakBlock(worldIn, pos, state);
     }
 

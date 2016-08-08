@@ -10,18 +10,29 @@ import net.minecraft.client.renderer.GlStateManager;
  */
 public class ButtonIcon extends GuiButton {
 
+    public final boolean drawDefaultTexture;
     private IconType icon;
-
     public ButtonIcon(int buttonId, int x, int y, IconType type) {
         super(buttonId, x, y, 18, 20, "");
+        drawDefaultTexture = true;
+        this.icon = type;
+    }
+
+    public ButtonIcon(int buttonId, int x, int y, IconType type, boolean drawDefaultTexture) {
+        super(buttonId, x, y, type.getWidht(), type.getHeight(), "");
+        this.drawDefaultTexture = drawDefaultTexture;
         this.icon = type;
     }
 
     @Override
     public void drawButton(Minecraft mc, int mouseX, int mouseY) {
-        super.drawButton(mc, mouseX, mouseY);
+        if (drawDefaultTexture)
+            super.drawButton(mc, mouseX, mouseY);
+        else {
+            this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+        }
         if (this.visible) {
-            icon.draw(this);
+            icon.draw(this, drawDefaultTexture);
         }
     }
 
@@ -39,11 +50,11 @@ public class ButtonIcon extends GuiButton {
         CHECKED(32, 0),
         UNCHECKED(48, 0),
         ARROW_RIGHT(64, 0, 10, 15),
-        ARROW_LEFT(65, 0, 10, 15),
-        ARROW_RIGHT_SELECTED(75, 0, 10, 15),
-        ARROW_LEFT_SELECTED(85, 0, 10, 15),
-        ARROW_RIGHT_DISABLED(95, 0, 10, 15),
-        ARROW_LEFT_DISABLED(105, 0, 10, 15);
+        ARROW_LEFT(74, 0, 10, 15),
+        ARROW_RIGHT_SELECTED(84, 0, 10, 15),
+        ARROW_LEFT_SELECTED(94, 0, 10, 15),
+        ARROW_RIGHT_DISABLED(104, 0, 10, 15),
+        ARROW_LEFT_DISABLED(114, 0, 10, 15);
 
         private int x, y, widht, height;
 
@@ -61,14 +72,19 @@ public class ButtonIcon extends GuiButton {
             this.height = h;
         }
 
-        public void draw(GuiButton parent) {
+        public void draw(GuiButton parent, boolean drawDefaultTexture) {
             GlStateManager.color(1, 1, 1);
-            int xPos = parent.xPosition + 2;
-            if (parent.displayString.equals(""))
-                xPos = parent.xPosition + parent.width / 2 - this.widht / 2;
-            int yPos = parent.yPosition + parent.height / 2 - this.widht / 2;
             Minecraft.getMinecraft().getTextureManager().bindTexture(LibResources.GUI_ICONS);
-            parent.drawTexturedModalRect(xPos, yPos, x, y, widht, height);
+            if (drawDefaultTexture) {
+                int xPos = parent.xPosition + 2;
+                if (parent.displayString.equals(""))
+                    xPos = parent.xPosition + parent.width / 2 - this.widht / 2;
+                int yPos = parent.yPosition + parent.height / 2 - this.widht / 2;
+                Minecraft.getMinecraft().getTextureManager().bindTexture(LibResources.GUI_ICONS);
+                parent.drawTexturedModalRect(xPos, yPos, x, y, widht, height);
+            } else {
+                parent.drawTexturedModalRect(parent.xPosition, parent.yPosition, x, y, widht, height);
+            }
         }
 
         public int getWidht() {

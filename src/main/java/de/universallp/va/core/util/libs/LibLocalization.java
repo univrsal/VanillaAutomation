@@ -11,6 +11,7 @@ public class LibLocalization {
     public static final String GUI_XPHOPPER = "va.gui.xphopper";
     public static final String GUI_FILTEREDHOPPER = "va.gui.filteredhopper";
     public static final String GUI_FILTER = "va.gui.filteredhopper.filter";
+    public static final String GUI_AUTOTRADER = "va.gui.autotrader";
 
     // Buttons
     public static final String BTN_MENU = "va.gui.buttonmenu";

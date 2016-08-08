@@ -2,12 +2,18 @@ package de.universallp.va.client.gui;
 
 import de.universallp.va.client.gui.screen.ButtonIcon;
 import de.universallp.va.core.container.ContainerAutoTrader;
+import de.universallp.va.core.network.PacketHandler;
+import de.universallp.va.core.network.messages.MessageSetFieldServer;
 import de.universallp.va.core.tile.TileAutoTrader;
+import de.universallp.va.core.util.libs.LibLocalization;
+import de.universallp.va.core.util.libs.LibNames;
 import de.universallp.va.core.util.libs.LibResources;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.IInventory;
 
 import java.io.IOException;
 
@@ -20,6 +26,8 @@ import java.io.IOException;
 public class GuiAutoTrader extends GuiContainer {
 
     private final int maxTrades;
+    private final IInventory playerInv;
+    private final TileAutoTrader autoTrader;
     private ButtonIcon btnLeft;
     private ButtonIcon btnRight;
     private int currentTrade = 0;
@@ -29,14 +37,16 @@ public class GuiAutoTrader extends GuiContainer {
         maxTrades = trader.getField(1);
         currentTrade = trader.getField(0);
         ySize = 183;
+        this.playerInv = playerInv;
+        this.autoTrader = trader;
     }
 
     @Override
     public void initGui() {
         super.initGui();
 
-        btnLeft = new ButtonIcon(0, guiLeft, guiTop, currentTrade > 0 ? ButtonIcon.IconType.ARROW_LEFT : ButtonIcon.IconType.ARROW_LEFT_DISABLED);
-        btnRight = new ButtonIcon(1, guiLeft, guiTop, currentTrade > maxTrades ? ButtonIcon.IconType.ARROW_RIGHT : ButtonIcon.IconType.ARROW_RIGHT_DISABLED);
+        btnLeft = new ButtonIcon(0, guiLeft + 22, guiTop + 37, currentTrade > 0 ? ButtonIcon.IconType.ARROW_LEFT : ButtonIcon.IconType.ARROW_LEFT_DISABLED, false);
+        btnRight = new ButtonIcon(1, guiLeft + 145, guiTop + 37, currentTrade > maxTrades ? ButtonIcon.IconType.ARROW_RIGHT : ButtonIcon.IconType.ARROW_RIGHT_DISABLED, false);
 
         buttonList.add(btnLeft);
         buttonList.add(btnRight);
@@ -52,7 +62,7 @@ public class GuiAutoTrader extends GuiContainer {
             btnLeft.setIcon(ButtonIcon.IconType.ARROW_LEFT);
         }
 
-        if (btnRight.enabled && btnLeft.isMouseOver()) {
+        if (btnRight.enabled && btnRight.isMouseOver()) {
             btnRight.setIcon(ButtonIcon.IconType.ARROW_RIGHT_SELECTED);
         } else if (btnRight.enabled) {
             btnRight.setIcon(ButtonIcon.IconType.ARROW_RIGHT);
@@ -61,12 +71,26 @@ public class GuiAutoTrader extends GuiContainer {
 
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
+        if (button.id == 0) {
+            if (currentTrade - 1 >= 0) {
+                currentTrade--;
+                PacketHandler.sendToServer(new MessageSetFieldServer(0, currentTrade, autoTrader.getPos()));
+            }
+        } else if (button.id == 1) {
+            if (currentTrade + 1 < maxTrades) {
+                currentTrade++;
+                PacketHandler.sendToServer(new MessageSetFieldServer(0, currentTrade, autoTrader.getPos()));
+            }
+        }
+
         super.actionPerformed(button);
     }
 
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
+        this.fontRendererObj.drawString(I18n.format(LibLocalization.GUI_AUTOTRADER), 8, 6, LibNames.TEXT_COLOR);
+        this.fontRendererObj.drawString(this.playerInv.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, LibNames.TEXT_COLOR);
     }
 
     @Override
@@ -76,5 +100,9 @@ public class GuiAutoTrader extends GuiContainer {
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
+
+        if (!autoTrader.isTradePossible()) {
+            System.out.println("heyo");
+        }
     }
 }

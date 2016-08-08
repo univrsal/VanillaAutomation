@@ -19,6 +19,7 @@ va.gui.filteredhopper.filter=Filter
 va.gui.reachdistance=Distance between Block Placer and placed block
 va.gui.xphopper=XP Hopper
 va.gui.filteredhopper=Filtered Hopper
+va.gui.autotrader=Autotrader
 
 va.msg.crash1=VanillaAutomation has found a crash which is likely caused by it. Click here to open an issue on the repo.
 va.msg.crash2=Found %s which is likely related to VanillaAutomation you can report issues here github.com/UniversalLP/VanillaAutomation/issues.
