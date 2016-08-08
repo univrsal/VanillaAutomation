@@ -41,7 +41,7 @@ tooltip.va:imitates.name=Imitates:
 tooltip.va:descriptionmode=Mode:
 tootlip.va:description=Description:
 
-#Tag Mode
+# Tag Mode
 tagmode.va:none=Overwrite
 tagmode.va:add=Add to line
 tagmode.va:addbottom=Add to bottom

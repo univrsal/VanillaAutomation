@@ -6,6 +6,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.EnumPacketDirection;
+import net.minecraft.network.NetHandlerPlayServer;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -31,9 +34,11 @@ public class VAFakePlayer extends FakePlayer {
     }
 
     public static VAFakePlayer instance(World w) {
-        if (instance == null)
+        if (instance == null) {
             instance = new VAFakePlayer((WorldServer) w);
-        else
+            if (w.getMinecraftServer() != null)
+                instance.connection = new NetHandlerPlayServer(w.getMinecraftServer(), new NetworkManager(EnumPacketDirection.SERVERBOUND), instance);
+        } else
             instance.setWorld(w);
 
         return instance;

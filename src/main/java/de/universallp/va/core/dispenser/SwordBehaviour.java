@@ -1,5 +1,6 @@
 package de.universallp.va.core.dispenser;
 
+import de.universallp.va.core.compat.CompatTinkersConstruct;
 import de.universallp.va.core.util.Utils;
 import de.universallp.va.core.util.VAFakePlayer;
 import net.minecraft.block.BlockDirectional;
@@ -34,7 +35,7 @@ public class SwordBehaviour implements IBehaviorDispenseItem {
         BlockPos destination = source.getBlockPos().add(Utils.extend(f.getDirectionVec(), Utils.getReach(stack)));
         List<EntityLiving> mobs = te.getWorld().getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(destination));
 
-        if (mobs != null && mobs.size() > 0) {
+        if (mobs.size() > 0) {
             for (EntityLiving l : mobs) {
                 if (!l.isDead) {
                     attackEntity(l, stack, VAFakePlayer.instance(te.getWorld()));
@@ -47,20 +48,26 @@ public class SwordBehaviour implements IBehaviorDispenseItem {
 
     public void attackEntity(EntityLiving e, ItemStack tool, VAFakePlayer p) {
         p.setItemInHand(tool);
-        if (tool != null && tool.getItem() instanceof ItemSword) {
-            p.resetCooldown();
-            float f = ((ItemSword) tool.getItem()).getDamageVsEntity();
-            float f1 = EnchantmentHelper.getModifierForCreature(tool, e.getCreatureAttribute());
-            float f3 = (float) p.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
-            e.attackEntityFrom(DamageSource.causePlayerDamage(p), f + f1 + f3 + 3);
+        if (tool != null) {
+            if (CompatTinkersConstruct.isEnabled && CompatTinkersConstruct.INSTANCE.doTCDamage(tool, p, e))
+                return;
 
-            int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, tool);
+            if (tool.getItem() instanceof ItemSword) {
 
-            if (j > 0 && !e.isBurning()) {
-                e.setFire(j);
+                p.resetCooldown();
+                float f = ((ItemSword) tool.getItem()).getDamageVsEntity();
+                float f1 = EnchantmentHelper.getModifierForCreature(tool, e.getCreatureAttribute());
+                float f3 = (float) p.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getAttributeValue();
+                e.attackEntityFrom(DamageSource.causeMobDamage(p), f + f1 + f3 + 3);
+
+                int j = EnchantmentHelper.getEnchantmentLevel(Enchantments.FIRE_ASPECT, tool);
+
+                if (j > 0 && !e.isBurning()) {
+                    e.setFire(j);
+                }
+
+                tool.damageItem(1, p);
             }
-
-            tool.damageItem(1, p);
         }
     }
 }

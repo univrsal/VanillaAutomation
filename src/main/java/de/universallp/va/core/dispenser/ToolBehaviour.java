@@ -27,16 +27,57 @@ public class ToolBehaviour implements IBehaviorDispenseItem {
         EnumFacing f = (EnumFacing) s.getProperties().get(BlockDirectional.FACING);
 
         BlockPos dest = source.getBlockPos().add(Utils.extend(f.getDirectionVec(), Utils.getReach(stack)));
+        VAFakePlayer pl = VAFakePlayer.instance(source.getWorld());
+        pl.setPosition(source.getX(), source.getY() - pl.getEyeHeight(), source.getZ());
+        pl.rotationYaw = getYaw(f);
+        pl.rotationPitch = getPitch(f);
 
-        if (breakBlock(w, dest, VAFakePlayer.instance(w), stack)) {
-            stack.damageItem(1, VAFakePlayer.instance(w));
+
+        if (breakBlock(w, dest, pl, stack)) {
+            stack.damageItem(1, pl);
         }
 
         return stack;
     }
 
+    private float getYaw(EnumFacing f) {
+        switch (f) {
+            case SOUTH:
+                return 0;
+            case WEST:
+                return 90;
+            case NORTH:
+                return 180;
+            case EAST:
+                return -90;
+            case DOWN:
+                return 0;
+            case UP:
+                return 0;
+            default:
+                return 0;
+        }
+    }
+
+    private float getPitch(EnumFacing f) {
+        switch (f) {
+            case NORTH:
+            case SOUTH:
+            case EAST:
+            case WEST:
+                return 0;
+            case DOWN:
+                return 90;
+            case UP:
+                return -90;
+            default:
+                return 0;
+        }
+    }
+
     private boolean breakBlock(World worldObj, BlockPos pos, VAFakePlayer fakePlayer, ItemStack tool) {
         fakePlayer.setItemInHand(tool);
+        tool.getItem().onBlockStartBreak(tool, pos, fakePlayer);
 
         final IBlockState blockS = worldObj.getBlockState(pos);
         final Block block = blockS.getBlock();

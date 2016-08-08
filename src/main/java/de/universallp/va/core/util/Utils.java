@@ -238,17 +238,17 @@ public class Utils {
         if (toolStack == null || state == null)
             return false;
 
+        if (state.getBlock().getHarvestLevel(state) < 0)
+            return false;
+
         String tool = state.getBlock().getHarvestTool(state);
         int harvesLevel = state.getBlock().getHarvestLevel(state);
         Set<String> toolClasses = toolStack.getItem().getToolClasses(toolStack);
 
-        if (tool != null)
-            for (String toolClass : toolClasses) {
-                if (toolClass.equals(tool) && toolStack.getItem().getHarvestLevel(toolStack, toolClass) >= harvesLevel)
-                    return true;
-            }
-        else
-            return true; // No provided toolclass = anything can mine it
+        for (String toolClass : toolClasses) {
+            if (toolClass.equals(tool) && toolStack.getItem().getHarvestLevel(toolStack, toolClass) >= harvesLevel)
+                return true;
+        }
 
         return false;
     }

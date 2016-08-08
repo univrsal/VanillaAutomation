@@ -3,6 +3,7 @@ package de.universallp.va.core;
 import de.universallp.va.VanillaAutomation;
 import de.universallp.va.core.block.VABlocks;
 import de.universallp.va.core.compat.CompatBoP;
+import de.universallp.va.core.compat.CompatTinkersConstruct;
 import de.universallp.va.core.compat.ICompatModule;
 import de.universallp.va.core.dispenser.DispenserTweaks;
 import de.universallp.va.core.handler.AnvilDescriptionHandler;
@@ -30,7 +31,6 @@ public class CommonProxy {
         VAItems.init();
         VABlocks.init();
 
-        CompatBoP.run(e, ICompatModule.EnumEventType.PRE_INIT);
     }
 
     public void init(FMLInitializationEvent e) {
@@ -46,12 +46,11 @@ public class CommonProxy {
         CrashReportHandler.readCrashes(e.getSide());
 
         CompatBoP.run(e, ICompatModule.EnumEventType.INIT);
+        CompatTinkersConstruct.run(e, ICompatModule.EnumEventType.INIT);
     }
 
     public void postInit(FMLPostInitializationEvent e) {
         ConfigHandler.loadPostInit();
-
-        CompatBoP.run(e, ICompatModule.EnumEventType.POST_INIT);
     }
 
     /**

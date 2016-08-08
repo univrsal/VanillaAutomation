@@ -1,5 +1,8 @@
 package de.universallp.va.core.compat;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -16,6 +19,8 @@ public interface ICompatModule {
     void init(FMLInitializationEvent e);
 
     void postInit(FMLPostInitializationEvent e);
+
+    boolean doTCDamage(ItemStack s, EntityPlayer player, Entity e);
 
     enum EnumEventType {
         PRE_INIT,

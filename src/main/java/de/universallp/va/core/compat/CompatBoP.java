@@ -4,6 +4,9 @@ import biomesoplenty.api.item.BOPItems;
 import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.core.dispenser.DispenserTweaks;
 import de.universallp.va.core.util.LogHelper;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -65,5 +68,11 @@ public class CompatBoP implements ICompatModule {
     @Override
     public void postInit(FMLPostInitializationEvent e) {
 
+    }
+
+    @Override
+    public boolean doTCDamage(ItemStack s, EntityPlayer player, Entity e) {
+        //NO-OP
+        return false;
     }
 }
