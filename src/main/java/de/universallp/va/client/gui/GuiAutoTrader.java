@@ -44,28 +44,37 @@ public class GuiAutoTrader extends GuiContainer {
     @Override
     public void initGui() {
         super.initGui();
-
         btnLeft = new ButtonIcon(0, guiLeft + 22, guiTop + 37, currentTrade > 0 ? ButtonIcon.IconType.ARROW_LEFT : ButtonIcon.IconType.ARROW_LEFT_DISABLED, false);
-        btnRight = new ButtonIcon(1, guiLeft + 145, guiTop + 37, currentTrade > maxTrades ? ButtonIcon.IconType.ARROW_RIGHT : ButtonIcon.IconType.ARROW_RIGHT_DISABLED, false);
-
+        btnRight = new ButtonIcon(1, guiLeft + 145, guiTop + 37, currentTrade < maxTrades ? ButtonIcon.IconType.ARROW_RIGHT : ButtonIcon.IconType.ARROW_RIGHT_DISABLED, false);
         buttonList.add(btnLeft);
         buttonList.add(btnRight);
+
     }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         super.drawScreen(mouseX, mouseY, partialTicks);
 
-        if (btnLeft.enabled && btnLeft.isMouseOver()) {
+        boolean enabled = currentTrade > 0;
+        btnLeft.enabled = enabled;
+
+        if (enabled && btnLeft.isMouseOver()) {
             btnLeft.setIcon(ButtonIcon.IconType.ARROW_LEFT_SELECTED);
-        } else if (btnLeft.enabled) {
+        } else if (enabled) {
             btnLeft.setIcon(ButtonIcon.IconType.ARROW_LEFT);
+        } else {
+            btnLeft.setIcon(ButtonIcon.IconType.ARROW_LEFT_DISABLED);
         }
 
-        if (btnRight.enabled && btnRight.isMouseOver()) {
+        enabled = currentTrade < maxTrades - 1;
+        btnRight.enabled = enabled;
+
+        if (enabled && btnRight.isMouseOver()) {
             btnRight.setIcon(ButtonIcon.IconType.ARROW_RIGHT_SELECTED);
-        } else if (btnRight.enabled) {
+        } else if (enabled) {
             btnRight.setIcon(ButtonIcon.IconType.ARROW_RIGHT);
+        } else {
+            btnRight.setIcon(ButtonIcon.IconType.ARROW_RIGHT_DISABLED);
         }
     }
 
@@ -91,6 +100,7 @@ public class GuiAutoTrader extends GuiContainer {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
         this.fontRendererObj.drawString(I18n.format(LibLocalization.GUI_AUTOTRADER), 8, 6, LibNames.TEXT_COLOR);
         this.fontRendererObj.drawString(this.playerInv.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, LibNames.TEXT_COLOR);
+        this.fontRendererObj.drawString(autoTrader.getStringField(0), this.xSize / 2 - this.fontRendererObj.getStringWidth(autoTrader.getStringField(0)) / 2, 20, LibNames.TEXT_COLOR);
     }
 
     @Override
@@ -101,8 +111,9 @@ public class GuiAutoTrader extends GuiContainer {
         int j = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
 
-        if (!autoTrader.isTradePossible()) {
-            System.out.println("heyo");
+        if (!autoTrader.isTradingPossible() || !autoTrader.getIsTradePossible(currentTrade)) {
+            this.drawTexturedModalRect(i + 84, j + 36, this.width + 6, 0, 25, 20);
+            this.drawTexturedModalRect(i + 84, j + 66, this.width + 6, 0, 25, 20);
         }
     }
 }

@@ -5,12 +5,10 @@ import de.universallp.va.core.util.libs.LibLocalization;
 import de.universallp.va.core.util.libs.LibNames;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -21,7 +19,6 @@ import java.util.List;
  */
 public class VisualRecipe {
 
-    private static final ResourceLocation grid = new ResourceLocation(LibNames.MOD_ID, "textures/gui/recipe.png");
     private ItemStack[] stacks;
     private ItemStack   result;
     private List<String> tooltip;
@@ -37,25 +34,24 @@ public class VisualRecipe {
     @SideOnly(Side.CLIENT)
     public void draw(int x, int y, int mouseX, int mouseY, GuiGuide parent) {
         int stack = 0;
-        ScaledResolution sR = new ScaledResolution(parent.mc);
         boolean mouseOver = false;
         int titleWidth = parent.mc.fontRendererObj.getStringWidth(type.getLocalizedName());
         int offset = parent.mc.fontRendererObj.FONT_HEIGHT + 3;
 
         parent.mc.fontRendererObj.drawString(type.getLocalizedName(), x + 43 - titleWidth / 2, y, LibNames.TEXT_COLOR);
-        parent.mc.renderEngine.bindTexture(grid);
+        parent.mc.renderEngine.bindTexture(GuiGuide.bg);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        parent.drawTexturedModalRect(x, (y + parent.mc.fontRendererObj.FONT_HEIGHT + 3), 0, 0, 83, 48);
+        parent.drawTexturedModalRect(x, (y + parent.mc.fontRendererObj.FONT_HEIGHT + 3), 134, 0, 83, 48);
 
         main:
         for (int i = 0; i < 3; i++) {
             for (int b = 0; b < 3; b++) {
                 if (stack < stacks.length) {
-                    int posX = x - 1 + b * 17;
+                    int posX = x - 2 + b * 17;
                     int posY = (y + offset) - 1 + i * 17;
                     ItemStack current = stacks[stack];
 
-                    if (current != null && current.getItem() != null) {
+                    if (current != null) {
                         RenderHelper.enableGUIStandardItemLighting();
                         Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(current, posX, posY);
 

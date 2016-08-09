@@ -18,7 +18,7 @@ public class LibNames {
     public static final String TILE_PLACER  = "tilePlacer";
     public static final String TILE_XPHOPPER = "tilexpHopper";
     public static final String TILE_FILTEREDHOPPER = "tilefilteredhopper";
-    public static final String TILE_ADVANCEDANVIL = "tileadvancedanvil";
+    public static final String TILE_AUTOTRADER = "tileautotrader";
 
     public static final String GUI_DIR = "va.dir.";
     public static final int TEXT_COLOR = 4210752;
@@ -37,10 +37,6 @@ public class LibNames {
     // Items
     public static final String ITEM_GUIDE = PREFIX + "vaguide";
     public static final String ITEM_POKESTICK = PREFIX + "pokestick";
-    public static final String ITEM_XPHOPPERMINECART = PREFIX + "xphopperminecart";
-    public static final String ITEM_FILTEREDHOPPERMINECART = PREFIX + "filteredhopperminecart";
     public static final String ITEM_DESCRIPTIONTAG = PREFIX + "descriptiontag";
 
-    // Entities
-    public static final String ENTITY_XPHOPPERMINECART = PREFIX + "xphopperminecart";
 }

@@ -175,7 +175,7 @@ public class MessageSetFieldClient implements IMessage, IMessageHandler<MessageS
         return null;
     }
 
-    private enum EnumMessageType {
+    public enum EnumMessageType {
         BYTE,
         INT,
         STRING

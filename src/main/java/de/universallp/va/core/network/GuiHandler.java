@@ -41,7 +41,8 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerFilteredHopper(player.inventory, teF);
         } else if (ID == LibGuiIDs.GUI_AUTOTRADER) {
             TileAutoTrader teAT = (TileAutoTrader) te;
-            PacketHandler.syncFieldClient(player, te, 0, 1);
+            PacketHandler.syncFieldClient(player, te, 0, 2 + ((TileAutoTrader) te).getField(1));
+            PacketHandler.syncStringFieldClient(player, te, 0);
             return new ContainerAutoTrader(player.inventory, teAT);
         }
 

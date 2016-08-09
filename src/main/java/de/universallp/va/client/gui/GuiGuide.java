@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 public class GuiGuide extends GuiScreen {
 
-    private static ResourceLocation bg = new ResourceLocation(LibNames.MOD_ID, "textures/gui/guide.png");
+    public static final ResourceLocation bg = new ResourceLocation(LibNames.MOD_ID, "textures/gui/guide.png");
 
     private ButtonLabel btnMenu;
     private ButtonLabel btnBack;
@@ -46,10 +46,10 @@ public class GuiGuide extends GuiScreen {
 
     @Override
     public void initGui() {
-        btnMenu = new ButtonLabel(LibLocalization.BTN_MENU, 0, width / 2 + 68, height / 2 - 78);
-        btnBack = new ButtonLabel(LibLocalization.BTN_BACK, 1, width / 2 + 68, height / 2 - 68);
-        btnNext = new ButtonLabel("-->", 2, width / 2 + 38, height / 2 + 100);
-        btnLast = new ButtonLabel("<--", 3, width / 2 - 56, height / 2 + 100);
+        btnMenu = new ButtonLabel(LibLocalization.BTN_MENU, 0, width / 2 + 73, height / 2 - 78);
+        btnBack = new ButtonLabel(LibLocalization.BTN_BACK, 1, width / 2 + 73, height / 2 - 68);
+        btnNext = new ButtonLabel("-->", 2, width / 2 + 44, height / 2 + 100);
+        btnLast = new ButtonLabel("<--", 3, width / 2 - 50, height / 2 + 100);
 
         btnBack.enabled = lastEntry != null || !currentEntry.equals(EnumEntry.MENU.getEntry());
 
@@ -74,7 +74,7 @@ public class GuiGuide extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         mc.renderEngine.bindTexture(bg);
-        drawTexturedModalRect(width / 2 - 129 / 2, height / 2 - 167 / 2, 0, 0, 129, 179);
+        drawTexturedModalRect(width / 2 - 134 / 2, height / 2 - 167 / 2, 0, 0, 134, 179);
         currentEntry.draw(mouseX, mouseY, this, partialTicks);
 
         super.drawScreen(mouseX, mouseY, partialTicks);

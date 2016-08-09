@@ -1,6 +1,10 @@
 package de.universallp.va.core.network;
 
-import de.universallp.va.core.network.messages.*;
+import de.universallp.va.core.network.messages.MessagePlaySound;
+import de.universallp.va.core.network.messages.MessageSetFieldClient;
+import de.universallp.va.core.network.messages.MessageSetFieldServer;
+import de.universallp.va.core.network.messages.MessageSyncMinecart;
+import de.universallp.va.core.util.ICustomField;
 import de.universallp.va.core.util.libs.LibNames;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
@@ -62,6 +66,14 @@ public class PacketHandler {
             index++;
         }
         sendTo(new MessageSetFieldClient(fields, values, te.getPos()), (EntityPlayerMP) pl);
+    }
+
+    public static void syncStringFieldClient(EntityPlayer pl, TileEntity te, int fieldID) {
+        if (!(te instanceof ICustomField))
+            return;
+
+        String value = ((ICustomField) te).getStringField(fieldID);
+        sendTo(new MessageSetFieldClient(fieldID, value, te.getPos()), (EntityPlayerMP) pl);
     }
 
     public static void sendToServer(IMessage msg) {

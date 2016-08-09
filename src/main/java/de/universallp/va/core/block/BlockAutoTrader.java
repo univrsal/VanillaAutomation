@@ -80,7 +80,7 @@ public class BlockAutoTrader extends BlockVA {
 
     @Override
     public int tickRate(World worldIn) {
-        return 4;
+        return 20;
     }
 
     @Override

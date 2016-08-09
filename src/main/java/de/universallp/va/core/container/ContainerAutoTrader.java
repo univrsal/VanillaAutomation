@@ -1,5 +1,6 @@
 package de.universallp.va.core.container;
 
+import de.universallp.va.core.tile.TileAutoTrader;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -27,7 +28,7 @@ public class ContainerAutoTrader extends Container {
 
         addSlotToContainer(new Slot(trader, 3, 36, 66)); // Trade input
         addSlotToContainer(new Slot(trader, 4, 62, 66)); // Trade input
-        addSlotToContainer(new Slot(trader, 5, 120, 67)); // Trade output
+        addSlotToContainer(new SlotTradeResult((TileAutoTrader) trader, 5, 120, 67)); // Trade output
 
 
         // Player inv
