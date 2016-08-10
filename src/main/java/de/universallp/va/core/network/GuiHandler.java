@@ -5,11 +5,13 @@ import de.universallp.va.client.gui.*;
 import de.universallp.va.core.container.ContainerAutoTrader;
 import de.universallp.va.core.container.ContainerFilteredHopper;
 import de.universallp.va.core.container.ContainerXPHopper;
+import de.universallp.va.core.network.messages.MessageSyncTradeResults;
 import de.universallp.va.core.tile.TileAutoTrader;
 import de.universallp.va.core.tile.TileFilteredHopper;
 import de.universallp.va.core.tile.TilePlacer;
 import de.universallp.va.core.util.libs.LibGuiIDs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.ContainerDispenser;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
@@ -25,7 +27,6 @@ public class GuiHandler implements IGuiHandler {
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
-
 
         if (ID == LibGuiIDs.GUI_PLACER) {
             PacketHandler.syncFieldClient(player, te, 0, 2);
@@ -43,6 +44,7 @@ public class GuiHandler implements IGuiHandler {
             TileAutoTrader teAT = (TileAutoTrader) te;
             PacketHandler.syncFieldClient(player, te, 0, 2 + ((TileAutoTrader) te).getField(1));
             PacketHandler.syncStringFieldClient(player, te, 0);
+            PacketHandler.sendTo(new MessageSyncTradeResults(te.getPos(), ((TileAutoTrader) te).getTradeResult()), (EntityPlayerMP) player);
             return new ContainerAutoTrader(player.inventory, teAT);
         }
 

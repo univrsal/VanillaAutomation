@@ -3,7 +3,7 @@ package de.universallp.va.core.network;
 import de.universallp.va.core.network.messages.MessagePlaySound;
 import de.universallp.va.core.network.messages.MessageSetFieldClient;
 import de.universallp.va.core.network.messages.MessageSetFieldServer;
-import de.universallp.va.core.network.messages.MessageSyncMinecart;
+import de.universallp.va.core.network.messages.MessageSyncTradeResults;
 import de.universallp.va.core.util.ICustomField;
 import de.universallp.va.core.util.libs.LibNames;
 import io.netty.buffer.ByteBuf;
@@ -28,7 +28,7 @@ public class PacketHandler {
         INSTANCE.registerMessage(MessageSetFieldClient.class, MessageSetFieldClient.class, ID++, Side.CLIENT);
         INSTANCE.registerMessage(MessageSetFieldServer.class, MessageSetFieldServer.class, ID++, Side.SERVER);
         INSTANCE.registerMessage(MessagePlaySound.class, MessagePlaySound.class, ID++, Side.CLIENT);
-        INSTANCE.registerMessage(MessageSyncMinecart.class, MessageSyncMinecart.class, ID++, Side.CLIENT);
+        INSTANCE.registerMessage(MessageSyncTradeResults.class, MessageSyncTradeResults.class, ID++, Side.CLIENT);
     }
 
     public static void sendTo(IMessage m, EntityPlayerMP p) {

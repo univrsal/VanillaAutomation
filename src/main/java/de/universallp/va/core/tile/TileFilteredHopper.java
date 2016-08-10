@@ -8,6 +8,7 @@ import de.universallp.va.core.util.libs.LibLocalization;
 import de.universallp.va.core.util.libs.LibReflection;
 import net.minecraft.block.BlockHopper;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
@@ -16,7 +17,9 @@ import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
 import java.util.ArrayList;
@@ -43,24 +46,33 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
 
         EnumFacing enumfacing = EnumFacing.DOWN;
 
-        if (isInventoryEmpty(iinventory, enumfacing))
-            return false;
+        if (iinventory != null) {
+            if (isInventoryEmpty(iinventory, enumfacing)) {
+                return false;
+            }
 
-        if (iinventory instanceof ISidedInventory) {
-            ISidedInventory isidedinventory = (ISidedInventory) iinventory;
-            int[] aint = isidedinventory.getSlotsForFace(enumfacing);
+            if (iinventory instanceof ISidedInventory) {
+                ISidedInventory isidedinventory = (ISidedInventory) iinventory;
+                int[] aint = isidedinventory.getSlotsForFace(enumfacing);
 
-            for (int i = 0; i < aint.length; ++i)
-                if (hopper.isItemValid(isidedinventory.getStackInSlot(aint[i])))
-                    if (pullItemFromSlot(hopper, iinventory, aint[i], enumfacing))
+                for (int i : aint) {
+                    if (pullItemFromSlot(hopper, iinventory, i, enumfacing)) {
                         return true;
+                    }
+                }
+            } else {
+                int j = iinventory.getSizeInventory();
 
-        } else {
-            int j = iinventory.getSizeInventory();
-
-            for (int k = 0; k < j; ++k) {
-                if (hopper.isItemValid(iinventory.getStackInSlot(k)))
+                for (int k = 0; k < j; ++k) {
                     if (pullItemFromSlot(hopper, iinventory, k, enumfacing)) {
+                        return true;
+                    }
+                }
+            }
+        } else {
+            for (EntityItem entityitem : getCaptureItems(hopper.getWorld(), hopper.getXPos(), hopper.getYPos(), hopper.getZPos())) {
+                if (hopper.isItemValid(entityitem.getEntityItem()))
+                    if (putDropInInventoryAllSlots(hopper, entityitem)) {
                         return true;
                     }
             }
@@ -74,7 +86,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
 
         if (itemstack != null && canExtractItemFromSlot(inventoryIn, itemstack, index, direction) && hopper.isItemValid(itemstack)) {
             ItemStack itemstack1 = itemstack.copy();
-            ItemStack itemstack2 = putStackInInventoryAllSlots(hopper, inventoryIn.decrStackSize(index, 1), (EnumFacing) null);
+            ItemStack itemstack2 = putStackInInventoryAllSlots(hopper, inventoryIn.decrStackSize(index, 1), null);
 
             if (itemstack2 == null || itemstack2.stackSize == 0) {
                 inventoryIn.markDirty();
@@ -96,25 +108,23 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
             ISidedInventory isidedinventory = (ISidedInventory) inventoryIn;
             int[] aint = isidedinventory.getSlotsForFace(side);
 
-            for (int i = 0; i < aint.length; ++i)
-                if (isidedinventory.getStackInSlot(aint[i]) != null)
+            for (int i : aint) {
+                if (isidedinventory.getStackInSlot(i) != null) {
                     return false;
-
+                }
+            }
         } else {
-            if (inventoryIn == null)
-                return true;
             int j = inventoryIn.getSizeInventory();
 
-            for (int k = 0; k < j; ++k)
-                if (inventoryIn.getStackInSlot(k) != null)
+            for (int k = 0; k < j; ++k) {
+                if (inventoryIn.getStackInSlot(k) != null) {
                     return false;
-
+                }
+            }
         }
 
         return true;
     }
-
-
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
@@ -190,6 +200,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
     public boolean isItemValid(ItemStack s) {
         if (s == null)
             return false;
+
 
         if (!getHasItemFilter())
             return true;
@@ -395,6 +406,20 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
         }
 
         return true;
+    }
+
+    @Override
+    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+            return true;
+        return super.hasCapability(capability, facing);
+    }
+
+    @Override
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+            return (T) new FilteredItemHandler(this);
+        return super.getCapability(capability, facing);
     }
 
     private IInventory getInventoryForHopperTransfer() {

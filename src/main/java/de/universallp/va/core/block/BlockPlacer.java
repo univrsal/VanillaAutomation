@@ -143,7 +143,6 @@ public class BlockPlacer extends BlockVA {
 
             if (tP.useRedstone) {
                 int redstoneStrength = worldIn.isBlockIndirectlyGettingPowered(pos);
-                System.out.println(redstoneStrength);
                 dest = pos.add(f.getFrontOffsetX() * redstoneStrength, f.getFrontOffsetY() * redstoneStrength, f.getFrontOffsetZ() * redstoneStrength);
             } else {
                 dest = pos.add(f.getFrontOffsetX() * tP.reachDistance, f.getFrontOffsetY() * tP.reachDistance, f.getFrontOffsetZ() * tP.reachDistance);

@@ -24,15 +24,15 @@ public class SlotTradeResult extends Slot {
 
     @Override
     public boolean canTakeStack(EntityPlayer playerIn) {
-        boolean flag = trader.isTradingPossible() && trader.getIsTradePossible(trader.getField(0)) && super.canTakeStack(playerIn);
-        if (flag) {
-            // Perform trade
+        if (trader.isTradingPossible() && trader.getIsTradePossible(trader.getField(0)) && super.canTakeStack(playerIn)) {
+            return trader.performTrade();
         }
-        return flag;
+
+        return false;
     }
 
     @Override
-    public void putStack(@Nullable ItemStack stack) {
-        // NO-OP
+    public boolean isItemValid(@Nullable ItemStack stack) {
+        return false;
     }
 }

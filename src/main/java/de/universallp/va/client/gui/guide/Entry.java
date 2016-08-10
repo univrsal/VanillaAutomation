@@ -34,7 +34,7 @@ public class Entry {
         if (pages != null && currentPage < pages.size() && currentPage >= 0) {
             int x = getX(parent.width);
             int y = getY(parent.height);
-            parent.mc.fontRendererObj.drawString(I18n.format(title), x + (129 / 2) - parent.mc.fontRendererObj.getStringWidth(I18n.format(title)) / 2, y - 5, new Color(200, 200, 200).getRGB());
+            parent.mc.fontRendererObj.drawString(I18n.format(title), x + (129 / 2) - parent.mc.fontRendererObj.getStringWidth(I18n.format(title)) / 2, y - 3, new Color(200, 200, 200).getRGB());
             pages.get(currentPage).draw(mouseX, mouseY, getX(parent.width), getY(parent.height), parent, partialTicks);
         }
         parent.mc.fontRendererObj.setUnicodeFlag(false);
