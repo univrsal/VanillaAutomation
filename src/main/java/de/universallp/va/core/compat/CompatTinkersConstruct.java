@@ -1,12 +1,10 @@
 package de.universallp.va.core.compat;
 
-import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.core.dispenser.DispenserTweaks;
 import de.universallp.va.core.util.LogHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -27,21 +25,18 @@ public class CompatTinkersConstruct implements ICompatModule {
     public static boolean isEnabled = false;
 
     public static void run(FMLStateEvent e, EnumEventType type) {
-        if (Loader.isModLoaded(MOD_ID)) {
-            switch (type) {
-                case INIT:
-                    INSTANCE.init((FMLInitializationEvent) e);
-                    break;
-                case POST_INIT:
-                    INSTANCE.postInit((FMLPostInitializationEvent) e);
-                    break;
-                case PRE_INIT:
-                    INSTANCE.preInit((FMLPreInitializationEvent) e);
-                    break;
-            }
-            isEnabled = true;
-        } else
-            EnumEntry.TC_COMPAT.disable();
+        switch (type) {
+            case INIT:
+                INSTANCE.init((FMLInitializationEvent) e);
+                break;
+            case POST_INIT:
+                INSTANCE.postInit((FMLPostInitializationEvent) e);
+                break;
+            case PRE_INIT:
+                INSTANCE.preInit((FMLPreInitializationEvent) e);
+                break;
+        }
+        isEnabled = true;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package de.universallp.va.core;
 
 import de.universallp.va.VanillaAutomation;
+import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.core.block.VABlocks;
 import de.universallp.va.core.compat.CompatBoP;
 import de.universallp.va.core.compat.CompatTinkersConstruct;
@@ -15,6 +16,7 @@ import de.universallp.va.core.network.PacketHandler;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -46,7 +48,11 @@ public class CommonProxy {
         CrashReportHandler.readCrashes(e.getSide());
 
         CompatBoP.run(e, ICompatModule.EnumEventType.INIT);
-        CompatTinkersConstruct.run(e, ICompatModule.EnumEventType.INIT);
+        if (Loader.isModLoaded("tconstruct")) {
+            CompatTinkersConstruct.run(e, ICompatModule.EnumEventType.INIT);
+        } else {
+            EnumEntry.TC_COMPAT.disable();
+        }
     }
 
     public void postInit(FMLPostInitializationEvent e) {
