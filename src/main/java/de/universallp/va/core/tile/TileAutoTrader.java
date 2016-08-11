@@ -1,11 +1,13 @@
 package de.universallp.va.core.tile;
 
 import de.universallp.va.core.block.BlockPlacer;
-import de.universallp.va.core.network.PacketHandler;
-import de.universallp.va.core.network.messages.MessageSyncTradeResults;
 import de.universallp.va.core.util.ICustomField;
+import de.universallp.va.core.util.VAFakePlayer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -21,7 +23,7 @@ import java.util.List;
  * under the MOZILLA PUBLIC LICENSE 1.1
  * github.com/UniversalLP/VanillaAutomation
  */
-public class TileAutoTrader extends TileVA implements ICustomField {
+public class TileAutoTrader extends TileVA implements ICustomField, IMerchant {
 
     public MerchantRecipeList list;
     private int tradeID = 0;
@@ -57,6 +59,11 @@ public class TileAutoTrader extends TileVA implements ICustomField {
     }
 
     public boolean performTrade() {
+        if (list == null && !worldObj.isRemote)
+            return false;
+        if (worldObj.isRemote)
+            return isTradingPossible() && getIsTradePossible(tradeID);
+
         MerchantRecipe trade = list.get(tradeID);
 
         if (trade != null) {
@@ -95,7 +102,7 @@ public class TileAutoTrader extends TileVA implements ICustomField {
     }
 
     /**
-     * Copied from SlotMerchantResult
+     * @see net.minecraft.inventory.SlotMerchantResult
      */
     private boolean doTrade(MerchantRecipe trade, ItemStack firstItem, ItemStack secondItem) {
         ItemStack itemstack = trade.getItemToBuy();
@@ -179,9 +186,9 @@ public class TileAutoTrader extends TileVA implements ICustomField {
             list = villager.getRecipes(null);
             maxTrades = list.size();
             MerchantRecipe recipe = list.get(tradeID);
-            setInventorySlotContents(0, recipe.getItemToBuy());
-            setInventorySlotContents(1, recipe.getSecondItemToBuy());
-            setInventorySlotContents(2, recipe.getItemToSell());
+            setInventorySlotContents(3, recipe.getItemToBuy());
+            setInventorySlotContents(4, recipe.getSecondItemToBuy());
+            setInventorySlotContents(5, recipe.getItemToSell());
             villagerName = villager.getDisplayName().getUnformattedText();
             isTradingPossible = true;
         } else {
@@ -191,31 +198,27 @@ public class TileAutoTrader extends TileVA implements ICustomField {
             list = null;
             tradeID = 0;
             maxTrades = 0;
-            setInventorySlotContents(0, null);
-            setInventorySlotContents(1, null);
-            setInventorySlotContents(2, null);
+            setInventorySlotContents(3, null);
+            setInventorySlotContents(4, null);
+            setInventorySlotContents(5, null);
         }
     }
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
         super.setInventorySlotContents(index, stack);
-
-        if (index == 3 || index == 4 && isTradingPossible()) {
-            if (!worldObj.isRemote && list != null) {
-                ItemStack itemstack = getStackInSlot(3);
-                ItemStack itemstack1 = getStackInSlot(4);
-                ItemStack s = checkTrade(itemstack, itemstack1);
-
-                if (s == null)
-                    s = checkTrade(itemstack1, itemstack);
-                setInventorySlotContents(5, s);
-                tradeResult = s;
-                PacketHandler.sendTo(new MessageSyncTradeResults(getPos(), tradeResult), 16, worldObj.provider.getDimension(), getPos());
-            } else {
-                setInventorySlotContents(5, getTradeResult());
-            }
-        }
+//        if (!worldObj.isRemote && list != null && index == 3 || index == 4 && isTradingPossible()) {
+//            ItemStack itemstack = getStackInSlot(3);
+//            ItemStack itemstack1 = getStackInSlot(4);
+//
+//            ItemStack s = checkTrade(itemstack, itemstack1);
+//
+//            if (s == null)
+//                s = checkTrade(itemstack1, itemstack);
+//
+//            setInventorySlotContents(5, s);
+//            tradeResult = s;
+//        }
     }
 
     @Override
@@ -239,5 +242,44 @@ public class TileAutoTrader extends TileVA implements ICustomField {
 
     public void setTradeResult(ItemStack tradeResult) {
         this.tradeResult = tradeResult;
+    }
+
+    @Override
+    public EntityPlayer getCustomer() {
+        return VAFakePlayer.instance(worldObj);
+    }
+
+    @Override
+    public void setCustomer(EntityPlayer player) {
+        // NO-OP
+    }
+
+    @Override
+    public MerchantRecipeList getRecipes(EntityPlayer player) {
+        return list;
+    }
+
+    @Override
+    public void setRecipes(MerchantRecipeList recipeList) {
+        list = recipeList;
+    }
+
+    @Override
+    public void useRecipe(MerchantRecipe recipe) {
+        if (villager != null)
+            villager.useRecipe(recipe);
+    }
+
+    @Override
+    public void verifySellingItem(ItemStack stack) {
+        if (!this.worldObj.isRemote && villager.livingSoundTime > -villager.getTalkInterval() + 20) {
+            villager.livingSoundTime = -villager.getTalkInterval();
+
+            if (stack != null) {
+                villager.playSound(SoundEvents.ENTITY_VILLAGER_YES, 1.0F, 1.0F);
+            } else {
+                villager.playSound(SoundEvents.ENTITY_VILLAGER_NO, 1.0F, 1.0F);
+            }
+        }
     }
 }

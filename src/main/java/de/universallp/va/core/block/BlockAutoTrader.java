@@ -115,9 +115,14 @@ public class BlockAutoTrader extends BlockVA {
 
         recipe = new VisualRecipe(new ItemStack[] { cobbleStone, cobbleStone, cobbleStone,
                 cobbleStone, chest, cobbleStone,
-                cobbleStone, emerald, cobbleStone }, new ItemStack(VABlocks.placer, 1), VisualRecipe.EnumRecipeType.SHAPED);
+                cobbleStone, emerald, cobbleStone }, new ItemStack(VABlocks.autoTrader, 1), VisualRecipe.EnumRecipeType.SHAPED);
 
         return recipe;
+    }
+
+    @Override
+    public void addRecipe() {
+        // WIP
     }
 
     @Override

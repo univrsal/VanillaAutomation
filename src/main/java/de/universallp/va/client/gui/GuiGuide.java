@@ -74,7 +74,7 @@ public class GuiGuide extends GuiScreen {
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
         mc.renderEngine.bindTexture(bg);
-        drawTexturedModalRect(width / 2 - 134 / 2, height / 2 - 167 / 2, 0, 0, 134, 179);
+        drawTexturedModalRect(width / 2 - 134 / 2, height / 2 - 167 / 2, 0, 0, 134, 181);
         currentEntry.draw(mouseX, mouseY, this, partialTicks);
 
         super.drawScreen(mouseX, mouseY, partialTicks);

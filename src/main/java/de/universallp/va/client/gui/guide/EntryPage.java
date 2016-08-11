@@ -56,12 +56,13 @@ public class EntryPage {
         if (image == null && recipe == null) {
             if (text != null) {
                 String locText = I18n.format(text);
-                Utils.drawWrappedString(locText, x + 3, y + 10, 115, parent.mc.fontRendererObj);
+                Utils.drawWrappedString(locText, x + 3, y + 13, 115, parent.mc.fontRendererObj);
+            } else {
+
+                for (int i = 0; i < menuEntries.size(); i++)
+                    menuEntries.get(i).draw(mouseX, mouseY, x + 3, y + 11 + (parent.mc.fontRendererObj.FONT_HEIGHT + 2) * i, parent);
+
             }
-
-            for (int i = 0; i < menuEntries.size(); i++)
-                menuEntries.get(i).draw(mouseX, mouseY, x + 3, y + 11 + (parent.mc.fontRendererObj.FONT_HEIGHT + 2) * i, parent);
-
         } else {
             if (image != null) {
                 parent.mc.renderEngine.bindTexture(image);
@@ -78,7 +79,7 @@ public class EntryPage {
 
                 if (text != null) {
                     String locText = I18n.format(text);
-                    Utils.drawWrappedString(locText, x + 3, y + 74, 115, parent.mc.fontRendererObj);
+                    Utils.drawWrappedString(locText, x + 3, y + 78, 115, parent.mc.fontRendererObj);
                 }
             }
         }
