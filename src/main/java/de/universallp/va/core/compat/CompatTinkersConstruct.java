@@ -1,5 +1,6 @@
 package de.universallp.va.core.compat;
 
+import de.universallp.va.core.dispenser.DispenserTweaks;
 import de.universallp.va.core.util.LogHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +12,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLStateEvent;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolHelper;
+import slimeknights.tconstruct.tools.harvest.TinkerHarvestTools;
+import slimeknights.tconstruct.tools.melee.TinkerMeleeWeapons;
 
 /**
  * Created by universallp on 08.08.2016 11:31.
@@ -44,26 +47,25 @@ public class CompatTinkersConstruct implements ICompatModule {
 
     @Override
     public void init(FMLInitializationEvent e) {
-//        LogHelper.logInfo("Tinkers Construct detected, adding TC tools to dispenser registry...");
-        LogHelper.logInfo("Tinkers Construct detected, but intrgration is currently disabled");
+        LogHelper.logInfo("Tinkers Construct detected, adding TC tools to dispenser registry...");
 
-//        DispenserTweaks.add(TinkerTools.pickaxe, DispenserTweaks.TOOL_BEHAVIOUR);
-//        DispenserTweaks.add(TinkerTools.shovel, DispenserTweaks.TOOL_BEHAVIOUR);
-//        DispenserTweaks.add(TinkerTools.hatchet, DispenserTweaks.TOOL_BEHAVIOUR);
-//        DispenserTweaks.add(TinkerTools.hammer, DispenserTweaks.TOOL_BEHAVIOUR);
-//        DispenserTweaks.add(TinkerTools.excavator, DispenserTweaks.TOOL_BEHAVIOUR);
-//        DispenserTweaks.add(TinkerTools.lumberAxe, DispenserTweaks.TOOL_BEHAVIOUR);
-//        DispenserTweaks.add(TinkerTools.mattock, DispenserTweaks.TOOL_BEHAVIOUR);
-//
-//        DispenserTweaks.add(TinkerTools.broadSword, DispenserTweaks.SWORD_BEHAVIOUR);
-//        DispenserTweaks.add(TinkerTools.longSword, DispenserTweaks.SWORD_BEHAVIOUR);
-//        DispenserTweaks.add(TinkerTools.cleaver, DispenserTweaks.SWORD_BEHAVIOUR);
-//        DispenserTweaks.add(TinkerTools.battleAxe, DispenserTweaks.SWORD_BEHAVIOUR);
-//        DispenserTweaks.add(TinkerTools.battleSign, DispenserTweaks.SWORD_BEHAVIOUR);
-//        DispenserTweaks.add(TinkerTools.longSword, DispenserTweaks.SWORD_BEHAVIOUR);
-//        DispenserTweaks.add(TinkerTools.rapier, DispenserTweaks.SWORD_BEHAVIOUR);
-//        DispenserTweaks.add(TinkerTools.fryPan, DispenserTweaks.SWORD_BEHAVIOUR);
-//        DispenserTweaks.add(TinkerTools.cutlass, DispenserTweaks.SWORD_BEHAVIOUR);
+        DispenserTweaks.add(TinkerHarvestTools.pickaxe, DispenserTweaks.TOOL_BEHAVIOUR);
+        DispenserTweaks.add(TinkerHarvestTools.shovel, DispenserTweaks.TOOL_BEHAVIOUR);
+        DispenserTweaks.add(TinkerHarvestTools.hatchet, DispenserTweaks.TOOL_BEHAVIOUR);
+        DispenserTweaks.add(TinkerHarvestTools.hammer, DispenserTweaks.TOOL_BEHAVIOUR);
+        DispenserTweaks.add(TinkerHarvestTools.excavator, DispenserTweaks.TOOL_BEHAVIOUR);
+        DispenserTweaks.add(TinkerHarvestTools.lumberAxe, DispenserTweaks.TOOL_BEHAVIOUR);
+        DispenserTweaks.add(TinkerHarvestTools.mattock, DispenserTweaks.TOOL_BEHAVIOUR);
+
+        DispenserTweaks.add(TinkerMeleeWeapons.broadSword, DispenserTweaks.SWORD_BEHAVIOUR);
+        DispenserTweaks.add(TinkerMeleeWeapons.longSword, DispenserTweaks.SWORD_BEHAVIOUR);
+        DispenserTweaks.add(TinkerMeleeWeapons.cleaver, DispenserTweaks.SWORD_BEHAVIOUR);
+//        DispenserTweaks.add(TinkerHarvestTools.battleAxe, DispenserTweaks.SWORD_BEHAVIOUR);
+        DispenserTweaks.add(TinkerMeleeWeapons.battleSign, DispenserTweaks.SWORD_BEHAVIOUR);
+        DispenserTweaks.add(TinkerMeleeWeapons.longSword, DispenserTweaks.SWORD_BEHAVIOUR);
+        DispenserTweaks.add(TinkerMeleeWeapons.rapier, DispenserTweaks.SWORD_BEHAVIOUR);
+        DispenserTweaks.add(TinkerMeleeWeapons.fryPan, DispenserTweaks.SWORD_BEHAVIOUR);
+//        DispenserTweaks.add(TinkerHarvestTools.cutlass, DispenserTweaks.SWORD_BEHAVIOUR);
     }
 
     @Override
