@@ -25,7 +25,7 @@ group= "de.universallp.va" // http://maven.apache.org/guides/mini/guide-naming-c
 archivesBaseName = "va"
 
 minecraft {
-    version = "1.10.2-12.18.1.2046"
+    version = "1.10.2-12.18.1.2088"
     runDir = "run"
 
     // the mappings can be changed at any time, and must be in the following format.
@@ -48,8 +48,8 @@ dependencies {
     deobfCompile "mezz.jei:jei_1.10.2:3.7.11.238:api"
     // at runtime, use the full JEI jar
     runtime "mezz.jei:jei_1.10.2:3.7.11.238"
-    deobfCompile "slimeknights.mantle:Mantle:1.10-0.10.3.jenkins158"
-    deobfCompile "slimeknights:TConstruct:1.10-2.3.3a.jenkins289"
+    deobfCompile "slimeknights.mantle:Mantle:1.10.2-1.0.+"
+    deobfCompile "slimeknights:TConstruct:1.10.2-2.5.+"
 }
 
 processResources
