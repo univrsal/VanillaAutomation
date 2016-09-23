@@ -3,7 +3,6 @@ package de.universallp.va.core;
 import de.universallp.va.VanillaAutomation;
 import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.core.block.VABlocks;
-import de.universallp.va.core.compat.CompatBoP;
 import de.universallp.va.core.compat.CompatTinkersConstruct;
 import de.universallp.va.core.compat.ICompatModule;
 import de.universallp.va.core.dispenser.DispenserTweaks;
@@ -32,7 +31,6 @@ public class CommonProxy {
         ConfigHandler.loadConfig(e.getSuggestedConfigurationFile());
         VAItems.init();
         VABlocks.init();
-
     }
 
     public void init(FMLInitializationEvent e) {
@@ -47,7 +45,6 @@ public class CommonProxy {
 
         CrashReportHandler.readCrashes(e.getSide());
 
-        CompatBoP.run(e, ICompatModule.EnumEventType.INIT);
         if (Loader.isModLoaded("tconstruct")) {
             CompatTinkersConstruct.run(e, ICompatModule.EnumEventType.INIT);
         } else {
@@ -57,6 +54,8 @@ public class CommonProxy {
 
     public void postInit(FMLPostInitializationEvent e) {
         ConfigHandler.loadPostInit();
+        if (ConfigHandler.DISPENSER_SEARCH_FOR_TOOLS)
+            DispenserTweaks.searchRegistry();
     }
 
     /**

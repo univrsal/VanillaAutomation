@@ -31,7 +31,7 @@ public class ToolBehaviour implements IBehaviorDispenseItem {
         pl.setPosition(source.getX(), source.getY() - pl.getEyeHeight(), source.getZ());
         pl.rotationYaw = getYaw(f);
         pl.rotationPitch = getPitch(f);
-
+        System.out.println(stack);
 
         if (breakBlock(w, dest, pl, stack)) {
             stack.damageItem(1, pl);
