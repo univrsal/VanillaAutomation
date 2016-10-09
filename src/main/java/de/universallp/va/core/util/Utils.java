@@ -6,6 +6,7 @@ import de.universallp.va.core.item.VAItems;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -141,12 +142,18 @@ public class Utils {
         drawWrappedString(s, x, y, maxWidth, new Color(130, 130, 130), false, f);
     }
 
-    public static ItemStack getCarriedItem(EntityPlayer p) {
-        ItemStack s = p.getHeldItem(EnumHand.MAIN_HAND);
-        if (s == null)
-            s = p.getHeldItem(EnumHand.OFF_HAND);
 
-        return s;
+    public static boolean carriesItem(Item item, EntityPlayer p) {
+        if (p == null || item == null)
+            return false;
+
+        if (p.getHeldItemMainhand() != null && p.getHeldItemMainhand().getItem().equals(item))
+            return true;
+
+        if (p.getHeldItemOffhand() != null && p.getHeldItemOffhand().getItem().equals(item))
+            return true;
+
+        return false;
     }
 
     public static Set<String> getCarriedTools(EntityPlayer pl) {

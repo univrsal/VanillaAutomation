@@ -24,6 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,10 +49,9 @@ public class ItemPokeStick extends ItemVA {
     @Override
     public void onUpdate(ItemStack stack, World worldIn, Entity entityIn, int itemSlot, boolean isSelected) {
         if (entityIn instanceof EntityPlayer) {
-            ItemStack heldItem = Utils.getCarriedItem((EntityPlayer) entityIn);
             EntityPlayer pl = (EntityPlayer) entityIn;
 
-            if (heldItem != null && heldItem.getItem().equals(VAItems.itemPokeStick)) {
+            if (Utils.carriesItem(VAItems.itemPokeStick, pl)) {
                 VanillaAutomation.proxy.setReach(pl, 5 + ConfigHandler.POKE_STICK_RANGE);
                 RayTraceResult r = rayTrace(worldIn, pl, false);
 
@@ -65,7 +65,7 @@ public class ItemPokeStick extends ItemVA {
                         if (tool != null) {
                             int h;
                             for (String s : tool.getItem().getToolClasses(tool)) {
-                                h = tool.getItem().getHarvestLevel(tool, s);
+                                h = tool.getItem().getHarvestLevel(tool, s, pl, bS);
                                 harvestLevel = h > harvestLevel ? h : harvestLevel;
                             }
                         }
@@ -78,8 +78,13 @@ public class ItemPokeStick extends ItemVA {
             } else
                 VanillaAutomation.proxy.setReach((EntityLivingBase) entityIn, 5);
         }
-
         super.onUpdate(stack, worldIn, entityIn, itemSlot, isSelected);
+    }
+
+    @Override
+    public boolean onDroppedByPlayer(ItemStack item, EntityPlayer player) {
+        VanillaAutomation.proxy.setReach((EntityLivingBase) player, 5);
+        return super.onDroppedByPlayer(item, player);
     }
 
     @Override
@@ -154,6 +159,11 @@ public class ItemPokeStick extends ItemVA {
 
     @Override
     public int getHarvestLevel(ItemStack stack, String toolClass) {
+        return readHarvestLevel(stack.getTagCompound());
+    }
+
+    @Override
+    public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
         return readHarvestLevel(stack.getTagCompound());
     }
 

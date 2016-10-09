@@ -40,12 +40,10 @@ public class GuideHandler {
 
     @SubscribeEvent
     public void drawGameOverlay(RenderGameOverlayEvent.Post e) {
-        ItemStack heldItem = Utils.getCarriedItem(FMLClientHandler.instance().getClientPlayerEntity());
-
         boolean flag = false;
 
         if (e.getType() == RenderGameOverlayEvent.ElementType.ALL) {
-            if (heldItem != null && heldItem.getItem().equals(VAItems.itemGuide)) {
+            if (Utils.carriesItem(VAItems.itemGuide, FMLClientHandler.instance().getClientPlayerEntity())) {
 
                 Minecraft mc = Minecraft.getMinecraft();
                 RayTraceResult r = mc.objectMouseOver;

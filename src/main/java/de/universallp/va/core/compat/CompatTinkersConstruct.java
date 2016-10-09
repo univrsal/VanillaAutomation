@@ -10,6 +10,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLStateEvent;
+import slimeknights.mantle.pulsar.control.PulseManager;
+import slimeknights.mantle.pulsar.pulse.Pulse;
+import slimeknights.tconstruct.TConstruct;
 import slimeknights.tconstruct.library.tools.ToolCore;
 import slimeknights.tconstruct.library.utils.ToolHelper;
 import slimeknights.tconstruct.tools.harvest.TinkerHarvestTools;
@@ -47,25 +50,29 @@ public class CompatTinkersConstruct implements ICompatModule {
 
     @Override
     public void init(FMLInitializationEvent e) {
-        LogHelper.logInfo("Tinkers Construct detected, adding TC tools to dispenser registry...");
+        if (TConstruct.pulseManager.isPulseLoaded(TinkerHarvestTools.PulseId)) {
+            LogHelper.logInfo("Tinkers Construct detected, adding TC tools to dispenser registry...");
+            DispenserTweaks.add(TinkerHarvestTools.pickaxe, DispenserTweaks.TOOL_BEHAVIOUR);
+            DispenserTweaks.add(TinkerHarvestTools.shovel, DispenserTweaks.TOOL_BEHAVIOUR);
+            DispenserTweaks.add(TinkerHarvestTools.hatchet, DispenserTweaks.TOOL_BEHAVIOUR);
+            DispenserTweaks.add(TinkerHarvestTools.hammer, DispenserTweaks.TOOL_BEHAVIOUR);
+            DispenserTweaks.add(TinkerHarvestTools.excavator, DispenserTweaks.TOOL_BEHAVIOUR);
+            DispenserTweaks.add(TinkerHarvestTools.lumberAxe, DispenserTweaks.TOOL_BEHAVIOUR);
+            DispenserTweaks.add(TinkerHarvestTools.mattock, DispenserTweaks.TOOL_BEHAVIOUR);
 
-        DispenserTweaks.add(TinkerHarvestTools.pickaxe, DispenserTweaks.TOOL_BEHAVIOUR);
-        DispenserTweaks.add(TinkerHarvestTools.shovel, DispenserTweaks.TOOL_BEHAVIOUR);
-        DispenserTweaks.add(TinkerHarvestTools.hatchet, DispenserTweaks.TOOL_BEHAVIOUR);
-        DispenserTweaks.add(TinkerHarvestTools.hammer, DispenserTweaks.TOOL_BEHAVIOUR);
-        DispenserTweaks.add(TinkerHarvestTools.excavator, DispenserTweaks.TOOL_BEHAVIOUR);
-        DispenserTweaks.add(TinkerHarvestTools.lumberAxe, DispenserTweaks.TOOL_BEHAVIOUR);
-        DispenserTweaks.add(TinkerHarvestTools.mattock, DispenserTweaks.TOOL_BEHAVIOUR);
-
-        DispenserTweaks.add(TinkerMeleeWeapons.broadSword, DispenserTweaks.SWORD_BEHAVIOUR);
-        DispenserTweaks.add(TinkerMeleeWeapons.longSword, DispenserTweaks.SWORD_BEHAVIOUR);
-        DispenserTweaks.add(TinkerMeleeWeapons.cleaver, DispenserTweaks.SWORD_BEHAVIOUR);
+            DispenserTweaks.add(TinkerMeleeWeapons.broadSword, DispenserTweaks.SWORD_BEHAVIOUR);
+            DispenserTweaks.add(TinkerMeleeWeapons.longSword, DispenserTweaks.SWORD_BEHAVIOUR);
+            DispenserTweaks.add(TinkerMeleeWeapons.cleaver, DispenserTweaks.SWORD_BEHAVIOUR);
 //        DispenserTweaks.add(TinkerHarvestTools.battleAxe, DispenserTweaks.SWORD_BEHAVIOUR);
-        DispenserTweaks.add(TinkerMeleeWeapons.battleSign, DispenserTweaks.SWORD_BEHAVIOUR);
-        DispenserTweaks.add(TinkerMeleeWeapons.longSword, DispenserTweaks.SWORD_BEHAVIOUR);
-        DispenserTweaks.add(TinkerMeleeWeapons.rapier, DispenserTweaks.SWORD_BEHAVIOUR);
-        DispenserTweaks.add(TinkerMeleeWeapons.fryPan, DispenserTweaks.SWORD_BEHAVIOUR);
+            DispenserTweaks.add(TinkerMeleeWeapons.battleSign, DispenserTweaks.SWORD_BEHAVIOUR);
+            DispenserTweaks.add(TinkerMeleeWeapons.longSword, DispenserTweaks.SWORD_BEHAVIOUR);
+            DispenserTweaks.add(TinkerMeleeWeapons.rapier, DispenserTweaks.SWORD_BEHAVIOUR);
+            DispenserTweaks.add(TinkerMeleeWeapons.fryPan, DispenserTweaks.SWORD_BEHAVIOUR);
 //        DispenserTweaks.add(TinkerHarvestTools.cutlass, DispenserTweaks.SWORD_BEHAVIOUR);
+        } else {
+            LogHelper.logInfo("Tinkers Construct Harvset tools are disabled...");
+        }
+
     }
 
     @Override
