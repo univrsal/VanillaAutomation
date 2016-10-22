@@ -7,6 +7,8 @@ import net.minecraft.util.ResourceLocation;
  */
 public class LibResources {
 
+    public static final ResourceLocation GUI_CLOCK = new ResourceLocation(LibNames.MOD_ID, "textures/gui/clock.png");
+
     public static final ResourceLocation GUI_XPHOPPER = new ResourceLocation(LibNames.MOD_ID, "textures/gui/xphopper.png");
 
     public static final ResourceLocation GUI_FILTEREDHOPPER = new ResourceLocation(LibNames.MOD_ID, "textures/gui/filteredhopper.png");

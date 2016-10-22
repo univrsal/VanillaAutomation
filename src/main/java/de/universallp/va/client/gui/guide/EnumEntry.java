@@ -13,6 +13,9 @@ public enum EnumEntry {
     MENU(new String[] { LibLocalization.ENTRY_INTRO, LibLocalization.ENTRY_CREDITS, LibLocalization.ENTRY_BLOCKPLACER,
             LibLocalization.ENTRY_DISPENSER, LibLocalization.ENTRY_POKE_STICK, LibLocalization.ENTRY_XPHOPPER,
             LibLocalization.ENTRY_FILTEREDHOPPER, LibLocalization.ENTRY_DESCRIPTION_TAG, LibLocalization.ENTRY_AUTOTRADER,
+            LibLocalization.ENTRY_CLOCK,
+
+            // Compat
             LibLocalization.ENTRY_BOPCOMPAT, LibLocalization.ENTRY_TCONCOMPAT }),
 
     INTRO(getGuidePage("intro", 1, 1)),
@@ -27,6 +30,7 @@ public enum EnumEntry {
     FILTERED_HOPPER(getGuidePage("filteredhopper", 1, 2), VABlocks.filterHopper.getRecipe(), 1),
     DESCRIPTION_TAG(getGuidePage("descriptiontag", 1, 2), VAItems.itemDescriptionTag.getRecipe(), 1),
     AUTO_TRADER(getGuidePage("autotrader", 1, 2), VABlocks.autoTrader.getRecipe(), 1),
+    CLOCK(getGuidePage("redstoneclock", 1, 2), VABlocks.redstoneclock.getRecipe(), 1),
 
     // Compat entries
 

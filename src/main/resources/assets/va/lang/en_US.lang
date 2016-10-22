@@ -21,6 +21,10 @@ va.gui.xphopper=XP Hopper
 va.gui.filteredhopper=Filtered Hopper
 va.gui.autotrader=Autotrader
 
+va.gui.redstoneclock=Redstone Clock
+va.gui.redstoneclock.delay=Delay
+va.gui.redstoneclock.ticks=ticks
+
 va.msg.crash1=VanillaAutomation has found a crash which is likely caused by it. Click here to open an issue on the repo.
 va.msg.crash2=Found %s which is likely related to VanillaAutomation you can report issues here github.com/UniversalLP/VanillaAutomation/issues.
 
@@ -53,6 +57,7 @@ tile.va:blockplacer.name=Block Placer
 tile.va:xphopper.name=XP Hopper
 tile.va:filteredhopper.name=Filtered Hopper
 tile.va:autotrader.name=Auto Trader
+
 # Guide
 va.jei.guideinfo=A book to guide you through the mod VanillaAutomation
 va.gui.buttonmenu=Menu
@@ -72,6 +77,8 @@ va.guide.entry.descriptiontag=The Description Tag
 va.guide.entry.bopcompat=Biomes o' Plenty
 va.guide.entry.tconcompat=Tinker's Construct
 va.guide.entry.autotrader=The Auto Trader [WIP]
+va.guide.entry.redstoneclock=Redstone Clock
+
 
 # Intro
 va.guide.entry.intro.page1=Welcome to VanillaAutomation!\nThis mod adds blocks and tweaks to the dispenser to allow for automation without making it too easy.\nTake a look at the different entries to see what is added and changed.
@@ -112,4 +119,3 @@ va.guide.entry.descriptiontag.page2=§oNaming things just wasn't enough§r\n\nNo
 # Auto Trader
 va.guide.entry.autotrader.page1=§oComing soonish§r
 va.guide.entry.autotrader.page2=§o'Cause social interaction is for loosers§r
-

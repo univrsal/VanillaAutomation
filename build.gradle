@@ -1,12 +1,7 @@
-
-// For those who want the bleeding edge
 buildscript {
     repositories {
         jcenter()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
+        maven { url = "http://files.minecraftforge.net/maven" }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
@@ -25,7 +20,7 @@ group= "de.universallp.va" // http://maven.apache.org/guides/mini/guide-naming-c
 archivesBaseName = "va"
 
 minecraft {
-    version = "1.10.2-12.18.1.2088"
+    version = "1.10.2-12.18.2.2107"
     runDir = "run"
 
     // the mappings can be changed at any time, and must be in the following format.

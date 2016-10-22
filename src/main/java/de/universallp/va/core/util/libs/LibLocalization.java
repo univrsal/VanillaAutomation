@@ -12,6 +12,9 @@ public class LibLocalization {
     public static final String GUI_FILTEREDHOPPER = "va.gui.filteredhopper";
     public static final String GUI_FILTER = "va.gui.filteredhopper.filter";
     public static final String GUI_AUTOTRADER = "va.gui.autotrader";
+    public static final String GUI_CLOCK = "va.gui.redstoneclock";
+    public static final String GUI_CLOCK_DELAY = "va.gui.redstoneclock.delay";
+    public static final String GUI_CLOCK_TICKS = "va.gui.redstoneclock.ticks";
 
     // Buttons
     public static final String BTN_MENU = "va.gui.buttonmenu";
@@ -45,6 +48,7 @@ public class LibLocalization {
     public static final String ENTRY_BOPCOMPAT = "va.guide.entry.bopcompat";
     public static final String ENTRY_TCONCOMPAT = "va.guide.entry.tconcompat";
     public static final String ENTRY_AUTOTRADER = "va.guide.entry.autotrader";
+    public static final String ENTRY_CLOCK = "va.guide.entry.redstoneclock";
 
     public static final String RECIPE_SHAPED = "va.recipe.shaped";
     public static final String RECIPE_SHAPELESS = "va.recipe.shapeless";
