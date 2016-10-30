@@ -11,7 +11,10 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.IInventory;
 
 /**
- * Created by universallp on 28.03.2016 00:04.
+ * Created by universallp on 28.03.2016 00:04 16:31.
+ * This file is part of VanillaAutomation which is licenced
+ * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
+ * github.com/UniversalLP/VanillaAutomation
  */
 public class GuiXPHopper extends GuiContainer {
 

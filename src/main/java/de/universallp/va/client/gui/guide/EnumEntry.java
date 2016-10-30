@@ -5,9 +5,6 @@ import de.universallp.va.core.block.VABlocks;
 import de.universallp.va.core.item.VAItems;
 import de.universallp.va.core.util.libs.LibLocalization;
 
-/**
- * Created by universallp on 21.03.2016 18:16.
- */
 public enum EnumEntry {
 
     MENU(new String[] { LibLocalization.ENTRY_INTRO, LibLocalization.ENTRY_CREDITS, LibLocalization.ENTRY_BLOCKPLACER,
@@ -37,6 +34,12 @@ public enum EnumEntry {
     BOP_COMPAT(getGuidePage("bopcompat", 1, 1)),
     TC_COMPAT(getGuidePage("tconcompat", 1, 1));
 
+    /**
+     * Created by universallp on 21.03.2016 18:16 16:31.
+     * This file is part of VanillaAutomation which is licenced
+     * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
+     * github.com/UniversalLP/VanillaAutomation
+     */
     private static final String PAGE = "va.guide.entry.";
     private String[] entries;
     private Entry instance;

@@ -21,7 +21,10 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 /**
- * Created by universallp on 23.03.2016 19:16.
+ * Created by universallp on 23.03.2016 19:16 16:31.
+ * This file is part of VanillaAutomation which is licenced
+ * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
+ * github.com/UniversalLP/VanillaAutomation
  */
 public class ClientProxy extends CommonProxy {
 

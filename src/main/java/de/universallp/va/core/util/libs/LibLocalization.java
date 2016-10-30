@@ -1,7 +1,10 @@
 package de.universallp.va.core.util.libs;
 
 /**
- * Created by universallp on 30.03.2016 13:32.
+ * Created by universallp on 30.03.2016 13:32 16:31.
+ * This file is part of VanillaAutomation which is licenced
+ * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
+ * github.com/UniversalLP/VanillaAutomation
  */
 public class LibLocalization {
 

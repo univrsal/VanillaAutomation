@@ -13,7 +13,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by universallp on 06.08.2016 16:01.
+ * Created by universallp on 06.08.2016 16:01 16:31.
+ * This file is part of VanillaAutomation which is licenced
+ * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
+ * github.com/UniversalLP/VanillaAutomation
  */
 public class AnvilDescriptionHandler {
 

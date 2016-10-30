@@ -19,7 +19,10 @@ import slimeknights.tconstruct.tools.harvest.TinkerHarvestTools;
 import slimeknights.tconstruct.tools.melee.TinkerMeleeWeapons;
 
 /**
- * Created by universallp on 08.08.2016 11:31.
+ * Created by universallp on 08.08.2016 11:31 16:31.
+ * This file is part of VanillaAutomation which is licenced
+ * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
+ * github.com/UniversalLP/VanillaAutomation
  */
 @Optional.Interface(iface = ICompatModule.INTERFACE, modid = CompatTinkersConstruct.MOD_ID)
 public class CompatTinkersConstruct implements ICompatModule {

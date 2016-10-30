@@ -22,7 +22,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
 /**
- * Created by universallp on 19.03.2016 13:54.
+ * Created by universallp on 19.03.2016 13:54 16:31.
+ * This file is part of VanillaAutomation which is licenced
+ * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
+ * github.com/UniversalLP/VanillaAutomation
  */
 public class GuiHandler implements IGuiHandler {
 

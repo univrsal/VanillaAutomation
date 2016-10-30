@@ -12,7 +12,10 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 
 /**
- * Created by universallp on 19.03.2016 14:08.
+ * Created by universallp on 19.03.2016 14:08 16:31.
+ * This file is part of VanillaAutomation which is licenced
+ * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
+ * github.com/UniversalLP/VanillaAutomation
  */
 public class TileVA extends TileEntity implements IInventory {
     protected ItemStack[] items = new ItemStack[9];

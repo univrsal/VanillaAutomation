@@ -16,7 +16,10 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
- * Created by universallp on 28.03.2016 12:24.
+ * Created by universallp on 28.03.2016 12:24 16:31.
+ * This file is part of VanillaAutomation which is licenced
+ * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
+ * github.com/UniversalLP/VanillaAutomation
  */
 public class MessageSetFieldClient implements IMessage, IMessageHandler<MessageSetFieldClient, IMessage> {
 
