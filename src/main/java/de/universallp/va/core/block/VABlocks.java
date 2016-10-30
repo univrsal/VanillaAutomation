@@ -43,7 +43,7 @@ public class VABlocks {
         placer.addRecipe();
         xpHopper.addRecipe();
         filterHopper.addRecipe();
-
+        redstoneclock.addRecipe();
         registerTiles();
     }
 

@@ -1,11 +1,18 @@
 package de.universallp.va.core.tile;
 
+import de.universallp.va.core.block.BlockClock;
+import de.universallp.va.core.block.VABlocks;
+import net.minecraft.block.BlockLever;
+import net.minecraft.block.BlockRedstoneRepeater;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 
@@ -18,44 +25,60 @@ import javax.annotation.Nullable;
 public class TileClock extends TileEntity implements ITickable, IInventory {
 
     private int tickDelay = 20;
-    private boolean powered = false;
+    private int tickLength = 20;
+    private int tickCount = 0;
 
     public int getTickDelay() {
         return tickDelay;
     }
 
-    public void setTickDelay(int tickDelay) {
-        this.tickDelay = tickDelay;
-    }
+    public int getTickLength() { return tickLength; }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
         if (compound.hasKey("tickdelay"))
             tickDelay = compound.getInteger("tickdelay");
+        if (compound.hasKey("ticklength"))
+            tickLength = compound.getInteger("ticklength");
+        if (compound.hasKey("tickcount"))
+            tickCount = compound.getInteger("tickcount");
+
+        if (worldObj.isBlockPowered(getPos()))
+            worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BlockLever.POWERED, Boolean.TRUE));
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound.setInteger("tickdelay", tickDelay);
+        compound.setInteger("ticklength", tickLength);
+        compound.setInteger("tickcount", tickCount);;
         return super.writeToNBT(compound);
     }
 
     @Override
-    public void update() {
-        if (worldObj.isBlockPowered(getPos())) {
-            if (worldObj.getWorldTime() % tickDelay == 0) {
-                powered = true;
-
-            } else {
-                powered = false;
-            }
-        }
-
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+        return !newSate.getBlock().equals(VABlocks.redstoneclock);
     }
 
-    public boolean isPowered() {
-        return powered;
+    @Override
+    public void update() {
+        if (worldObj.getBlockState(getPos()).getValue(BlockLever.POWERED)) {
+
+            tickCount++;
+
+            if (!worldObj.getBlockState(getPos()).getValue(BlockClock.EMITTING)) {
+                if (tickCount == tickDelay) {
+                    worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BlockClock.EMITTING, Boolean.TRUE));
+                    tickCount = 0;
+                }
+            } else {
+                if (tickCount == tickLength) {
+                    tickCount = 0;
+                    worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BlockClock.EMITTING, Boolean.FALSE));
+                }
+            }
+        }
     }
 
     @Override
@@ -110,17 +133,20 @@ public class TileClock extends TileEntity implements ITickable, IInventory {
 
     @Override
     public int getField(int id) {
-        return tickDelay;
+        return id == 0 ? tickDelay : tickLength;
     }
 
     @Override
     public void setField(int id, int value) {
-        tickDelay = (value > 0 && value < 1001 ? value : tickDelay);
+        if (id == 0)
+            tickDelay = (value > 0 && value < 1001 ? value : tickDelay);
+        else
+            tickLength = (value > 0 && value < 1001 ? value : tickLength);
     }
 
     @Override
     public int getFieldCount() {
-        return 0;
+        return 2;
     }
 
     @Override

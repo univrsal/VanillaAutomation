@@ -24,6 +24,7 @@ va.gui.autotrader=Autotrader
 va.gui.redstoneclock=Redstone Clock
 va.gui.redstoneclock.delay=Delay
 va.gui.redstoneclock.ticks=ticks
+va.gui.redstoneclock.length=Pulse Length
 
 va.msg.crash1=VanillaAutomation has found a crash which is likely caused by it. Click here to open an issue on the repo.
 va.msg.crash2=Found %s which is likely related to VanillaAutomation you can report issues here github.com/UniversalLP/VanillaAutomation/issues.
@@ -57,6 +58,7 @@ tile.va:blockplacer.name=Block Placer
 tile.va:xphopper.name=XP Hopper
 tile.va:filteredhopper.name=Filtered Hopper
 tile.va:autotrader.name=Auto Trader
+tile.va:redstoneclock.name=Redstone Clock
 
 # Guide
 va.jei.guideinfo=A book to guide you through the mod VanillaAutomation
@@ -96,11 +98,15 @@ va.guide.entry.dispenser.page2=The dispenser now also can insert and take out mu
 
 # Poke Stick
 va.guide.entry.pokestick.page1=This stick has two uses. For one it'll double your reach distance while you hold it, so you can reach those pesky spots without wasting your precious energy. The other use is that when placed in a dispenser or block placer it'll perform a right click on the block in front. In the block placer it'll take the reach distance into account.
-va.guide.entry.pokestick.page2=§"For when the remote is just an inch too far away.§r \n\nNote that this tool takes damage when used. It'll also use tools from your inventory to mine blocks faster.
+va.guide.entry.pokestick.page2=§oFor when the remote is just an inch too far away.§r \n\nNote that this tool takes damage when used. It'll also use tools from your inventory to mine blocks faster.
 
 # XP Hopper
 va.guide.entry.xphopper.page1=This block is a small upgrade to the normal hopper. It'll collect any xp orbs above it in a 3x3x3 radius and fill them into bottles provided from the bottle slot. A progressbar indicates how much xp is needed until the next bottle is filled. Full bottles will be output like any other item.
 va.guide.entry.xphopper.page2=§oScrew those villagers, I can make my own xp bottles!§r
+
+# Redstone Clock
+va.guide.entry.redstoneclock.page1=This block really doesn't need a description. It does exactly what you thing it does. It emits a redstone pulse in a given delay. The delay can be set by right clicking on it. Also It will only emit signals if it is powered by redstone.\nFor the delay remember that 20 ticks equal 1 second.
+va.guide.entry.redstoneclock.page2=§oTime is a tool you can hang on your wall or wear it on your wrist§r
 
 # Filtered Hopper
 va.guide.entry.filteredhopper.page1=This is another upgrade to the vanilla hopper. It offers you five slots to filter items. You can change between white and blacklist. The hopper also offers these filter modes:\n- Match Meta\n- Match NBT\n- Match Mod

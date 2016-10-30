@@ -1,0 +1,35 @@
+{
+  "forge_marker": 1,
+  "ambientocclusion": false,
+  "variants": {
+    "emitting=true,facing=east,powered=true": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_on", "torch_middle": "blocks/redstone_torch_on" }, "x": 90, "y": 90  },
+    "emitting=true,facing=east,powered=false": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_on", "torch_middle": "blocks/redstone_torch_off" }, "x": 90, "y": 90 },
+    "emitting=false,facing=east,powered=true": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_off", "torch_middle": "blocks/redstone_torch_on" }, "x": 90, "y": 90 },
+    "emitting=false,facing=east,powered=false": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_off", "torch_middle": "blocks/redstone_torch_off" }, "x": 90, "y": 90  },
+
+    "emitting=true,facing=west,powered=true": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_on", "torch_middle": "blocks/redstone_torch_on" }, "x": -90, "y": 90 },
+    "emitting=true,facing=west,powered=false": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_on", "torch_middle": "blocks/redstone_torch_off" }, "x": -90, "y": 90 },
+    "emitting=false,facing=west,powered=true": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_off", "torch_middle": "blocks/redstone_torch_on" }, "x": -90, "y": 90 },
+    "emitting=false,facing=west,powered=false": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_off", "torch_middle": "blocks/redstone_torch_off" }, "x": -90, "y": 90 },
+
+    "emitting=true,facing=south,powered=true": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_on", "torch_middle": "blocks/redstone_torch_on" }, "x": -90 },
+    "emitting=true,facing=south,powered=false": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_on", "torch_middle": "blocks/redstone_torch_off" }, "x": -90 },
+    "emitting=false,facing=south,powered=true": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_off", "torch_middle": "blocks/redstone_torch_on" }, "x": -90 },
+    "emitting=false,facing=south,powered=false": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_off", "torch_middle": "blocks/redstone_torch_off" }, "x": -90 },
+
+    "emitting=true,facing=north,powered=true": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_on", "torch_middle": "blocks/redstone_torch_on" }, "x": 90 },
+    "emitting=true,facing=north,powered=false": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_on", "torch_middle": "blocks/redstone_torch_off" }, "x": 90 },
+    "emitting=false,facing=north,powered=true": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_off", "torch_middle": "blocks/redstone_torch_on" }, "x": 90 },
+    "emitting=false,facing=north,powered=false": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_off", "torch_middle": "blocks/redstone_torch_off" }, "x": 90 },
+
+    "emitting=true,facing=up,powered=true": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_on", "torch_middle": "blocks/redstone_torch_on" } },
+    "emitting=true,facing=up,powered=false": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_on", "torch_middle": "blocks/redstone_torch_off" } },
+    "emitting=false,facing=up,powered=true": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_off", "torch_middle": "blocks/redstone_torch_on" } },
+    "emitting=false,facing=up,powered=false": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_off", "torch_middle": "blocks/redstone_torch_off" } },
+
+    "emitting=true,facing=down,powered=true": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_on", "torch_middle": "blocks/redstone_torch_on" }, "x": 180 },
+    "emitting=true,facing=down,powered=false": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_on", "torch_middle": "blocks/redstone_torch_off" }, "x": 180 },
+    "emitting=false,facing=down,powered=true": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_off", "torch_middle": "blocks/redstone_torch_on" }, "x": 180 },
+    "emitting=false,facing=down,powered=false": { "model": "va:redstoneclock", "textures": { "torch_all": "blocks/redstone_torch_off", "torch_middle": "blocks/redstone_torch_off" }, "x": 180 }
+  }
+}

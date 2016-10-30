@@ -18,6 +18,7 @@ public class LibLocalization {
     public static final String GUI_CLOCK = "va.gui.redstoneclock";
     public static final String GUI_CLOCK_DELAY = "va.gui.redstoneclock.delay";
     public static final String GUI_CLOCK_TICKS = "va.gui.redstoneclock.ticks";
+    public static final String GUI_CLOCK_LENGTH = "va.gui.redstoneclock.length";
 
     // Buttons
     public static final String BTN_MENU = "va.gui.buttonmenu";
