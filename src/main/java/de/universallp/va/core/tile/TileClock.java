@@ -3,7 +3,6 @@ package de.universallp.va.core.tile;
 import de.universallp.va.core.block.BlockClock;
 import de.universallp.va.core.block.VABlocks;
 import net.minecraft.block.BlockLever;
-import net.minecraft.block.BlockRedstoneRepeater;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -13,6 +12,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
 
 import javax.annotation.Nullable;
 
@@ -43,9 +44,6 @@ public class TileClock extends TileEntity implements ITickable, IInventory {
             tickLength = compound.getInteger("ticklength");
         if (compound.hasKey("tickcount"))
             tickCount = compound.getInteger("tickcount");
-
-        if (worldObj.isBlockPowered(getPos()))
-            worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BlockLever.POWERED, Boolean.TRUE));
     }
 
     @Override
@@ -63,20 +61,23 @@ public class TileClock extends TileEntity implements ITickable, IInventory {
 
     @Override
     public void update() {
-        if (worldObj.getBlockState(getPos()).getValue(BlockLever.POWERED)) {
-
-            tickCount++;
-
-            if (!worldObj.getBlockState(getPos()).getValue(BlockClock.EMITTING)) {
-                if (tickCount == tickDelay) {
-                    worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BlockClock.EMITTING, Boolean.TRUE));
-                    tickCount = 0;
+        if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
+            if (worldObj.getBlockState(getPos()).getValue(BlockLever.POWERED)) {
+                tickCount++;
+                System.out.println("TICK COUNT " + tickCount + ", GOIN BACK: " + worldObj.getBlockState(getPos()).getValue(BlockClock.EMITTING));
+                if (!worldObj.getBlockState(getPos()).getValue(BlockClock.EMITTING)) {
+                    if (tickCount == tickDelay) {
+                        worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BlockClock.EMITTING, Boolean.TRUE));
+                        tickCount = 0;
+                    }
+                } else {
+                    if (tickCount == tickLength) {
+                        tickCount = 0;
+                        worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BlockClock.EMITTING, Boolean.FALSE));
+                    }
                 }
             } else {
-                if (tickCount == tickLength) {
-                    tickCount = 0;
-                    worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BlockClock.EMITTING, Boolean.FALSE));
-                }
+                tickCount = 0;
             }
         }
     }
@@ -142,6 +143,8 @@ public class TileClock extends TileEntity implements ITickable, IInventory {
             tickDelay = (value > 0 && value < 1001 ? value : tickDelay);
         else
             tickLength = (value > 0 && value < 1001 ? value : tickLength);
+        tickCount = 0;
+
     }
 
     @Override

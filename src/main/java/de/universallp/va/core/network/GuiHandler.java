@@ -53,7 +53,7 @@ public class GuiHandler implements IGuiHandler {
             return new ContainerAutoTrader(player.inventory, teAT);
         } else if (ID == LibGuiIDs.GUI_CLOCK) {
             TileClock teCL = (TileClock) te; // No container, just syncing
-            PacketHandler.syncFieldClient(player, teCL, 0, 0);
+            PacketHandler.syncFieldClient(player, teCL, 0, 1);
             return new ContainerClock();
         }
 

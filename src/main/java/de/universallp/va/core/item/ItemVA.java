@@ -32,6 +32,7 @@ public class ItemVA extends Item implements IEntryProvider {
 
     protected ItemVA(String name) {
         this.itemName = name;
+        ItemVA.items.add(this);
         setUnlocalizedName(name);
     }
 

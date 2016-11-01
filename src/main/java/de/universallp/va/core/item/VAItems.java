@@ -16,10 +16,6 @@ public class VAItems {
         itemGuide = new ItemGuide();
         itemPokeStick = new ItemPokeStick();
         itemDescriptionTag = new ItemDescriptionTag();
-
-        ItemVA.items.add(itemDescriptionTag);
-        ItemVA.items.add(itemGuide);
-        ItemVA.items.add(itemPokeStick);
     }
 
     public static void register() {

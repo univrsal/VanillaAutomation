@@ -7,7 +7,9 @@ import de.universallp.va.core.tile.TileClock;
 import de.universallp.va.core.util.IEntryProvider;
 import de.universallp.va.core.util.libs.LibGuiIDs;
 import de.universallp.va.core.util.libs.LibNames;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockButton;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
@@ -30,8 +32,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
 import java.util.Random;
+
+import static net.minecraft.block.BlockLever.POWERED;
 
 /**
  * Created by universallp on 22.10.2016 20:46.
@@ -41,69 +44,63 @@ import java.util.Random;
  */
 public class BlockClock extends BlockVA implements IEntryProvider, ITileEntityProvider {
 
-    private static VisualRecipe recipe;
+    public static final PropertyBool EMITTING = PropertyBool.create("emitting");
     private static final AxisAlignedBB CLOCK_UP    = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D);
     private static final AxisAlignedBB CLOCK_DOWN  = new AxisAlignedBB(0.0D, 1.0D, 0.0D, 1.0D, 0.875D, 1.0D);
     private static final AxisAlignedBB CLOCK_SOUTH = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D,   0.125D);
     private static final AxisAlignedBB CLOCK_NORTH = new AxisAlignedBB(0.0D, 0.0D, 0.875D, 1.0D, 1.0D, 1.0D);
     private static final AxisAlignedBB CLOCK_EAST  = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.125D, 1.0D, 1.0D);
     private static final AxisAlignedBB CLOCK_WEST  = new AxisAlignedBB(0.875D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D);
-
-    public static final PropertyBool EMITTING = PropertyBool.create("emitting");
+    private static VisualRecipe recipe;
 
     public BlockClock() {
         super(Material.ROCK, LibNames.BLOCK_CLOCK);
         setCreativeTab(CreativeTabs.REDSTONE);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(BlockLever.POWERED, Boolean.FALSE).withProperty(EMITTING, Boolean.FALSE).withProperty(BlockButton.FACING, EnumFacing.UP));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, Boolean.FALSE).withProperty(EMITTING, Boolean.FALSE).withProperty(BlockButton.FACING, EnumFacing.UP));
+    }
+
+    protected static boolean canPlaceBlock(World worldIn, BlockPos pos, EnumFacing direction) {
+        BlockPos blockpos = pos.offset(direction);
+        return worldIn.getBlockState(blockpos).isSideSolid(worldIn, blockpos, direction.getOpposite());
     }
 
     @Override
     public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
         if (worldIn.isBlockPowered(pos)) {
-            return canPlaceBlock(worldIn, pos, facing.getOpposite()) ? this.getDefaultState().withProperty(BlockButton.FACING, facing).withProperty(BlockLever.POWERED, Boolean.TRUE) : getDefaultState();
+            return canPlaceBlock(worldIn, pos, facing.getOpposite()) ? this.getDefaultState().withProperty(BlockButton.FACING, facing).withProperty(POWERED, Boolean.TRUE) : getDefaultState();
         } else {
-            return canPlaceBlock(worldIn, pos, facing.getOpposite()) ? this.getDefaultState().withProperty(BlockButton.FACING, facing).withProperty(BlockLever.POWERED, Boolean.FALSE) : getDefaultState();
+            return canPlaceBlock(worldIn, pos, facing.getOpposite()) ? this.getDefaultState().withProperty(BlockButton.FACING, facing).withProperty(POWERED, Boolean.FALSE) : getDefaultState();
         }
     }
 
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
-        if (!canPlaceBlock(worldIn, pos, state.getValue(BlockButton.FACING).getOpposite())) {
-            if (this.checkForDrop(worldIn, pos, state)) {
-                this.dropBlockAsItem(worldIn, pos, state, 0);
-                worldIn.setBlockToAir(pos);
+        if (checkCanSurvive(worldIn, pos, state)) {
+            if (worldIn.isBlockPowered(pos)) {
+                worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.TRUE));
+            } else {
+                worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.FALSE));
             }
         }
-        if (worldIn.isBlockPowered(pos)) {
-            worldIn.setBlockState(pos, state.withProperty(BlockLever.POWERED, Boolean.TRUE));
+    }
+
+    private boolean checkCanSurvive(World world, BlockPos pos, IBlockState state) {
+        if (canPlaceBlock(world, pos, state.getValue(BlockButton.FACING).getOpposite())) {
+            return true;
         } else {
-            worldIn.setBlockState(pos, state.withProperty(BlockLever.POWERED, Boolean.FALSE));
+            this.dropBlockAsItem(world, pos, state, 0);
+            world.setBlockToAir(pos);
+            return false;
         }
     }
 
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        if (state.getValue(BlockLever.POWERED)) {
+        if (state.getValue(EMITTING)) {
             worldIn.notifyNeighborsOfStateChange(pos, this);
-            worldIn.notifyNeighborsOfStateChange(pos.offset(state.getValue(BlockButton.FACING).getOpposite()), this);
         }
 
         super.breakBlock(worldIn, pos, state);
-    }
-
-    private boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state) {
-        if (this.canPlaceBlockAt(worldIn, pos)) {
-            return true;
-        } else {
-            this.dropBlockAsItem(worldIn, pos, state, 0);
-            worldIn.setBlockToAir(pos);
-            return false;
-        }
-    }
-
-    private static boolean canPlaceBlock(World worldIn, BlockPos pos, EnumFacing direction) {
-        BlockPos blockpos = pos.offset(direction);
-        return worldIn.getBlockState(blockpos).isSideSolid(worldIn, blockpos, direction.getOpposite());
     }
 
     @Override
@@ -134,7 +131,7 @@ public class BlockClock extends BlockVA implements IEntryProvider, ITileEntityPr
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, BlockLever.POWERED, EMITTING, BlockButton.FACING);
+        return new BlockStateContainer(this, POWERED, EMITTING, BlockButton.FACING);
     }
 
     @Override
@@ -156,21 +153,24 @@ public class BlockClock extends BlockVA implements IEntryProvider, ITileEntityPr
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(BlockButton.FACING, EnumFacing.VALUES[meta]);
+        if (meta <= 5)
+            return this.getDefaultState().withProperty(BlockButton.FACING, EnumFacing.VALUES[meta]);
+        else
+            return this.getDefaultState().withProperty(BlockButton.FACING, EnumFacing.VALUES[meta - 6]).withProperty(POWERED, Boolean.TRUE);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(BlockButton.FACING).getIndex() ; // All this bit shifting, I lost track of how it works
+        return state.getValue(BlockButton.FACING).getIndex() + (state.getValue(POWERED) ? 6 : 0);
     }
 
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
-        if (stateIn.getValue(BlockLever.POWERED)) {
+        if (stateIn.getValue(POWERED)) {
             double d0 = (double)pos.getX() + 0.5D + (rand.nextDouble() - 0.5D) * 0.2D;
             double d1 = (double)pos.getY() + 0.7D + (rand.nextDouble() - 0.5D) * 0.2D;
             double d2 = (double)pos.getZ() + 0.5D + (rand.nextDouble() - 0.5D) * 0.2D;
-            worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, 0.0D, 0.0D, 0.0D, new int[0]);
+            worldIn.spawnParticle(EnumParticleTypes.REDSTONE, d0, d1, d2, 0.0D, 0.0D, 0.0D);
         }
     }
 

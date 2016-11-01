@@ -60,5 +60,6 @@ public class VABlocks {
         xpHopper.registerModel();
         filterHopper.registerModel();
         autoTrader.registerModel();
+        redstoneclock.registerModel();
     }
 }

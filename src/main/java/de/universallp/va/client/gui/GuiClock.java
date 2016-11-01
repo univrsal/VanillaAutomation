@@ -88,12 +88,12 @@ public class GuiClock extends GuiScreen {
                 ticklength += (ticklength + 10 <= 1000 ? 1 : 0);
                 break;
             case 7:
-                ticklength += (ticklength + 1 <= 1000 ? 1 : 0);
+                ticklength += (ticklength + 1 <= 1000 ? 10 : 0);
                 break;
         }
 
         PacketHandler.sendToServer(new MessageSetFieldServer(0, tickdelay, te.getPos()));
-        PacketHandler.sendToServer(new MessageSetFieldServer(1, tickdelay, te.getPos()));
+        PacketHandler.sendToServer(new MessageSetFieldServer(1, ticklength, te.getPos()));
     }
 
     @Override
