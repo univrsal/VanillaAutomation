@@ -4,7 +4,7 @@
         "slab_top": "blocks/stone_slab_top",
         "slab_side": "blocks/stone_slab_side",
         "torch_middle": "blocks/redstone_torch_on",
-        "particles": "blocks/stone_slab_top",
+        "particle": "blocks/stone_slab_top",
         "torch_all": "blocks/redstone_torch_off"
     },
     "elements": [

@@ -64,7 +64,6 @@ public class TileClock extends TileEntity implements ITickable, IInventory {
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
             if (worldObj.getBlockState(getPos()).getValue(BlockLever.POWERED)) {
                 tickCount++;
-                System.out.println("TICK COUNT " + tickCount + ", GOIN BACK: " + worldObj.getBlockState(getPos()).getValue(BlockClock.EMITTING));
                 if (!worldObj.getBlockState(getPos()).getValue(BlockClock.EMITTING)) {
                     if (tickCount == tickDelay) {
                         worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BlockClock.EMITTING, Boolean.TRUE));

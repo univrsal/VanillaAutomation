@@ -3,6 +3,7 @@ package de.universallp.va.core.util;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import de.universallp.va.core.handler.ConfigHandler;
 import de.universallp.va.core.item.VAItems;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +13,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
@@ -248,17 +248,9 @@ public class Utils {
         if (toolStack == null || state == null)
             return false;
 
-        if (state.getBlock().getHarvestLevel(state) < 0)
-            return false;
+        final Block b = state.getBlock();
 
-        String tool = state.getBlock().getHarvestTool(state);
-        int harvesLevel = state.getBlock().getHarvestLevel(state);
-        Set<String> toolClasses = toolStack.getItem().getToolClasses(toolStack);
 
-        for (String toolClass : toolClasses) {
-            if (toolClass.equals(tool) && toolStack.getItem().getHarvestLevel(toolStack, toolClass) >= harvesLevel)
-                return true;
-        }
 
         return false;
     }
