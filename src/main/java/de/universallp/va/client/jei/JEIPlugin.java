@@ -37,7 +37,7 @@ public class JEIPlugin implements IModPlugin {
         registry.addDescription(new ItemStack(VABlocks.xpHopper, 1), EnumEntry.getGuidePage("xphopper", 1, 2));
         registry.addDescription(new ItemStack(VABlocks.placer, 1), EnumEntry.getGuidePage("blockplacer", 1, 2));
         registry.addDescription(new ItemStack(Blocks.DISPENSER, 1), EnumEntry.getGuidePage("dispenser", 1, 2));
-
+        registry.addDescription(new ItemStack(VABlocks.redstoneclock, 1), EnumEntry.getGuidePage("redstoneclock", 1, 2));
 
     }
 
