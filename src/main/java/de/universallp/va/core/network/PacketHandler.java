@@ -30,7 +30,6 @@ public class PacketHandler {
         INSTANCE.registerMessage(MessageSetFieldClient.class, MessageSetFieldClient.class, ID++, Side.CLIENT);
         INSTANCE.registerMessage(MessageSetFieldServer.class, MessageSetFieldServer.class, ID++, Side.SERVER);
         INSTANCE.registerMessage(MessagePlaySound.class, MessagePlaySound.class, ID++, Side.CLIENT);
-//        INSTANCE.registerMessage(MessageSyncTradeResults.class, MessageSyncTradeResults.class, ID++, Side.CLIENT);
     }
 
     public static void sendTo(IMessage m, EntityPlayerMP p) {

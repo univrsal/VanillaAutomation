@@ -71,7 +71,7 @@ public class MessageSetFieldClient implements IMessage, IMessageHandler<MessageS
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        type = EnumMessageType.values()[buf.readShort()];
+        type = EnumMessageType.values()[buf.readByte()];
 
         switch (type) {
             case BYTE:
@@ -117,7 +117,7 @@ public class MessageSetFieldClient implements IMessage, IMessageHandler<MessageS
 
     @Override
     public void toBytes(ByteBuf buf) {
-        buf.writeShort(type.ordinal());
+        buf.writeByte(type.ordinal());
 
         switch (type) {
             case BYTE:

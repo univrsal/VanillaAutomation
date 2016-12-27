@@ -7,6 +7,8 @@ import de.universallp.va.core.util.libs.LibLocalization;
 import mezz.jei.api.IJeiRuntime;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
+import mezz.jei.api.ISubtypeRegistry;
+import mezz.jei.api.ingredients.IModIngredientRegistration;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -21,6 +23,16 @@ import javax.annotation.Nonnull;
  */
 @mezz.jei.api.JEIPlugin
 public class JEIPlugin implements IModPlugin {
+
+    @Override
+    public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
+
+    }
+
+    @Override
+    public void registerIngredients(IModIngredientRegistration registry) {
+
+    }
 
     @Override
     public void register(@Nonnull IModRegistry registry) {

@@ -17,6 +17,4 @@ public class LibResources {
     public static final ResourceLocation GUI_FILTEREDHOPPER = new ResourceLocation(LibNames.MOD_ID, "textures/gui/filteredhopper.png");
 
     public static final ResourceLocation GUI_ICONS = new ResourceLocation(LibNames.MOD_ID, "textures/icons.png");
-
-    public static final ResourceLocation GUI_AUTOTRADER = new ResourceLocation(LibNames.MOD_ID, "textures/gui/autotrader.png");
 }

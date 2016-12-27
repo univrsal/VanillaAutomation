@@ -2,18 +2,14 @@ package de.universallp.va.core.network;
 
 import de.universallp.va.client.ClientProxy;
 import de.universallp.va.client.gui.*;
-import de.universallp.va.core.container.ContainerAutoTrader;
 import de.universallp.va.core.container.ContainerClock;
 import de.universallp.va.core.container.ContainerFilteredHopper;
 import de.universallp.va.core.container.ContainerXPHopper;
-import de.universallp.va.core.network.messages.MessageSyncTradeResults;
-import de.universallp.va.core.tile.TileAutoTrader;
 import de.universallp.va.core.tile.TileClock;
 import de.universallp.va.core.tile.TileFilteredHopper;
 import de.universallp.va.core.tile.TilePlacer;
 import de.universallp.va.core.util.libs.LibGuiIDs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.ContainerDispenser;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.tileentity.TileEntity;
@@ -45,12 +41,6 @@ public class GuiHandler implements IGuiHandler {
             PacketHandler.syncFieldClient(player, te, 0, 3);
 //            PacketHandler.sendTo(new MessageSetFieldClient(0, teF.getName(), te.getPos()), (EntityPlayerMP) player);
             return new ContainerFilteredHopper(player.inventory, teF);
-        } else if (ID == LibGuiIDs.GUI_AUTOTRADER) {
-            TileAutoTrader teAT = (TileAutoTrader) te;
-            PacketHandler.syncFieldClient(player, te, 0, 2 + ((TileAutoTrader) te).getField(1));
-            PacketHandler.syncStringFieldClient(player, te, 0);
-            PacketHandler.sendTo(new MessageSyncTradeResults(te.getPos(), ((TileAutoTrader) te).getTradeResult()), (EntityPlayerMP) player);
-            return new ContainerAutoTrader(player.inventory, teAT);
         } else if (ID == LibGuiIDs.GUI_CLOCK) {
             TileClock teCL = (TileClock) te; // No container, just syncing
             PacketHandler.syncFieldClient(player, teCL, 0, 1);
@@ -76,8 +66,6 @@ public class GuiHandler implements IGuiHandler {
             return new GuiXPHopper(player.inventory, (IInventory) te);
         else if (ID == LibGuiIDs.GUI_FILTEREDHOPPER)
             return new GuiFilteredHopper(player.inventory, (IInventory) te);
-        else if (ID == LibGuiIDs.GUI_AUTOTRADER)
-            return new GuiAutoTrader(player.inventory, (TileAutoTrader) te);
         else if (ID == LibGuiIDs.GUI_CLOCK)
             return new GuiClock(((TileClock) te));
         return null;

@@ -19,7 +19,6 @@ va.gui.filteredhopper.filter=Filter
 va.gui.reachdistance=Distance between Block Placer and placed block
 va.gui.xphopper=XP Hopper
 va.gui.filteredhopper=Filtered Hopper
-va.gui.autotrader=Autotrader
 
 va.gui.redstoneclock=Redstone Clock
 va.gui.redstoneclock.delay=Delay
@@ -57,7 +56,6 @@ tagmode.va:clear=Clear
 tile.va:blockplacer.name=Block Placer
 tile.va:xphopper.name=XP Hopper
 tile.va:filteredhopper.name=Filtered Hopper
-tile.va:autotrader.name=Auto Trader
 tile.va:redstoneclock.name=Redstone Clock
 
 # Guide
@@ -78,7 +76,6 @@ va.guide.entry.filteredhopper=The Filtered Hopper
 va.guide.entry.descriptiontag=The Description Tag
 va.guide.entry.bopcompat=Biomes o' Plenty
 va.guide.entry.tconcompat=Tinker's Construct
-va.guide.entry.autotrader=The Auto Trader [WIP]
 va.guide.entry.redstoneclock=Redstone Clock
 
 
@@ -121,7 +118,3 @@ va.guide.entry.tconcompat.page1=Looks like you installed Tinker's Construct.\nTo
 # Desription tag
 va.guide.entry.descriptiontag.page1=This item let's you give items a custom description. The usage of it is as follows:\nGive this item a name in an anvil and combine it with any other item to apply the name of the tag as a description. Adding a '+' infront of the name will add to the current description of the item. Adding '++' will add the description to the last line. Also naming it "null" will clear the description.
 va.guide.entry.descriptiontag.page2=§oNaming things just wasn't enough§r\n\nNote: 7n will insert a new line
-
-# Auto Trader
-va.guide.entry.autotrader.page1=§oComing soonish§r
-va.guide.entry.autotrader.page2=§o'Cause social interaction is for loosers§r

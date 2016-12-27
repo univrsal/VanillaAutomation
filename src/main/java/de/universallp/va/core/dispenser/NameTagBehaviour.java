@@ -27,7 +27,7 @@ public class NameTagBehaviour implements IBehaviorDispenseItem {
         if (stack.hasDisplayName()) {
             World w = source.getWorld();
             IPosition pos = BlockDispenser.getDispensePosition(source);
-            EnumFacing f = source.func_189992_e().getValue(BlockDirectional.FACING);
+            EnumFacing f = source.getBlockState().getValue(BlockDirectional.FACING);
             BlockPos dest = source.getBlockPos().add(f.getDirectionVec());
 
             List<EntityLiving> entityLivingList = w.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB(dest));

@@ -16,14 +16,12 @@ public class VABlocks {
     public static BlockPlacer placer;
     public static BlockXPHopper xpHopper;
     public static BlockFilteredHopper filterHopper;
-    public static BlockAutoTrader autoTrader;
     public static BlockClock redstoneclock;
 
     public static void init() {
         placer = new BlockPlacer();
         xpHopper = new BlockXPHopper();
         filterHopper = new BlockFilteredHopper();
-        autoTrader = new BlockAutoTrader();
         redstoneclock = new BlockClock();
     }
 
@@ -31,10 +29,8 @@ public class VABlocks {
         GameRegistry.register(placer);
         GameRegistry.register(xpHopper);
         GameRegistry.register(filterHopper);
-        GameRegistry.register(autoTrader);
         GameRegistry.register(redstoneclock);
 
-        GameRegistry.register(new ItemBlock(autoTrader), autoTrader.getRegistryName());
         GameRegistry.register(new ItemBlock(placer), placer.getRegistryName());
         GameRegistry.register(new ItemBlock(xpHopper), xpHopper.getRegistryName());
         GameRegistry.register(new ItemBlock(filterHopper), filterHopper.getRegistryName());
@@ -51,7 +47,6 @@ public class VABlocks {
         GameRegistry.registerTileEntity(TilePlacer.class, LibNames.TILE_PLACER);
         GameRegistry.registerTileEntity(TileXPHopper.class, LibNames.TILE_XPHOPPER);
         GameRegistry.registerTileEntity(TileFilteredHopper.class, LibNames.TILE_FILTEREDHOPPER);
-        GameRegistry.registerTileEntity(TileAutoTrader.class, LibNames.TILE_AUTOTRADER);
         GameRegistry.registerTileEntity(TileClock.class, LibNames.TILE_CLOCK);
     }
 
@@ -59,7 +54,6 @@ public class VABlocks {
         placer.registerModel();
         xpHopper.registerModel();
         filterHopper.registerModel();
-        autoTrader.registerModel();
         redstoneclock.registerModel();
     }
 }

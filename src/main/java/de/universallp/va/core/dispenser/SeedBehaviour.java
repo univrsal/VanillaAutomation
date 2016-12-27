@@ -29,7 +29,7 @@ public class SeedBehaviour implements IBehaviorDispenseItem {
 
     @Override
     public ItemStack dispense(IBlockSource source, ItemStack stack) {
-        EnumFacing facing = source.func_189992_e().getValue(BlockDirectional.FACING);
+        EnumFacing facing = source.getBlockState().getValue(BlockDirectional.FACING);
         BlockPos pos = source.getBlockPos().offset(facing);
         World world = source.getWorld();
 
