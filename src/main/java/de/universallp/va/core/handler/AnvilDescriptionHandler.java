@@ -22,9 +22,9 @@ public class AnvilDescriptionHandler {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onCombinationComplete(AnvilRepairEvent e) {
-        if (e.getIngredientInput() != null && e.getIngredientInput().getItem().equals(VAItems.itemDescriptionTag) && e.getIngredientInput().stackSize > 1) {
+        if (e.getIngredientInput() != null && e.getIngredientInput().getItem().equals(VAItems.itemDescriptionTag) && e.getIngredientInput().getCount() > 1) {
             ItemStack newInput = e.getIngredientInput().copy();
-            newInput.stackSize--;
+            newInput.grow(-1);
 
             if (!e.getEntityPlayer().inventory.addItemStackToInventory(newInput)) {
                 e.getEntityPlayer().dropItem(newInput, false);

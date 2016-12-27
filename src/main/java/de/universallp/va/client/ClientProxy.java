@@ -56,7 +56,7 @@ public class ClientProxy extends CommonProxy {
 
         super.setReach(entity, reach);
         Minecraft mc = Minecraft.getMinecraft();
-        EntityPlayer player = mc.thePlayer;
+        EntityPlayer player = mc.player;
         if (player != null && entity == player) {
             if (!(mc.playerController instanceof VAPlayerController)) {
                 GameType type = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibReflection.CURRENT_GAME_TYPE);

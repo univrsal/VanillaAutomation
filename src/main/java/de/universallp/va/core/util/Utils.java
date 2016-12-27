@@ -181,22 +181,23 @@ public class Utils {
     }
 
     public static int getFirstEfficientToolSlot(EntityPlayer pl, IBlockState s) {
-        for (int i = 0; i < pl.inventory.mainInventory.length; i++) {
-            ItemStack stack = pl.inventory.mainInventory[i];
+        int i = 0;
+        for (ItemStack stack : pl.inventory.mainInventory) {
 
             if (stack != null && !stack.getItem().equals(VAItems.itemPokeStick)) {
                 for (String string : stack.getItem().getToolClasses(stack))
                     if (s.getBlock().isToolEffective(string, s))
                         return i;
             }
+            i++;
         }
 
         return -1;
     }
 
     public static ItemStack decreaseStack(ItemStack stack, int amount) {
-        if (stack.stackSize > amount)
-            stack.stackSize -= amount;
+        if (stack.getCount() > amount)
+            stack.shrink(amount);
         else
             return null;
         return stack;

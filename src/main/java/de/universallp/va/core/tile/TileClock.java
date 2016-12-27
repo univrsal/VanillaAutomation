@@ -62,17 +62,17 @@ public class TileClock extends TileEntity implements ITickable, IInventory {
     @Override
     public void update() {
         if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER) {
-            if (worldObj.getBlockState(getPos()).getValue(BlockLever.POWERED)) {
+            if (world.getBlockState(getPos()).getValue(BlockLever.POWERED)) {
                 tickCount++;
-                if (!worldObj.getBlockState(getPos()).getValue(BlockClock.EMITTING)) {
+                if (!world.getBlockState(getPos()).getValue(BlockClock.EMITTING)) {
                     if (tickCount == tickDelay) {
-                        worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BlockClock.EMITTING, Boolean.TRUE));
+                        world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BlockClock.EMITTING, Boolean.TRUE));
                         tickCount = 0;
                     }
                 } else {
                     if (tickCount == tickLength) {
                         tickCount = 0;
-                        worldObj.setBlockState(getPos(), worldObj.getBlockState(getPos()).withProperty(BlockClock.EMITTING, Boolean.FALSE));
+                        world.setBlockState(getPos(), world.getBlockState(getPos()).withProperty(BlockClock.EMITTING, Boolean.FALSE));
                     }
                 }
             } else {
@@ -84,6 +84,11 @@ public class TileClock extends TileEntity implements ITickable, IInventory {
     @Override
     public int getSizeInventory() {
         return 0;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return false;
     }
 
     @Nullable
@@ -114,7 +119,7 @@ public class TileClock extends TileEntity implements ITickable, IInventory {
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer player) {
+    public boolean isUsableByPlayer(EntityPlayer player) {
         return false;
     }
 

@@ -55,7 +55,7 @@ public class MessagePlaySound implements IMessage, IMessageHandler<MessagePlaySo
     public IMessage onMessage(MessagePlaySound message, MessageContext ctx) {
         Minecraft mc = Minecraft.getMinecraft();
         SoundEvent e = new SoundEvent(new ResourceLocation(message.soundName));
-        mc.theWorld.playSound(message.soundPos.getX(), message.soundPos.getY(), message.soundPos.getZ(), e, SoundCategory.BLOCKS, message.volume, message.pitch, false);
+        mc.world.playSound(message.soundPos.getX(), message.soundPos.getY(), message.soundPos.getZ(), e, SoundCategory.BLOCKS, message.volume, message.pitch, false);
         return null;
     }
 }

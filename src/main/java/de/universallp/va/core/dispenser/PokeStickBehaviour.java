@@ -35,7 +35,7 @@ public class PokeStickBehaviour implements IBehaviorDispenseItem {
         VAFakePlayer.instance(w).rightClick(stack, dest, f, 0, 0, 0);
         if (b != null) {
             try {
-                b.onBlockActivated(w, dest, state, VAFakePlayer.instance(w), EnumHand.MAIN_HAND, stack, f, 0, 0, 0);
+                b.onBlockActivated(w, dest, state, VAFakePlayer.instance(w), EnumHand.MAIN_HAND, f, 0, 0, 0);
                 stack.damageItem(1, VAFakePlayer.instance(w));
             } catch (Exception e) {
                 LogHelper.logException("That went wrong. Plz stahp it. Exception: %s", e, false);

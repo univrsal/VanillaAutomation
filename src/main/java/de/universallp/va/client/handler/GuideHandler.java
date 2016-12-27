@@ -119,14 +119,14 @@ public class GuideHandler {
         Entity pointedEntity = null;
 
         if (entity != null) {
-            if (mc.theWorld != null) {
+            if (mc.world != null) {
                 Vec3d vec3 = entity.getPositionEyes(partialTicks);
 
                 Vec3d vec31 = entity.getLook(partialTicks);
                 Vec3d vec32 = vec3.addVector(vec31.xCoord * distance, vec31.yCoord * distance, vec31.zCoord * distance);
 
                 float f = 1.0F;
-                List<Entity> list = mc.theWorld.getEntitiesInAABBexcluding(entity, entity.getEntityBoundingBox().addCoord(vec31.xCoord * distance, vec31.yCoord * distance, vec31.zCoord * distance).expand((double) f, (double) f, (double) f), Predicates.and(EntitySelectors.NOT_SPECTATING));
+                List<Entity> list = mc.world.getEntitiesInAABBexcluding(entity, entity.getEntityBoundingBox().addCoord(vec31.xCoord * distance, vec31.yCoord * distance, vec31.zCoord * distance).expand((double) f, (double) f, (double) f), Predicates.and(EntitySelectors.NOT_SPECTATING));
                 double d2 = distance;
 
                 for (Entity entity1 : list) {

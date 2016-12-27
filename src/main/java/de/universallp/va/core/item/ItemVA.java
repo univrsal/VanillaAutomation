@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -45,7 +46,7 @@ public class ItemVA extends Item implements IEntryProvider {
     @SideOnly(Side.CLIENT)
     public void registerModel() {
         if (getHasSubtypes()) {
-            ArrayList<ItemStack> subItems = new ArrayList<ItemStack>();
+            NonNullList<ItemStack> subItems = NonNullList.create();
             getSubItems(this, getCreativeTab(), subItems);
 
             for (int i = 0; i < subItems.size(); i++) {

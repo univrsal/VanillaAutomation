@@ -24,7 +24,7 @@ public class SlotGhost extends Slot {
     @Override
     public boolean isItemValid(ItemStack stack) {
         ItemStack s = stack.copy();
-        s.stackSize = 1;
+        s.setCount(1);
         putStack(s);
         return false;
     }

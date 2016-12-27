@@ -36,7 +36,7 @@ public class NameTagBehaviour implements IBehaviorDispenseItem {
                 if (entityLivingList.get(0).hasCustomName() && entityLivingList.get(0).getCustomNameTag().equals(stack.getDisplayName()))
                     return stack;
                 entityLivingList.get(0).setCustomNameTag(stack.getDisplayName());
-                stack.stackSize--;
+                stack.grow(-1);
             }
         }
         return stack;

@@ -42,7 +42,7 @@ public class DiscBehaviour implements IBehaviorDispenseItem {
                 //tJb.setRecord(stack);
                 ((BlockJukebox) b).insertRecord(w, dest, st, stack);
                 w.playEvent(null, 1010, dest, Item.getIdFromItem(stack.getItem()));
-                stack.stackSize--;
+                stack.grow(-1);
             } else {
                 int slot = getFreeSlot((TileEntityDispenser) source.getBlockTileEntity());
 
@@ -53,7 +53,7 @@ public class DiscBehaviour implements IBehaviorDispenseItem {
 
                 ((BlockJukebox) b).insertRecord(w, dest, st, stack);
                 w.playEvent(null, 1010, dest, Item.getIdFromItem(stack.getItem()));
-                stack.stackSize--;
+                stack.grow(-1);
             }
         }
 
@@ -74,7 +74,7 @@ public class DiscBehaviour implements IBehaviorDispenseItem {
         ItemStack itemstack1 = te.getRecord().copy();
         EntityItem entityitem = new EntityItem(worldIn, (double)te.getPos().getX() + d0, (double)te.getPos().getY() + d1 + 1, (double)te.getPos().getZ() + d2, itemstack1);
         entityitem.setDefaultPickupDelay();
-        worldIn.spawnEntityInWorld(entityitem);
+        worldIn.spawnEntity(entityitem);
     }
 
     private int getFreeSlot(TileEntityDispenser te) {

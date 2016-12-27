@@ -35,7 +35,7 @@ public class SeedBehaviour implements IBehaviorDispenseItem {
 
         if (world.isAirBlock(pos) && b.canPlaceBlockAt(world, pos)) {
             world.setBlockState(pos, b.getDefaultState());
-            stack.stackSize--;
+            stack.grow(-1);
             NetworkRegistry.TargetPoint tp = new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 64);
             SoundType sound = b.getSoundType();
             PacketHandler.INSTANCE.sendToAllAround(new MessagePlaySound(sound.getBreakSound().getSoundName().toString(), pos, sound.getPitch(), sound.getVolume()), tp);

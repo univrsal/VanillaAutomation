@@ -143,7 +143,7 @@ public class MessageSetFieldServer implements IMessage, IMessageHandler<MessageS
 
     @Override
     public IMessage onMessage(MessageSetFieldServer message, MessageContext ctx) {
-        World w = ctx.getServerHandler().playerEntity.worldObj;
+        World w = ctx.getServerHandler().playerEntity.world;
 
         TileEntity te = w.getTileEntity(message.pos);
 

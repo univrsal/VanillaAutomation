@@ -40,7 +40,7 @@ public class DyeBehaviour implements IBehaviorDispenseItem {
             for (EntitySheep sheep : sheeps) {
                 if (sheep.getFleeceColor() != enumdyecolor) {
                     sheep.setFleeceColor(enumdyecolor);
-                    stack.stackSize--;
+                    stack.grow(-1);
                     break;
                 }
             }

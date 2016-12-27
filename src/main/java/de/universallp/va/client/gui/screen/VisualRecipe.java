@@ -60,7 +60,7 @@ public class VisualRecipe {
 
                         if (mouseX > posX && mouseX < posX + 17 && mouseY > posY && mouseY < posY + 17) {
                             f = current.getItem().getFontRenderer(current);
-                            tooltip = current.getTooltip(parent.mc.thePlayer, parent.mc.gameSettings.advancedItemTooltips);
+                            tooltip = current.getTooltip(parent.mc.player, parent.mc.gameSettings.advancedItemTooltips);
                             mouseOver = true;
                         }
                     }
@@ -75,7 +75,7 @@ public class VisualRecipe {
 
         if (mouseX > x + 66 && mouseX < x + 66 + 17 && mouseY > y + offset + 16 && mouseY < y + 16 + offset + 17) {
             f = result.getItem().getFontRenderer(result);
-            tooltip = result.getTooltip(parent.mc.thePlayer, parent.mc.gameSettings.advancedItemTooltips);
+            tooltip = result.getTooltip(parent.mc.player, parent.mc.gameSettings.advancedItemTooltips);
             mouseOver = true;
         }
 

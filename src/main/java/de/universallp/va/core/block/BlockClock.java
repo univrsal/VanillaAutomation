@@ -15,7 +15,6 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -64,17 +63,18 @@ public class BlockClock extends BlockVA implements IEntryProvider, ITileEntityPr
         return worldIn.getBlockState(blockpos).isSideSolid(worldIn, blockpos, direction.getOpposite());
     }
 
-    @Override
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        if (worldIn.isBlockPowered(pos)) {
-            return canPlaceBlock(worldIn, pos, facing.getOpposite()) ? this.getDefaultState().withProperty(BlockButton.FACING, facing).withProperty(POWERED, Boolean.TRUE) : getDefaultState();
-        } else {
-            return canPlaceBlock(worldIn, pos, facing.getOpposite()) ? this.getDefaultState().withProperty(BlockButton.FACING, facing).withProperty(POWERED, Boolean.FALSE) : getDefaultState();
-        }
-    }
+//    @Override
+//    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
+//        if (worldIn.isBlockPowered(pos)) {
+//            return canPlaceBlock(worldIn, pos, facing.getOpposite()) ? this.getDefaultState().withProperty(BlockButton.FACING, facing).withProperty(POWERED, Boolean.TRUE) : getDefaultState();
+//        } else {
+//            return canPlaceBlock(worldIn, pos, facing.getOpposite()) ? this.getDefaultState().withProperty(BlockButton.FACING, facing).withProperty(POWERED, Boolean.FALSE) : getDefaultState();
+//        }
+//    }
+
 
     @Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         if (checkCanSurvive(worldIn, pos, state)) {
             if (worldIn.isBlockPowered(pos)) {
                 worldIn.setBlockState(pos, state.withProperty(POWERED, Boolean.TRUE));
@@ -97,7 +97,7 @@ public class BlockClock extends BlockVA implements IEntryProvider, ITileEntityPr
     @Override
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (state.getValue(EMITTING)) {
-            worldIn.notifyNeighborsOfStateChange(pos, this);
+            worldIn.notifyNeighborsOfStateChange(pos, this, true);
         }
 
         super.breakBlock(worldIn, pos, state);
@@ -197,7 +197,7 @@ public class BlockClock extends BlockVA implements IEntryProvider, ITileEntityPr
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote)
             return true;
         else {

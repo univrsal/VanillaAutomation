@@ -1,6 +1,7 @@
 package de.universallp.va.core.tile;
 
 import de.universallp.va.core.handler.ConfigHandler;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -59,6 +60,11 @@ public class TilePlacer extends TileVA {
         else if (id == 2)
             useRedstone = value == 1;
         markDirty();
+    }
+
+    @Override
+    public boolean isUsableByPlayer(EntityPlayer player) {
+        return true;
     }
 
     @Override

@@ -65,7 +65,7 @@ public class ContainerFilteredHopper extends Container {
             } else if (!this.mergeItemStack(itemstack1, 0, TileXPHopper.hopperInv, false))
                 return null;
 
-            if (itemstack1.stackSize == 0)
+            if (itemstack1.getCount() == 0)
                 slot.putStack(null);
             else
                 slot.onSlotChanged();
@@ -76,7 +76,7 @@ public class ContainerFilteredHopper extends Container {
 
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return hopperInventory.isUseableByPlayer(playerIn);
+        return hopperInventory.isUsableByPlayer(playerIn);
     }
 
     @Override

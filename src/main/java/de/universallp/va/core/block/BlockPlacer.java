@@ -71,7 +71,7 @@ public class BlockPlacer extends BlockVA {
             boolean canPlace = block.canPlaceBlockAt(worldObj, pos);
             if (canPlace) {
 
-                IBlockState s = block.onBlockPlaced(worldObj, pos, f, 0, 0, 0, placeable.getItemDamage(), fakePlayer);
+                IBlockState s = block.getStateForPlacement(worldObj, pos, f, 0, 0, 0, placeable.getItemDamage(), fakePlayer, EnumHand.MAIN_HAND);
 
                 if (s.getProperties().containsKey(BlockDispenser.FACING)) // For full rotation
                     s = s.withProperty(BlockDispenser.FACING, f);
@@ -83,7 +83,6 @@ public class BlockPlacer extends BlockVA {
 
                 worldObj.setBlockState(pos, s);
                 block.onBlockAdded(worldObj, pos, s);
-                block.onBlockPlaced(worldObj, pos, f, 0, 0, 0, block.getMetaFromState(s), fakePlayer);
 
                 SoundType type = block.getSoundType();
                 if (type != null)
@@ -96,9 +95,9 @@ public class BlockPlacer extends BlockVA {
                 placeable.damageItem(1, fakePlayer);
             } else if (worldObj.isAirBlock(pos)) {
                 fakePlayer.setItemInHand(placeable);
-                placeable.getItem().onItemRightClick(placeable, worldObj, fakePlayer, EnumHand.MAIN_HAND);
-                placeable.getItem().onItemUse(placeable, fakePlayer, worldObj, pos, EnumHand.MAIN_HAND, f, 0, 0, 0);
-                placeable.getItem().onItemUseFirst(placeable, fakePlayer, worldObj, pos, f, 0, 0, 0, EnumHand.MAIN_HAND);
+                placeable.getItem().onItemRightClick(worldObj, fakePlayer, EnumHand.MAIN_HAND);
+                placeable.getItem().onItemUse(fakePlayer, worldObj, pos, EnumHand.MAIN_HAND, f, 0, 0, 0);
+                placeable.getItem().onItemUseFirst(fakePlayer, worldObj, pos, f, 0, 0, 0, EnumHand.MAIN_HAND);
                 placeable.getItem().onItemUseFinish(placeable, worldObj, fakePlayer);
             }
         }
@@ -113,7 +112,7 @@ public class BlockPlacer extends BlockVA {
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (worldIn.isRemote)
             return true;
         else {
@@ -163,7 +162,7 @@ public class BlockPlacer extends BlockVA {
                 }
                 worldIn.setBlockState(dest, s);
 
-                if (tP.getStackInSlot(slot).stackSize == 0)
+                if (tP.getStackInSlot(slot).getCount() == 0)
                     tP.decrStackSize(slot, 1); // Forge leaves stacks with 0 size so I'll get rid of it
             }
         }
@@ -172,7 +171,7 @@ public class BlockPlacer extends BlockVA {
     }
 
     @Override
-    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         TilePlacer te = (TilePlacer) worldIn.getTileEntity(pos);
         boolean flag = worldIn.isBlockPowered(pos) || worldIn.isBlockPowered(pos.up());
         boolean flag1 = te.isTriggered;
@@ -186,8 +185,14 @@ public class BlockPlacer extends BlockVA {
     }
 
     @Override
-    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-        return this.getDefaultState().withProperty(BlockDispenser.FACING, BlockPistonBase.getFacingFromEntity(pos, placer));
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+        return this.getDefaultState().withProperty(BlockDispenser.FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
+    }
+
+    @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+        worldIn.setBlockState(pos, state.withProperty(BlockDispenser.FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer)), 2);
     }
 
     @Override

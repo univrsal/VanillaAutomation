@@ -38,6 +38,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
     private boolean matchMeta = false;
     private boolean matchNBT = false;
     private boolean matchMod = false;
+    private int transferCooldown = 0;
 
     public TileFilteredHopper() {
         setCustomName(LibLocalization.GUI_FILTEREDHOPPER);
@@ -75,7 +76,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
         } else {
             for (EntityItem entityitem : getCaptureItems(hopper.getWorld(), hopper.getXPos(), hopper.getYPos(), hopper.getZPos())) {
                 if (hopper.isItemValid(entityitem.getEntityItem()))
-                    if (putDropInInventoryAllSlots(hopper, entityitem)) {
+                    if (putDropInInventoryAllSlots(null, hopper, entityitem)) {
                         return true;
                     }
             }
@@ -89,9 +90,9 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
 
         if (itemstack != null && canExtractItemFromSlot(inventoryIn, itemstack, index, direction) && hopper.isItemValid(itemstack)) {
             ItemStack itemstack1 = itemstack.copy();
-            ItemStack itemstack2 = putStackInInventoryAllSlots(hopper, inventoryIn.decrStackSize(index, 1), null);
+            ItemStack itemstack2 = putStackInInventoryAllSlots(inventoryIn, hopper, inventoryIn.decrStackSize(index, 1), null);
 
-            if (itemstack2 == null || itemstack2.stackSize == 0) {
+            if (itemstack2 == null || itemstack2.getCount() == 0) {
                 inventoryIn.markDirty();
                 return true;
             }
@@ -158,9 +159,14 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
         return new FilteredItemHandler(this);
     }
 
+    private boolean isOnTransferCooldown() {
+        return this.transferCooldown > 0;
+    }
+
     @Override
-    public boolean updateHopper() {
-        if (this.worldObj != null && !this.worldObj.isRemote) {
+    public void update() {
+        super.update();
+        if (this.world != null && !this.world.isRemote) {
             if (!this.isOnTransferCooldown() && BlockHopper.isEnabled(this.getBlockMetadata())) {
                 boolean flag = false;
 
@@ -175,13 +181,13 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
                 if (flag) {
                     this.setTransferCooldown(8);
                     this.markDirty();
-                    return true;
+                    return;
                 }
             }
 
-            return false;
+            return;
         } else
-            return false;
+            return;
     }
 
     @Override
@@ -334,7 +340,8 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
         return null;
     }
 
-    private boolean isEmpty() {
+    @Override
+    public boolean isEmpty() {
         for (int i = 0; i < TileXPHopper.hopperInv; i++) {
             ItemStack itemstack = getStackInSlot(i);
             if (itemstack != null)
@@ -346,7 +353,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
     private boolean isFull() {
         for (int i = 0; i < TileXPHopper.hopperInv; i++) {
             ItemStack itemstack = getStackInSlot(i);
-            if (itemstack == null || itemstack.stackSize != itemstack.getMaxStackSize())
+            if (itemstack == null || itemstack.getCount() != itemstack.getMaxStackSize())
                 return false;
         }
 
@@ -369,9 +376,9 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
                 for (int i = 0; i < TileXPHopper.hopperInv; ++i) {
                     if (this.getStackInSlot(i) != null) {
                         ItemStack itemstack = this.getStackInSlot(i).copy();
-                        ItemStack itemstack1 = putStackInInventoryAllSlots(iinventory, this.decrStackSize(i, 1), enumfacing);
+                        ItemStack itemstack1 = putStackInInventoryAllSlots(this, iinventory, this.decrStackSize(i, 1), enumfacing);
 
-                        if (itemstack1 == null || itemstack1.stackSize == 0) {
+                        if (itemstack1 == null || itemstack1.getCount() == 0) {
                             iinventory.markDirty();
                             return true;
                         }
@@ -393,7 +400,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
             for (int k = 0; k < aint.length; ++k) {
                 ItemStack itemstack1 = isidedinventory.getStackInSlot(aint[k]);
 
-                if (itemstack1 == null || itemstack1.stackSize != itemstack1.getMaxStackSize())
+                if (itemstack1 == null || itemstack1.getCount() != itemstack1.getMaxStackSize())
                     return false;
             }
         } else {
@@ -402,7 +409,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
             for (int j = 0; j < i; ++j) {
                 ItemStack itemstack = inventoryIn.getStackInSlot(j);
 
-                if (itemstack == null || itemstack.stackSize != itemstack.getMaxStackSize()) {
+                if (itemstack == null || itemstack.getCount() != itemstack.getMaxStackSize()) {
                     return false;
                 }
             }

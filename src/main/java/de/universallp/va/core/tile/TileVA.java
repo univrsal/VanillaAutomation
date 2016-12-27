@@ -11,6 +11,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 
+import java.util.Arrays;
+
 /**
  * Created by universallp on 19.03.2016 14:08 16:31.
  * This file is part of VanillaAutomation which is licenced
@@ -50,7 +52,7 @@ public class TileVA extends TileEntity implements IInventory {
             for (int i = 0; i < getSizeInventory(); i++) {
                 NBTTagCompound t = l.getCompoundTagAt(i);
                 if (t != null)
-                    items[t.getByte("slot")] = ItemStack.loadItemStackFromNBT(t);
+                    items[t.getByte("slot")] = new ItemStack(t);
             }
         }
     }
@@ -58,6 +60,15 @@ public class TileVA extends TileEntity implements IInventory {
     @Override
     public int getSizeInventory() {
         return sizeInv;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        for (int i = 0; i < sizeInv; i++) {
+            if (getStackInSlot(i).isEmpty())
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -69,7 +80,7 @@ public class TileVA extends TileEntity implements IInventory {
 
     @Override
     public ItemStack decrStackSize(int index, int count) {
-        ItemStack itemstack = ItemStackHelper.getAndSplit(items, index, count);
+        ItemStack itemstack = ItemStackHelper.getAndSplit(Arrays.asList(items), index, count);
 
         if (itemstack != null)
             this.markDirty();
@@ -95,8 +106,8 @@ public class TileVA extends TileEntity implements IInventory {
     }
 
     @Override
-    public boolean isUseableByPlayer(EntityPlayer player) {
-        return true;
+    public boolean isUsableByPlayer(EntityPlayer player) {
+        return false;
     }
 
     @Override

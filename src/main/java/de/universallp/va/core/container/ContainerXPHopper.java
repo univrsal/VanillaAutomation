@@ -51,7 +51,7 @@ public class ContainerXPHopper extends Container {
             if (!(slot instanceof SlotFiltered) && itemstack.getItem().equals(Items.GLASS_BOTTLE)) {
                 if (!this.mergeItemStack(itemstack1, this.hopperInventory.getSizeInventory() - 1, this.hopperInventory.getSizeInventory(), true))
                     return null;
-                if (itemstack1.stackSize == 0)
+                if (itemstack1.getCount() == 0)
                     slot.putStack(null);
                 return itemstack;
             }
@@ -64,7 +64,7 @@ public class ContainerXPHopper extends Container {
                 return null;
             }
 
-            if (itemstack1.stackSize == 0) {
+            if (itemstack1.getCount() == 0) {
                 slot.putStack(null);
             } else {
                 slot.onSlotChanged();
@@ -76,6 +76,6 @@ public class ContainerXPHopper extends Container {
 
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
-        return hopperInventory.isUseableByPlayer(playerIn);
+        return hopperInventory.isUsableByPlayer(playerIn);
     }
 }

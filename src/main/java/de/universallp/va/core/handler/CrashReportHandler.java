@@ -104,7 +104,7 @@ public class CrashReportHandler {
 
                 Utils.setConfigValue(ConfigHandler.config.getConfigFile(), "    S:latestCrash=", latestCrash.getName());
                 ConfigHandler.LATEST_CRASH = latestCrash.getName();
-                ((EntityPlayer) e.getEntity()).addChatComponentMessage(msg);
+                e.getEntity().sendMessage(msg);
             }
     }
 }

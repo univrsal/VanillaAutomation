@@ -59,12 +59,12 @@ public class ItemPokeStick extends ItemVA {
                 RayTraceResult r = rayTrace(worldIn, pl, false);
 
                 if (r != null && r.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    IBlockState bS = entityIn.worldObj.getBlockState(r.getBlockPos());
+                    IBlockState bS = entityIn.world.getBlockState(r.getBlockPos());
                     int toolToDamage = Utils.getFirstEfficientToolSlot(pl, bS);
                     int harvestLevel = 0;
 
                     if (toolToDamage > -1) {
-                        ItemStack tool = pl.inventory.mainInventory[toolToDamage];
+                        ItemStack tool = pl.inventory.mainInventory.get(toolToDamage);
                         if (tool != null) {
                             int h;
                             for (String s : tool.getItem().getToolClasses(tool)) {
@@ -101,11 +101,12 @@ public class ItemPokeStick extends ItemVA {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand hand) {
+        ItemStack itemStackIn = playerIn.getHeldItem(hand);
         if (itemStackIn.getItemDamage() > 0 && ConfigHandler.POKE_STICK_DURABILITY == -1) {
             itemStackIn.setItemDamage(0);
         }
-        ActionResult<ItemStack> result = super.onItemRightClick(itemStackIn, worldIn, playerIn, hand);
+        ActionResult<ItemStack> result = super.onItemRightClick(worldIn, playerIn, hand);
         if (!playerIn.capabilities.isCreativeMode && result.getType() != EnumActionResult.FAIL)
             itemStackIn.damageItem(1, playerIn);
         return result;
@@ -152,17 +153,12 @@ public class ItemPokeStick extends ItemVA {
     public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
         int hL = state.getBlock().getHarvestLevel(state);
         String tool = state.getBlock().getHarvestTool(state);
-        return getHarvestLevel(stack, "") >= hL && (getToolClasses(stack).contains(tool) || tool == null);
+        return getHarvestLevel(stack, "", null, state) >= hL && (getToolClasses(stack).contains(tool) || tool == null);
     }
 
     @Override
     public boolean canHarvestBlock(IBlockState blockIn) {
         return true; // Actual calculations will be done in the other method
-    }
-
-    @Override
-    public int getHarvestLevel(ItemStack stack, String toolClass) {
-        return readHarvestLevel(stack.getTagCompound());
     }
 
     @Override
@@ -182,10 +178,10 @@ public class ItemPokeStick extends ItemVA {
                     int toolToDamage = readToolToDamage(stack.getTagCompound());
                     if (toolToDamage > -1) {
                         // Damage the efficient tool
-                        ItemStack tool = pl.inventory.mainInventory[toolToDamage];
+                        ItemStack tool = pl.inventory.mainInventory.get(toolToDamage);
                         tool.damageItem(1, entityLiving);
-                        if (tool.stackSize == 0)
-                            pl.inventory.mainInventory[toolToDamage] = null;
+                        if (tool.getCount() == 0)
+                            pl.inventory.mainInventory.set(toolToDamage, null);
                     }
                 }
             }
