@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -42,7 +43,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
 
     public TileFilteredHopper() {
         setCustomName(LibLocalization.GUI_FILTEREDHOPPER);
-        ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, new ItemStack[10], LibReflection.HOPPER_INVENTORY);
+        ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, NonNullList.<ItemStack>withSize(10, ItemStack.EMPTY), LibReflection.HOPPER_INVENTORY);
     }
 
     private static boolean captureDrops(TileFilteredHopper hopper) {

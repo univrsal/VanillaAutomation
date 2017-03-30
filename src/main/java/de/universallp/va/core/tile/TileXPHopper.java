@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -40,7 +41,7 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
 
     public TileXPHopper() {
         setCustomName(LibLocalization.GUI_XPHOPPER);
-        ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, new ItemStack[6], LibReflection.HOPPER_INVENTORY); // Welp, seems to work
+        ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, NonNullList.<ItemStack>withSize(6, ItemStack.EMPTY), LibReflection.HOPPER_INVENTORY); // Welp, seems to work
     }
 
     public static int getBottleSlot(IInventory inv) {
@@ -71,15 +72,15 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
 
     @Override
     public boolean isItemValidForSlot(int index, ItemStack stack) {
-        if (stack != null && stack.getItem() != null && stack.getItem().equals(Items.GLASS_BOTTLE)) {
+        if (!stack.isEmpty()&& stack.getItem().equals(Items.GLASS_BOTTLE)) {
             ItemStack bottles = getStackInSlot(5);
-            if (getStackInSlot(index) == null && index == 5)
+            if (getStackInSlot(index).isEmpty() && index == 5)
                 return true;
 
-            if (bottles != null && bottles.getCount() < bottles.getMaxStackSize() && index == 5)
+            if (!bottles.isEmpty() && bottles.getCount() < bottles.getMaxStackSize() && index == 5)
                 return true;
 
-            if (bottles != null && bottles.getCount() >= bottles.getMaxStackSize() && index != 5)
+            if (!bottles.isEmpty() && bottles.getCount() >= bottles.getMaxStackSize() && index != 5)
                 return false;
             return false;
         }
@@ -105,12 +106,12 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
         BlockPos overHopper = getPos().up();
         List<EntityXPOrb> orbs = getWorld().getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(overHopper).expandXyz(1));
 
-        if (orbs != null && orbs.size() > 0 && BlockHopper.isEnabled(this.getBlockMetadata()))
+        if (!orbs.isEmpty() && orbs.size() > 0 && BlockHopper.isEnabled(this.getBlockMetadata()))
             for (EntityXPOrb orb : orbs) {
                 int slot = getBottleSlot(this);
                 int resultXP = orb.xpValue + progress;
                 ItemStack bottles = getStackInSlot(5);
-                if (bottles != null && bottles.getCount() > 0)
+                if (!bottles.isEmpty() && bottles.getCount() > 0)
                     if (resultXP >= xpPerBottle && slot > -1) { // If there's space for a new bottle and adding the xp of the current orb will result in a new bottle
                         ItemStack xpBottle = new ItemStack(Items.EXPERIENCE_BOTTLE, 1);
                         getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP).insertItem(slot, xpBottle, false);
@@ -142,13 +143,10 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
                 if (flag) {
                     this.setTransferCooldown(8);
                     this.markDirty();
-                    return;
                 }
             }
 
-            return;
-        } else
-            return;
+        }
     }
 
     @Override

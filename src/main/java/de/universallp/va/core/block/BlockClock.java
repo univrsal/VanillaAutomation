@@ -7,14 +7,13 @@ import de.universallp.va.core.tile.TileClock;
 import de.universallp.va.core.util.IEntryProvider;
 import de.universallp.va.core.util.libs.LibGuiIDs;
 import de.universallp.va.core.util.libs.LibNames;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockButton;
-import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -63,15 +62,10 @@ public class BlockClock extends BlockVA implements IEntryProvider, ITileEntityPr
         return worldIn.getBlockState(blockpos).isSideSolid(worldIn, blockpos, direction.getOpposite());
     }
 
-//    @Override
-//    public IBlockState onBlockPlaced(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer) {
-//        if (worldIn.isBlockPowered(pos)) {
-//            return canPlaceBlock(worldIn, pos, facing.getOpposite()) ? this.getDefaultState().withProperty(BlockButton.FACING, facing).withProperty(POWERED, Boolean.TRUE) : getDefaultState();
-//        } else {
-//            return canPlaceBlock(worldIn, pos, facing.getOpposite()) ? this.getDefaultState().withProperty(BlockButton.FACING, facing).withProperty(POWERED, Boolean.FALSE) : getDefaultState();
-//        }
-//    }
-
+    @Override
+    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+        return worldIn.getBlockState(pos.down()).isFullyOpaque() && super.canPlaceBlockAt(worldIn, pos);
+    }
 
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
@@ -234,5 +228,10 @@ public class BlockClock extends BlockVA implements IEntryProvider, ITileEntityPr
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileClock();
+    }
+
+    @Override
+    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+        return getDefaultState().withProperty(BlockPistonBase.FACING, facing);
     }
 }

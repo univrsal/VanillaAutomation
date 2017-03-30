@@ -17,7 +17,7 @@ public class SlotGhost extends Slot {
 
     @Override
     public boolean canTakeStack(EntityPlayer playerIn) {
-        putStack(null);
+        putStack(ItemStack.EMPTY);
         return false;
     }
 
