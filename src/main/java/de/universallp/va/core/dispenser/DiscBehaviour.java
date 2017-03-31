@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -38,7 +39,7 @@ public class DiscBehaviour implements IBehaviorDispenseItem {
         if (te != null && te instanceof BlockJukebox.TileEntityJukebox) {
             BlockJukebox.TileEntityJukebox tJb = (BlockJukebox.TileEntityJukebox) te;
 
-            if (tJb.getRecord() == null) {
+            if (tJb.getRecord().isEmpty()) {
                 //tJb.setRecord(stack);
                 ((BlockJukebox) b).insertRecord(w, dest, st, stack);
                 w.playEvent(null, 1010, dest, Item.getIdFromItem(stack.getItem()));
@@ -61,12 +62,12 @@ public class DiscBehaviour implements IBehaviorDispenseItem {
     }
 
     private void ejectRecord(World worldIn, BlockJukebox.TileEntityJukebox te) {
-        if (te.getRecord() == null)
+        if (te.getRecord().isEmpty())
             return;
 
         worldIn.playEvent(1010, te.getPos(), 0);
         worldIn.playRecord(te.getPos(), null);
-        te.setRecord(null);
+        te.setRecord(ItemStack.EMPTY);
         float f = 0.7F;
         double d0 = (double)(worldIn.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
         double d1 = (double)(worldIn.rand.nextFloat() * f) + (double)(1.0F - f) * 0.2D + 0.6D;
@@ -79,7 +80,7 @@ public class DiscBehaviour implements IBehaviorDispenseItem {
 
     private int getFreeSlot(TileEntityDispenser te) {
         for (int i = 0; i < te.getSizeInventory(); i++) {
-            if (te.getStackInSlot(i) == null)
+            if (te.getStackInSlot(i) .isEmpty())
                 return i;
         }
         return -1;

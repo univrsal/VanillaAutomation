@@ -59,12 +59,13 @@ public class BlockClock extends BlockVA implements ITileEntityProvider {
 
     protected static boolean canPlaceBlock(World worldIn, BlockPos pos, EnumFacing direction) {
         BlockPos blockpos = pos.offset(direction);
+        System.out.println(blockpos);
         return worldIn.getBlockState(blockpos).isSideSolid(worldIn, blockpos, direction.getOpposite());
     }
 
     @Override
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-        return worldIn.getBlockState(pos.down()).isFullyOpaque() && super.canPlaceBlockAt(worldIn, pos);
+        return true;
     }
 
     @Override
@@ -92,6 +93,7 @@ public class BlockClock extends BlockVA implements ITileEntityProvider {
     public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
         if (state.getValue(EMITTING)) {
             worldIn.notifyNeighborsOfStateChange(pos, this, true);
+            worldIn.updateComparatorOutputLevel(pos, state.getBlock());
         }
 
         super.breakBlock(worldIn, pos, state);
@@ -232,6 +234,8 @@ public class BlockClock extends BlockVA implements ITileEntityProvider {
 
     @Override
     public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-        return getDefaultState().withProperty(BlockPistonBase.FACING, facing);
+        if (canPlaceBlock(world, pos, facing.getOpposite()))
+            return getDefaultState().withProperty(BlockPistonBase.FACING, facing);
+        return Blocks.AIR.getDefaultState();
     }
 }

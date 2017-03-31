@@ -81,7 +81,7 @@ public class BlockPlacer extends BlockVA implements ITileEntityProvider {
                         f = EnumFacing.NORTH;
                     s = s.withProperty(BlockFurnace.FACING, f);
                 }
-
+                System.out.println(f);
                 worldObj.setBlockState(pos, s);
                 block.onBlockAdded(worldObj, pos, s);
                 SoundType type = block.getSoundType(s, worldObj, pos, fakePlayer);
@@ -151,7 +151,7 @@ public class BlockPlacer extends BlockVA implements ITileEntityProvider {
                 dest = pos.add(f.getFrontOffsetX() * tP.reachDistance, f.getFrontOffsetY() * tP.reachDistance, f.getFrontOffsetZ() * tP.reachDistance);
             }
 
-            boolean result = placeBlock(worldIn, dest, f, VAFakePlayer.instance(worldIn), placable);
+            boolean result = placeBlock(worldIn, dest, tP.placeFace, VAFakePlayer.instance(worldIn), placable);
 
             if (result)
                 tP.decrStackSize(slot, 1);
@@ -251,8 +251,9 @@ public class BlockPlacer extends BlockVA implements ITileEntityProvider {
         ItemStack cobbleStone = new ItemStack(Blocks.COBBLESTONE, 1);
         ItemStack piston = new ItemStack(Blocks.PISTON, 1);
         ItemStack chest  = new ItemStack(Blocks.CHEST, 1);
+        ItemStack dispenser = new ItemStack(Blocks.DISPENSER, 1);
 
-        recipe = new VisualRecipe(new ItemStack[] { cobbleStone, cobbleStone, cobbleStone,
+        recipe = new VisualRecipe(new ItemStack[] { cobbleStone, dispenser,   cobbleStone,
                                                     cobbleStone, chest,       cobbleStone,
                 cobbleStone, piston, cobbleStone }, new ItemStack(VABlocks.placer, 1), VisualRecipe.EnumRecipeType.SHAPED);
 

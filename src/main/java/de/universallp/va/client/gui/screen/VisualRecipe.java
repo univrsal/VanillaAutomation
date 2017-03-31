@@ -54,7 +54,7 @@ public class VisualRecipe {
                     int posY = (y + offset) + 1 + i * 17;
                     ItemStack current = stacks[stack];
 
-                    if (current != null) {
+                    if (!current.isEmpty()) {
                         RenderHelper.enableGUIStandardItemLighting();
                         Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(current, posX, posY);
 
