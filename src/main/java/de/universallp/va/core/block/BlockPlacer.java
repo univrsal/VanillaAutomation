@@ -265,6 +265,7 @@ public class BlockPlacer extends BlockVA implements ITileEntityProvider {
         if (te != null && te instanceof IInventory) {
 
             InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) te);
+            worldIn.updateComparatorOutputLevel(pos, this);
         }
         super.breakBlock(worldIn, pos, state);
     }

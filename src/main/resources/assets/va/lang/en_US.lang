@@ -22,8 +22,10 @@ va.gui.filteredhopper=Filtered Hopper
 
 va.gui.redstoneclock=Redstone Clock
 va.gui.redstoneclock.delay=Delay
-va.gui.redstoneclock.ticks=ticks
+va.gui.redstoneclock.seconds=Seconds
+va.gui.redstoneclock.ticks=Ticks
 va.gui.redstoneclock.length=Pulse Length
+
 
 va.msg.crash1=VanillaAutomation has found a crash which is likely caused by it. Click here to open an issue on the repo.
 va.msg.crash2=Found %s which is likely related to VanillaAutomation you can report issues here github.com/UniversalLP/VanillaAutomation/issues.
@@ -103,7 +105,7 @@ va.guide.entry.xphopper.page2=§oScrew those villagers, I can make my own xp bot
 
 # Redstone Clock
 va.guide.entry.redstoneclock.page1=This block really doesn't need a description. It does exactly what you thing it does. It emits a redstone pulse in a given delay. The delay can be set by right clicking on it. Also It will only emit signals if it is powered by redstone.\nFor the delay remember that 20 ticks equal 1 second.
-va.guide.entry.redstoneclock.page2=§oTime is a tool you can hang on your wall or wear it on your wrist§r
+va.guide.entry.redstoneclock.page2=§oTime is a tool you can hang on your wall or wear it on your wrist§r\n\nTip: Hold Shift to convert ticks into seconds. Nifty.
 
 # Filtered Hopper
 va.guide.entry.filteredhopper.page1=This is another upgrade to the vanilla hopper. It offers you five slots to filter items. You can change between white and blacklist. The hopper also offers these filter modes:\n- Match Meta\n- Match NBT\n- Match Mod

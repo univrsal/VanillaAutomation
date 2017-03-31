@@ -89,11 +89,11 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
     private static boolean pullItemFromSlot(TileFilteredHopper hopper, IInventory inventoryIn, int index, EnumFacing direction) {
         ItemStack itemstack = inventoryIn.getStackInSlot(index);
 
-        if (itemstack != null && canExtractItemFromSlot(inventoryIn, itemstack, index, direction) && hopper.isItemValid(itemstack)) {
+        if (!itemstack.isEmpty() && canExtractItemFromSlot(inventoryIn, itemstack, index, direction) && hopper.isItemValid(itemstack)) {
             ItemStack itemstack1 = itemstack.copy();
             ItemStack itemstack2 = putStackInInventoryAllSlots(inventoryIn, hopper, inventoryIn.decrStackSize(index, 1), null);
 
-            if (itemstack2 == null || itemstack2.getCount() == 0) {
+            if (itemstack2.isEmpty() || itemstack2.getCount() == 0) {
                 inventoryIn.markDirty();
                 return true;
             }
@@ -114,7 +114,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
             int[] aint = isidedinventory.getSlotsForFace(side);
 
             for (int i : aint) {
-                if (isidedinventory.getStackInSlot(i) != null) {
+                if (!isidedinventory.getStackInSlot(i).isEmpty()) {
                     return false;
                 }
             }
@@ -122,7 +122,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
             int j = inventoryIn.getSizeInventory();
 
             for (int k = 0; k < j; ++k) {
-                if (inventoryIn.getStackInSlot(k) != null) {
+                if (!inventoryIn.getStackInSlot(k).isEmpty()) {
                     return false;
                 }
             }
@@ -166,29 +166,33 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
 
     @Override
     public void update() {
-        super.update();
         if (this.world != null && !this.world.isRemote) {
-            if (!this.isOnTransferCooldown() && BlockHopper.isEnabled(this.getBlockMetadata())) {
-                boolean flag = false;
+            --this.transferCooldown;
 
-                if (!this.isEmpty()) {
-                    flag = this.transferItemsOut();
-                }
+            if (!this.isOnTransferCooldown()) {
+                this.setTransferCooldown(0);
+                this.updateHopper();
+            }
+        }
+    }
 
-                if (!this.isFull()) {
-                    flag = captureDrops(this) || flag;
-                }
+    private void updateHopper() {
+        if (BlockHopper.isEnabled(this.getBlockMetadata())) {
+            boolean flag = false;
 
-                if (flag) {
-                    this.setTransferCooldown(8);
-                    this.markDirty();
-                    return;
-                }
+            if (!this.isEmpty()) {
+                flag = this.transferItemsOut();
             }
 
-            return;
-        } else
-            return;
+            if (!this.isFull()) {
+                flag = captureDroppedItems(this) || flag;
+            }
+
+            if (flag) {
+                this.setTransferCooldown(8);
+                this.markDirty();
+            }
+        }
     }
 
     @Override
@@ -279,7 +283,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
         List<ItemStack> filter = new ArrayList<ItemStack>();
 
         for (int i = TileXPHopper.hopperInv; i < getSizeInventory(); i++) {
-            if (getStackInSlot(i) != null)
+            if (!getStackInSlot(i).isEmpty())
                 filter.add(getStackInSlot(i));
         }
         return filter;
@@ -345,7 +349,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
     public boolean isEmpty() {
         for (int i = 0; i < TileXPHopper.hopperInv; i++) {
             ItemStack itemstack = getStackInSlot(i);
-            if (itemstack != null)
+            if (!itemstack.isEmpty())
                 return false;
         }
         return true;
@@ -354,7 +358,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
     private boolean isFull() {
         for (int i = 0; i < TileXPHopper.hopperInv; i++) {
             ItemStack itemstack = getStackInSlot(i);
-            if (itemstack == null || itemstack.getCount() != itemstack.getMaxStackSize())
+            if (!itemstack.isEmpty() || itemstack.getCount() != itemstack.getMaxStackSize())
                 return false;
         }
 
@@ -362,8 +366,6 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
     }
 
     private boolean transferItemsOut() {
-        if (net.minecraftforge.items.VanillaInventoryCodeHooks.insertHook(this))
-            return true;
         IInventory iinventory = this.getInventoryForHopperTransfer();
 
         if (iinventory == null) {
@@ -374,12 +376,13 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
             if (this.isInventoryFull(iinventory, enumfacing)) {
                 return false;
             } else {
-                for (int i = 0; i < TileXPHopper.hopperInv; ++i) {
-                    if (this.getStackInSlot(i) != null) {
+                for (int i = 0; i <TileXPHopper.hopperInv; ++i) {
+                    System.out.println("SLOT " + i);
+                    if (!this.getStackInSlot(i).isEmpty()) {
                         ItemStack itemstack = this.getStackInSlot(i).copy();
                         ItemStack itemstack1 = putStackInInventoryAllSlots(this, iinventory, this.decrStackSize(i, 1), enumfacing);
 
-                        if (itemstack1 == null || itemstack1.getCount() == 0) {
+                        if (itemstack1.isEmpty() || itemstack1.getCount() == 0) {
                             iinventory.markDirty();
                             return true;
                         }
@@ -401,7 +404,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
             for (int k = 0; k < aint.length; ++k) {
                 ItemStack itemstack1 = isidedinventory.getStackInSlot(aint[k]);
 
-                if (itemstack1 == null || itemstack1.getCount() != itemstack1.getMaxStackSize())
+                if (itemstack1.isEmpty() || itemstack1.getCount() != itemstack1.getMaxStackSize())
                     return false;
             }
         } else {
@@ -410,13 +413,18 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
             for (int j = 0; j < i; ++j) {
                 ItemStack itemstack = inventoryIn.getStackInSlot(j);
 
-                if (itemstack == null || itemstack.getCount() != itemstack.getMaxStackSize()) {
+                if (itemstack.isEmpty() || itemstack.getCount() != itemstack.getMaxStackSize()) {
                     return false;
                 }
             }
         }
 
         return true;
+    }
+
+    @Override
+    public void setTransferCooldown(int transferCooldown) {
+        this.transferCooldown = transferCooldown;
     }
 
     @Override

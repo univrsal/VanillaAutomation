@@ -108,7 +108,7 @@ public class GuiClock extends GuiScreen {
         fontRendererObj.drawString(s, width / 2 - l / 2, height / 2 - 28, LibNames.TEXT_COLOR);
 
         if (GuiScreen.isShiftKeyDown())
-            s = I18n.format(LibLocalization.GUI_CLOCK_DELAY) + ": " + String.valueOf(tickdelay / 20.0) + " " + I18n.format(LibLocalization.GUI_CLOCK_TICKS);
+            s = I18n.format(LibLocalization.GUI_CLOCK_DELAY) + ": " + String.valueOf(tickdelay / 20.0) + " " + I18n.format(LibLocalization.GUI_CLOCK_SECONDS);
         else
             s = I18n.format(LibLocalization.GUI_CLOCK_DELAY) + ": " + String.valueOf(tickdelay) + " " + I18n.format(LibLocalization.GUI_CLOCK_TICKS);
 
@@ -116,7 +116,7 @@ public class GuiClock extends GuiScreen {
         fontRendererObj.drawString(s, width / 2 - l / 2, height / 2 - 17, LibNames.TEXT_COLOR);
 
         if (GuiScreen.isShiftKeyDown())
-            s = I18n.format(LibLocalization.GUI_CLOCK_LENGTH) + ": " + String.valueOf(ticklength / 20.0) + " " + I18n.format(LibLocalization.GUI_CLOCK_TICKS);
+            s = I18n.format(LibLocalization.GUI_CLOCK_LENGTH) + ": " + String.valueOf(ticklength / 20.0) + " " + I18n.format(LibLocalization.GUI_CLOCK_SECONDS);
         else
             s = I18n.format(LibLocalization.GUI_CLOCK_LENGTH) + ": " + String.valueOf(ticklength) + " " + I18n.format(LibLocalization.GUI_CLOCK_TICKS);
 

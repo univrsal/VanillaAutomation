@@ -15,6 +15,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -25,6 +27,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.Random;
 
 /**
  * Created by universallp on 30.03.2016 13:26 16:31.
@@ -99,9 +103,10 @@ public class BlockFilteredHopper extends BlockHopper implements IEntryProvider {
         if (te != null && te instanceof TileFilteredHopper) {
             TileFilteredHopper teF = (TileFilteredHopper) te;
             for (int i = TileXPHopper.hopperInv; i < teF.getSizeInventory(); i++)
-                teF.setInventorySlotContents(i, null); // Clear the filters so they won't be dropped as items
-        }
+                teF.setInventorySlotContents(i, ItemStack.EMPTY); // Clear the filters so they won't be dropped as items
 
+            worldIn.updateComparatorOutputLevel(pos, this);
+        }
         super.breakBlock(worldIn, pos, state);
     }
 }
