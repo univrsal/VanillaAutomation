@@ -53,6 +53,10 @@ public class CommonProxy {
         } else {
             EnumEntry.TC_COMPAT.disable();
         }
+
+        if (!Loader.isModLoaded("biomesoplenty")) {
+            EnumEntry.BOP_COMPAT.disable();
+        }
     }
 
     public void postInit(FMLPostInitializationEvent e) {
