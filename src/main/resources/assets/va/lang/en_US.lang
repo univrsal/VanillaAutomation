@@ -36,7 +36,6 @@ va.recipe.shapeless=Shapeless Crafting
 # Items
 item.va:vaguide.name=Guide
 item.va:vaguide.desc=Help with VanillaAutomation
-item.va:pokestick.name=Poke Stick
 item.va:xphopperminecart.name=XP Hopper Minecart
 item.va:filteredhopperminecart=Filtered Hopper Minecart
 item.va:descriptiontag.name=Description Tag
@@ -72,7 +71,6 @@ va.guide.entry.intro=Introduction
 va.guide.entry.credits=Credits
 va.guide.entry.blockplacer=The Blockplacer
 va.guide.entry.dispenser=Tweaks for the dispenser
-va.guide.entry.pokestick=The Poke Stick
 va.guide.entry.xphopper=The XP Hopper
 va.guide.entry.filteredhopper=The Filtered Hopper
 va.guide.entry.descriptiontag=The Description Tag
@@ -94,10 +92,6 @@ va.guide.entry.blockplacer.page2=§oSteve in a box§r
 # Dispenser
 va.guide.entry.dispenser.page1=With VanillaAutomation installed the dispenser receives a few tweaks to allow it to automate things.\nThe following things are new:\nPlacing any vanilla tool in the dispenser allows it to break blocks.\nDye will dye any sheep in front and bone meal will be applied to the ground. Also shears will shear sheep.
 va.guide.entry.dispenser.page2=The dispenser now also can insert and take out music discs from the jukebox in front of it aswell as naming entities in front with nametags.\nAlso the dispenser will place seeds (Provided Quark isn't installed) and use swords to damage entities in front of it. Note that naming the tools "Range: x" will perform the action x blocks away.
-
-# Poke Stick
-va.guide.entry.pokestick.page1=This stick has two uses. For one it'll double your reach distance while you hold it, so you can reach those pesky spots without wasting your precious energy. The other use is that when placed in a dispenser or block placer it'll perform a right click on the block in front. In the block placer it'll take the reach distance into account.
-va.guide.entry.pokestick.page2=§oFor when the remote is just an inch too far away.§r \n\nNote that this tool takes damage when used. It'll also use tools from your inventory to mine blocks faster.
 
 # XP Hopper
 va.guide.entry.xphopper.page1=This block is a small upgrade to the normal hopper. It'll collect any xp orbs above it in a 3x3x3 radius and fill them into bottles provided from the bottle slot. A progressbar indicates how much xp is needed until the next bottle is filled. Full bottles will be output like any other item.

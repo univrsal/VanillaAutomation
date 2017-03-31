@@ -36,7 +36,6 @@ public class LibNames {
 
     // Items
     public static final String ITEM_GUIDE = PREFIX + "vaguide";
-    public static final String ITEM_POKESTICK = PREFIX + "pokestick";
     public static final String ITEM_DESCRIPTIONTAG = PREFIX + "descriptiontag";
 
 }

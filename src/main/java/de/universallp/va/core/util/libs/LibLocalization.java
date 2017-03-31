@@ -14,7 +14,6 @@ public class LibLocalization {
     public static final String GUI_XPHOPPER = "va.gui.xphopper";
     public static final String GUI_FILTEREDHOPPER = "va.gui.filteredhopper";
     public static final String GUI_FILTER = "va.gui.filteredhopper.filter";
-    public static final String GUI_AUTOTRADER = "va.gui.autotrader";
     public static final String GUI_CLOCK = "va.gui.redstoneclock";
     public static final String GUI_CLOCK_DELAY = "va.gui.redstoneclock.delay";
     public static final String GUI_CLOCK_TICKS = "va.gui.redstoneclock.ticks";
@@ -30,9 +29,6 @@ public class LibLocalization {
 
     // Tooltips
     public static final String GUIDE_DESC = "item.va:vaguide.desc";
-    public static final String TIP_CONVERT = "tooltip.va:convert.name=";
-    public static final String TIP_HOLDSHIFT = "tooltip.va:holdshift.name";
-    public static final String TIP_IMITATES = "tooltip.va:imitates.name";
     public static final String TIP_DESCRIPTIONMODE = "tooltip.va:descriptionmode";
     public static final String TIP_DESCRIPTION = "tootlip.va:description";
     public static final String TAGMODE_NONE = "tagmode.va:none";
@@ -46,13 +42,11 @@ public class LibLocalization {
     public static final String ENTRY_CREDITS = "va.guide.entry.credits";
     public static final String ENTRY_BLOCKPLACER = "va.guide.entry.blockplacer";
     public static final String ENTRY_DISPENSER = "va.guide.entry.dispenser";
-    public static final String ENTRY_POKE_STICK = "va.guide.entry.pokestick";
     public static final String ENTRY_XPHOPPER = "va.guide.entry.xphopper";
     public static final String ENTRY_FILTEREDHOPPER = "va.guide.entry.filteredhopper";
     public static final String ENTRY_DESCRIPTION_TAG = "va.guide.entry.descriptiontag";
     public static final String ENTRY_BOPCOMPAT = "va.guide.entry.bopcompat";
     public static final String ENTRY_TCONCOMPAT = "va.guide.entry.tconcompat";
-    public static final String ENTRY_AUTOTRADER = "va.guide.entry.autotrader";
     public static final String ENTRY_CLOCK = "va.guide.entry.redstoneclock";
 
     public static final String RECIPE_SHAPED = "va.recipe.shaped";
@@ -63,7 +57,6 @@ public class LibLocalization {
 
     public static final String JEI_GUIDE = "va.jei.guideinfo";
 
-    public static final String CHAT_REACH = "va.chat.reach";
     public static final String YES = "gui.yes";
     public static final String NO = "gui.no";
     public static final String BTN_REDSTONE = "va.gui.btn.useredstone";

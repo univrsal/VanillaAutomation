@@ -38,7 +38,6 @@ public class JEIPlugin implements IModPlugin {
     public void register(@Nonnull IModRegistry registry) {
 
         // Items
-        registry.addDescription(new ItemStack(VAItems.itemPokeStick, 1), EnumEntry.getGuidePage("pokestick", 1, 2));
         registry.addDescription(new ItemStack(VAItems.itemGuide, 1), LibLocalization.JEI_GUIDE);
         String[] descriptionTag = EnumEntry.getGuidePage("descriptiontag", 1, 2);
         descriptionTag[1] = I18n.format(descriptionTag[1]).replaceAll("7n", "\\\\\n");

@@ -151,49 +151,13 @@ public class Utils {
         if (p == null || item == null)
             return false;
 
-        if (p.getHeldItemMainhand() != null && p.getHeldItemMainhand().getItem().equals(item))
+        if (!p.getHeldItemMainhand().isEmpty() && p.getHeldItemMainhand().getItem().equals(item))
             return true;
 
-        if (p.getHeldItemOffhand() != null && p.getHeldItemOffhand().getItem().equals(item))
+        if (!p.getHeldItemOffhand().isEmpty() && p.getHeldItemOffhand().getItem().equals(item))
             return true;
 
         return false;
-    }
-
-    public static Set<String> getCarriedTools(EntityPlayer pl) {
-        Set<String> toolClasses = new HashSet<String>();
-
-        for (ItemStack stack : pl.inventory.mainInventory)
-            if (stack != null && !stack.getItem().equals(VAItems.itemPokeStick))
-                toolClasses.addAll(stack.getItem().getToolClasses(stack));
-
-        return toolClasses;
-    }
-
-    public static float getFirstEfficientTool(EntityPlayer pl, IBlockState s) {
-        for (ItemStack stack : pl.inventory.mainInventory)
-            if (stack != null && !stack.getItem().equals(VAItems.itemPokeStick))
-                for (String string : stack.getItem().getToolClasses(stack))
-                    if (s.getBlock().isToolEffective(string, s))
-                        return stack.getItem().getStrVsBlock(stack, s);
-
-
-        return 1;
-    }
-
-    public static int getFirstEfficientToolSlot(EntityPlayer pl, IBlockState s) {
-        int i = 0;
-        for (ItemStack stack : pl.inventory.mainInventory) {
-
-            if (stack != null && !stack.getItem().equals(VAItems.itemPokeStick)) {
-                for (String string : stack.getItem().getToolClasses(stack))
-                    if (s.getBlock().isToolEffective(string, s))
-                        return i;
-            }
-            i++;
-        }
-
-        return -1;
     }
 
     @NotNull
@@ -245,16 +209,5 @@ public class Utils {
 
     public static boolean mouseInRect(int rectX, int rectY, int w, int h, int mouseX, int mouseY) {
         return mouseX > rectX && mouseX < rectX + w && mouseY > rectY && mouseY < rectY + h;
-    }
-
-    public static boolean canToolMineBlock(ItemStack toolStack, IBlockState state) {
-        if (toolStack == null || state == null)
-            return false;
-
-        final Block b = state.getBlock();
-
-
-
-        return false;
     }
 }

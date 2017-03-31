@@ -6,7 +6,6 @@ import de.universallp.va.client.handler.GuideHandler;
 import de.universallp.va.core.CommonProxy;
 import de.universallp.va.core.block.VABlocks;
 import de.universallp.va.core.item.ItemVA;
-import de.universallp.va.core.util.VAPlayerController;
 import de.universallp.va.core.util.libs.LibReflection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -51,28 +50,6 @@ public class ClientProxy extends CommonProxy {
         super.postInit(e);
     }
 
-    @Override
-    public void setReach(EntityLivingBase entity, float reach) {
-
-        super.setReach(entity, reach);
-        Minecraft mc = Minecraft.getMinecraft();
-        EntityPlayer player = mc.player;
-        if (player != null && entity == player) {
-            if (!(mc.playerController instanceof VAPlayerController)) {
-                GameType type = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibReflection.CURRENT_GAME_TYPE);
-                NetHandlerPlayClient net = ReflectionHelper.getPrivateValue(PlayerControllerMP.class, mc.playerController, LibReflection.NET_CLIENT_HANDLER);
-                VAPlayerController controller = new VAPlayerController(mc, net);
-                boolean isFlying = player.capabilities.isFlying;
-                boolean allowFlying = player.capabilities.allowFlying;
-                controller.setGameType(type);
-                player.capabilities.isFlying = isFlying;
-                player.capabilities.allowFlying = allowFlying;
-                mc.playerController = controller;
-            }
-
-            ((VAPlayerController) mc.playerController).setReachDistance(reach);
-        }
-    }
 
     @Override
     public boolean isServer() {

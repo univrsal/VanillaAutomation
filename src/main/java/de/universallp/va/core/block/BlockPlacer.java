@@ -90,10 +90,7 @@ public class BlockPlacer extends BlockVA implements ITileEntityProvider {
                 return true;
             }
         } else {
-            if (placeable.getItem().equals(VAItems.itemPokeStick)) {
-                fakePlayer.rightClick(placeable, pos, f, 0, 0, 0);
-                placeable.damageItem(1, fakePlayer);
-            } else if (worldObj.isAirBlock(pos)) {
+            if (worldObj.isAirBlock(pos)) {
                 fakePlayer.setItemInHand(placeable);
                 placeable.getItem().onItemRightClick(worldObj, fakePlayer, EnumHand.MAIN_HAND);
                 placeable.getItem().onItemUse(fakePlayer, worldObj, pos, EnumHand.MAIN_HAND, f, 0, 0, 0);

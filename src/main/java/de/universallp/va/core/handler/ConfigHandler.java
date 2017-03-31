@@ -24,8 +24,6 @@ public class ConfigHandler {
     public static Configuration config;
 
     public static boolean USE_TOOLS = true;
-    public static int POKE_STICK_RANGE = 10;
-    public static int POKE_STICK_DURABILITY = 120;
     public static byte BLOCK_PLACER_REACH = 16;
     public static String LATEST_CRASH = "";
     public static boolean READ_LOGS = true;
@@ -50,9 +48,6 @@ public class ConfigHandler {
     public static void load() {
         LATEST_CRASH = config.getString("latestCrash", CATEGORY_MISC, "none", "Do not modify this unless you want unexpected behaviour");
         READ_LOGS    = config.getBoolean("readLogs",   CATEGORY_MISC, true,   "Set to false to prevent vanillaautomation from reading crashlogs");
-
-        POKE_STICK_RANGE = config.getInt("pokeStickRange", CATEGORY_ITEMS, 10, 1, 25, "The amount by which the pokestick extends your reach");
-        POKE_STICK_DURABILITY = config.getInt("pokeStickDurability", CATEGORY_ITEMS, 120, -1, 10000, "The durability of the poke stick. -1 for infinite");
 
         USE_TOOLS = config.getBoolean("pokeStickUseTools", CATEGORY_ITEMS, true, "If true the poke stick uses tools from your inventory to mine blocks faster");
 

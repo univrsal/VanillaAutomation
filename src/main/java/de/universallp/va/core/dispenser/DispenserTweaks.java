@@ -29,7 +29,6 @@ public class DispenserTweaks {
     public static final SwordBehaviour SWORD_BEHAVIOUR = new SwordBehaviour();
     public static final ShearBehaviour SHEAR_BEHAVIOUR = new ShearBehaviour();
     public static final DiscBehaviour DISC_BEHAVIOUR = new DiscBehaviour();
-    public static final PokeStickBehaviour POKE_STICK_BEHAVIOUR = new PokeStickBehaviour();
     public static final NameTagBehaviour NAME_TAG_BEHAVIOUR = new NameTagBehaviour();
 
     public static void register() {
@@ -57,8 +56,6 @@ public class DispenserTweaks {
 //            add(Items.WOODEN_PICKAXE, TOOL_BEHAVIOUR);
 
             add(Items.SHEARS, SHEAR_BEHAVIOUR);
-
-            add(VAItems.itemPokeStick, POKE_STICK_BEHAVIOUR);
         }
 
 //        if (ConfigHandler.DISPENSER_USE_WEAPONS) {
@@ -85,7 +82,7 @@ public class DispenserTweaks {
         }
 
         if (ConfigHandler.DISPENSER_USE_NAMETAGS)
-            add(VAItems.itemPokeStick, NAME_TAG_BEHAVIOUR);
+            add(Items.NAME_TAG, NAME_TAG_BEHAVIOUR);
 
         if (!Loader.isModLoaded(LibNames.MOD_QUARK) && ConfigHandler.DISPENSER_USE_SEEDS) {
             add(Items.WHEAT_SEEDS, new SeedBehaviour(Blocks.WHEAT));

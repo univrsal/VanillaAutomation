@@ -65,18 +65,6 @@ public class CommonProxy {
             DispenserTweaks.searchRegistry();
     }
 
-    /**
-     * Shamelessly stolen from Botania
-     * github.com/vazkii/Botania
-     *
-     * @param entity
-     * @param reach
-     */
-    public void setReach(EntityLivingBase entity, float reach) {
-        if (entity instanceof EntityPlayerMP)
-            ((EntityPlayerMP) entity).interactionManager.setBlockReachDistance(reach);
-    }
-
     public boolean isServer() {
         return true;
     }

@@ -8,7 +8,7 @@ import de.universallp.va.core.util.libs.LibLocalization;
 public enum EnumEntry {
 
     MENU(new String[] { LibLocalization.ENTRY_INTRO, LibLocalization.ENTRY_CREDITS, LibLocalization.ENTRY_BLOCKPLACER,
-            LibLocalization.ENTRY_DISPENSER, LibLocalization.ENTRY_POKE_STICK, LibLocalization.ENTRY_XPHOPPER,
+            LibLocalization.ENTRY_DISPENSER, LibLocalization.ENTRY_XPHOPPER,
             LibLocalization.ENTRY_FILTEREDHOPPER, LibLocalization.ENTRY_DESCRIPTION_TAG,
             LibLocalization.ENTRY_CLOCK,
 
@@ -22,7 +22,6 @@ public enum EnumEntry {
 
     BLOCK_PLACER(getGuidePage("blockplacer", 1, 2), VABlocks.placer.getRecipe(), 1),
     DISPENSER(getGuidePage("dispenser", 1, 2)),
-    POKE_STICK(getGuidePage("pokestick", 1, 2), VAItems.itemPokeStick.getRecipe(), 1),
     XPHOPPER(getGuidePage("xphopper", 1, 2), VABlocks.xpHopper.getRecipe(), 1),
     FILTERED_HOPPER(getGuidePage("filteredhopper", 1, 2), VABlocks.filterHopper.getRecipe(), 1),
     DESCRIPTION_TAG(getGuidePage("descriptiontag", 1, 2), VAItems.itemDescriptionTag.getRecipe(), 1),
@@ -79,7 +78,7 @@ public enum EnumEntry {
             MenuEntry[] menuEntries = new MenuEntry[entries.length];
 
             for (int i = 0; i < entries.length; i++)
-                menuEntries[i] = new MenuEntry(entries[i], EnumEntry.values()[1 + i]); // First entry is skipped
+                menuEntries[i] = new MenuEntry(entries[i], EnumEntry.values()[i]); // First entry is skipped
 
             EntryPage menuPage = new EntryPage(menuEntries);
             instance = new Entry(getEntryTitle(), menuPage);
