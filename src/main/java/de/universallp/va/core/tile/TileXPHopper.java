@@ -42,7 +42,6 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
     private long tickedGameTime;
 
     public TileXPHopper() {
-        setCustomName(LibLocalization.GUI_XPHOPPER);
         ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, NonNullList.<ItemStack>withSize(6, ItemStack.EMPTY), LibReflection.HOPPER_INVENTORY); // Welp, seems to work
     }
 

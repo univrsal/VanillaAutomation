@@ -42,7 +42,6 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
     private int transferCooldown = 0;
 
     public TileFilteredHopper() {
-        setCustomName(LibLocalization.GUI_FILTEREDHOPPER);
         ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, NonNullList.<ItemStack>withSize(10, ItemStack.EMPTY), LibReflection.HOPPER_INVENTORY);
     }
 
