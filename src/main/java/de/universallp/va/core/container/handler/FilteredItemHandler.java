@@ -37,6 +37,6 @@ public class FilteredItemHandler extends VanillaHopperItemHandler {
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
         if (slot < 5)
             return super.extractItem(slot, amount, simulate);
-        return null;
+        return ItemStack.EMPTY;
     }
 }

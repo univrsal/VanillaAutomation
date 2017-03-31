@@ -48,7 +48,7 @@ public class ContainerFilteredHopper extends Container {
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-        ItemStack itemstack = null;
+        ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack()) {
@@ -58,7 +58,7 @@ public class ContainerFilteredHopper extends Container {
             if (index < this.hopperInventory.getSizeInventory()) {
                 if (index < TileXPHopper.hopperInv) {
                     if (!this.mergeItemStack(itemstack1, this.hopperInventory.getSizeInventory(), this.inventorySlots.size(), true))
-                        return null;
+                        return ItemStack.EMPTY;
 
                 } else
                     return null;
@@ -66,7 +66,7 @@ public class ContainerFilteredHopper extends Container {
                 return null;
 
             if (itemstack1.getCount() == 0)
-                slot.putStack(null);
+                slot.putStack(ItemStack.EMPTY);
             else
                 slot.onSlotChanged();
         }

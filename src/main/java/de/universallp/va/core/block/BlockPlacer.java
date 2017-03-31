@@ -31,6 +31,7 @@ import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
 /**
@@ -39,7 +40,7 @@ import java.util.Random;
  * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
  * github.com/UniversalLP/VanillaAutomation
  */
-public class BlockPlacer extends BlockVA {
+public class BlockPlacer extends BlockVA implements ITileEntityProvider {
 
     private static VisualRecipe recipe;
 
@@ -83,8 +84,7 @@ public class BlockPlacer extends BlockVA {
 
                 worldObj.setBlockState(pos, s);
                 block.onBlockAdded(worldObj, pos, s);
-
-                SoundType type = block.getSoundType();
+                SoundType type = block.getSoundType(s, worldObj, pos, fakePlayer);
                 if (type != null)
                     PacketHandler.INSTANCE.sendToAllAround(new MessagePlaySound(type.getPlaceSound().getSoundName().toString(), pos, type.getPitch(), type.getPitch()), new NetworkRegistry.TargetPoint(fakePlayer.dimension, pos.getX(), pos.getY(), pos.getZ(), 64));
                 return true;
@@ -128,6 +128,7 @@ public class BlockPlacer extends BlockVA {
 
     @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+
         if (!worldIn.isRemote) {
             TilePlacer tP = (TilePlacer) worldIn.getTileEntity(pos);
             int slot = tP.getNextPlaceable();
@@ -150,6 +151,15 @@ public class BlockPlacer extends BlockVA {
                 dest = pos.add(f.getFrontOffsetX() * tP.reachDistance, f.getFrontOffsetY() * tP.reachDistance, f.getFrontOffsetZ() * tP.reachDistance);
             }
 
+            boolean result = placeBlock(worldIn, dest, f, VAFakePlayer.instance(worldIn), placable);
+
+            if (result)
+                tP.decrStackSize(slot, 1);
+
+            if (tP.getStackInSlot(slot).getCount() == 0)
+                tP.setInventorySlotContents(slot, ItemStack.EMPTY); // Forge leaves stacks with 0 size so I'll get rid of it
+
+           /*
             EnumActionResult r = ForgeHooks.onPlaceItemIntoWorld(placable, VAFakePlayer.instance(worldIn), worldIn, dest, tP.placeFace, 0, 0, 0, EnumHand.MAIN_HAND);
 
             if (r == EnumActionResult.SUCCESS) {
@@ -164,7 +174,7 @@ public class BlockPlacer extends BlockVA {
 
                 if (tP.getStackInSlot(slot).getCount() == 0)
                     tP.decrStackSize(slot, 1); // Forge leaves stacks with 0 size so I'll get rid of it
-            }
+            }*/
         }
 
         super.updateTick(worldIn, pos, state, rand);
@@ -262,5 +272,11 @@ public class BlockPlacer extends BlockVA {
     @Override
     public EnumEntry getEntry() {
         return EnumEntry.BLOCK_PLACER;
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new TilePlacer();
     }
 }

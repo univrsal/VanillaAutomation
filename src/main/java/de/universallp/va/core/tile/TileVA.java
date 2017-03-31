@@ -8,6 +8,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 
@@ -20,26 +23,17 @@ import java.util.Arrays;
  * github.com/UniversalLP/VanillaAutomation
  */
 public class TileVA extends TileEntity implements IInventory {
-    protected ItemStack[] items = new ItemStack[9];
+    private NonNullList<ItemStack> items;
     protected int sizeInv;
 
     public TileVA(int invSize) {
         this.sizeInv = invSize;
-        items = new ItemStack[invSize];
+        items = NonNullList.withSize(invSize, ItemStack.EMPTY);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        NBTTagList l = new NBTTagList();
-        for (int i = 0; i < items.length; i++) {
-            NBTTagCompound tag = new NBTTagCompound();
-            if (items[i] != null)
-                items[i].writeToNBT(tag);
-            tag.setByte("slot", (byte) i);
-            l.appendTag(tag);
-        }
-
-        compound.setTag("items", l);
+        ItemStackHelper.saveAllItems(compound, this.items);
         return super.writeToNBT(compound);
 
     }
@@ -47,14 +41,7 @@ public class TileVA extends TileEntity implements IInventory {
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         super.readFromNBT(compound);
-        if (compound.hasKey("items")) {
-            NBTTagList l = compound.getTagList("items", 10);
-            for (int i = 0; i < getSizeInventory(); i++) {
-                NBTTagCompound t = l.getCompoundTagAt(i);
-                if (t != null)
-                    items[t.getByte("slot")] = new ItemStack(t);
-            }
-        }
+        ItemStackHelper.loadAllItems(compound, this.items);
     }
 
     @Override
@@ -74,13 +61,13 @@ public class TileVA extends TileEntity implements IInventory {
     @Override
     public ItemStack getStackInSlot(int index) {
         if (index < getSizeInventory())
-            return items[index];
+            return items.get(index);
         return null;
     }
 
     @Override
     public ItemStack decrStackSize(int index, int count) {
-        ItemStack itemstack = ItemStackHelper.getAndSplit(Arrays.asList(items), index, count);
+        ItemStack itemstack = ItemStackHelper.getAndSplit(items, index, count);
 
         if (itemstack != null)
             this.markDirty();
@@ -90,14 +77,12 @@ public class TileVA extends TileEntity implements IInventory {
 
     @Override
     public ItemStack removeStackFromSlot(int index) {
-        ItemStack s = items[index];
-        items[index] = null;
-        return s;
+        return ItemStackHelper.getAndRemove(this.items, index);
     }
 
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
-        items[index] = stack;
+        items.set(index, stack);
     }
 
     @Override

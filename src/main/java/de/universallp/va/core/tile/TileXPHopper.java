@@ -37,17 +37,24 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
     public static final int xpPerBottle = 13;
     public static final int hopperInv = 5;
     private int progress;
+
     private int transferCooldown = 0;
+    private long tickedGameTime;
 
     public TileXPHopper() {
         setCustomName(LibLocalization.GUI_XPHOPPER);
         ReflectionHelper.setPrivateValue(TileEntityHopper.class, this, NonNullList.<ItemStack>withSize(6, ItemStack.EMPTY), LibReflection.HOPPER_INVENTORY); // Welp, seems to work
     }
 
+    /**
+     * Get an empty slot to put filled bottles into
+     * @param inv
+     * @return
+     */
     public static int getBottleSlot(IInventory inv) {
         for (int i = 0; i < hopperInv; i++) {
             ItemStack s = inv.getStackInSlot(i);
-            if (s == null || s.getItem().equals(Items.EXPERIENCE_BOTTLE) && s.getCount() < s.getMaxStackSize())
+            if (s.isEmpty() || s.getItem().equals(Items.EXPERIENCE_BOTTLE) && s.getCount() < s.getMaxStackSize())
                 return i;
         }
         return -1;
@@ -103,14 +110,34 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
 
     @Override
     public void update() {
+
+        if (this.world != null && !this.world.isRemote) {
+            --this.transferCooldown;
+            this.tickedGameTime = this.world.getTotalWorldTime();
+            if (!this.isOnTransferCooldown())
+            {
+                this.setTransferCooldown(0);
+                this.updateHopper();
+            }
+
+        }
+    }
+
+    @Override
+    public void setTransferCooldown(int transferCooldown) {
+        this.transferCooldown = transferCooldown;
+    }
+
+    private void updateHopper() {
         BlockPos overHopper = getPos().up();
         List<EntityXPOrb> orbs = getWorld().getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(overHopper).expandXyz(1));
 
-        if (!orbs.isEmpty() && orbs.size() > 0 && BlockHopper.isEnabled(this.getBlockMetadata()))
+        if (!orbs.isEmpty() && BlockHopper.isEnabled(this.getBlockMetadata()))
             for (EntityXPOrb orb : orbs) {
                 int slot = getBottleSlot(this);
                 int resultXP = orb.xpValue + progress;
                 ItemStack bottles = getStackInSlot(5);
+
                 if (!bottles.isEmpty() && bottles.getCount() > 0)
                     if (resultXP >= xpPerBottle && slot > -1) { // If there's space for a new bottle and adding the xp of the current orb will result in a new bottle
                         ItemStack xpBottle = new ItemStack(Items.EXPERIENCE_BOTTLE, 1);
@@ -133,7 +160,7 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
                 boolean flag = false;
 
                 if (!this.isEmpty()) {
-                    flag = this.transferItemsOut();
+                   flag = this.transferItemsOut();
                 }
 
                 if (!this.isFull()) {
@@ -168,7 +195,7 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
     private boolean isFull() {
         for (int i = 0; i < getSizeInventory() - 1; i++) {
             ItemStack itemstack = getStackInSlot(i);
-            if (itemstack == null || itemstack.getCount() != itemstack.getMaxStackSize())
+            if (itemstack.isEmpty() || itemstack.getCount() != itemstack.getMaxStackSize())
                 return false;
         }
 
@@ -176,9 +203,9 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
     }
 
     private boolean transferItemsOut() {
-        if (net.minecraftforge.items.VanillaInventoryCodeHooks.insertHook(this)) {
-            return true;
-        }
+//        if (net.minecraftforge.items.VanillaInventoryCodeHooks.insertHook(this)) {
+//            return true;
+//        }
         IInventory iinventory = this.getInventoryForHopperTransfer();
 
         if (iinventory == null) {
@@ -190,11 +217,12 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
                 return false;
             } else {
                 for (int i = 0; i < this.getSizeInventory() - 1; ++i) {
-                    if (this.getStackInSlot(i) != null) {
+                    if (!this.getStackInSlot(i).isEmpty()) {
+
                         ItemStack itemstack = this.getStackInSlot(i).copy();
                         ItemStack itemstack1 = putStackInInventoryAllSlots(this, iinventory, this.decrStackSize(i, 1), enumfacing);
 
-                        if (itemstack1 == null || itemstack1.getCount() == 0) {
+                        if (itemstack1.isEmpty()) {
                             iinventory.markDirty();
                             return true;
                         }
@@ -213,10 +241,10 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
             ISidedInventory isidedinventory = (ISidedInventory) inventoryIn;
             int[] aint = isidedinventory.getSlotsForFace(side);
 
-            for (int k = 0; k < aint.length; ++k) {
+            for (int k : aint) {
                 ItemStack itemstack1 = isidedinventory.getStackInSlot(aint[k]);
 
-                if (itemstack1 == null || itemstack1.getCount() != itemstack1.getMaxStackSize())
+                if (itemstack1.isEmpty() || itemstack1.getCount() != itemstack1.getMaxStackSize())
                     return false;
             }
         } else {
@@ -225,7 +253,7 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
             for (int j = 0; j < i; ++j) {
                 ItemStack itemstack = inventoryIn.getStackInSlot(j);
 
-                if (itemstack == null || itemstack.getCount() != itemstack.getMaxStackSize()) {
+                if (itemstack.isEmpty() || itemstack.getCount() != itemstack.getMaxStackSize()) {
                     return false;
                 }
             }

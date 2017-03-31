@@ -19,7 +19,7 @@ public class XPHopperItemHandler extends VanillaHopperItemHandler {
     @Override
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
         if (slot == 5) // prevent pipes from taking out the bottles
-            return null;
+            return ItemStack.EMPTY;
         return super.extractItem(slot, amount, simulate);
     }
 }

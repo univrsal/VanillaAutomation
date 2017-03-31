@@ -45,7 +45,7 @@ public class TilePlacer extends TileVA {
         for (int i = 0; i < getSizeInventory(); i++) {
             ItemStack s = getStackInSlot(i);
 
-            if (s != null && s.getItem() != null)
+            if (s != null && !s.isEmpty())
                     return i;
         }
         return -1;

@@ -41,7 +41,7 @@ public class ContainerXPHopper extends Container {
 
     @Override
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
-        ItemStack itemstack = null;
+        ItemStack itemstack = ItemStack.EMPTY;
         Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack()) {
@@ -52,7 +52,7 @@ public class ContainerXPHopper extends Container {
                 if (!this.mergeItemStack(itemstack1, this.hopperInventory.getSizeInventory() - 1, this.hopperInventory.getSizeInventory(), true))
                     return null;
                 if (itemstack1.getCount() == 0)
-                    slot.putStack(null);
+                    slot.putStack(ItemStack.EMPTY);
                 return itemstack;
             }
 
@@ -65,7 +65,7 @@ public class ContainerXPHopper extends Container {
             }
 
             if (itemstack1.getCount() == 0) {
-                slot.putStack(null);
+                slot.putStack(ItemStack.EMPTY);
             } else {
                 slot.onSlotChanged();
             }

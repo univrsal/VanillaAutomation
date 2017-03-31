@@ -40,7 +40,7 @@ import static net.minecraft.block.BlockLever.POWERED;
  * under the MOZILLA PUBLIC LICENSE 2.0 - mozilla.org/en-US/MPL/2.0/
  * github.com/UniversalLP/VanillaAutomation
  */
-public class BlockClock extends BlockVA implements IEntryProvider, ITileEntityProvider {
+public class BlockClock extends BlockVA implements ITileEntityProvider {
 
     public static final PropertyBool EMITTING = PropertyBool.create("emitting");
     private static final AxisAlignedBB CLOCK_UP    = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D);
