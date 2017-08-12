@@ -47,7 +47,7 @@ public class GuiFilteredHopper extends GuiContainer {
     public void initGui() {
         super.initGui();
         btnIco = new ButtonIcon(0, guiLeft + 136, guiTop + 38, ButtonIcon.IconType.values()[hopperInventory.getField(0)]);
-        int xOffset = fontRendererObj.getStringWidth(I18n.format(LibLocalization.BTN_MOD)) + 21;
+        int xOffset = fontRenderer.getStringWidth(I18n.format(LibLocalization.BTN_MOD)) + 21;
         btnMatchMeta = new ButtonLabel(LibLocalization.BTN_META, ButtonIcon.IconType.values()[2 + hopperInventory.getField(1)], 1, guiLeft - xOffset, guiTop + 12);
         btnMatchNBT = new ButtonLabel(LibLocalization.BTN_NBT, ButtonIcon.IconType.values()[2 + hopperInventory.getField(2)], 2, guiLeft - xOffset, guiTop + 24);
         btnMatchMod = new ButtonLabel(LibLocalization.BTN_MOD, ButtonIcon.IconType.values()[2 + hopperInventory.getField(3)], 3, guiLeft - xOffset, guiTop + 36);
@@ -61,9 +61,9 @@ public class GuiFilteredHopper extends GuiContainer {
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        this.fontRendererObj.drawString(I18n.format(LibLocalization.GUI_FILTEREDHOPPER), 8, 6, LibNames.TEXT_COLOR);
-        this.fontRendererObj.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, LibNames.TEXT_COLOR);
-        this.fontRendererObj.drawString(I18n.format(LibLocalization.GUI_FILTER), 13, 44, LibNames.TEXT_COLOR);
+        this.fontRenderer.drawString(I18n.format(LibLocalization.GUI_FILTEREDHOPPER), 8, 6, LibNames.TEXT_COLOR);
+        this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, LibNames.TEXT_COLOR);
+        this.fontRenderer.drawString(I18n.format(LibLocalization.GUI_FILTER), 13, 44, LibNames.TEXT_COLOR);
     }
 
     @Override
@@ -73,7 +73,7 @@ public class GuiFilteredHopper extends GuiContainer {
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
-        int xOffset = fontRendererObj.getStringWidth(I18n.format(LibLocalization.BTN_MOD)) + 21;
+        int xOffset = fontRenderer.getStringWidth(I18n.format(LibLocalization.BTN_MOD)) + 21;
         drawTexturedModalRect(guiLeft - xOffset, guiTop + 5, 0, this.ySize, xOffset, 58);
     }
 

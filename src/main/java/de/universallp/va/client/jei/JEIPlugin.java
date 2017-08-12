@@ -38,17 +38,17 @@ public class JEIPlugin implements IModPlugin {
     public void register(@Nonnull IModRegistry registry) {
 
         // Items
-        registry.addDescription(new ItemStack(VAItems.itemGuide, 1), LibLocalization.JEI_GUIDE);
-        String[] descriptionTag = EnumEntry.getGuidePage("descriptiontag", 1, 2);
-        descriptionTag[1] = I18n.format(descriptionTag[1]).replaceAll("7n", "\\\\\n");
-        registry.addDescription(new ItemStack(VAItems.itemDescriptionTag, 1), descriptionTag);
+        //registry.addDescription(new ItemStack(VAItems.itemGuide, 1), LibLocalization.JEI_GUIDE);
+        //String[] descriptionTag = EnumEntry.getGuidePage("descriptiontag", 1, 2);
+        //descriptionTag[1] = I18n.format(descriptionTag[1]).replaceAll("7n", "\\\\\n");
+        //registry.addDescription(new ItemStack(VAItems.itemDescriptionTag, 1), descriptionTag);
 
         // Blocks
-        registry.addDescription(new ItemStack(VABlocks.filterHopper, 1), EnumEntry.getGuidePage("filteredhopper", 1, 2));
-        registry.addDescription(new ItemStack(VABlocks.xpHopper, 1), EnumEntry.getGuidePage("xphopper", 1, 2));
-        registry.addDescription(new ItemStack(VABlocks.placer, 1), EnumEntry.getGuidePage("blockplacer", 1, 2));
-        registry.addDescription(new ItemStack(Blocks.DISPENSER, 1), EnumEntry.getGuidePage("dispenser", 1, 2));
-        registry.addDescription(new ItemStack(VABlocks.redstoneclock, 1), EnumEntry.getGuidePage("redstoneclock", 1, 2));
+        //registry.addDescription(new ItemStack(VABlocks.filterHopper, 1), EnumEntry.getGuidePage("filteredhopper", 1, 2));
+        //registry.addDescription(new ItemStack(VABlocks.xpHopper, 1), EnumEntry.getGuidePage("xphopper", 1, 2));
+        //registry.addDescription(new ItemStack(VABlocks.placer, 1), EnumEntry.getGuidePage("blockplacer", 1, 2));
+        //registry.addDescription(new ItemStack(Blocks.DISPENSER, 1), EnumEntry.getGuidePage("dispenser", 1, 2));
+        //registry.addDescription(new ItemStack(VABlocks.redstoneclock, 1), EnumEntry.getGuidePage("redstoneclock", 1, 2));
 
     }
 

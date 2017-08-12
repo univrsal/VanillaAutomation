@@ -69,12 +69,12 @@ public class GuideHandler {
                             int x = e.getResolution().getScaledWidth() / 2;
                             int y = e.getResolution().getScaledHeight() / 2;
                             mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
-                            mc.fontRendererObj.drawString(I18n.format(LibLocalization.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
+                            mc.fontRenderer.drawString(I18n.format(LibLocalization.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
                             flag = true;
                         } else {
                             Entity mouseOver = getMouseOver(e.getPartialTicks(), 5, mc);
                             if (mouseOver != null && mc.currentScreen == null && mouseOver instanceof EntityItem) {
-                                ItemStack stack = ((EntityItem) mouseOver).getEntityItem();
+                                ItemStack stack = ((EntityItem) mouseOver).getItem();
 
                                 if (stack != null && stack.getItem() != null && stack.getItem() instanceof IEntryProvider) {
                                     EnumEntry entry = ((IEntryProvider) stack.getItem()).getEntry();
@@ -84,7 +84,7 @@ public class GuideHandler {
                                     int x = e.getResolution().getScaledWidth() / 2;
                                     int y = e.getResolution().getScaledHeight() / 2;
                                     mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
-                                    mc.fontRendererObj.drawString(I18n.format(LibLocalization.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
+                                    mc.fontRenderer.drawString(I18n.format(LibLocalization.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
                                     flag = true;
                                 }
                             }
@@ -99,7 +99,7 @@ public class GuideHandler {
                             int x = e.getResolution().getScaledWidth() / 2;
                             int y = e.getResolution().getScaledHeight() / 2;
                             mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
-                            mc.fontRendererObj.drawString(I18n.format(LibLocalization.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
+                            mc.fontRenderer.drawString(I18n.format(LibLocalization.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
                             flag = true;
                         }
                     }
@@ -123,10 +123,10 @@ public class GuideHandler {
                 Vec3d vec3 = entity.getPositionEyes(partialTicks);
 
                 Vec3d vec31 = entity.getLook(partialTicks);
-                Vec3d vec32 = vec3.addVector(vec31.xCoord * distance, vec31.yCoord * distance, vec31.zCoord * distance);
+                Vec3d vec32 = vec3.addVector(vec31.x * distance, vec31.y * distance, vec31.z * distance);
 
                 float f = 1.0F;
-                List<Entity> list = mc.world.getEntitiesInAABBexcluding(entity, entity.getEntityBoundingBox().addCoord(vec31.xCoord * distance, vec31.yCoord * distance, vec31.zCoord * distance).expand((double) f, (double) f, (double) f), Predicates.and(EntitySelectors.NOT_SPECTATING));
+                List<Entity> list = mc.world.getEntitiesInAABBexcluding(entity, entity.getEntityBoundingBox().grow(vec31.x * distance, vec31.y * distance, vec31.z * distance).expand((double) f, (double) f, (double) f), Predicates.and(EntitySelectors.NOT_SPECTATING));
                 double d2 = distance;
 
                 for (Entity entity1 : list) {
@@ -134,7 +134,7 @@ public class GuideHandler {
                     AxisAlignedBB axisalignedbb = entity1.getEntityBoundingBox().expand((double) f1, (double) f1, (double) f1);
                     RayTraceResult movingobjectposition = axisalignedbb.calculateIntercept(vec3, vec32);
 
-                    if (axisalignedbb.isVecInside(vec3)) {
+                    if (axisalignedbb.contains(vec3)) {
                         if (d2 >= 0.0D) {
                             pointedEntity = entity1;
                             d2 = 0.0D;

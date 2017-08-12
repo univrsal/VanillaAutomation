@@ -79,8 +79,4 @@ public class ContainerFilteredHopper extends Container {
         return hopperInventory.isUsableByPlayer(playerIn);
     }
 
-    @Override
-    protected void retrySlotClick(int slotId, int clickedButton, boolean mode, EntityPlayer playerIn) {
-        super.retrySlotClick(slotId, clickedButton, mode, playerIn);
-    }
 }

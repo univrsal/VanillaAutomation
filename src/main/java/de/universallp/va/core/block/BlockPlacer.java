@@ -65,7 +65,7 @@ public class BlockPlacer extends BlockVA implements ITileEntityProvider {
                 bS = new BlockSnapshot(worldObj, pos, placeState);
 
 
-            BlockEvent.PlaceEvent event = new BlockEvent.PlaceEvent(bS, blockS, fakePlayer);
+            BlockEvent.PlaceEvent event = new BlockEvent.PlaceEvent(bS, blockS, fakePlayer, EnumHand.MAIN_HAND);
 
             if (MinecraftForge.EVENT_BUS.post(event)) return false;
 

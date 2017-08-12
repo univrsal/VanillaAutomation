@@ -6,7 +6,9 @@ import de.universallp.va.client.gui.screen.VisualRecipe;
 import de.universallp.va.core.util.libs.LibGuiIDs;
 import de.universallp.va.core.util.libs.LibLocalization;
 import de.universallp.va.core.util.libs.LibNames;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -20,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -53,9 +56,9 @@ public class ItemGuide extends ItemVA {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         tooltip.add(TextFormatting.GRAY + I18n.format(LibLocalization.GUIDE_DESC));
-        super.addInformation(stack, playerIn, tooltip, advanced);
+        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
     @Override

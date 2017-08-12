@@ -46,7 +46,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
     }
 
     private static boolean captureDrops(TileFilteredHopper hopper) {
-        IInventory iinventory = getHopperInventory(hopper);
+        IInventory iinventory = getSourceInventory(hopper);
 
         EnumFacing enumfacing = EnumFacing.DOWN;
 
@@ -75,7 +75,7 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
             }
         } else {
             for (EntityItem entityitem : getCaptureItems(hopper.getWorld(), hopper.getXPos(), hopper.getYPos(), hopper.getZPos())) {
-                if (hopper.isItemValid(entityitem.getEntityItem()))
+                if (hopper.isItemValid(entityitem.getItem()))
                     if (putDropInInventoryAllSlots(null, hopper, entityitem)) {
                         return true;
                     }
@@ -175,7 +175,8 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
         }
     }
 
-    private void updateHopper() {
+    @Override
+    protected boolean updateHopper() {
         if (BlockHopper.isEnabled(this.getBlockMetadata())) {
             boolean flag = false;
 
@@ -190,8 +191,10 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
             if (flag) {
                 this.setTransferCooldown(8);
                 this.markDirty();
+                return true;
             }
         }
+        return false;
     }
 
     @Override

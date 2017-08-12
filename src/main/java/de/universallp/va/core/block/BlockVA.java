@@ -56,12 +56,12 @@ public class BlockVA extends Block implements IEntryProvider {
     public void addRecipe() {
         if (getRecipe() != null)
             switch (getRecipe().getType()) {
-                case SHAPED:
-                    GameRegistry.addRecipe(new ShapedRecipes(3, 3, this.getRecipe().getIngredients(), this.getRecipe().getResult()));
+              /*  case SHAPED:
+                    GameRegistry.addShapedRecipe(new ShapedRecipes("va",3, 3, this.getRecipe().getIngredients(), this.getRecipe().getResult()));
                     break;
                 case SHAPELESS:
-                    GameRegistry.addRecipe(new ShapelessRecipes(this.getRecipe().getResult(), Arrays.asList(this.getRecipe().getIngredients())));
-                    break;
+                    GameRegistry.addShapelessRecipe(new ShapelessRecipes("va", this.getRecipe().getResult(), this.getRecipe().getIngredients()));
+                    break;*/
             }
     }
 }

@@ -28,11 +28,11 @@ public class ButtonIcon extends GuiButton {
     }
 
     @Override
-    public void drawButton(Minecraft mc, int mouseX, int mouseY) {
+    public void drawButton(Minecraft mc, int mouseX, int mouseY, float pT) {
         if (drawDefaultTexture)
-            super.drawButton(mc, mouseX, mouseY);
+            super.drawButton(mc, mouseX, mouseY, pT);
         else {
-            this.hovered = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+            this.hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
         }
         if (this.visible) {
             icon.draw(this, drawDefaultTexture);
@@ -79,14 +79,14 @@ public class ButtonIcon extends GuiButton {
             GlStateManager.color(1, 1, 1);
             Minecraft.getMinecraft().getTextureManager().bindTexture(LibResources.GUI_ICONS);
             if (drawDefaultTexture) {
-                int xPos = parent.xPosition + 2;
+                int xPos = parent.x + 2;
                 if (parent.displayString.equals(""))
-                    xPos = parent.xPosition + parent.width / 2 - this.widht / 2;
-                int yPos = parent.yPosition + parent.height / 2 - this.widht / 2;
+                    xPos = parent.x + parent.width / 2 - this.widht / 2;
+                int yPos = parent.y + parent.height / 2 - this.widht / 2;
                 Minecraft.getMinecraft().getTextureManager().bindTexture(LibResources.GUI_ICONS);
                 parent.drawTexturedModalRect(xPos, yPos, x, y, widht, height);
             } else {
-                parent.drawTexturedModalRect(parent.xPosition, parent.yPosition, x, y, widht, height);
+                parent.drawTexturedModalRect(parent.x, parent.y, x, y, widht, height);
             }
         }
 

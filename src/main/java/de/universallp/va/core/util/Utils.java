@@ -1,7 +1,6 @@
 package de.universallp.va.core.util;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
-import com.sun.istack.internal.NotNull;
 import de.universallp.va.core.handler.ConfigHandler;
 import de.universallp.va.core.item.VAItems;
 import net.minecraft.block.Block;
@@ -160,7 +159,6 @@ public class Utils {
         return false;
     }
 
-    @NotNull
     public static ItemStack decreaseStack(ItemStack stack, int amount) {
         if (stack.getCount() > amount)
             stack.shrink(amount);

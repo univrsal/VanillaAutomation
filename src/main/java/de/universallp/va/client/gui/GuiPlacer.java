@@ -58,8 +58,8 @@ public class GuiPlacer extends GuiDispenser {
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
         if (ConfigHandler.BLOCK_PLACER_REACH > 1 && !useRedstone)
-            fontRendererObj.drawString(String.valueOf(reachDistance), (reachDistance > 9 ? 138 : 141), 39, LibNames.TEXT_COLOR);
-        fontRendererObj.drawString(I18n.format(LibLocalization.GUI_FACE), 9, 38, LibNames.TEXT_COLOR);
+            fontRenderer.drawString(String.valueOf(reachDistance), (reachDistance > 9 ? 138 : 141), 39, LibNames.TEXT_COLOR);
+        fontRenderer.drawString(I18n.format(LibLocalization.GUI_FACE), 9, 38, LibNames.TEXT_COLOR);
     }
 
     @Override

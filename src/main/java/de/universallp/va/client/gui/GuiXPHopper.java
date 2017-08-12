@@ -32,10 +32,10 @@ public class GuiXPHopper extends GuiContainer {
     @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
         super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-        this.fontRendererObj.drawString(I18n.format(LibLocalization.GUI_XPHOPPER), 8, 6, 4210752);
-        this.fontRendererObj.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRenderer.drawString(I18n.format(LibLocalization.GUI_XPHOPPER), 8, 6, 4210752);
+        this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, 4210752);
         if (mouseX >= guiLeft + 128 && mouseX <= guiLeft + 128 + 4 && mouseY >= guiTop + 20 && mouseY <= guiTop + 36)
-            drawCreativeTabHoveringText(percent + " %", mouseX - guiLeft, mouseY - guiTop);
+            drawHoveringText(percent + " %", mouseX - guiLeft, mouseY - guiTop);
 
     }
 

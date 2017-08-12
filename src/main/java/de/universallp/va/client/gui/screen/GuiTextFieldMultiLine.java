@@ -249,14 +249,16 @@ public class GuiTextFieldMultiLine extends GuiTextField {
         cursorX += s1.length();
     }
 
+
     @Override
-    public void mouseClicked(int mouseX, int mouseY, int mouseButton) {
+    public boolean mouseClicked(int mouseX, int mouseY, int mouseButton) {
         if (lines == null || lines.size() == 0) {
             lines = new ArrayList<String>();
             lines.add("");
         }
-        super.mouseClicked(mouseX, mouseY, mouseButton);
+        return super.mouseClicked(mouseX, mouseY, mouseButton);
     }
+
 
     @Override
     public String getSelectedText() {
@@ -272,10 +274,10 @@ public class GuiTextFieldMultiLine extends GuiTextField {
     @Override
     public void drawTextBox() {
         if (this.getVisible()) {
-            FontRenderer f = Minecraft.getMinecraft().fontRendererObj;
+            FontRenderer f = Minecraft.getMinecraft().fontRenderer;
             if (this.getEnableBackgroundDrawing()) {
-                drawRect(this.xPosition - 1, this.yPosition - 1, this.xPosition + this.width + 1, this.yPosition + this.height + 1, -6250336);
-                drawRect(this.xPosition, this.yPosition, this.xPosition + this.width, this.yPosition + this.height, -16777216);
+                drawRect(this.x - 1, this.y - 1, this.x + this.width + 1, this.y + this.height + 1, -6250336);
+                drawRect(this.x, this.y, this.x + this.width, this.y + this.height, -16777216);
             }
 
             int line = 0;
@@ -283,13 +285,13 @@ public class GuiTextFieldMultiLine extends GuiTextField {
                 if (i >= lines.size())
                     break;
                 String lineText = lines.get(i);
-                int top = lineHeight * line + yPosition + 2;
+                int top = lineHeight * line + y + 2;
                 if (i == cursorY && isFocused() && cursorX <= lineText.length()) {
-                    int xBeforeCursor = xPosition + f.getStringWidth(lineText.substring(0, cursorX)) + 2;
+                    int xBeforeCursor = x + f.getStringWidth(lineText.substring(0, cursorX)) + 2;
                     Gui.drawRect(xBeforeCursor, top, xBeforeCursor + 1, top + 1 + f.FONT_HEIGHT, -3092272);
                 }
 
-                f.drawStringWithShadow(lineText, xPosition + 2, top, 14737632);
+                f.drawStringWithShadow(lineText, x + 2, top, 14737632);
                 line++;
             }
         }

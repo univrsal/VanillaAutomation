@@ -30,10 +30,10 @@ public class MenuEntry {
     public void draw(int mouseX, int mouseY, int x, int y, GuiGuide parent) {
         if (pointsTo.isEnabled())
             if (mouseOver(mouseX, mouseY, x, y)) {
-                parent.mc.fontRendererObj.drawString(I18n.format(name), x, y, SELECTED);
-                parent.drawRectangle(x - 1, y, x + 113, y + Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT, BACKGROUND & 0x22000000, BACKGROUND & 0x22000000);
+                parent.mc.fontRenderer.drawString(I18n.format(name), x, y, SELECTED);
+                parent.drawRectangle(x - 1, y, x + 113, y + Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, BACKGROUND & 0x22000000, BACKGROUND & 0x22000000);
             } else {
-                parent.mc.fontRendererObj.drawString(I18n.format(name), x, y, UNSELECTED);
+                parent.mc.fontRenderer.drawString(I18n.format(name), x, y, UNSELECTED);
             }
     }
 
@@ -45,6 +45,6 @@ public class MenuEntry {
     }
 
     public boolean mouseOver(int mX, int mY, int x, int y) {
-        return mX > x && mX < x + 120 && mY > y && mY < y + Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT;
+        return mX > x && mX < x + 120 && mY > y && mY < y + Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
     }
 }

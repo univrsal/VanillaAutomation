@@ -30,14 +30,14 @@ public class Entry {
     }
 
     public void draw(int mouseX, int mouseY, GuiGuide parent, float partialTicks) {
-        parent.mc.fontRendererObj.setUnicodeFlag(true);
+        parent.mc.fontRenderer.setUnicodeFlag(true);
         if (pages != null && currentPage < pages.size() && currentPage >= 0) {
             int x = getX(parent.width);
             int y = getY(parent.height);
-            parent.mc.fontRendererObj.drawString(I18n.format(title), x + (120 / 2) - parent.mc.fontRendererObj.getStringWidth(I18n.format(title)) / 2, y - 3, new Color(200, 200, 200).getRGB());
+            parent.mc.fontRenderer.drawString(I18n.format(title), x + (120 / 2) - parent.mc.fontRenderer.getStringWidth(I18n.format(title)) / 2, y - 3, new Color(200, 200, 200).getRGB());
             pages.get(currentPage).draw(mouseX, mouseY, getX(parent.width), getY(parent.height), parent, partialTicks);
         }
-        parent.mc.fontRendererObj.setUnicodeFlag(false);
+        parent.mc.fontRenderer.setUnicodeFlag(false);
     }
 
     public void onClick(int mouseX, int mouseY, int button, GuiGuide parent) {

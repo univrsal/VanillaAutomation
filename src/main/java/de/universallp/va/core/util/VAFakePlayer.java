@@ -55,7 +55,7 @@ public class VAFakePlayer extends FakePlayer {
         if (itemStack == null) return false;
 
         BlockSnapshot bS = new BlockSnapshot(world, pos, world.getBlockState(pos));
-        BlockEvent.PlaceEvent event = ForgeEventFactory.onPlayerBlockPlace(this, bS, side);
+        BlockEvent.PlaceEvent event = ForgeEventFactory.onPlayerBlockPlace(this, bS, side, EnumHand.MAIN_HAND);
 
         if (event.isCanceled()) { return false; }
 

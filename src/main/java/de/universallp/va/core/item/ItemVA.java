@@ -12,6 +12,7 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -34,6 +35,7 @@ public class ItemVA extends Item implements IEntryProvider {
     protected ItemVA(String name) {
         this.itemName = name;
         ItemVA.items.add(this);
+        setRegistryName(name);
         setUnlocalizedName(name);
     }
 
@@ -47,7 +49,7 @@ public class ItemVA extends Item implements IEntryProvider {
     public void registerModel() {
         if (getHasSubtypes()) {
             NonNullList<ItemStack> subItems = NonNullList.create();
-            getSubItems(this, getCreativeTab(), subItems);
+            getSubItems(getCreativeTab(), subItems);
 
             for (int i = 0; i < subItems.size(); i++) {
                 ModelResourceLocation mdlResource = new ModelResourceLocation(itemName + (i == 0 ? "" : i), "inventory"); // Different resource location for sub items
@@ -71,7 +73,7 @@ public class ItemVA extends Item implements IEntryProvider {
     }
 
     public void register() {
-        GameRegistry.register(this, new ResourceLocation(itemName));
+        ForgeRegistries.ITEMS.register(this);//, new ResourceLocation(itemName));
         addRecipe();
     }
 
@@ -79,12 +81,12 @@ public class ItemVA extends Item implements IEntryProvider {
     public void addRecipe() {
         if (getRecipe() != null)
             switch (getRecipe().getType()) {
-                case SHAPED:
-                    GameRegistry.addRecipe(new ShapedRecipes(3, 3, this.getRecipe().getIngredients(), this.getRecipe().getResult()));
+              /*  case SHAPED:
+                    GameRegistry.addShapedRecipe(new ShapedRecipes("",3, 3, this.getRecipe().getIngredients(), this.getRecipe().getResult()));
                     break;
                 case SHAPELESS:
-                    GameRegistry.addRecipe(new ShapelessRecipes(this.getRecipe().getResult(), Arrays.asList(this.getRecipe().getIngredients())));
-                    break;
+                    GameRegistry.addShapelessRecipe(new ShapelessRecipes(this.getRecipe().getResult(), Arrays.asList(this.getRecipe().getIngredients())));
+                    break;*/
             }
     }
 }

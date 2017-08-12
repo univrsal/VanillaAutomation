@@ -2,6 +2,7 @@ package de.universallp.va.core.handler;
 
 import de.universallp.va.core.util.libs.LibNames;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

@@ -49,13 +49,13 @@ public class CommonProxy {
         CrashReportHandler.readCrashes(e.getSide());
 
         if (Loader.isModLoaded("tconstruct")) {
-            CompatTinkersConstruct.run(e, ICompatModule.EnumEventType.INIT);
+           // CompatTinkersConstruct.run(e, ICompatModule.EnumEventType.INIT);
         } else {
-            EnumEntry.TC_COMPAT.disable();
+          //  EnumEntry.TC_COMPAT.disable();
         }
 
         if (!Loader.isModLoaded("biomesoplenty")) {
-            EnumEntry.BOP_COMPAT.disable();
+          ///  EnumEntry.BOP_COMPAT.disable();
         }
     }
 

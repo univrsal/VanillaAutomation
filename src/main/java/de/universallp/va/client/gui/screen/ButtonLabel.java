@@ -20,19 +20,19 @@ public class ButtonLabel extends GuiButton {
     public ButtonLabel(String unlocalizedText, int id, int x, int y) {
         super(id, x, y, unlocalizedText);
         textColor = new Color(255, 255, 255);
-        width = Minecraft.getMinecraft().fontRendererObj.getStringWidth(I18n.format(unlocalizedText));
-        height = Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT;
+        width = Minecraft.getMinecraft().fontRenderer.getStringWidth(I18n.format(unlocalizedText));
+        height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
     }
 
     public ButtonLabel(String unlocalizedText, ButtonIcon.IconType icon, int id, int x, int y) {
         super(id, x, y, unlocalizedText);
         this.icon = icon;
         textColor = new Color(255, 255, 255);
-        width = Minecraft.getMinecraft().fontRendererObj.getStringWidth(I18n.format(unlocalizedText)) + 2 + icon.getWidht();
+        width = Minecraft.getMinecraft().fontRenderer.getStringWidth(I18n.format(unlocalizedText)) + 2 + icon.getWidht();
         if (icon != ButtonIcon.IconType.CHECKED && icon != ButtonIcon.IconType.UNCHECKED)
-            height = Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT > icon.getHeight() ? Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT : icon.getHeight();
+            height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT > icon.getHeight() ? Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT : icon.getHeight();
         else
-            height = Minecraft.getMinecraft().fontRendererObj.FONT_HEIGHT;
+            height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
     }
 
     @Override
@@ -41,7 +41,7 @@ public class ButtonLabel extends GuiButton {
     }
 
     @Override
-    public void drawButton(Minecraft mc, int mouseX, int mouseY) {
+    public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
         int offset = 0;
 
         if (icon != null) {
@@ -51,15 +51,15 @@ public class ButtonLabel extends GuiButton {
         if (visible)
             if (enabled)
                 if (isMouseOver(mouseX, mouseY))
-                    mc.fontRendererObj.drawString(I18n.format(displayString), xPosition + offset, yPosition, 16777120, true);
+                    mc.fontRenderer.drawString(I18n.format(displayString), x + offset, y, 16777120, true);
                 else
-                    mc.fontRendererObj.drawString(I18n.format(displayString), xPosition + offset, yPosition, textColor.getRGB(), true);
+                    mc.fontRenderer.drawString(I18n.format(displayString), x + offset, y, textColor.getRGB(), true);
             else
-                mc.fontRendererObj.drawString(I18n.format(displayString), xPosition + offset, yPosition, 10526880, true);
+                mc.fontRenderer.drawString(I18n.format(displayString), x + offset, y, 10526880, true);
     }
 
     public boolean isMouseOver(int mouseX, int mouseY) {
-        return mouseX > xPosition && mouseX < xPosition + width + 4 && mouseY > yPosition && mouseY < yPosition + height;
+        return mouseX > x && mouseX < x + width + 4 && mouseY > y && mouseY < y + height;
     }
 
     public ButtonIcon.IconType getIcon() {

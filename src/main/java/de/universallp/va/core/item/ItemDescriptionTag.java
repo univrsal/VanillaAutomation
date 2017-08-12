@@ -6,6 +6,7 @@ import de.universallp.va.client.gui.screen.VisualRecipe;
 import de.universallp.va.core.util.libs.LibLocalization;
 import de.universallp.va.core.util.libs.LibNames;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,6 +18,7 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -123,14 +125,14 @@ public class ItemDescriptionTag extends ItemVA {
     }
 
     @Override
-    public void addInformation(ItemStack stack, EntityPlayer playerIn, List<String> tooltip, boolean advanced) {
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         if (hasDescription(stack)) {
             tooltip.add(I18n.format(LibLocalization.TIP_DESCRIPTIONMODE) + " " + getMode(stack).getLocalizedName());
             tooltip.add(I18n.format(LibLocalization.TIP_DESCRIPTION));
             tooltip.addAll(getDescription(stack));
         }
 
-        super.addInformation(stack, playerIn, tooltip, advanced);
+        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
     @Override
@@ -155,7 +157,7 @@ public class ItemDescriptionTag extends ItemVA {
 
     @Override
     public void addRecipe() {
-        GameRegistry.addShapedRecipe(getRecipe().getResult(), "SI", "PP", 'S', Items.STRING, 'I', Items.DYE, 'P', Items.PAPER);
+        //GameRegistry.addShapedRecipe(getRecipe().getResult(), "SI", "PP", 'S', Items.STRING, 'I', Items.DYE, 'P', Items.PAPER);
     }
 
     public enum EnumTagMode {

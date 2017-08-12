@@ -42,12 +42,12 @@ public class ClientProxy extends CommonProxy {
         ItemVA.registerModels();
         VABlocks.registerModels();
         MinecraftForge.EVENT_BUS.register(new GuideHandler());
-        GuideHandler.initVanillaEntries();
     }
 
     @Override
     public void postInit(FMLPostInitializationEvent e) {
         super.postInit(e);
+        //GuideHandler.initVanillaEntries();
     }
 
 

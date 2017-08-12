@@ -3,6 +3,7 @@ package de.universallp.va.core.block;
 import de.universallp.va.core.tile.*;
 import de.universallp.va.core.util.libs.LibNames;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -26,15 +27,15 @@ public class VABlocks {
     }
 
     public static void register() {
-        GameRegistry.register(placer);
-        GameRegistry.register(xpHopper);
-        GameRegistry.register(filterHopper);
-        GameRegistry.register(redstoneclock);
+        ForgeRegistries.BLOCKS.register(placer);
+        ForgeRegistries.BLOCKS.register(xpHopper);
+        ForgeRegistries.BLOCKS.register(filterHopper);
+        ForgeRegistries.BLOCKS.register(redstoneclock);
 
-        GameRegistry.register(new ItemBlock(placer), placer.getRegistryName());
-        GameRegistry.register(new ItemBlock(xpHopper), xpHopper.getRegistryName());
-        GameRegistry.register(new ItemBlock(filterHopper), filterHopper.getRegistryName());
-        GameRegistry.register(new ItemBlock(redstoneclock), redstoneclock.getRegistryName());
+        //ForgeRegistries.ITEMS.register(new ItemBlock(placer));
+        //ForgeRegistries.ITEMS.register(new ItemBlock(xpHopper));
+        //ForgeRegistries.ITEMS.register(new ItemBlock(filterHopper));
+        //ForgeRegistries.ITEMS.register(new ItemBlock(redstoneclock));
 
         placer.addRecipe();
         xpHopper.addRecipe();

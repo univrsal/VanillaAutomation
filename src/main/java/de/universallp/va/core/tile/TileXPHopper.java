@@ -127,9 +127,10 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
         this.transferCooldown = transferCooldown;
     }
 
-    private void updateHopper() {
+    @Override
+    protected boolean updateHopper() {
         BlockPos overHopper = getPos().up();
-        List<EntityXPOrb> orbs = getWorld().getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(overHopper).expandXyz(1));
+        List<EntityXPOrb> orbs = getWorld().getEntitiesWithinAABB(EntityXPOrb.class, new AxisAlignedBB(overHopper).grow(1));
 
         if (!orbs.isEmpty() && BlockHopper.isEnabled(this.getBlockMetadata()))
             for (EntityXPOrb orb : orbs) {
@@ -169,9 +170,13 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
                 if (flag) {
                     this.setTransferCooldown(8);
                     this.markDirty();
+                    return true;
                 }
             }
-
+            return false;
+        }
+        else {
+            return false;
         }
     }
 
