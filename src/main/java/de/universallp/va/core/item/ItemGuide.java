@@ -29,7 +29,7 @@ import java.util.List;
  * Created by universallp on 21.03.2016 15:43 16:31.
  * This file is part of VanillaAutomation which is licenced
  * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
- * github.com/UniversalLP/VanillaAutomation
+ * github.com/univrsal/VanillaAutomation
  */
 public class ItemGuide extends ItemVA {
 
@@ -48,7 +48,7 @@ public class ItemGuide extends ItemVA {
 
     @Override
     public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-        if (!VanillaAutomation.proxy.isServer() && ClientProxy.hoveredEntry != null) {
+        if (!VanillaAutomation.proxy.isServer() && ClientProxy.hoveredEntry > 0) {
             player.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_GUIDE, world, 0, 0, 0);
             return EnumActionResult.SUCCESS;
         }

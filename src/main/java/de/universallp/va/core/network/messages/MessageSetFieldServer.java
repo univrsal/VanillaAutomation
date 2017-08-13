@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
  * Created by universallp on 28.03.2016 13:42 16:31.
  * This file is part of VanillaAutomation which is licenced
  * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
- * github.com/UniversalLP/VanillaAutomation
+ * github.com/univrsal/VanillaAutomation
  */
 public class MessageSetFieldServer implements IMessage, IMessageHandler<MessageSetFieldServer, IMessage> {
 

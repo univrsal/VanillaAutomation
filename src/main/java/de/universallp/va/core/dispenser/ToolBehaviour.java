@@ -15,7 +15,7 @@ import net.minecraft.world.World;
  * Created by universallp on 19.03.2016 17:52 16:31.
  * This file is part of VanillaAutomation which is licenced
  * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
- * github.com/UniversalLP/VanillaAutomation
+ * github.com/univrsal/VanillaAutomation
  */
 public class ToolBehaviour implements IBehaviorDispenseItem {
 

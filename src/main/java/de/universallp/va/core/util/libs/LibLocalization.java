@@ -4,7 +4,7 @@ package de.universallp.va.core.util.libs;
  * Created by universallp on 30.03.2016 13:32 16:31.
  * This file is part of VanillaAutomation which is licenced
  * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
- * github.com/UniversalLP/VanillaAutomation
+ * github.com/univrsal/VanillaAutomation
  */
 public class LibLocalization {
 
@@ -61,5 +61,34 @@ public class LibLocalization {
     public static final String NO = "gui.no";
     public static final String BTN_REDSTONE = "va.gui.btn.useredstone";
 
+    // Guide Entries
+    public static String[] getGuidePage(String entry, int startPage, int endPage) {
+        String[] pages = new String[(endPage - startPage) + 1];
+        for (int i = startPage; i <= endPage; i++)
+            pages[i - 1] = PAGE + entry + ".page" + i;
+        return pages;
+    }
 
+    private static final String PAGE = "va.guide.entry.";
+
+    public static final String[] ENTRIES_MENU = new String[]{LibLocalization.ENTRY_INTRO, LibLocalization.ENTRY_CREDITS, LibLocalization.ENTRY_BLOCKPLACER,
+            LibLocalization.ENTRY_DISPENSER, LibLocalization.ENTRY_XPHOPPER,
+            LibLocalization.ENTRY_FILTEREDHOPPER, LibLocalization.ENTRY_DESCRIPTION_TAG,
+            LibLocalization.ENTRY_CLOCK,
+
+            // Compat
+            LibLocalization.ENTRY_BOPCOMPAT, LibLocalization.ENTRY_TCONCOMPAT };
+
+    public static final String[] PAGES_INTRO = getGuidePage("intro", 1, 1);
+    public static final String[] PAGES_CREDITS = getGuidePage("credits", 1, 1);
+    public static final String[] PAGES_BLOCK_PLACER = getGuidePage("blockplacer", 1, 2);
+    public static final String[] PAGES_DISPENSER = getGuidePage("dispenser", 1, 2);
+    public static final String[] PAGES_XPHOPPER = getGuidePage("xphopper", 1, 2);
+    public static final String[] PAGES_FILTERED_HOPPER = getGuidePage("filteredhopper", 1, 2);
+    public static final String[] PAGES_DESCRIPTION_TAG = getGuidePage("descriptiontag", 1, 2);
+    public static final String[] PAGES_CLOCK = getGuidePage("redstoneclock", 1, 2);
+    public static final String[] PAGES_BOP_COMPAT = getGuidePage("bopcompat", 1, 1);
+    public static final String[] PAGES_TCON_COMPAT = getGuidePage("tconcompat", 1, 1);
+
+    public static final String ENTRY_MENU_TITLE = "va.gui.guide.menu";
 }

@@ -1,6 +1,7 @@
 package de.universallp.va.core.block;
 
 import de.universallp.va.VanillaAutomation;
+import de.universallp.va.client.gui.guide.Entries;
 import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.client.gui.screen.VisualRecipe;
 import de.universallp.va.core.item.VAItems;
@@ -37,7 +38,7 @@ import java.util.Random;
  * Created by universallp on 27.03.2016 22:56 16:31.
  * This file is part of VanillaAutomation which is licenced
  * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
- * github.com/UniversalLP/VanillaAutomation
+ * github.com/univrsal/VanillaAutomation
  */
 public class BlockXPHopper extends BlockHopper implements IEntryProvider {
 
@@ -87,14 +88,14 @@ public class BlockXPHopper extends BlockHopper implements IEntryProvider {
 
         ItemStack endereye = new ItemStack(Items.ENDER_EYE, 1);
         ItemStack hopper = new ItemStack(Blocks.HOPPER, 1);
-        recipe = new VisualRecipe(new ItemStack[] { endereye, null, null, hopper }, new ItemStack(VABlocks.xpHopper, 1), VisualRecipe.EnumRecipeType.SHAPED);
+        recipe = new VisualRecipe(new ItemStack[] { endereye, ItemStack.EMPTY, ItemStack.EMPTY, hopper }, new ItemStack(VABlocks.xpHopper, 1), VisualRecipe.EnumRecipeType.SHAPED);
 
         return recipe;
     }
 
     @Override
-    public EnumEntry getEntry() {
-        return EnumEntry.XPHOPPER;
+    public int getEntryID() {
+        return Entries.XPHOPPER.getEntryID();
     }
 
     @Override

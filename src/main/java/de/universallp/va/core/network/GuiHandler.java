@@ -2,6 +2,7 @@ package de.universallp.va.core.network;
 
 import de.universallp.va.client.ClientProxy;
 import de.universallp.va.client.gui.*;
+import de.universallp.va.client.gui.guide.Entries;
 import de.universallp.va.core.container.ContainerClock;
 import de.universallp.va.core.container.ContainerFilteredHopper;
 import de.universallp.va.core.container.ContainerXPHopper;
@@ -21,7 +22,7 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
  * Created by universallp on 19.03.2016 13:54 16:31.
  * This file is part of VanillaAutomation which is licenced
  * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
- * github.com/UniversalLP/VanillaAutomation
+ * github.com/univrsal/VanillaAutomation
  */
 public class GuiHandler implements IGuiHandler {
 
@@ -55,10 +56,10 @@ public class GuiHandler implements IGuiHandler {
         TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
 
         if (ID == LibGuiIDs.GUI_GUIDE)
-            if (ClientProxy.hoveredEntry == null)
+            if (ClientProxy.hoveredEntry < 1)
                 return new GuiGuide();
             else
-                return new GuiGuide(ClientProxy.hoveredEntry);
+                return new GuiGuide(Entries.getEntryById(ClientProxy.hoveredEntry));
 
         if (ID == LibGuiIDs.GUI_PLACER)
             return new GuiPlacer(player.inventory, (TilePlacer) te, ((TilePlacer) te).reachDistance, ((TilePlacer) te).placeFace, ((TilePlacer) te).useRedstone);

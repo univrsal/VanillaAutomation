@@ -1,6 +1,7 @@
 package de.universallp.va.core.block;
 
 import de.universallp.va.VanillaAutomation;
+import de.universallp.va.client.gui.guide.Entries;
 import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.client.gui.screen.VisualRecipe;
 import de.universallp.va.core.tile.TileClock;
@@ -38,7 +39,7 @@ import static net.minecraft.block.BlockLever.POWERED;
  * Created by universallp on 22.10.2016 20:46.
  * This file is part of VanillaAutomation which is licenced
  * under the MOZILLA PUBLIC LICENSE 2.0 - mozilla.org/en-US/MPL/2.0/
- * github.com/UniversalLP/VanillaAutomation
+ * github.com/univrsal/VanillaAutomation
  */
 public class BlockClock extends BlockVA implements ITileEntityProvider {
 
@@ -211,8 +212,8 @@ public class BlockClock extends BlockVA implements ITileEntityProvider {
     }
 
     @Override
-    public EnumEntry getEntry() {
-        return EnumEntry.CLOCK;
+    public int getEntryID() {
+        return Entries.CLOCK.getEntryID();
     }
 
     @Override

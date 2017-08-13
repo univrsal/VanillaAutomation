@@ -87,7 +87,7 @@ public class CrashReportHandler {
     public static void onServerStart(FMLServerStartingEvent event) {
         if (latestCrash != null && event.getSide() == Side.SERVER) {
             LogHelper.logInfo("VA found a crash-report (%s) which is likely related to it.", latestCrash.getName());
-            LogHelper.logInfo("If you want goto github.com/UniversalLP/VanillaAutomation and report it.");
+            LogHelper.logInfo("If you want goto github.com/univrsal/VanillaAutomation and report it.");
 
             Utils.setConfigValue(ConfigHandler.config.getConfigFile(), "    S:latestCrash=", latestCrash.getName());
             ConfigHandler.LATEST_CRASH = latestCrash.getName();
@@ -98,7 +98,7 @@ public class CrashReportHandler {
     public void onWorldJoined(EntityJoinWorldEvent e) {
         if (e != null && e.getEntity() instanceof EntityPlayer && e.getWorld().isRemote && latestCrash != null)
             if (!latestCrash.getName().equals(ConfigHandler.LATEST_CRASH)) {
-                ClickEvent issues = new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/UniversalLP/VanillaAutomation/issues");
+                ClickEvent issues = new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/univrsal/VanillaAutomation/issues");
                 Style s = new Style().setClickEvent(issues);
                 ITextComponent msg = new TextComponentString(I18n.format(LibLocalization.MSG_CRASH1)).setStyle(s);
 

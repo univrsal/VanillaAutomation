@@ -12,13 +12,15 @@ import java.util.List;
  * Created by universallp on 08.08.2016 17:48.
  * This file is part of VanillaAutomation which is licenced
  * under the MOZILLA PUBLIC LICENSE 1.1
- * github.com/UniversalLP/VanillaAutomation
+ * github.com/univrsal/VanillaAutomation
  */
 public class Entry {
 
     private List<EntryPage> pages = new ArrayList<EntryPage>();
     private int currentPage = 0;
+    private int entryID;
     private String title;
+    private boolean enabled = true;
 
     Entry(String t, EntryPage... pages) {
         Collections.addAll(this.pages, pages);
@@ -60,8 +62,31 @@ public class Entry {
         return currentPage;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void disable() {
+        enabled = false;
+    }
+
     public Entry setPage(int p) {
         currentPage = p;
         return this;
+    }
+
+    public void setEntryID(int entryID) {
+        this.entryID = entryID;
+    }
+
+    public int getEntryID() {
+        return entryID;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Entry)
+            return ((Entry) obj).entryID == this.entryID;
+        return super.equals(obj);
     }
 }

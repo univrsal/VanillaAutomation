@@ -4,7 +4,7 @@ package de.universallp.va.core.util.libs;
  * Created by universallp on 18.06.2016 13:24 16:31.
  * This file is part of VanillaAutomation which is licenced
  * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
- * github.com/UniversalLP/VanillaAutomation
+ * github.com/univrsal/VanillaAutomation
  */
 public class LibReflection {
 

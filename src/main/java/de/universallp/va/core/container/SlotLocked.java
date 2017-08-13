@@ -11,7 +11,7 @@ import javax.annotation.Nullable;
  * Created by universallp on 09.08.2016 00:50.
  * This file is part of VanillaAutomation which is licenced
  * under the MOZILLA PUBLIC LICENSE 1.1
- * github.com/UniversalLP/VanillaAutomation
+ * github.com/univrsal/VanillaAutomation
  */
 public class SlotLocked extends Slot {
 

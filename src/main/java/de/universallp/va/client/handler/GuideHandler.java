@@ -2,7 +2,8 @@ package de.universallp.va.client.handler;
 
 import com.google.common.base.Predicates;
 import de.universallp.va.client.ClientProxy;
-import de.universallp.va.client.gui.guide.EnumEntry;
+import de.universallp.va.client.gui.guide.Entries;
+import de.universallp.va.client.gui.guide.Entry;
 import de.universallp.va.core.item.VAItems;
 import de.universallp.va.core.util.IEntryProvider;
 import de.universallp.va.core.util.Utils;
@@ -31,14 +32,14 @@ import java.util.Map;
  * Created by universallp on 23.03.2016 18:32 16:31.
  * This file is part of VanillaAutomation which is licenced
  * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
- * github.com/UniversalLP/VanillaAutomation
+ * github.com/univrsal/VanillaAutomation
  */
 public class GuideHandler {
 
-    private static Map<Block, EnumEntry> vanillaEntries = new HashMap<Block, EnumEntry>();
+    private static Map<Block, Integer> vanillaEntries = new HashMap<Block, Integer>();
 
     public static void initVanillaEntries() {
-        vanillaEntries.put(Blocks.DISPENSER, EnumEntry.DISPENSER);
+        vanillaEntries.put(Blocks.DISPENSER, Entries.DISPENSER.getEntryID());
     }
 
     @SubscribeEvent
@@ -55,58 +56,75 @@ public class GuideHandler {
                     if (r.typeOfHit == RayTraceResult.Type.BLOCK) {
                         Block b = FMLClientHandler.instance().getWorldClient().getBlockState(r.getBlockPos()).getBlock();
 
-                        if (((b != null && b instanceof IEntryProvider) || vanillaEntries.containsKey(b)) && mc.currentScreen == null) {
-                            EnumEntry entry;
+                        if (((b instanceof IEntryProvider) || vanillaEntries.containsKey(b)) && mc.currentScreen == null) {
+                            int entryId;
 
                             if (b instanceof IEntryProvider)
-                                entry = ((IEntryProvider) b).getEntry();
+                                entryId = ((IEntryProvider) b).getEntryID();
                             else
-                                entry = vanillaEntries.get(b);
+                                entryId = vanillaEntries.get(b);
 
-                            entry.getEntry().setPage(0);
-                            ClientProxy.hoveredEntry = entry;
+                            if (entryId > 0) {
+                                Entry entry;
 
-                            int x = e.getResolution().getScaledWidth() / 2;
-                            int y = e.getResolution().getScaledHeight() / 2;
-                            mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
-                            mc.fontRenderer.drawString(I18n.format(LibLocalization.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
-                            flag = true;
+                                entry = Entries.getEntryById(entryId);
+                                entry.setPage(0);
+                                ClientProxy.hoveredEntry = entryId;
+
+                                int x = e.getResolution().getScaledWidth() / 2;
+                                int y = e.getResolution().getScaledHeight() / 2;
+                                mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
+                                mc.fontRenderer.drawString(I18n.format(LibLocalization.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
+                                flag = true;
+                            }
+
                         } else {
                             Entity mouseOver = getMouseOver(e.getPartialTicks(), 5, mc);
                             if (mouseOver != null && mc.currentScreen == null && mouseOver instanceof EntityItem) {
                                 ItemStack stack = ((EntityItem) mouseOver).getItem();
 
-                                if (stack != null && stack.getItem() != null && stack.getItem() instanceof IEntryProvider) {
-                                    EnumEntry entry = ((IEntryProvider) stack.getItem()).getEntry();
-                                    entry.getEntry().setPage(0);
-                                    ClientProxy.hoveredEntry = entry;
+                                if (!stack.isEmpty() && stack.getItem() instanceof IEntryProvider) {
+                                    int entryId = ((IEntryProvider) stack.getItem()).getEntryID();
 
-                                    int x = e.getResolution().getScaledWidth() / 2;
-                                    int y = e.getResolution().getScaledHeight() / 2;
-                                    mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
-                                    mc.fontRenderer.drawString(I18n.format(LibLocalization.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
-                                    flag = true;
+                                    if (entryId > 0) {
+                                        Entry entry = Entries.getEntryById(entryId);
+
+                                        entry.setPage(0);
+                                        ClientProxy.hoveredEntry = entryId;
+
+                                        int x = e.getResolution().getScaledWidth() / 2;
+                                        int y = e.getResolution().getScaledHeight() / 2;
+                                        mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
+                                        mc.fontRenderer.drawString(I18n.format(LibLocalization.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
+                                        flag = true;
+                                    }
                                 }
                             }
                         }
                     } else {
                         Entity mouseOver = getMouseOver(e.getPartialTicks(), 5, mc);
-                        if (mouseOver != null && mc.currentScreen == null && mouseOver instanceof IEntryProvider) {
-                            EnumEntry entry = ((IEntryProvider) mouseOver).getEntry();
-                            entry.getEntry().setPage(0);
-                            ClientProxy.hoveredEntry = entry;
 
-                            int x = e.getResolution().getScaledWidth() / 2;
-                            int y = e.getResolution().getScaledHeight() / 2;
-                            mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
-                            mc.fontRenderer.drawString(I18n.format(LibLocalization.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
-                            flag = true;
+                        if (mouseOver != null && mc.currentScreen == null && mouseOver instanceof IEntryProvider) {
+                            int entryId =  ((IEntryProvider) mouseOver).getEntryID();
+
+                            if (entryId > 0) {
+                                Entry entry = Entries.getEntryById(entryId);
+                                entry.setPage(0);
+                                ClientProxy.hoveredEntry = entryId;
+
+                                int x = e.getResolution().getScaledWidth() / 2;
+                                int y = e.getResolution().getScaledHeight() / 2;
+                                mc.getRenderItem().renderItemIntoGUI(new ItemStack(VAItems.itemGuide, 1), x, y);
+                                mc.fontRenderer.drawString(I18n.format(LibLocalization.GUIDE_LOOK), x + 18, y + 7, new Color(87, 145, 225).getRGB(), true);
+                                flag = true;
+                            }
+
                         }
                     }
             }
 
             if (!flag)
-                ClientProxy.hoveredEntry = null;
+                ClientProxy.hoveredEntry = -1;
         }
 
     }

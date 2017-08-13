@@ -1,3 +1,9 @@
+/**
+ * Created by universallp on 21.03.2016 18:16 16:31.
+ * This file is part of VanillaAutomation which is licenced
+ * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
+ * github.com/univrsal/VanillaAutomation
+ */
 package de.universallp.va.client.gui.guide;
 
 import de.universallp.va.client.gui.screen.VisualRecipe;
@@ -7,42 +13,35 @@ import de.universallp.va.core.util.libs.LibLocalization;
 
 public enum EnumEntry {
 
-    MENU(new String[] { LibLocalization.ENTRY_INTRO, LibLocalization.ENTRY_CREDITS, LibLocalization.ENTRY_BLOCKPLACER,
+    MENU(new String[]{LibLocalization.ENTRY_INTRO, LibLocalization.ENTRY_CREDITS, LibLocalization.ENTRY_BLOCKPLACER,
             LibLocalization.ENTRY_DISPENSER, LibLocalization.ENTRY_XPHOPPER,
             LibLocalization.ENTRY_FILTEREDHOPPER, LibLocalization.ENTRY_DESCRIPTION_TAG,
             LibLocalization.ENTRY_CLOCK,
 
             // Compat
-            LibLocalization.ENTRY_BOPCOMPAT, LibLocalization.ENTRY_TCONCOMPAT }),
+    LibLocalization.ENTRY_BOPCOMPAT, LibLocalization.ENTRY_TCONCOMPAT }),
 
-    INTRO(getGuidePage("intro", 1, 1)),
-    CREDITS(getGuidePage("credits", 1, 1)),
+    INTRO(LibLocalization.PAGES_INTRO),
+    CREDITS(LibLocalization.PAGES_CREDITS),
 
     // Actual entries
 
-    BLOCK_PLACER(getGuidePage("blockplacer", 1, 2), VABlocks.placer.getRecipe(), 1),
-    DISPENSER(getGuidePage("dispenser", 1, 2)),
-    XPHOPPER(getGuidePage("xphopper", 1, 2), VABlocks.xpHopper.getRecipe(), 1),
-    FILTERED_HOPPER(getGuidePage("filteredhopper", 1, 2), VABlocks.filterHopper.getRecipe(), 1),
-    DESCRIPTION_TAG(getGuidePage("descriptiontag", 1, 2), VAItems.itemDescriptionTag.getRecipe(), 1),
-    CLOCK(getGuidePage("redstoneclock", 1, 2), VABlocks.redstoneclock.getRecipe(), 1),
+    BLOCK_PLACER(LibLocalization.PAGES_BLOCK_PLACER, VABlocks.placer.getRecipe(), 1),
+    DISPENSER(LibLocalization.PAGES_DISPENSER),
+    XPHOPPER(LibLocalization.PAGES_XPHOPPER, VABlocks.xpHopper.getRecipe(), 1),
+    FILTERED_HOPPER(LibLocalization.PAGES_FILTERED_HOPPER, VABlocks.filterHopper.getRecipe(), 1),
+    DESCRIPTION_TAG(LibLocalization.PAGES_DESCRIPTION_TAG, VAItems.itemDescriptionTag.getRecipe(), 1),
+    CLOCK(LibLocalization.PAGES_CLOCK, VABlocks.redstoneclock.getRecipe(), 1);
 
     // Compat entries
 
-    BOP_COMPAT(getGuidePage("bopcompat", 1, 1)),
-    TC_COMPAT(getGuidePage("tconcompat", 1, 1));
+    //BOP_COMPAT(LibLocalization.PAGES_BOP_COMPAT),
+    //TC_COMPAT(LibLocalization.PAGES_TCON_COMPAT);
 
-    /**
-     * Created by universallp on 21.03.2016 18:16 16:31.
-     * This file is part of VanillaAutomation which is licenced
-     * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
-     * github.com/UniversalLP/VanillaAutomation
-     */
-    private static final String PAGE = "va.guide.entry.";
-    private String[] entries;
-    private Entry instance;
-    private VisualRecipe vR;
-    private int recipePage;
+    private String[] entries = null;
+    private Entry instance = null;
+    private VisualRecipe vR = null;
+    private int recipePage = -1;
     private boolean enabled = true;
 
     EnumEntry(String[] entries) {
@@ -53,14 +52,10 @@ public enum EnumEntry {
         this.entries = entries;
         this.vR = recipe;
         this.recipePage = pageForRecipe;
+        this.instance = null;
     }
 
-    public static String[] getGuidePage(String entry, int startPage, int endPage) {
-        String[] pages = new String[(endPage - startPage) + 1];
-        for (int i = startPage; i <= endPage; i++)
-            pages[i - 1] = PAGE + entry + ".page" + i;
-        return pages;
-    }
+
 
     public void disable() {
         this.enabled = false;
@@ -71,14 +66,15 @@ public enum EnumEntry {
     }
 
     public Entry getEntry() {
+
         if (instance != null)
             return instance;
 
         if (this == EnumEntry.MENU) {
             MenuEntry[] menuEntries = new MenuEntry[entries.length];
 
-            for (int i = 0; i < entries.length; i++)
-                menuEntries[i] = new MenuEntry(entries[i], EnumEntry.values()[i]); // First entry is skipped
+            //for (int i = 0; i < entries.length; i++)
+            //    menuEntries[i] = new MenuEntry(entries[i], EnumEntry.values()[i]); // First entry is skipped
 
             EntryPage menuPage = new EntryPage(menuEntries);
             instance = new Entry(getEntryTitle(), menuPage);

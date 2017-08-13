@@ -21,7 +21,7 @@ import java.util.List;
  * Created by universallp on 22.03.2016 15:59 16:31.
  * This file is part of VanillaAutomation which is licenced
  * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
- * github.com/UniversalLP/VanillaAutomation
+ * github.com/univrsal/VanillaAutomation
  */
 public class VisualRecipe {
 
@@ -58,17 +58,21 @@ public class VisualRecipe {
                 if (stack < stacks.size()) {
                     int posX = x - 1 + b * 17;
                     int posY = (y + offset) + 1 + i * 17;
-                    ItemStack current = stacks.get(stack).getMatchingStacks()[0];
 
-                    if (!current.isEmpty()) {
-                        RenderHelper.enableGUIStandardItemLighting();
-                        Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(current, posX, posY);
+                    if (stacks.get(stack).getMatchingStacks().length > 0) {
+                        ItemStack current = stacks.get(stack).getMatchingStacks()[0];
 
-                        if (mouseX > posX && mouseX < posX + 17 && mouseY > posY && mouseY < posY + 17) {
-                            f = current.getItem().getFontRenderer(current);
-                            tooltip = current.getTooltip(parent.mc.player, parent.mc.gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
-                            mouseOver = true;
+                        if (!current.isEmpty()) {
+                            RenderHelper.enableGUIStandardItemLighting();
+                            Minecraft.getMinecraft().getRenderItem().renderItemAndEffectIntoGUI(current, posX, posY);
+
+                            if (mouseX > posX && mouseX < posX + 17 && mouseY > posY && mouseY < posY + 17) {
+                                f = current.getItem().getFontRenderer(current);
+                                tooltip = current.getTooltip(parent.mc.player, parent.mc.gameSettings.advancedItemTooltips ? ITooltipFlag.TooltipFlags.ADVANCED : ITooltipFlag.TooltipFlags.NORMAL);
+                                mouseOver = true;
+                            }
                         }
+
                     }
 
                 } else

@@ -12,6 +12,7 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -25,24 +26,18 @@ import java.util.List;
  * Created by universallp on 21.03.2016 14:45 16:31.
  * This file is part of VanillaAutomation which is licenced
  * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
- * github.com/UniversalLP/VanillaAutomation
+ * github.com/univrsal/VanillaAutomation
  */
 public class ItemVA extends Item implements IEntryProvider {
 
-    public static List<ItemVA> items = new ArrayList<ItemVA>();
-    private String itemName;
 
     protected ItemVA(String name) {
-        this.itemName = name;
-        ItemVA.items.add(this);
-        setRegistryName(name);
         setUnlocalizedName(name);
     }
 
-    @SideOnly(Side.CLIENT)
-    public static void registerModels() {
-        for (ItemVA item : items)
-            item.registerModel();
+    @Override
+    public Item setUnlocalizedName(String unlocalizedName) {
+        return super.setUnlocalizedName("va_" + unlocalizedName);
     }
 
     @SideOnly(Side.CLIENT)
@@ -50,15 +45,13 @@ public class ItemVA extends Item implements IEntryProvider {
         if (getHasSubtypes()) {
             NonNullList<ItemStack> subItems = NonNullList.create();
             getSubItems(getCreativeTab(), subItems);
-
+            String name = ForgeRegistries.ITEMS.getKey(this).toString();
             for (int i = 0; i < subItems.size(); i++) {
-                ModelResourceLocation mdlResource = new ModelResourceLocation(itemName + (i == 0 ? "" : i), "inventory"); // Different resource location for sub items
-                Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(this, i, mdlResource);
-                ModelBakery.registerItemVariants(this, mdlResource);
+                ModelLoader.setCustomModelResourceLocation(this, i, new ModelResourceLocation(name, "inventory"));
             }
         } else {
-            ModelResourceLocation mdlResource = new ModelResourceLocation(itemName, "inventory");
-            Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(this, 0, mdlResource);
+            String name = ForgeRegistries.ITEMS.getKey(this).toString();
+            ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(name, "inventory"));
         }
     }
 
@@ -68,8 +61,8 @@ public class ItemVA extends Item implements IEntryProvider {
     }
 
     @Override
-    public EnumEntry getEntry() {
-        return null;
+    public int getEntryID() {
+        return -1;
     }
 
     public void register() {

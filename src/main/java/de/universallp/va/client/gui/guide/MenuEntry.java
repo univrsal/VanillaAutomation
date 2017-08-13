@@ -12,7 +12,7 @@ import java.awt.*;
  * Created by universallp on 21.03.2016 18:33 16:31.
  * This file is part of VanillaAutomation which is licenced
  * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
- * github.com/UniversalLP/VanillaAutomation
+ * github.com/univrsal/VanillaAutomation
  */
 public class MenuEntry {
 
@@ -20,15 +20,15 @@ public class MenuEntry {
     private static final int UNSELECTED = new Color(40, 40, 40).getRGB();
     private static final int BACKGROUND = new Color(230, 230, 230).getRGB();
     private String name;
-    private EnumEntry pointsTo;
+    private int pointsTo;
 
-    public MenuEntry(String name, EnumEntry pointsTo) {
+    public MenuEntry(String name, int pointsTo) {
         this.name = name;
         this.pointsTo = pointsTo;
     }
 
     public void draw(int mouseX, int mouseY, int x, int y, GuiGuide parent) {
-        if (pointsTo.isEnabled())
+        if (Entries.getEntryById(pointsTo).isEnabled())
             if (mouseOver(mouseX, mouseY, x, y)) {
                 parent.mc.fontRenderer.drawString(I18n.format(name), x, y, SELECTED);
                 parent.drawRectangle(x - 1, y, x + 113, y + Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT, BACKGROUND & 0x22000000, BACKGROUND & 0x22000000);
@@ -39,7 +39,7 @@ public class MenuEntry {
 
     public void onClick(int mouseX, int mouseY, int button, GuiGuide parent) {
         if (button == 0) {
-            parent.setCurrentEntry(pointsTo.getEntry());
+            parent.setCurrentEntry(Entries.getEntryById(pointsTo));
             Minecraft.getMinecraft().getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
         }
     }

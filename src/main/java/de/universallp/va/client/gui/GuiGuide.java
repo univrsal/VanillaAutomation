@@ -1,6 +1,7 @@
 package de.universallp.va.client.gui;
 
 import de.universallp.va.client.ClientProxy;
+import de.universallp.va.client.gui.guide.Entries;
 import de.universallp.va.client.gui.guide.Entry;
 import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.client.gui.screen.ButtonLabel;
@@ -17,7 +18,7 @@ import java.io.IOException;
  * Created by universallp on 21.03.2016 15:45 16:31.
  * This file is part of VanillaAutomation which is licenced
  * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
- * github.com/UniversalLP/VanillaAutomation
+ * github.com/univrsal/VanillaAutomation
  */
 public class GuiGuide extends GuiScreen {
 
@@ -31,8 +32,8 @@ public class GuiGuide extends GuiScreen {
     private Entry currentEntry;
     private Entry lastEntry;
 
-    public GuiGuide(EnumEntry entry) {
-        currentEntry = entry.getEntry();
+    public GuiGuide(Entry entry) {
+        currentEntry = entry;
         ClientProxy.guiScale = Minecraft.getMinecraft().gameSettings.guiScale;
         Minecraft.getMinecraft().gameSettings.guiScale = 0;
     }
@@ -41,7 +42,7 @@ public class GuiGuide extends GuiScreen {
         if (ClientProxy.lastEntry != null)
             currentEntry = ClientProxy.lastEntry;
         else
-            currentEntry = EnumEntry.MENU.getEntry();
+            currentEntry = Entries.MENU;
 
         ClientProxy.guiScale = Minecraft.getMinecraft().gameSettings.guiScale;
         Minecraft.getMinecraft().gameSettings.guiScale = 0;
@@ -54,7 +55,7 @@ public class GuiGuide extends GuiScreen {
         btnNext = new ButtonLabel("-->", 2, width / 2 + 44, height / 2 + 100);
         btnLast = new ButtonLabel("<--", 3, width / 2 - 50, height / 2 + 100);
 
-        btnBack.enabled = lastEntry != null || !currentEntry.equals(EnumEntry.MENU.getEntry());
+        btnBack.enabled = lastEntry != null || !currentEntry.equals(Entries.MENU);
 
         btnNext.enabled = currentEntry.getPage() < currentEntry.getMaxPages() - 1;
 
@@ -103,11 +104,11 @@ public class GuiGuide extends GuiScreen {
     @Override
     protected void actionPerformed(GuiButton button) throws IOException {
         if (button.id == 0) // Menu
-            currentEntry = EnumEntry.MENU.getEntry();
+            currentEntry = Entries.MENU;
         else if (button.id == 1) { // Back
-            if (!currentEntry.equals(EnumEntry.MENU.getEntry())) {
+            if (!currentEntry.equals(Entries.MENU)) {
                 lastEntry = currentEntry;
-                currentEntry = EnumEntry.MENU.getEntry();
+                currentEntry = Entries.MENU;
             } else if (lastEntry != null) {
                 Entry e = lastEntry;
                 lastEntry = currentEntry;
@@ -126,7 +127,7 @@ public class GuiGuide extends GuiScreen {
     @Override
     public void updateScreen() {
         super.updateScreen();
-        btnBack.enabled = lastEntry != null || !currentEntry.equals(EnumEntry.MENU.getEntry());
+        btnBack.enabled = lastEntry != null || !currentEntry.equals(Entries.MENU);
 
         btnNext.enabled = currentEntry.getPage() < currentEntry.getMaxPages() - 1;
 

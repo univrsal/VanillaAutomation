@@ -1,6 +1,7 @@
 package de.universallp.va.core.item;
 
 import com.mojang.realmsclient.gui.ChatFormatting;
+import de.universallp.va.client.gui.guide.Entries;
 import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.client.gui.screen.VisualRecipe;
 import de.universallp.va.core.util.libs.LibLocalization;
@@ -27,7 +28,7 @@ import java.util.List;
  * Created by universallp on 06.08.2016 16:23 16:31.
  * This file is part of VanillaAutomation which is licenced
  * under the MOZILLA PUBLIC LICENCE 2.0 - mozilla.org/en-US/MPL/2.0/
- * github.com/UniversalLP/VanillaAutomation
+ * github.com/univrsal/VanillaAutomation
  */
 public class ItemDescriptionTag extends ItemVA {
 
@@ -136,8 +137,8 @@ public class ItemDescriptionTag extends ItemVA {
     }
 
     @Override
-    public EnumEntry getEntry() {
-        return EnumEntry.DESCRIPTION_TAG;
+    public int getEntryID() {
+        return Entries.DESCRIPTION_TAG.getEntryID();
     }
 
     @Override
@@ -149,9 +150,9 @@ public class ItemDescriptionTag extends ItemVA {
         ItemStack paper = new ItemStack(Items.PAPER, 1);
         ItemStack ink = new ItemStack(Items.DYE, 1);
 
-        recipe = new VisualRecipe(new ItemStack[] { string, ink, null,
-                paper, paper, null,
-                null, null, null }, new ItemStack(this, 3), VisualRecipe.EnumRecipeType.SHAPED);
+        recipe = new VisualRecipe(new ItemStack[] { string, ink, ItemStack.EMPTY,
+                paper, paper, ItemStack.EMPTY,
+                ItemStack.EMPTY, ItemStack.EMPTY, ItemStack.EMPTY }, new ItemStack(this, 3), VisualRecipe.EnumRecipeType.SHAPED);
         return recipe;
     }
 
