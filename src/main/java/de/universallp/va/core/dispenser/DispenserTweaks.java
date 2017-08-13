@@ -30,41 +30,17 @@ public class DispenserTweaks {
     public static final ShearBehaviour SHEAR_BEHAVIOUR = new ShearBehaviour();
     public static final DiscBehaviour DISC_BEHAVIOUR = new DiscBehaviour();
     public static final NameTagBehaviour NAME_TAG_BEHAVIOUR = new NameTagBehaviour();
+    public static final StickBehaviour STICK_BEHAVIOUR = new StickBehaviour();
 
     public static void register() {
         if (ConfigHandler.DISPENSER_USE_DYE)
             add(Items.DYE, DYE_BEHAVIOUR);
 
         if (ConfigHandler.DISPENSER_USE_TOOLS) {
-
-//            add(Items.DIAMOND_PICKAXE, TOOL_BEHAVIOUR);
-//            add(Items.IRON_PICKAXE, TOOL_BEHAVIOUR);
-//            add(Items.GOLDEN_PICKAXE, TOOL_BEHAVIOUR);
-//            add(Items.STONE_PICKAXE, TOOL_BEHAVIOUR);
-//            add(Items.WOODEN_PICKAXE, TOOL_BEHAVIOUR);
-//
-//            add(Items.DIAMOND_SHOVEL, TOOL_BEHAVIOUR);
-//            add(Items.IRON_SHOVEL, TOOL_BEHAVIOUR);
-//            add(Items.GOLDEN_SHOVEL, TOOL_BEHAVIOUR);
-//            add(Items.STONE_SHOVEL, TOOL_BEHAVIOUR);
-//            add(Items.WOODEN_SHOVEL, TOOL_BEHAVIOUR);
-//
-//            add(Items.DIAMOND_AXE, TOOL_BEHAVIOUR);
-//            add(Items.IRON_AXE, TOOL_BEHAVIOUR);
-//            add(Items.GOLDEN_AXE, TOOL_BEHAVIOUR);
-//            add(Items.STONE_AXE, TOOL_BEHAVIOUR);
-//            add(Items.WOODEN_PICKAXE, TOOL_BEHAVIOUR);
-
             add(Items.SHEARS, SHEAR_BEHAVIOUR);
         }
 
-//        if (ConfigHandler.DISPENSER_USE_WEAPONS) {
-//            add(Items.DIAMOND_SWORD, SWORD_BEHAVIOUR);
-//            add(Items.IRON_SWORD, SWORD_BEHAVIOUR);
-//            add(Items.GOLDEN_SWORD, SWORD_BEHAVIOUR);
-//            add(Items.STONE_SWORD, SWORD_BEHAVIOUR);
-//            add(Items.WOODEN_SWORD, SWORD_BEHAVIOUR);
-//        }
+        add(Items.STICK, STICK_BEHAVIOUR);
 
         if (ConfigHandler.DISPENSER_USE_DISCS) {
             add(Items.RECORD_11, DISC_BEHAVIOUR);

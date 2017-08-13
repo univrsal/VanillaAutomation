@@ -2,6 +2,7 @@ package de.universallp.va.client.jei;
 
 import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.core.block.VABlocks;
+import de.universallp.va.core.item.ItemGuide;
 import de.universallp.va.core.item.VAItems;
 import de.universallp.va.core.util.libs.LibLocalization;
 import mezz.jei.api.IJeiRuntime;
@@ -38,6 +39,7 @@ public class JEIPlugin implements IModPlugin {
     public void register(@Nonnull IModRegistry registry) {
 
         // Items
+        //registry.addIngredientInfo(VAItems.itemGuide, ItemGuide.class, LibLocalization.JEI_GUIDE);
         //registry.addDescription(new ItemStack(VAItems.itemGuide, 1), LibLocalization.JEI_GUIDE);
         //String[] descriptionTag = EnumEntry.getGuidePage("descriptiontag", 1, 2);
         //descriptionTag[1] = I18n.format(descriptionTag[1]).replaceAll("7n", "\\\\\n");

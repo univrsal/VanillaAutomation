@@ -82,7 +82,7 @@ public class LibLocalization {
     public static final String[] PAGES_INTRO = getGuidePage("intro", 1, 1);
     public static final String[] PAGES_CREDITS = getGuidePage("credits", 1, 1);
     public static final String[] PAGES_BLOCK_PLACER = getGuidePage("blockplacer", 1, 2);
-    public static final String[] PAGES_DISPENSER = getGuidePage("dispenser", 1, 2);
+    public static final String[] PAGES_DISPENSER = getGuidePage("dispenser", 1, 3);
     public static final String[] PAGES_XPHOPPER = getGuidePage("xphopper", 1, 2);
     public static final String[] PAGES_FILTERED_HOPPER = getGuidePage("filteredhopper", 1, 2);
     public static final String[] PAGES_DESCRIPTION_TAG = getGuidePage("descriptiontag", 1, 2);

@@ -8,9 +8,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -46,16 +48,4 @@ public class BlockVA extends Block implements IEntryProvider {
         return -1;
     }
 
-    @Override
-    public void addRecipe() {
-        if (getRecipe() != null)
-            switch (getRecipe().getType()) {
-              /*  case SHAPED:
-                    GameRegistry.addShapedRecipe(new ShapedRecipes("va",3, 3, this.getRecipe().getIngredients(), this.getRecipe().getResult()));
-                    break;
-                case SHAPELESS:
-                    GameRegistry.addShapelessRecipe(new ShapelessRecipes("va", this.getRecipe().getResult(), this.getRecipe().getIngredients()));
-                    break;*/
-            }
-    }
 }

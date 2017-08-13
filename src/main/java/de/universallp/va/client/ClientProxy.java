@@ -38,13 +38,14 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent e) {
         super.preInit(e);
+        VAItems.registerModels();
+        VABlocks.registerModels();
     }
 
     @Override
     public void init(FMLInitializationEvent e) {
         super.init(e);
-        VAItems.registerModels();
-        VABlocks.registerModels();
+
         MinecraftForge.EVENT_BUS.register(new GuideHandler());
     }
 

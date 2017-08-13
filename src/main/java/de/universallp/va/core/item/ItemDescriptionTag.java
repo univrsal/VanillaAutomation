@@ -156,10 +156,6 @@ public class ItemDescriptionTag extends ItemVA {
         return recipe;
     }
 
-    @Override
-    public void addRecipe() {
-        //GameRegistry.addShapedRecipe(getRecipe().getResult(), "SI", "PP", 'S', Items.STRING, 'I', Items.DYE, 'P', Items.PAPER);
-    }
 
     public enum EnumTagMode {
         NONE(LibLocalization.TAGMODE_NONE),

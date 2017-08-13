@@ -26,14 +26,10 @@ public class VABlocks {
         ForgeRegistries.BLOCKS.register(redstoneclock);
 
         ForgeRegistries.ITEMS.register(new ItemBlock(placer).setRegistryName(LibNames.BLOCK_PLACER));
-        //ForgeRegistries.ITEMS.register(new ItemBlock(xpHopper));
-        //ForgeRegistries.ITEMS.register(new ItemBlock(filterHopper));
-        //ForgeRegistries.ITEMS.register(new ItemBlock(redstoneclock));
+        ForgeRegistries.ITEMS.register(new ItemBlock(xpHopper).setRegistryName(LibNames.BLOCK_XPHOPPER));
+        ForgeRegistries.ITEMS.register(new ItemBlock(filterHopper).setRegistryName(LibNames.BLOCK_FILTEREDHOPPER));
+        ForgeRegistries.ITEMS.register(new ItemBlock(redstoneclock).setRegistryName(LibNames.BLOCK_CLOCK));
 
-        placer.addRecipe();
-        xpHopper.addRecipe();
-        filterHopper.addRecipe();
-        redstoneclock.addRecipe();
         registerTiles();
     }
 

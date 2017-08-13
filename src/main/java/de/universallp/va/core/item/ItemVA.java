@@ -1,26 +1,15 @@
 package de.universallp.va.core.item;
 
-import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.client.gui.screen.VisualRecipe;
 import de.universallp.va.core.util.IEntryProvider;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelBakery;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ShapedRecipes;
-import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by universallp on 21.03.2016 14:45 16:31.
@@ -30,14 +19,10 @@ import java.util.List;
  */
 public class ItemVA extends Item implements IEntryProvider {
 
-
+    private String itemName;
     protected ItemVA(String name) {
         setUnlocalizedName(name);
-    }
-
-    @Override
-    public Item setUnlocalizedName(String unlocalizedName) {
-        return super.setUnlocalizedName("va_" + unlocalizedName);
+        itemName = name;
     }
 
     @SideOnly(Side.CLIENT)
@@ -66,20 +51,7 @@ public class ItemVA extends Item implements IEntryProvider {
     }
 
     public void register() {
+        setRegistryName(itemName);
         ForgeRegistries.ITEMS.register(this);//, new ResourceLocation(itemName));
-        addRecipe();
-    }
-
-    @Override
-    public void addRecipe() {
-        if (getRecipe() != null)
-            switch (getRecipe().getType()) {
-              /*  case SHAPED:
-                    GameRegistry.addShapedRecipe(new ShapedRecipes("",3, 3, this.getRecipe().getIngredients(), this.getRecipe().getResult()));
-                    break;
-                case SHAPELESS:
-                    GameRegistry.addShapelessRecipe(new ShapelessRecipes(this.getRecipe().getResult(), Arrays.asList(this.getRecipe().getIngredients())));
-                    break;*/
-            }
     }
 }

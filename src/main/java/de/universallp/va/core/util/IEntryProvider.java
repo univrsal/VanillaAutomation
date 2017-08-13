@@ -14,6 +14,4 @@ public interface IEntryProvider {
     VisualRecipe getRecipe();
 
     int getEntryID();
-
-    void addRecipe();
 }

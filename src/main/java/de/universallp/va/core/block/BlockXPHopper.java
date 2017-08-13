@@ -28,6 +28,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -54,7 +55,7 @@ public class BlockXPHopper extends BlockHopper implements IEntryProvider {
     @SideOnly(Side.CLIENT)
     public void registerModel() {
         ModelResourceLocation mdlResource = new ModelResourceLocation(LibNames.BLOCK_XPHOPPER, "inventory");
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(this), 0, mdlResource);
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, mdlResource);
     }
 
     @Override
@@ -98,19 +99,4 @@ public class BlockXPHopper extends BlockHopper implements IEntryProvider {
         return Entries.XPHOPPER.getEntryID();
     }
 
-    @Override
-    public void addRecipe() {
-        //GameRegistry.addShapedRecipe(new ItemStack(VABlocks.xpHopper, 1), "E", "H", 'E', Items.ENDER_EYE, 'H', Blocks.HOPPER);
-    }
-
-//    @Override
-//    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-//        TileEntity te = worldIn.getTileEntity(pos);
-//        if (te != null && te instanceof IInventory) {
-//            InventoryHelper.dropInventoryItems(worldIn, pos, (IInventory) te);
-//            worldIn.updateComparatorOutputLevel(pos, this);
-//        }
-//
-//        super.breakBlock(worldIn, pos, state);
-//    }
 }

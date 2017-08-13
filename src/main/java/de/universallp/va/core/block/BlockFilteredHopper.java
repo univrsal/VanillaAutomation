@@ -25,6 +25,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -51,7 +52,7 @@ public class BlockFilteredHopper extends BlockHopper implements IEntryProvider {
     @SideOnly(Side.CLIENT)
     public void registerModel() {
         ModelResourceLocation mdlResource = new ModelResourceLocation(LibNames.BLOCK_FILTEREDHOPPER, "inventory");
-        Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(Item.getItemFromBlock(this), 0, mdlResource);
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, mdlResource);
     }
 
     @Override
@@ -91,11 +92,6 @@ public class BlockFilteredHopper extends BlockHopper implements IEntryProvider {
     @Override
     public int getEntryID() {
         return Entries.FILTERED_HOPPER.getEntryID();
-    }
-
-    @Override
-    public void addRecipe() {
-        //GameRegistry.addShapedRecipe(new ItemStack(VABlocks.filterHopper, 1), "I", "H", 'I', Blocks.IRON_BARS, 'H', Blocks.HOPPER);
     }
 
     @Override

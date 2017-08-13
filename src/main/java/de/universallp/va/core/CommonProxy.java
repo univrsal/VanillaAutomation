@@ -31,6 +31,8 @@ public class CommonProxy {
 
 
     public void preInit(FMLPreInitializationEvent e) {
+        VABlocks.register();
+        VAItems.register();
         ConfigHandler.loadConfig(e.getSuggestedConfigurationFile());
     }
 
@@ -39,8 +41,6 @@ public class CommonProxy {
         MinecraftForge.EVENT_BUS.register(new CrashReportHandler());
         MinecraftForge.EVENT_BUS.register(new AnvilDescriptionHandler());
 
-        VABlocks.register();
-        VAItems.register();
         PacketHandler.register();
         DispenserTweaks.register();
 
