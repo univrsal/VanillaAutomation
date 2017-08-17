@@ -41,6 +41,7 @@ public class GuiXPHopper extends GuiContainer {
 
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+        drawDefaultBackground();
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(LibResources.GUI_XPHOPPER);
         int i = (this.width - this.xSize) / 2;

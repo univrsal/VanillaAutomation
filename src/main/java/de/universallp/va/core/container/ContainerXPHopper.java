@@ -50,7 +50,7 @@ public class ContainerXPHopper extends Container {
 
             if (!(slot instanceof SlotFiltered) && itemstack.getItem().equals(Items.GLASS_BOTTLE)) {
                 if (!this.mergeItemStack(itemstack1, this.hopperInventory.getSizeInventory() - 1, this.hopperInventory.getSizeInventory(), true))
-                    return null;
+                    return ItemStack.EMPTY;
                 if (itemstack1.getCount() == 0)
                     slot.putStack(ItemStack.EMPTY);
                 return itemstack;
@@ -58,10 +58,10 @@ public class ContainerXPHopper extends Container {
 
             if (index < this.hopperInventory.getSizeInventory()) {
                 if (!this.mergeItemStack(itemstack1, this.hopperInventory.getSizeInventory(), this.inventorySlots.size(), true)) {
-                    return null;
+                    return ItemStack.EMPTY;
                 }
             } else if (!this.mergeItemStack(itemstack1, 0, this.hopperInventory.getSizeInventory(), false)) {
-                return null;
+                return ItemStack.EMPTY;
             }
 
             if (itemstack1.getCount() == 0) {

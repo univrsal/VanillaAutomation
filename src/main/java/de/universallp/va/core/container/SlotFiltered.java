@@ -1,5 +1,6 @@
 package de.universallp.va.core.container;
 
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -21,7 +22,7 @@ public class SlotFiltered extends Slot {
 
     @Override
     public boolean isItemValid(ItemStack stack) {
-        if (stack == null || stack.getItem() != null && stack.getItem().equals(filter.getItem()))
+        if (stack.isEmpty() || stack.getItem() != Items.AIR && stack.getItem().equals(filter.getItem()))
             return true;
         return false;
     }
