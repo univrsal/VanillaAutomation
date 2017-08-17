@@ -4,7 +4,6 @@ import de.universallp.va.core.block.VABlocks;
 import de.universallp.va.core.container.handler.FilteredItemHandler;
 import de.universallp.va.core.util.ICustomField;
 import de.universallp.va.core.util.Utils;
-import de.universallp.va.core.util.libs.LibLocalization;
 import de.universallp.va.core.util.libs.LibReflection;
 import net.minecraft.block.BlockHopper;
 import net.minecraft.block.state.IBlockState;
@@ -379,7 +378,6 @@ public class TileFilteredHopper extends TileEntityHopper implements ICustomField
                 return false;
             } else {
                 for (int i = 0; i <TileXPHopper.hopperInv; ++i) {
-                    System.out.println("SLOT " + i);
                     if (!this.getStackInSlot(i).isEmpty()) {
                         ItemStack itemstack = this.getStackInSlot(i).copy();
                         ItemStack itemstack1 = putStackInInventoryAllSlots(this, iinventory, this.decrStackSize(i, 1), enumfacing);
