@@ -31,9 +31,7 @@ public class ToolBehaviour implements IBehaviorDispenseItem {
         pl.rotationYaw = getYaw(f);
         pl.rotationPitch = getPitch(f);
 
-        if (breakBlock(w, dest, pl, stack)) {
-            stack.damageItem(1, pl);
-        }
+        breakBlock(w, dest, pl, stack);
 
         return stack;
     }
