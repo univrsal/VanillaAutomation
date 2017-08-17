@@ -2,7 +2,6 @@ package de.universallp.va.core.handler;
 
 import de.universallp.va.core.util.libs.LibNames;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -18,13 +17,11 @@ import java.io.File;
 public class ConfigHandler {
 
     private static final String CATEGORY_MISC = "misc";
-    private static final String CATEGORY_ITEMS = "items";
     private static final String CATEGORY_BLOCKS = "blocks";
     private static final String CATEGORY_DISPENSER = "dispenser";
 
     public static Configuration config;
 
-    public static boolean USE_TOOLS = true;
     public static byte BLOCK_PLACER_REACH = 16;
     public static String LATEST_CRASH = "";
     public static boolean READ_LOGS = true;
@@ -49,8 +46,6 @@ public class ConfigHandler {
     public static void load() {
         LATEST_CRASH = config.getString("latestCrash", CATEGORY_MISC, "none", "Do not modify this unless you want unexpected behaviour");
         READ_LOGS    = config.getBoolean("readLogs",   CATEGORY_MISC, true,   "Set to false to prevent vanillaautomation from reading crashlogs");
-
-        USE_TOOLS = config.getBoolean("pokeStickUseTools", CATEGORY_ITEMS, true, "If true the poke stick uses tools from your inventory to mine blocks faster");
 
         BLOCK_PLACER_REACH = (byte) config.getInt("blockPlacerReach", CATEGORY_BLOCKS, 16, 1, 64, "Maximum reach distance for the block placer");
         DISPENSER_REACH_MAX = (byte) config.getInt("dispenserReach", CATEGORY_BLOCKS, 4, 1, 32, "Maximum reach distance for the dispenser tweaks. 1 to disable");
