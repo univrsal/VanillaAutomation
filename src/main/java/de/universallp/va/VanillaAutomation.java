@@ -1,6 +1,5 @@
 package de.universallp.va;
 
-import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.core.CommonProxy;
 import de.universallp.va.core.handler.CrashReportHandler;
 import de.universallp.va.core.util.libs.LibNames;
@@ -11,7 +10,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.versioning.VersionRange;
 
 /**
  * Created by universallp on 19.03.2016 11:28.

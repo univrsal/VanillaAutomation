@@ -83,16 +83,16 @@ public class DispenserTweaks {
                 if (item instanceof ItemSword && ConfigHandler.DISPENSER_USE_WEAPONS) {
                     try {
                         add(item, SWORD_BEHAVIOUR);
-                        LogHelper.logError("Added %s to weapon registry", item.getRegistryName());
+                        LogHelper.logInfo("Added %s to weapon registry", item.getRegistryName());
                     } catch (Exception e) {
-                        LogHelper.logError("Couldn't add %s to weapon registry", item.getRegistryName());
+                        LogHelper.logInfo("Couldn't add %s to weapon registry", item.getRegistryName());
                     }
                 } else if (item instanceof ItemTool && ConfigHandler.DISPENSER_USE_TOOLS) {
                     try {
                         add(item, TOOL_BEHAVIOUR);
-                        LogHelper.logError("Added %s to tool registry", item.getRegistryName());
+                        LogHelper.logInfo("Added %s to tool registry", item.getRegistryName());
                     } catch (Exception e) {
-                        LogHelper.logError("Couldn't add %s to tool registry", item.getRegistryName());
+                        LogHelper.logInfo("Couldn't add %s to tool registry", item.getRegistryName());
                     }
                 }
             }
