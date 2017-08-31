@@ -1,4 +1,5 @@
 {
+    "parent": "block/orientable",
     "ambientocclusion": false,
     "textures": {
         "slab_top": "blocks/stone_slab_top",

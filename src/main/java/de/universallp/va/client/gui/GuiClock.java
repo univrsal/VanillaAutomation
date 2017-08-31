@@ -1,5 +1,6 @@
 package de.universallp.va.client.gui;
 
+import de.universallp.va.core.container.ContainerClock;
 import de.universallp.va.core.network.PacketHandler;
 import de.universallp.va.core.network.messages.MessageSetFieldServer;
 import de.universallp.va.core.tile.TileClock;
@@ -8,10 +9,12 @@ import de.universallp.va.core.util.libs.LibNames;
 import de.universallp.va.core.util.libs.LibResources;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Created by universallp on 22.10.2016 21:02.
@@ -19,13 +22,14 @@ import java.io.IOException;
  * under the MOZILLA PUBLIC LICENSE 2.0 - mozilla.org/en-US/MPL/2.0/
  * github.com/univrsal/VanillaAutomation
  */
-public class GuiClock extends GuiScreen {
+public class GuiClock extends GuiContainer {
 
     private int tickdelay;
     private int ticklength;
     private TileClock te;
 
     public GuiClock(TileClock te) {
+        super(new ContainerClock());
         this.te = te;
         this.tickdelay = te.getTickDelay();
         this.ticklength = te.getTickLength();
@@ -50,10 +54,8 @@ public class GuiClock extends GuiScreen {
         length_btn[2] = new GuiButton(6, x + 5, y, 30, 20, "+1");
         length_btn[3] = new GuiButton(7, x + 45, y, 30, 20, "+10");
 
-        for (GuiButton btn : delay_btn)
-            buttonList.add(btn);
-        for (GuiButton btn : length_btn)
-            buttonList.add(btn);
+        buttonList.addAll(Arrays.asList(delay_btn));
+        buttonList.addAll(Arrays.asList(length_btn));
 
     }
 
@@ -98,11 +100,8 @@ public class GuiClock extends GuiScreen {
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        super.drawScreen(mouseX, mouseY, partialTicks);
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(LibResources.GUI_CLOCK);
-        int i = (this.width - 176) / 2;
-        int j = (this.height - 70) / 2;
-        drawTexturedModalRect(i, j, 0, 0, 176, 86);
         String s = I18n.format(LibLocalization.GUI_CLOCK);
         int l = fontRenderer.getStringWidth(s);
         fontRenderer.drawString(s, width / 2 - l / 2, height / 2 - 28, LibNames.TEXT_COLOR);
@@ -123,6 +122,16 @@ public class GuiClock extends GuiScreen {
         l = fontRenderer.getStringWidth(s);
         fontRenderer.drawString(s, width / 2 - l / 2, height / 2 - 8, LibNames.TEXT_COLOR);
 
-        super.drawScreen(mouseX, mouseY, partialTicks);
+
+    }
+
+    @Override
+    protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+        super.drawDefaultBackground();
+        this.mc.getTextureManager().bindTexture(LibResources.GUI_CLOCK);
+        int i = (this.width - 176) / 2;
+        int j = (this.height - 70) / 2;
+        drawTexturedModalRect(i, j, 0, 0, 176, 86);
+
     }
 }
