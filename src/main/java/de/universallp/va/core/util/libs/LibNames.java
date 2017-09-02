@@ -10,7 +10,7 @@ public class LibNames {
 
     public static final String MOD_ID = "va";
     public static final String MOD_NAME = "VanillaAutomation";
-    public static final String MOD_VERSION = "1.12.1-1.2";
+    public static final String MOD_VERSION = "1.12.1-1.3";
     public static final String CLIENT_PROXY = "de.universallp.va.client.ClientProxy";
     public static final String SERVER_PROXY = "de.universallp.va.core.CommonProxy";
 
