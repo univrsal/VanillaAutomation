@@ -1,0 +1,25 @@
+{
+  "result": {
+    "item": "va:blockplacer"
+  },
+  "pattern": [
+    "cdc",
+    "cCc",
+    "cpc"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "c": {
+      "item": "minecraft:cobblestone"
+    },
+    "d": {
+      "item": "minecraft:dispenser"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "p": {
+      "item": "minecraft:piston"
+    }
+  }
+}

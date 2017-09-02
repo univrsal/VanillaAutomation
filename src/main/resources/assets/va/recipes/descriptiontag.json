@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "va:descriptiontag"
+  },
+  "pattern": [
+    "si",
+    "pp"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "s": {
+      "item": "minecraft:string"
+    },
+    "i": {
+      "item": "minecraft:dye",
+      "data": 0
+    },
+    "p": {
+      "item": "minecraft:paper"
+    }
+  }
+}

@@ -2,6 +2,7 @@ package de.universallp.va.core.util;
 
 import com.mojang.authlib.GameProfile;
 import jline.internal.Log;
+import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
@@ -21,6 +22,7 @@ import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 
+import java.io.File;
 import java.util.UUID;
 
 /**
@@ -31,6 +33,7 @@ import java.util.UUID;
  */
 public class VAFakePlayer extends FakePlayer {
     private static VAFakePlayer instance;
+    private static FakeAdvancements advancements;
 
     private VAFakePlayer(WorldServer world) {
         super(world, new GameProfile(UUID.randomUUID(), "VAFakePlayer"));
@@ -41,10 +44,18 @@ public class VAFakePlayer extends FakePlayer {
             instance = new VAFakePlayer((WorldServer) w);
             if (w.getMinecraftServer() != null)
                 instance.connection = new NetHandlerPlayServer(w.getMinecraftServer(), new NetworkManager(EnumPacketDirection.SERVERBOUND), instance);
+            if (advancements == null) {
+                advancements = new FakeAdvancements(w.getMinecraftServer(), new File("/"), instance);
+            }
         } else
             instance.setWorld(w);
 
         return instance;
+    }
+
+    @Override
+    public PlayerAdvancements getAdvancements() {
+        return advancements;
     }
 
     public void setItemInHand(ItemStack m_item) {

@@ -77,7 +77,8 @@ public class LibLocalization {
             LibLocalization.ENTRY_CLOCK,
 
             // Compat
-            LibLocalization.ENTRY_BOPCOMPAT, LibLocalization.ENTRY_TCONCOMPAT };
+            //LibLocalization.ENTRY_BOPCOMPAT, LibLocalization.ENTRY_TCONCOMPAT
+    };
 
     public static final String[] PAGES_INTRO = getGuidePage("intro", 1, 1);
     public static final String[] PAGES_CREDITS = getGuidePage("credits", 1, 1);

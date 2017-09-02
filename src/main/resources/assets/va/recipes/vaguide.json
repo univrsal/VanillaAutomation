@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "va:vaguide"
+  },
+  "pattern": [
+    "p",
+    "b"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "p": {
+      "item": "minecraft:piston"
+    },
+    "b": {
+      "item": "minecraft:book"
+    }
+  }
+}

@@ -59,8 +59,13 @@ public class GuiFilteredHopper extends GuiContainer {
     }
 
     @Override
+    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
+        super.drawScreen(mouseX, mouseY, partialTicks);
+        this.renderHoveredToolTip(mouseX, mouseY);
+    }
+
+    @Override
     protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-        super.drawGuiContainerForegroundLayer(mouseX, mouseY);
         this.fontRenderer.drawString(I18n.format(LibLocalization.GUI_FILTEREDHOPPER), 8, 6, LibNames.TEXT_COLOR);
         this.fontRenderer.drawString(this.playerInventory.getDisplayName().getUnformattedText(), 8, this.ySize - 96 + 2, LibNames.TEXT_COLOR);
         this.fontRenderer.drawString(I18n.format(LibLocalization.GUI_FILTER), 13, 44, LibNames.TEXT_COLOR);

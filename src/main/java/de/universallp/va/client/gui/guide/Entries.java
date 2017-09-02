@@ -44,8 +44,9 @@ public class Entries {
         DESCRIPTION_TAG = addEntry(getPages(LibLocalization.PAGES_DESCRIPTION_TAG, VAItems.itemDescriptionTag.getRecipe(), 1));
         CLOCK = addEntry(getPages(LibLocalization.PAGES_CLOCK, VABlocks.redstoneclock.getRecipe(), 1));
 
-        BOP_COMPAT = addEntry(getPages(LibLocalization.PAGES_BOP_COMPAT));
-        TCON_COMPAT = addEntry(getPages(LibLocalization.PAGES_TCON_COMPAT));
+
+        //BOP_COMPAT = addEntry(getPages(LibLocalization.PAGES_BOP_COMPAT));
+        //TCON_COMPAT = addEntry(getPages(LibLocalization.PAGES_TCON_COMPAT));
     }
 
     public static Entry addEntry(EntryPage[] pages) {

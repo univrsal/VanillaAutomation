@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "va:redstoneclock"
+  },
+  "pattern": [
+    "ctc",
+    "trt",
+    "ctc"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "c": {
+      "item": "minecraft:cobblestone"
+    },
+    "t": {
+      "item": "minecraft:redstone_torch"
+    },
+    "r": {
+      "item": "minecraft:redstone"
+    }
+  }
+}

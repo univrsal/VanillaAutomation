@@ -6,7 +6,6 @@ import de.universallp.va.client.gui.screen.VisualRecipe;
 import de.universallp.va.core.util.libs.LibGuiIDs;
 import de.universallp.va.core.util.libs.LibLocalization;
 import de.universallp.va.core.util.libs.LibNames;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -42,8 +41,10 @@ public class ItemGuide extends ItemVA {
     }
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-        playerIn.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_GUIDE, worldIn, 0, 0, 0);
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        if (!VanillaAutomation.proxy.isServer() && ClientProxy.hoveredEntry > 0) {
+            playerIn.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_GUIDE, worldIn, 0, 0, 0);
+        }
+        return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
     }
 
     @Override
@@ -52,7 +53,7 @@ public class ItemGuide extends ItemVA {
             player.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_GUIDE, world, 0, 0, 0);
             return EnumActionResult.SUCCESS;
         }
-        return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
+        return EnumActionResult.SUCCESS;
     }
 
     @Override

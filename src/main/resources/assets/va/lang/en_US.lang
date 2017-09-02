@@ -83,7 +83,7 @@ va.guide.entry.redstoneclock=Redstone Clock
 va.guide.entry.intro.page1=Welcome to VanillaAutomation!\nThis mod adds blocks and tweaks to the dispenser to allow for automation without making it too easy.\nTake a look at the different entries to see what is added and changed.
 
 # Credits
-va.guide.entry.credits.page1=VanillaAutomation\nby universal\n\nThis mod  wouldn't have been possible without other open-source mods.\nSpecial thanks to:\nPahimar\nAmadornes\nVazkii\nThe Forge Team
+va.guide.entry.credits.page1=VanillaAutomation\nby universal\n\nThis mod  wouldn't have been possible without other open-source mods.\nSpecial thanks to:\nPahimar\nAmadornes\nVazkii\nThe Forge Team\nand all contributors
 
 # Blockplacer
 va.guide.entry.blockplacer.page1=The block placer can, as it's name suggests, place blocks in the world. It'll also right-click with any items at the position it would normally place things at.\nYou can change the facing and the placing distance in the gui.

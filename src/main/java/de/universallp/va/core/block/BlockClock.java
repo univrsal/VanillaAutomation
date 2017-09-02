@@ -2,13 +2,14 @@ package de.universallp.va.core.block;
 
 import de.universallp.va.VanillaAutomation;
 import de.universallp.va.client.gui.guide.Entries;
-import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.client.gui.screen.VisualRecipe;
 import de.universallp.va.core.tile.TileClock;
-import de.universallp.va.core.util.IEntryProvider;
 import de.universallp.va.core.util.libs.LibGuiIDs;
 import de.universallp.va.core.util.libs.LibNames;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockButton;
+import net.minecraft.block.BlockPistonBase;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
@@ -60,7 +61,6 @@ public class BlockClock extends BlockVA implements ITileEntityProvider {
 
     protected static boolean canPlaceBlock(World worldIn, BlockPos pos, EnumFacing direction) {
         BlockPos blockpos = pos.offset(direction);
-        System.out.println(blockpos);
         return worldIn.getBlockState(blockpos).isSideSolid(worldIn, blockpos, direction.getOpposite());
     }
 
