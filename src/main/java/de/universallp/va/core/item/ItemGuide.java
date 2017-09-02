@@ -1,7 +1,6 @@
 package de.universallp.va.core.item;
 
 import de.universallp.va.VanillaAutomation;
-import de.universallp.va.client.ClientProxy;
 import de.universallp.va.client.gui.screen.VisualRecipe;
 import de.universallp.va.core.util.libs.LibGuiIDs;
 import de.universallp.va.core.util.libs.LibLocalization;
@@ -41,7 +40,7 @@ public class ItemGuide extends ItemVA {
     }
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-        if (!VanillaAutomation.proxy.isServer() && ClientProxy.hoveredEntry > 0) {
+        if (!VanillaAutomation.proxy.isServer()) {
             playerIn.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_GUIDE, worldIn, 0, 0, 0);
         }
         return new ActionResult<>(EnumActionResult.SUCCESS, playerIn.getHeldItem(handIn));
@@ -49,7 +48,7 @@ public class ItemGuide extends ItemVA {
 
     @Override
     public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-        if (!VanillaAutomation.proxy.isServer() && ClientProxy.hoveredEntry > 0) {
+        if (!VanillaAutomation.proxy.isServer()) {
             player.openGui(VanillaAutomation.instance, LibGuiIDs.GUI_GUIDE, world, 0, 0, 0);
             return EnumActionResult.SUCCESS;
         }
