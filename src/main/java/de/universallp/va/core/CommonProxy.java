@@ -9,6 +9,7 @@ import de.universallp.va.core.dispenser.DispenserTweaks;
 import de.universallp.va.core.handler.AnvilDescriptionHandler;
 import de.universallp.va.core.handler.ConfigHandler;
 import de.universallp.va.core.handler.CrashReportHandler;
+import de.universallp.va.core.handler.EndermiteHandler;
 import de.universallp.va.core.item.VAItems;
 import de.universallp.va.core.network.GuiHandler;
 import de.universallp.va.core.network.PacketHandler;
@@ -40,6 +41,7 @@ public class CommonProxy {
         NetworkRegistry.INSTANCE.registerGuiHandler(VanillaAutomation.instance, new GuiHandler());
         MinecraftForge.EVENT_BUS.register(new CrashReportHandler());
         MinecraftForge.EVENT_BUS.register(new AnvilDescriptionHandler());
+        MinecraftForge.EVENT_BUS.register(new EndermiteHandler());
 
         PacketHandler.register();
         DispenserTweaks.register();

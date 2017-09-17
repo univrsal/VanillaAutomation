@@ -24,13 +24,14 @@ import java.util.Iterator;
  */
 public class DispenserTweaks {
 
-    public static final DyeBehaviour DYE_BEHAVIOUR = new DyeBehaviour();
-    public static final ToolBehaviour TOOL_BEHAVIOUR = new ToolBehaviour();
-    public static final SwordBehaviour SWORD_BEHAVIOUR = new SwordBehaviour();
-    public static final ShearBehaviour SHEAR_BEHAVIOUR = new ShearBehaviour();
-    public static final DiscBehaviour DISC_BEHAVIOUR = new DiscBehaviour();
-    public static final NameTagBehaviour NAME_TAG_BEHAVIOUR = new NameTagBehaviour();
-    public static final StickBehaviour STICK_BEHAVIOUR = new StickBehaviour();
+    private static final DyeBehaviour DYE_BEHAVIOUR = new DyeBehaviour();
+    private static final ToolBehaviour TOOL_BEHAVIOUR = new ToolBehaviour();
+    private static final SwordBehaviour SWORD_BEHAVIOUR = new SwordBehaviour();
+    private static final ShearBehaviour SHEAR_BEHAVIOUR = new ShearBehaviour();
+    private static final DiscBehaviour DISC_BEHAVIOUR = new DiscBehaviour();
+    private static final NameTagBehaviour NAME_TAG_BEHAVIOUR = new NameTagBehaviour();
+    private static final StickBehaviour STICK_BEHAVIOUR = new StickBehaviour();
+    private static final EnderPearlBehaviour ENDER_PEARL_BEHAVIOUR = new EnderPearlBehaviour();
 
     public static void register() {
         if (ConfigHandler.DISPENSER_USE_DYE)
@@ -41,6 +42,8 @@ public class DispenserTweaks {
         }
 
         add(Items.STICK, STICK_BEHAVIOUR);
+
+        add(Items.ENDER_PEARL, ENDER_PEARL_BEHAVIOUR);
 
         if (ConfigHandler.DISPENSER_USE_DISCS) {
             add(Items.RECORD_11, DISC_BEHAVIOUR);

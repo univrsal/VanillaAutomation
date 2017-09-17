@@ -43,7 +43,7 @@ public class VAFakePlayer extends FakePlayer {
         if (instance == null) {
             instance = new VAFakePlayer((WorldServer) w);
             if (w.getMinecraftServer() != null)
-                instance.connection = new NetHandlerPlayServer(w.getMinecraftServer(), new NetworkManager(EnumPacketDirection.SERVERBOUND), instance);
+                instance.connection = new NetHandlerPlayServer(w.getMinecraftServer(), new FakeNetworkManager(EnumPacketDirection.SERVERBOUND), instance);
             if (advancements == null) {
                 advancements = new FakeAdvancements(w.getMinecraftServer(), new File("/"), instance);
             }
