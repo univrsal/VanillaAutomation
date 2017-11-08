@@ -12,4 +12,5 @@ public class LibReflection {
     public static final String[] CURRENT_GAME_TYPE = new String[] { "currentGameType", "field_78779_k", "i" };
 
     public static final String[] HOPPER_INVENTORY = new String[] { "inventory", "field_145900_a", "a" };
+
 }

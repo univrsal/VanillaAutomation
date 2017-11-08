@@ -21,24 +21,24 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 public class MessagePlaySound implements IMessage, IMessageHandler<MessagePlaySound, IMessage> {
 
     public BlockPos soundPos;
-    public String soundName;
+    public String soundlocation;
     public float volume;
     public float pitch;
 
     public MessagePlaySound() {
     }
 
-    public MessagePlaySound(String name, BlockPos pos, float p, float v) {
+    public MessagePlaySound(String loc, BlockPos pos, float p, float v) {
         this.soundPos = pos;
         this.pitch = p;
         this.volume = v;
-        this.soundName = name;
+        this.soundlocation = loc;
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
         soundPos = PacketHandler.readBlockPos(buf);
-        soundName = ByteBufUtils.readUTF8String(buf);
+        soundlocation = ByteBufUtils.readUTF8String(buf);
         pitch = buf.readFloat();
         volume = buf.readFloat();
     }
@@ -46,7 +46,7 @@ public class MessagePlaySound implements IMessage, IMessageHandler<MessagePlaySo
     @Override
     public void toBytes(ByteBuf buf) {
         PacketHandler.writeBlockPos(buf, soundPos);
-        ByteBufUtils.writeUTF8String(buf, soundName);
+        ByteBufUtils.writeUTF8String(buf, soundlocation);
         buf.writeFloat(pitch);
         buf.writeFloat(volume);
     }
@@ -55,10 +55,10 @@ public class MessagePlaySound implements IMessage, IMessageHandler<MessagePlaySo
     public IMessage onMessage(MessagePlaySound message, MessageContext ctx) {
         Minecraft mc = Minecraft.getMinecraft();
 
-        if (message.soundName == null)
+        if (message.soundlocation == null)
             return null;
 
-        SoundEvent e = new SoundEvent(new ResourceLocation(message.soundName));
+        SoundEvent e = new SoundEvent(new ResourceLocation(message.soundlocation));
         mc.world.playSound(message.soundPos, e, SoundCategory.BLOCKS, message.volume, message.pitch, false);
         return null;
     }

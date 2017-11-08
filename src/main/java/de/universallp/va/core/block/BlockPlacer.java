@@ -2,9 +2,7 @@ package de.universallp.va.core.block;
 
 import de.universallp.va.VanillaAutomation;
 import de.universallp.va.client.gui.guide.Entries;
-import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.client.gui.screen.VisualRecipe;
-import de.universallp.va.core.item.VAItems;
 import de.universallp.va.core.network.PacketHandler;
 import de.universallp.va.core.network.messages.MessagePlaySound;
 import de.universallp.va.core.tile.TilePlacer;
@@ -15,6 +13,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.audio.Sound;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,7 +25,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.BlockSnapshot;
 import net.minecraftforge.event.world.BlockEvent;
@@ -86,8 +84,11 @@ public class BlockPlacer extends BlockVA implements ITileEntityProvider {
                 worldObj.setBlockState(pos, s);
                 block.onBlockAdded(worldObj, pos, s);
                 SoundType type = block.getSoundType(s, worldObj, pos, fakePlayer);
-                if (type != null)
-                    PacketHandler.INSTANCE.sendToAllAround(new MessagePlaySound(type.getPlaceSound().getSoundName().toString(), pos, type.getPitch(), type.getPitch()), new NetworkRegistry.TargetPoint(fakePlayer.dimension, pos.getX(), pos.getY(), pos.getZ(), 64));
+                if (type != null) {
+                    ResourceLocation res = SoundEvent.REGISTRY.getNameForObject(type.getPlaceSound());
+                    PacketHandler.INSTANCE.sendToAllAround(new MessagePlaySound(res.getResourcePath(), pos, type.getPitch(), type.getPitch()), new NetworkRegistry.TargetPoint(fakePlayer.dimension, pos.getX(), pos.getY(), pos.getZ(), 64));
+
+                }
                 return true;
             }
         } else {
