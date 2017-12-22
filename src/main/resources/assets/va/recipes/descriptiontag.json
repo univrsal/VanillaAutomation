@@ -1,19 +1,20 @@
 {
   "result": {
-    "item": "va:descriptiontag"
+    "item": "va:descriptiontag",
+    "count": 1
   },
   "pattern": [
     "si",
     "pp"
   ],
-  "type": "minecraft:crafting_shaped",
+  "type": "forge:ore_shaped",
   "key": {
     "s": {
       "item": "minecraft:string"
     },
     "i": {
-      "item": "minecraft:dye",
-      "data": 0
+      "ore" : "dyeBlack",
+      "type": "forge:ore_dict"
     },
     "p": {
       "item": "minecraft:paper"
