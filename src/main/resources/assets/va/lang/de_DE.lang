@@ -66,7 +66,7 @@ va.guide.entry.blockplacer.page2="Steve in 'ner Box"
 # Dispenser
 va.guide.entry.dispenser.page1=Wenn VanillaAutomation installiert wird erhält der Dispenser einige Änderungen.\nDiese Dinge sind neu:\nMit einem Werkzeug im Dispenser kann er Blöcke zerstören.\nMit Farbe färbt er Schafe vor sich und Knochenmehl wird auf den Boden verwendet. Außerdem schert er Schafe mit Scheren.
 va.guide.entry.dispenser.page2=Der Dispenser kann nun auch Schallplatten in Musikboxen einlegen. Außerdem kann er Tiere mit Namensschildern benennen.\nSamen werden auf dem Boden plaziert und Schwerter werden benutzt um Tiere anzugreifen.
-va.guide.entry.dispenser.page3=Mit einem Holzstock kann der Dispenser auf Blöcke jetzt rechtsklicken\nEnderperlen können jetzt von Dispensern geworfen werden und haben eine 5% Chance Endermites zu spawnen.
+va.guide.entry.dispenser.page3=Mit einem Holzstock kann der Dispenser auf Blöcke jetzt rechtsklicken\nEnderperlen können jetzt von Dispensern geworfen werden und haben eine 5 Prozent Chance Endermites zu spawnen.
 
 # XP Hopper
 va.guide.entry.xphopper.page1=Dieser Block ist ein kleines upgrade zum normalen Trichter. Er sammelt alle XP Kugeln in einem 3x3x3 Radius auf und füllt sie in Flaschen, die in einem extra Slot sind. Ein kleiner Ladebalken zeigt an wie viel XP noch gebraucht werden bis zur nächsten füllung. Volle flaschen werden wie alle anderen Items ausgegeben.
