@@ -55,7 +55,7 @@ public class EnderPearlBehaviour implements IBehaviorDispenseItem {
 
         if (!p.getEntityWorld().isRemote) {
             EntityEnderPearl entityenderpearl = new EntityEnderPearl(p.getEntityWorld(), p);
-            entityenderpearl.setHeadingFromThrower(p, p.rotationPitch, p.rotationYaw, 0.0F, 1.5F, 1.0F);
+            entityenderpearl.setLocationAndAngles(0.0F, 1.5F, 1.0F, p.rotationYaw, p.rotationPitch);
             p.getEntityWorld().spawnEntity(entityenderpearl);
         }
         return s;

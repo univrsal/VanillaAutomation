@@ -164,7 +164,7 @@ public class TileXPHopper extends TileEntityHopper implements ICustomField {
                 }
 
                 if (!this.isFull()) {
-                    flag = captureDroppedItems(this) || flag;
+                    flag = pullItems(this) || flag;
                 }
 
                 if (flag) {
