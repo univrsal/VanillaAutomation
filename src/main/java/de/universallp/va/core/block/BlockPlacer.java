@@ -20,6 +20,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryHelper;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemBlockSpecial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -52,9 +55,19 @@ public class BlockPlacer extends BlockVA implements ITileEntityProvider {
     public static boolean placeBlock(World worldObj, BlockPos pos, EnumFacing f, VAFakePlayer fakePlayer, ItemStack placeable) {
         fakePlayer.setItemInHand(placeable);
         final IBlockState blockS = worldObj.getBlockState(pos);
-        final Block block = Block.getBlockFromItem(placeable.getItem());
 
-        if (block != null) {
+        Item item = placeable.getItem();
+        Block block;
+
+        if (item instanceof ItemBlockSpecial) {
+            block = ((ItemBlockSpecial) item).getBlock();
+        } else if (item instanceof ItemBlock) {
+            block = ((ItemBlock) item).getBlock();
+        } else {
+            block = Block.getBlockFromItem(placeable.getItem());
+        }
+
+        if (block != Blocks.AIR) {
             IBlockState placeState = Block.getBlockFromItem(placeable.getItem()).getStateFromMeta(placeable.getItemDamage());
             BlockSnapshot bS;
 
