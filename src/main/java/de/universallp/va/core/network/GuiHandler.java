@@ -31,20 +31,18 @@ public class GuiHandler implements IGuiHandler {
         TileEntity te = world.getTileEntity(new BlockPos(x, y, z));
 
         if (ID == LibGuiIDs.GUI_PLACER) {
-            PacketHandler.syncFieldClient(player, te, 0, 2);
+            PacketHandler.syncByteFieldsClient(player, te, 0, 2);
             return new ContainerDispenser(player.inventory, (IInventory) te);
         } else if (ID == LibGuiIDs.GUI_XPHOPPER) {
-            PacketHandler.syncFieldClient(player, te, 0, 0);
-//            PacketHandler.sendTo(new MessageSetFieldClient(0, ((TileXPHopper) te).getName(), te.getPos()), (EntityPlayerMP) player);
+            PacketHandler.syncByteFieldsClient(player, te, 0, 0);
             return new ContainerXPHopper(player.inventory, (IInventory) te);
         } else if (ID == LibGuiIDs.GUI_FILTEREDHOPPER) {
             TileFilteredHopper teF = (TileFilteredHopper) te;
-            PacketHandler.syncFieldClient(player, te, 0, 3);
-//            PacketHandler.sendTo(new MessageSetFieldClient(0, teF.getName(), te.getPos()), (EntityPlayerMP) player);
+            PacketHandler.syncByteFieldsClient(player, te, 0, 3);
             return new ContainerFilteredHopper(player.inventory, teF);
         } else if (ID == LibGuiIDs.GUI_CLOCK) {
             TileClock teCL = (TileClock) te; // No container, just syncing
-            PacketHandler.syncFieldClient(player, teCL, 0, 1);
+            PacketHandler.syncIntFieldsClient(player, teCL, 0, 1);
             return new ContainerClock();
         }
 

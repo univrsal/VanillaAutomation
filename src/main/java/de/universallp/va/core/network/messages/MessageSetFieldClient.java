@@ -42,7 +42,7 @@ public class MessageSetFieldClient implements IMessage, IMessageHandler<MessageS
     }
 
     public MessageSetFieldClient(int[] fieldID, int[] val, BlockPos tePos) {
-        this.type = EnumMessageType.BYTE;
+        this.type = EnumMessageType.INT;
         this.integers = val;
         this.fields = fieldID;
         this.pos = tePos;

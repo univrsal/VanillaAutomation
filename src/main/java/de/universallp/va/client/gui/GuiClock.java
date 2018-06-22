@@ -1,6 +1,7 @@
 package de.universallp.va.client.gui;
 
 import de.universallp.va.core.container.ContainerClock;
+import de.universallp.va.core.handler.ConfigHandler;
 import de.universallp.va.core.network.PacketHandler;
 import de.universallp.va.core.network.messages.MessageSetFieldServer;
 import de.universallp.va.core.tile.TileClock;
@@ -75,10 +76,10 @@ public class GuiClock extends GuiContainer {
                 tickdelay -= (tickdelay - 1 > 0 ? 1 : 0);
                 break;
             case 2:
-                tickdelay += (tickdelay + 10 <= 1000 ? 1 : 0);
+                tickdelay += (tickdelay + 10 <= ConfigHandler.CLOCK_MAX_VALUE ? 1 : 0);
                 break;
             case 3:
-                tickdelay += (tickdelay + 1 <= 1000 ? 10 : 0);
+                tickdelay += (tickdelay + 1 <= ConfigHandler.CLOCK_MAX_VALUE ? 10 : 0);
                 break;
             case 4:
                 ticklength -= (ticklength - 10 > 0 ? 10 : 0);
@@ -87,10 +88,10 @@ public class GuiClock extends GuiContainer {
                 ticklength -= (ticklength - 1 > 0 ? 1 : 0);
                 break;
             case 6:
-                ticklength += (ticklength + 10 <= 1000 ? 1 : 0);
+                ticklength += (ticklength + 10 <= ConfigHandler.CLOCK_MAX_VALUE ? 1 : 0);
                 break;
             case 7:
-                ticklength += (ticklength + 1 <= 1000 ? 10 : 0);
+                ticklength += (ticklength + 1 <= ConfigHandler.CLOCK_MAX_VALUE ? 10 : 0);
                 break;
         }
 

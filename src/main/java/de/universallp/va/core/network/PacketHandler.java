@@ -47,13 +47,13 @@ public class PacketHandler {
     /**
      * Syncs all field values from a server TileEntity with the client
      * TileEntity must implement IInventory/ILockableContainer
-     *
+     * Field values must fit in a byte
      * @param pl            The target player for the message
      * @param te            The tileentity to sync
      * @param startField    Starting field value
      * @param endField      Ending field value
      */
-    public static void syncFieldClient(EntityPlayer pl, TileEntity te, int startField, int endField) {
+    public static void syncByteFieldsClient(EntityPlayer pl, TileEntity te, int startField, int endField) {
         if (!(te instanceof IInventory))
             return;
 
@@ -64,6 +64,32 @@ public class PacketHandler {
         for (int i = startField; i <= endField; i++) {
             fields[index] = i;
             values[index] = (byte) ((IInventory) te).getField(i);
+            index++;
+        }
+        sendTo(new MessageSetFieldClient(fields, values, te.getPos()), (EntityPlayerMP) pl);
+    }
+
+
+    /**
+     * Syncs all field values from a server TileEntity with the client
+     * TileEntity must implement IInventory/ILockableContainer
+     * Field values must fit in an integer
+     * @param pl            The target player for the message
+     * @param te            The tileentity to sync
+     * @param startField    Starting field value
+     * @param endField      Ending field value
+     */
+    public static void syncIntFieldsClient(EntityPlayer pl, TileEntity te, int startField, int endField) {
+        if (!(te instanceof IInventory))
+            return;
+
+        int[] values = new int[endField - startField + 1];
+        int[] fields = new int[endField - startField + 1];
+
+        int index = 0;
+        for (int i = startField; i <= endField; i++) {
+            fields[index] = i;
+            values[index] = ((IInventory) te).getField(i);
             index++;
         }
         sendTo(new MessageSetFieldClient(fields, values, te.getPos()), (EntityPlayerMP) pl);

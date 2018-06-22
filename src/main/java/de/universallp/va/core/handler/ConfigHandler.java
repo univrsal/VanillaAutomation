@@ -27,6 +27,8 @@ public class ConfigHandler {
     public static boolean READ_LOGS = true;
     public static byte DISPENSER_REACH_MAX = 4;
 
+    public static int CLOCK_MAX_VALUE = 1000;
+
     public static boolean DISPENSER_USE_TOOLS = true;
     public static boolean DISPENSER_USE_WEAPONS = true;
     public static boolean DISPENSER_USE_SEEDS = true;
@@ -58,6 +60,8 @@ public class ConfigHandler {
         DISPENSER_USE_DYE = config.getBoolean("useDye", CATEGORY_DISPENSER, true, "Set to false to prevent the dispenser from dying sheep with");
 
         DISPENSER_SEARCH_FOR_TOOLS = config.getBoolean("searchTools", CATEGORY_DISPENSER, true, "Set to false to prevent VanillaAutomation from searching the registry for tools and weapons and make them usable by the dispenser");
+
+        CLOCK_MAX_VALUE = config.getInt("clockMaxValue", CATEGORY_BLOCKS, 1000, 10, 10000, "Max pulse length and delay in ticks");
     }
 
     public static void loadPostInit() {

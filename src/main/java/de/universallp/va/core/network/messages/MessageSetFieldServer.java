@@ -90,7 +90,6 @@ public class MessageSetFieldServer implements IMessage, IMessageHandler<MessageS
 
                 for (int i = 0; i < l; i++)
                     integers[i] = buf.readInt();
-
                 for (int i = 0; i < l; i++)
                     fields[i] = buf.readInt();
                 break;

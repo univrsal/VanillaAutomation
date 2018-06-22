@@ -2,6 +2,7 @@ package de.universallp.va.core.tile;
 
 import de.universallp.va.core.block.BlockClock;
 import de.universallp.va.core.block.VABlocks;
+import de.universallp.va.core.handler.ConfigHandler;
 import net.minecraft.block.BlockLever;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -144,9 +145,9 @@ public class TileClock extends TileEntity implements ITickable, IInventory {
     @Override
     public void setField(int id, int value) {
         if (id == 0)
-            tickDelay = (value > 0 && value < 1001 ? value : tickDelay);
+            tickDelay = (value > 0 && value <= ConfigHandler.CLOCK_MAX_VALUE ? value : tickDelay);
         else
-            tickLength = (value > 0 && value < 1001 ? value : tickLength);
+            tickLength = (value > 0 && value <= ConfigHandler.CLOCK_MAX_VALUE ? value : tickLength);
         tickCount = 0;
 
     }
