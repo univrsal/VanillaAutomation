@@ -35,12 +35,16 @@ public class VAFakePlayer extends FakePlayer {
     private static VAFakePlayer instance;
     private static FakeAdvancements advancements;
 
+    /* Set to true when the player leaves a world */
+    public static boolean RESET_FLAG = false;
+
     private VAFakePlayer(WorldServer world) {
         super(world, new GameProfile(UUID.randomUUID(), "VAFakePlayer"));
     }
 
     public static VAFakePlayer instance(World w) {
-        if (instance == null) {
+        if (instance == null || RESET_FLAG) {
+            RESET_FLAG = false;
             instance = new VAFakePlayer((WorldServer) w);
             if (w.getMinecraftServer() != null)
                 instance.connection = new NetHandlerPlayServer(w.getMinecraftServer(), new FakeNetworkManager(EnumPacketDirection.SERVERBOUND), instance);

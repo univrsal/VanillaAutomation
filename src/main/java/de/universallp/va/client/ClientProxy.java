@@ -8,6 +8,7 @@ import de.universallp.va.core.CommonProxy;
 import de.universallp.va.core.block.VABlocks;
 import de.universallp.va.core.item.ItemVA;
 import de.universallp.va.core.item.VAItems;
+import de.universallp.va.core.util.VAFakePlayer;
 import de.universallp.va.core.util.libs.LibReflection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
@@ -19,6 +20,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -47,6 +50,7 @@ public class ClientProxy extends CommonProxy {
         super.init(e);
 
         MinecraftForge.EVENT_BUS.register(new GuideHandler());
+        MinecraftForge.EVENT_BUS.register(new ClientProxy());
     }
 
     @Override
@@ -56,6 +60,10 @@ public class ClientProxy extends CommonProxy {
         GuideHandler.initVanillaEntries();
     }
 
+    @SubscribeEvent
+    public void onWorldClose(PlayerEvent.PlayerLoggedOutEvent e) {
+        VAFakePlayer.RESET_FLAG = true;
+    }
 
     @Override
     public boolean isServer() {
