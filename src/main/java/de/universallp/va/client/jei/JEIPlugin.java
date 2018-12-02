@@ -1,5 +1,6 @@
 package de.universallp.va.client.jei;
 
+import de.universallp.va.client.gui.guide.Entries;
 import de.universallp.va.client.gui.guide.EnumEntry;
 import de.universallp.va.core.block.VABlocks;
 import de.universallp.va.core.item.ItemGuide;
@@ -10,6 +11,7 @@ import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.ingredients.IModIngredientRegistration;
+import mezz.jei.api.ingredients.VanillaTypes;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -39,13 +41,12 @@ public class JEIPlugin implements IModPlugin {
     public void register(@Nonnull IModRegistry registry) {
 
         // Items
-        //registry.addIngredientInfo(VAItems.itemGuide, ItemGuide.class, LibLocalization.JEI_GUIDE);
-        //registry.addDescription(new ItemStack(VAItems.itemGuide, 1), LibLocalization.JEI_GUIDE);
-        //String[] descriptionTag = EnumEntry.getGuidePage("descriptiontag", 1, 2);
+        registry.addIngredientInfo(new ItemStack(VAItems.itemGuide), VanillaTypes.ITEM, LibLocalization.JEI_GUIDE);
+        //String[] descriptionTag = Entries.DESCRIPTION_TAG.
         //descriptionTag[1] = I18n.format(descriptionTag[1]).replaceAll("7n", "\\\\\n");
         //registry.addDescription(new ItemStack(VAItems.itemDescriptionTag, 1), descriptionTag);
 
-        // Blocks
+        //// Blocks
         //registry.addDescription(new ItemStack(VABlocks.filterHopper, 1), EnumEntry.getGuidePage("filteredhopper", 1, 2));
         //registry.addDescription(new ItemStack(VABlocks.xpHopper, 1), EnumEntry.getGuidePage("xphopper", 1, 2));
         //registry.addDescription(new ItemStack(VABlocks.placer, 1), EnumEntry.getGuidePage("blockplacer", 1, 2));

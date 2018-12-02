@@ -13,6 +13,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.Iterator;
 
@@ -37,8 +38,9 @@ public class DispenserTweaks {
         if (ConfigHandler.DISPENSER_USE_DYE)
             add(Items.DYE, DYE_BEHAVIOUR);
 
-        if (ConfigHandler.DISPENSER_USE_TOOLS) {
-            add(Items.SHEARS, SHEAR_BEHAVIOUR);
+        if (!ConfigHandler.DISPENSER_SHEAR_STOOL.equals("minecraft:air")) {
+            Item i = Item.getByNameOrId(ConfigHandler.DISPENSER_SHEAR_STOOL);
+            add(i, SHEAR_BEHAVIOUR);
         }
 
         add(Items.STICK, STICK_BEHAVIOUR);

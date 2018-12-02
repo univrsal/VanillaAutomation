@@ -29,7 +29,6 @@ public class ContainerFilteredHopper extends Container {
         for (int j = TileXPHopper.hopperInv; j < hopperInventoryIn.getSizeInventory(); ++j)
             this.addSlotToContainer(new SlotGhost(hopperInventoryIn, j, 45 + (j - TileXPHopper.hopperInv) * 18, 40));
 
-
         // Player inv
         int i = 71;
         for (int l = 0; l < 3; ++l)
@@ -61,9 +60,9 @@ public class ContainerFilteredHopper extends Container {
                         return ItemStack.EMPTY;
 
                 } else
-                    return null;
+                    return ItemStack.EMPTY;
             } else if (!this.mergeItemStack(itemstack1, 0, TileXPHopper.hopperInv, false))
-                return null;
+                return ItemStack.EMPTY;
 
             if (itemstack1.getCount() == 0)
                 slot.putStack(ItemStack.EMPTY);

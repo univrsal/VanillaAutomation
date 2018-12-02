@@ -6,6 +6,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityMooshroom;
 import net.minecraft.entity.passive.EntitySheep;
@@ -15,7 +16,9 @@ import net.minecraft.tileentity.TileEntityDispenser;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraftforge.common.IShearable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -35,45 +38,26 @@ public class ShearBehaviour implements IBehaviorDispenseItem {
 
         BlockPos destination = source.getBlockPos().add(Utils.extend(f.getDirectionVec(), Utils.getReach(stack)));
         List<EntitySheep> sheeps = te.getWorld().getEntitiesWithinAABB(EntitySheep.class, new AxisAlignedBB(destination));
+        List<EntityMooshroom> moos = te.getWorld().getEntitiesWithinAABB(EntityMooshroom.class, new AxisAlignedBB(destination));
+        List<IShearable> shearables = new ArrayList<IShearable>(sheeps);
+        shearables.addAll(moos);
 
-        if (sheeps != null && sheeps.size() > 0) {
-            for (EntitySheep sheep : sheeps) {
-                if (sheep.isShearable(stack, te.getWorld(), source.getBlockPos())) {
-                    List<ItemStack> drops = sheep.onSheared(stack, te.getWorld(), source.getBlockPos(),
+        if (shearables.size() > 0) {
+            for (IShearable shearable : shearables) {
+                if (shearable.isShearable(stack, te.getWorld(), source.getBlockPos())) {
+                    List<ItemStack> drops = shearable.onSheared(stack, te.getWorld(), source.getBlockPos(),
                             EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
 
                     Random rand = new java.util.Random();
 
                     for(ItemStack item : drops) {
-                        EntityItem ent = sheep.entityDropItem(item, 1.0F);
+                        EntityItem ent = ((EntityLivingBase)shearable).entityDropItem(item, 1.0F);
                         ent.motionY += rand.nextFloat() * 0.05F;
                         ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
                         ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
                     }
 
-                    stack.damageItem(1, sheep);
-                }
-            }
-        } else {
-            List<EntityMooshroom> moos = te.getWorld().getEntitiesWithinAABB(EntityMooshroom.class, new AxisAlignedBB(destination));
-
-            if (moos != null && moos.size() > 0) {
-                for (EntityMooshroom moo : moos) {
-                    if (moo.isShearable(stack, te.getWorld(), source.getBlockPos())) {
-                        List<ItemStack> drops = moo.onSheared(stack, te.getWorld(), source.getBlockPos(),
-                                EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack));
-
-                        Random rand = new java.util.Random();
-
-                        for(ItemStack item : drops) {
-                            EntityItem ent = moo.entityDropItem(item, 1.0F);
-                            ent.motionY += rand.nextFloat() * 0.05F;
-                            ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-                            ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-                        }
-
-                        stack.damageItem(1, moo);
-                    }
+                    stack.damageItem(1, (EntityLivingBase) shearable);
                 }
             }
         }

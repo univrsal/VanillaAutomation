@@ -17,7 +17,8 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
  * under the MOZILLA PUBLIC LICENSE 2.0 - mozilla.org/en-US/MPL/2.0/
  * github.com/univrsal/VanillaAutomation
  */
-@Mod(modid = LibNames.MOD_ID, version = LibNames.MOD_VERSION, acceptedMinecraftVersions = "[1.12, 1.12.9]")
+@Mod(modid = LibNames.MOD_ID, version = LibNames.MOD_VERSION, guiFactory = "de.universallp.va.client.gui.GuiFactory",
+        acceptedMinecraftVersions = "[1.12, 1.12.9]")
 public class VanillaAutomation {
 
     @Mod.Instance

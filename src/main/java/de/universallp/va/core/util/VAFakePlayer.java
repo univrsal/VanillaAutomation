@@ -1,7 +1,6 @@
 package de.universallp.va.core.util;
 
 import com.mojang.authlib.GameProfile;
-import jline.internal.Log;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -84,7 +83,7 @@ public class VAFakePlayer extends FakePlayer {
             if (block != null) try {
                 if (block.onBlockActivated(world, pos, blockS, this, EnumHand.MAIN_HAND, side, deltaX, deltaY, deltaZ)) return true;
             } catch (Throwable t) {
-                Log.warn(t, "Invalid use of fake player on block %s @ (%d,%d,%d), aborting. Don't do it again", block, pos);
+                LogHelper.logError( "Invalid use of fake player on block %s @ (%d,%d,%d), aborting. Don't do it again. Exception: %s", block, pos, t.getMessage());
             }
         }
         return false;

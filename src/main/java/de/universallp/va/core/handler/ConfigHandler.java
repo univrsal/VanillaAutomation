@@ -30,6 +30,7 @@ public class ConfigHandler {
     public static int CLOCK_MAX_VALUE = 1000;
 
     public static boolean DISPENSER_USE_TOOLS = true;
+    public static String DISPENSER_SHEAR_STOOL = "mineacraft:shears";
     public static boolean DISPENSER_USE_WEAPONS = true;
     public static boolean DISPENSER_USE_SEEDS = true;
     public static boolean DISPENSER_USE_NAMETAGS = true;
@@ -46,20 +47,33 @@ public class ConfigHandler {
     }
 
     public static void load() {
-        LATEST_CRASH = config.getString("latestCrash", CATEGORY_MISC, "none", "Do not modify this unless you want unexpected behaviour");
-        READ_LOGS    = config.getBoolean("readLogs",   CATEGORY_MISC, true,   "Set to false to prevent vanillaautomation from reading crashlogs");
+        LATEST_CRASH = config.getString("latestCrash", CATEGORY_MISC, "none",
+                "Do not modify this unless you want unexpected behaviour");
+        READ_LOGS    = config.getBoolean("readLogs",   CATEGORY_MISC, true,
+                "Set to false to prevent vanillaautomation from reading crashlogs");
 
-        BLOCK_PLACER_REACH = (byte) config.getInt("blockPlacerReach", CATEGORY_BLOCKS, 16, 1, 64, "Maximum reach distance for the block placer");
-        DISPENSER_REACH_MAX = (byte) config.getInt("dispenserReach", CATEGORY_BLOCKS, 4, 1, 32, "Maximum reach distance for the dispenser tweaks. 1 to disable");
+        BLOCK_PLACER_REACH = (byte) config.getInt("blockPlacerReach", CATEGORY_BLOCKS, 16, 1,
+                64, "Maximum reach distance for the block placer");
+        DISPENSER_REACH_MAX = (byte) config.getInt("dispenserReach", CATEGORY_BLOCKS, 4, 1,
+                32, "Maximum reach distance for the dispenser tweaks. 1 to disable");
 
-        DISPENSER_USE_DISCS = config.getBoolean("useDiscs", CATEGORY_DISPENSER, true, "Set to false to prevent the dispenser from inserting discs into juke boxes");
-        DISPENSER_USE_TOOLS = config.getBoolean("useTools", CATEGORY_DISPENSER, true, "Set to false to prevent the dispenser from using tools");
-        DISPENSER_USE_WEAPONS = config.getBoolean("useWeapons", CATEGORY_DISPENSER, true, "Set to false to prevent the dispenser from using weapons");
-        DISPENSER_USE_SEEDS = config.getBoolean("useSeeds", CATEGORY_DISPENSER, true, "Set to false to prevent the dispenser from planting seeds");
-        DISPENSER_USE_NAMETAGS = config.getBoolean("useNameTags", CATEGORY_DISPENSER, true, "Set to false to prevent the dispenser from naming entities with name tags");
-        DISPENSER_USE_DYE = config.getBoolean("useDye", CATEGORY_DISPENSER, true, "Set to false to prevent the dispenser from dying sheep with");
+        DISPENSER_USE_DISCS = config.getBoolean("useDiscs", CATEGORY_DISPENSER, true,
+                "Set to false to prevent the dispenser from inserting discs into juke boxes");
+        DISPENSER_USE_TOOLS = config.getBoolean("useTools", CATEGORY_DISPENSER, true,
+                "Set to false to prevent the dispenser from using tools");
+        DISPENSER_USE_WEAPONS = config.getBoolean("useWeapons", CATEGORY_DISPENSER, true,
+                "Set to false to prevent the dispenser from using weapons");
+        DISPENSER_USE_SEEDS = config.getBoolean("useSeeds", CATEGORY_DISPENSER, true,
+                "Set to false to prevent the dispenser from planting seeds");
+        DISPENSER_USE_NAMETAGS = config.getBoolean("useNameTags", CATEGORY_DISPENSER, true,
+                "Set to false to prevent the dispenser from naming entities with name tags");
+        DISPENSER_USE_DYE = config.getBoolean("useDye", CATEGORY_DISPENSER, true,
+                "Set to false to prevent the dispenser from dying sheep with");
 
-        DISPENSER_SEARCH_FOR_TOOLS = config.getBoolean("searchTools", CATEGORY_DISPENSER, true, "Set to false to prevent VanillaAutomation from searching the registry for tools and weapons and make them usable by the dispenser");
+        DISPENSER_SEARCH_FOR_TOOLS = config.getBoolean("searchTools", CATEGORY_DISPENSER, true,
+                "Set to false to prevent VanillaAutomation from searching the registry for tools and weapons and make them usable by the dispenser");
+        DISPENSER_SHEAR_STOOL = config.getString("shearSheepTool", CATEGORY_DISPENSER, "minecraft:shears",
+                "What tool the dispenser should use to shear sheep. Set to mineacraft:air to disable this");
 
         CLOCK_MAX_VALUE = config.getInt("clockMaxValue", CATEGORY_BLOCKS, 1000, 10, 10000, "Max pulse length and delay in ticks");
     }
